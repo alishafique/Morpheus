@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F1B21909-E3EF-4414-B9DD-3EA8C12EAAFB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Morpheus</RootNamespace>
+    <AssemblyName>Morpheus</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BotDetect, Version=4.2.0.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.2.0\lib\net45\BotDetect.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BotDetect.Web.Mvc, Version=4.2.0.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.2.0\lib\net45\BotDetect.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Accounts\AddEmployeeAccount.aspx" />
+    <Content Include="Accounts\changePassword.aspx" />
+    <Content Include="Accounts\css\dataTables.bootstrap.js" />
+    <Content Include="Accounts\css\dataTables.bootstrap.min.js" />
+    <Content Include="Accounts\Dashboard.aspx" />
+    <Content Include="Accounts\images\sort_asc.png" />
+    <Content Include="Accounts\images\sort_asc_disabled.png" />
+    <Content Include="Accounts\images\sort_both.png" />
+    <Content Include="Accounts\images\sort_desc.png" />
+    <Content Include="Accounts\images\sort_desc_disabled.png" />
+    <Content Include="Accounts\viewActivity.aspx" />
+    <Content Include="Accounts\viewCompanies.aspx" />
+    <Content Include="Accounts\viewCompanyProfile.aspx" />
+    <Content Include="Accounts\viewEditCompanyIncidentReports.aspx" />
+    <Content Include="Accounts\viewEmployees.aspx" />
+    <Content Include="Accounts\createActivity.aspx" />
+    <Content Include="changePasswordLink.aspx" />
+    <Content Include="Home.aspx" />
+    <Content Include="img\topBanner.png" />
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Accounts\fonts\fontawesome-webfont.eot" />
+    <Content Include="Accounts\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Accounts\fonts\fontawesome-webfont.woff" />
+    <Content Include="Accounts\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Accounts\fonts\FontAwesome.otf" />
+    <Content Include="defualt.Master" />
+    <Content Include="Accounts\CompanyDesign.Master" />
+    <Content Include="Accounts\main.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Accounts\ActivateDeactivateCompanyAccount.aspx" />
+    <Content Include="Accounts\AddCompanyAccount.aspx" />
+    <Content Include="Accounts\css\bootstrap.css" />
+    <Content Include="Accounts\css\bootstrap.min.css" />
+    <Content Include="Accounts\css\calendar-blue.css" />
+    <Content Include="Accounts\css\dataTables.bootstrap.css" />
+    <Content Include="Accounts\css\dataTables.responsive.css" />
+    <Content Include="Accounts\css\font-awesome.min.css" />
+    <Content Include="Accounts\css\metisMenu.min.css" />
+    <Content Include="Accounts\css\morris.css" />
+    <Content Include="Accounts\css\sb-admin-2.css" />
+    <Content Include="Accounts\fonts\font-awesome.min.css" />
+    <Content Include="Accounts\fonts\fontawesome-webfont.svg" />
+    <Content Include="Accounts\images\calender.png" />
+    <Content Include="Accounts\js\bootstrap.min.js" />
+    <Content Include="Accounts\js\calendar-en.min.js" />
+    <None Include="Accounts\js\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Accounts\js\jquery-1.4.1.js" />
+    <Content Include="Accounts\js\jquery-1.4.1.min.js" />
+    <Content Include="Accounts\js\jquery.dynDateTime.min.js" />
+    <Content Include="Accounts\js\jquery.min.js" />
+    <Content Include="Accounts\js\js.js" />
+    <Content Include="Accounts\js\metisMenu.min.js" />
+    <Content Include="Accounts\js\morris-data.js" />
+    <Content Include="Accounts\js\morris.min.js" />
+    <Content Include="Accounts\js\raphael.min.js" />
+    <Content Include="Accounts\js\sb-admin-2.min.js" />
+    <Content Include="Accounts\login.aspx" />
+    <Content Include="Accounts\ReportIncident.aspx" />
+    <Content Include="Accounts\UserControls\AddCompany.ascx" />
+    <Content Include="Accounts\UserControls\AddCompanyControl.ascx" />
+    <Content Include="Accounts\UserControls\compnaySideMenuControl.ascx" />
+    <Content Include="Accounts\UserControls\EmployeeSideMenu.ascx" />
+    <Content Include="Accounts\UserControls\rightTopMenu.ascx" />
+    <Content Include="Accounts\UserControls\SideNavigationMenu.ascx" />
+    <Content Include="Accounts\ViewIncidentReports.aspx" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="img\h1.jpeg" />
+    <Content Include="img\h2.jpg" />
+    <Content Include="img\h3.jpeg" />
+    <Content Include="img\h4.jpeg" />
+    <Content Include="img\hero.jpg" />
+    <Content Include="img\l1.jpg" />
+    <Content Include="img\l2.jpg" />
+    <Content Include="img\l3.jpg" />
+    <Content Include="img\l4.jpg" />
+    <Content Include="img\l5.jpg" />
+    <Content Include="img\l6.jpg" />
+    <Content Include="img\l7.jpg" />
+    <Content Include="img\l8.jpg" />
+    <Content Include="img\logo.png" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="Accounts\savetofile.aspx" />
+    <Content Include="resetPassword.aspx" />
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="SignUp.aspx" />
+    <Content Include="style.css" />
+    <None Include="Properties\PublishProfiles\Morpheus.pubxml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts\ActivateDeactivateCompanyAccount.aspx.cs">
+      <DependentUpon>ActivateDeactivateCompanyAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\ActivateDeactivateCompanyAccount.aspx.designer.cs">
+      <DependentUpon>ActivateDeactivateCompanyAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\AddCompanyAccount.aspx.cs">
+      <DependentUpon>AddCompanyAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\AddCompanyAccount.aspx.designer.cs">
+      <DependentUpon>AddCompanyAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\AddEmployeeAccount.aspx.cs">
+      <DependentUpon>AddEmployeeAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\AddEmployeeAccount.aspx.designer.cs">
+      <DependentUpon>AddEmployeeAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\changePassword.aspx.cs">
+      <DependentUpon>changePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\changePassword.aspx.designer.cs">
+      <DependentUpon>changePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\CompanyDesign.Master.cs">
+      <DependentUpon>CompanyDesign.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\CompanyDesign.Master.designer.cs">
+      <DependentUpon>CompanyDesign.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\ReportIncident.aspx.cs">
+      <DependentUpon>ReportIncident.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\ReportIncident.aspx.designer.cs">
+      <DependentUpon>ReportIncident.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\main.Master.cs">
+      <DependentUpon>main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\main.Master.designer.cs">
+      <DependentUpon>main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\UserControls\AddCompany.ascx.cs">
+      <DependentUpon>AddCompany.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\UserControls\AddCompany.ascx.designer.cs">
+      <DependentUpon>AddCompany.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\UserControls\AddCompanyControl.ascx.cs">
+      <DependentUpon>AddCompanyControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\UserControls\AddCompanyControl.ascx.designer.cs">
+      <DependentUpon>AddCompanyControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\UserControls\compnaySideMenuControl.ascx.cs">
+      <DependentUpon>compnaySideMenuControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\UserControls\compnaySideMenuControl.ascx.designer.cs">
+      <DependentUpon>compnaySideMenuControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\UserControls\EmployeeSideMenu.ascx.cs">
+      <DependentUpon>EmployeeSideMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\UserControls\EmployeeSideMenu.ascx.designer.cs">
+      <DependentUpon>EmployeeSideMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\UserControls\rightTopMenu.ascx.cs">
+      <DependentUpon>rightTopMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\UserControls\rightTopMenu.ascx.designer.cs">
+      <DependentUpon>rightTopMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\UserControls\SideNavigationMenu.ascx.cs">
+      <DependentUpon>SideNavigationMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\UserControls\SideNavigationMenu.ascx.designer.cs">
+      <DependentUpon>SideNavigationMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\viewActivity.aspx.cs">
+      <DependentUpon>viewActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\viewActivity.aspx.designer.cs">
+      <DependentUpon>viewActivity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\viewCompanies.aspx.cs">
+      <DependentUpon>viewCompanies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\viewCompanies.aspx.designer.cs">
+      <DependentUpon>viewCompanies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\viewCompanyProfile.aspx.cs">
+      <DependentUpon>viewCompanyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\viewCompanyProfile.aspx.designer.cs">
+      <DependentUpon>viewCompanyProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\viewEditCompanyIncidentReports.aspx.cs">
+      <DependentUpon>viewEditCompanyIncidentReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\viewEditCompanyIncidentReports.aspx.designer.cs">
+      <DependentUpon>viewEditCompanyIncidentReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\viewEmployees.aspx.cs">
+      <DependentUpon>viewEmployees.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\viewEmployees.aspx.designer.cs">
+      <DependentUpon>viewEmployees.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\ViewIncidentReports.aspx.cs">
+      <DependentUpon>ViewIncidentReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\ViewIncidentReports.aspx.designer.cs">
+      <DependentUpon>ViewIncidentReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\createActivity.aspx.cs">
+      <DependentUpon>createActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\createActivity.aspx.designer.cs">
+      <DependentUpon>createActivity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="changePasswordLink.aspx.cs">
+      <DependentUpon>changePasswordLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="changePasswordLink.aspx.designer.cs">
+      <DependentUpon>changePasswordLink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="defualt.Master.cs">
+      <DependentUpon>defualt.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="defualt.Master.designer.cs">
+      <DependentUpon>defualt.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Accounts\savetofile.aspx.cs">
+      <DependentUpon>savetofile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\savetofile.aspx.designer.cs">
+      <DependentUpon>savetofile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="resetPassword.aspx.cs">
+      <DependentUpon>resetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="resetPassword.aspx.designer.cs">
+      <DependentUpon>resetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SignUp.aspx.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignUp.aspx.designer.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Controller\Controller.csproj">
+      <Project>{f8668dc5-e304-48b8-8c32-59a4e8a6b4b1}</Project>
+      <Name>Controller</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Accounts\upload\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51053</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51053/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

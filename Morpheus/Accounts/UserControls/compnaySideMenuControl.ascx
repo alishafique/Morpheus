@@ -1,0 +1,52 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="compnaySideMenuControl.ascx.cs" Inherits="Morpheus.Accounts.UserControls.compnaySideMenuControl" %>
+<div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/Accounts/dashboard.aspx"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Employee<span class="fa arrow"></span></a>
+                             <ul class="nav nav-second-level">
+                                <li><asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" CausesValidation="false"> Add Employee</asp:LinkButton></li>
+                                <li> <asp:LinkButton ID="LinkButton_ViewEmployees" runat="server" OnClick="LinkButton_ViewEmployees_Click" CausesValidation="false">View Employees</asp:LinkButton> </li>
+                            </ul>
+                            </li>
+                            <!-- /.nav-second-level -->
+                   
+                        <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Activity<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li> <asp:LinkButton ID="LinkButton_CreateActivity" runat="server" OnClick="LinkButton_CreateActivity_Click" CausesValidation="false">Create Activity</asp:LinkButton> </li>
+                                <li><asp:LinkButton ID="LinkButton_ViewActivities" runat="server" OnClick="LinkButton_ViewActivities_Click" CausesValidation="false">View Activities</asp:LinkButton> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li><a href="#"><i class="fa fa-sitemap fa-fw"></i>Incident<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <%--<li><a href="#">Report Incident</a> </li>--%>
+                                <li><a href="viewEditCompanyIncidentReports.aspx">View Incidents</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="#">View Forms</a> </li>
+                                <li><a href="#">Form Builder</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
