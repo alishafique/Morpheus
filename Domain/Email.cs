@@ -67,7 +67,7 @@ namespace Domain
 
             try
             {
-                string _subject = ("Congradulations your account is active now.");
+                string _subject = ("Congratulation your account is active now.");
                 string Body = ("<p>Dear: " + _name + " </p>" +
                     "<p>Your account has been made active. You can log on and manage your profile. </p>" +
                     "<br />UserName: " + _to +

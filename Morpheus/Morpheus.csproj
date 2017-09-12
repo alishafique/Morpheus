@@ -120,6 +120,7 @@
     <Content Include="Accounts\viewEmployees.aspx" />
     <Content Include="Accounts\createActivity.aspx" />
     <Content Include="changePasswordLink.aspx" />
+    <Content Include="ContactUs.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\topBanner.png" />
     <Content Include="packages.config" />
@@ -376,6 +377,13 @@
     </Compile>
     <Compile Include="changePasswordLink.aspx.designer.cs">
       <DependentUpon>changePasswordLink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactUs.aspx.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactUs.aspx.designer.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
     </Compile>
     <Compile Include="defualt.Master.cs">
       <DependentUpon>defualt.Master</DependentUpon>

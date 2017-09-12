@@ -27,7 +27,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Keep Calm &amp; think Safety</p>
+                        <p>Keep Calm &amp; Think Safety</p>
                     </div>
                     <div class="col-sm-6">
                         <ul class="list-inline pull-right">
@@ -54,10 +54,10 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                     <ul class="nav navbar-nav main-navbar-nav">
-                        <li class="active"><a href = "Home.aspx" title="">HOME</a></li>
+                        <li class="active"><a href = "Home.aspx" title="">Home</a></li>
                        <li><a href="#" title="">Products</a></li>
                         <li><a href="#" title="">About US</a></li>
-                        <li><a href="#" title="">Contact US</a></li>
+                        <li><a href="ContactUs.aspx" title="">Contact US</a></li>
                         <li><a href="#" title="">FAQs</a></li>
                         
                          <li class="dropdown">
@@ -117,7 +117,7 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 fbox">
                     <h4>Contact Us</h4>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p class="text">Life is too precious. Contact us now.</p>
                     <p><a href="tel:+61755006003"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +617 5500 6003</a></p>
                     <p><a href="mailto:iletisim@agrisosgb.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> admin@segura.com.au</a></p>
                 </div>

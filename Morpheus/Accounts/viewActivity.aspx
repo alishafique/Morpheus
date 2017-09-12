@@ -101,7 +101,7 @@
            <div class="row">
                <div class="col-lg-12">
                    <h1 class="page-header">
-                       View/Edit Company</h1>
+                       View/Edit Activity</h1>
                     <div class="alert alert-success alert-dismissable" id="successMsg" style="display: none;" runat="server">
                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                        <asp:Label ID="lblsuccessmsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.          
@@ -119,7 +119,7 @@
                <div class="col-lg-12">
                    <div class="panel panel-default">
                        <div class="panel-heading">
-                           List of Companies
+                           List of Activities
                        </div>
                        <!-- /.panel-heading -->
                        <div class="panel-body">
@@ -130,7 +130,7 @@
                                AutoGenerateSelectButton="True" AllowPaging="true" PageSize="10" OnPageIndexChanging="dtgridview_viewActivity_PageIndexChanging">
                                <Columns>
                                    <asp:BoundField  DataField="ActivityID" HeaderText="Activity ID" />
-                                   <asp:BoundField  DataField="userID" HeaderText="Assigned To" />
+                                   <asp:BoundField  DataField="AssignedToUserID" HeaderText="Assigned To" />
                                    <asp:BoundField  DataField="Activity_Name" HeaderText="Name"/>
                                    <asp:BoundField  DataField="Activity_Location" HeaderText="Site"/>
                                    <asp:BoundField  DataField="Activity_Type" HeaderText="Type"/>

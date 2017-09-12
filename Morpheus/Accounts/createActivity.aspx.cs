@@ -30,6 +30,7 @@ namespace Morpheus
                             employeeDashMenu1.Visible = false;
                             textbox_createdBy.Text = Session["userid"].ToString()+ "-" +Session["UserName"].ToString();
                             loadEmployees();
+                            loadMinutes();
                         }
                     }
                     else
@@ -117,6 +118,22 @@ namespace Morpheus
             }
         }
 
+        private void loadMinutes()
+        {
+            for (int i = 0; i <= 60; i++)
+            {
+                if (i == 0)
+                {
+                    dpMinutes.Items.Add("MM");
+                    dpMinutesFinish.Items.Add("MM");
+                }
+                else
+                {
+                    dpMinutes.Items.Add(i.ToString());
+                    dpMinutesFinish.Items.Add(i.ToString());
+                }
+            }
+        }
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)

@@ -32,12 +32,12 @@
         }
     </script>
     <style type="text/css">
-        label {
+        /*label {
             display: inline-block;
             max-width: 100%;
             margin-bottom: 5px;
             font-weight: 700 !important;
-        }
+        }*/
 
     </style>
 </asp:Content>
@@ -46,7 +46,7 @@
      <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">
+                    <h1 class="page-header" style="color:rgb(64, 64, 64);">
                         Sign Up</h1>
                         <%--<asp:Label ID="lblErrorMessage" runat="server" Font-Bold="true" Font-Size="14" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>--%>
                       <div class="alert alert-success alert-dismissable" id="successMsg" style="display: none;" runat="server">
@@ -79,7 +79,7 @@
                                             <label>
                                                 Company Name:</label>
                                             <asp:TextBox class="form-control" ID="txtbox_CompanyName" runat="server" ToolTip="Comapany Name"
-                                                placeholder="Comapany Name"></asp:TextBox>
+                                                placeholder="Company Name"></asp:TextBox>
                                         </div>
                                         <div class="form-group" style="color: black;">
                                             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">

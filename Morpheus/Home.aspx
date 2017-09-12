@@ -9,9 +9,10 @@
             <div class="hero_content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <h1>Segura</h1>
-                            <h2>Dynamic Innovation in Occupational Health & Safety</h2>
+                        <div class="col-sm-12" style="margin:-45px;margin-left: 15px;">
+                            <%--<h1>Segura</h1>--%>
+                            <h2>Dynamic Innovation in</h2>
+                            <h2>Occupational Health & Safety</h2>
                         </div>
                     </div>
                 </div>
@@ -48,7 +49,7 @@
         </section>
         <section class="services">
             <h2 class="section-title">SERVICES</h2>
-            <p class="desc">Praesent faucibus ipsum at sodales blandit</p>
+            <%--<p class="desc">Praesent faucibus ipsum at sodales blandit</p>--%>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-12">
