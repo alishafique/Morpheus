@@ -65,8 +65,8 @@
         }
     </style>
 
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <%--<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>--%>
 
      <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
@@ -84,10 +84,12 @@
                button: ".next()"
            });
        });
-       $(document).ready(function () {
-           $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
-       });
+       //$(document).ready(function () {
+       //    $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
+       //});
 </script>
+
+
 
    <script type="text/javascript" language="javascript">
        function myFunction() {
@@ -98,6 +100,24 @@
                x.style.display = 'none';
            }
        }
+</script>
+    <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+     <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });
+            
+        });
 </script>
 </head>
 <body>
@@ -154,7 +174,7 @@
                        <!-- /.panel-heading -->
                        <div class="panel-body">
                          
-                           <asp:GridView ID="dtgridview_Employees" class="table table-striped table-bordered table-hover"
+                           <asp:GridView ID="dtgridview_Employees" Width="100%" class="table table-striped table-bordered table-hover"
                                runat="server" FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False"
                                OnSelectedIndexChanged="dtgridview_Employees_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_Employees_SelectedIndexChanging"
                                AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_Employees_RowDeleting" >

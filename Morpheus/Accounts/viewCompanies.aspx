@@ -4,46 +4,26 @@
       .hidden-field {
             display: none;
         }
-      /*.GridPager a, .GridPager span
-    {
-        display: block;
-        height: 15px;
-        width: 15px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-    }
-    .GridPager a
-    {
-        background-color: #f5f5f5;
-        color: #969696;
-        border: 1px solid #969696;
-    }
-    .GridPager span
-    {
-        background-color: #A1DCF2;
-        color: #000;
-        border: 1px solid #3AC0F2;
-    }*/
+      
     </style>
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
+   <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
 
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-    
-   <script type="text/javascript" language="javascript">
-       //function myFunction() {
-       //    var x = document.getElementById('myDIV');
-       //    if (x.style.display === 'none') {
-       //        x.style.display = 'block';
-       //    } else {
-       //        x.style.display = 'none';
-       //    }
-       //}
-       $(document).ready(function () {
-           $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
-       });
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+     <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });
+            
+        });
 </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="page-wrapper">
@@ -73,8 +53,8 @@
                        <!-- /.panel-heading -->
                        <div class="panel-body">
                            <asp:Label ID="MessageLabel" runat="server" Text=""></asp:Label>
-                           <asp:GridView ID="dtgridview_companies" class="table table-striped table-bordered table-hover"
-                               runat="server" FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False"
+                           <asp:GridView ID="dtgridview_companies" Width="100%" class="table table-striped table-bordered table-hover"
+                               runat="server" AutoGenerateColumns="False"
                                OnSelectedIndexChanged="dtgridview_companies_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_companies_SelectedIndexChanging"
                                AutoGenerateSelectButton="True">
                                <Columns>

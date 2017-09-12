@@ -105,14 +105,19 @@
   <ItemGroup>
     <Content Include="Accounts\AddEmployeeAccount.aspx" />
     <Content Include="Accounts\changePassword.aspx" />
-    <Content Include="Accounts\css\dataTables.bootstrap.js" />
-    <Content Include="Accounts\css\dataTables.bootstrap.min.js" />
     <Content Include="Accounts\Dashboard.aspx" />
+    <Content Include="Accounts\datatables-plugins\dataTables.bootstrap.css" />
+    <Content Include="Accounts\datatables-plugins\dataTables.bootstrap.js" />
+    <Content Include="Accounts\datatables-plugins\dataTables.bootstrap.min.js" />
+    <Content Include="Accounts\datatables-plugins\index.html" />
+    <Content Include="Accounts\datatables-responsive\dataTables.responsive.css" />
+    <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
     <Content Include="Accounts\images\sort_asc.png" />
     <Content Include="Accounts\images\sort_asc_disabled.png" />
     <Content Include="Accounts\images\sort_both.png" />
     <Content Include="Accounts\images\sort_desc.png" />
     <Content Include="Accounts\images\sort_desc_disabled.png" />
+    <Content Include="Accounts\js\jquery.dataTables.min.js" />
     <Content Include="Accounts\viewActivity.aspx" />
     <Content Include="Accounts\viewCompanies.aspx" />
     <Content Include="Accounts\viewCompanyProfile.aspx" />
@@ -151,8 +156,6 @@
     <Content Include="Accounts\css\bootstrap.css" />
     <Content Include="Accounts\css\bootstrap.min.css" />
     <Content Include="Accounts\css\calendar-blue.css" />
-    <Content Include="Accounts\css\dataTables.bootstrap.css" />
-    <Content Include="Accounts\css\dataTables.responsive.css" />
     <Content Include="Accounts\css\font-awesome.min.css" />
     <Content Include="Accounts\css\metisMenu.min.css" />
     <Content Include="Accounts\css\morris.css" />
@@ -162,6 +165,7 @@
     <Content Include="Accounts\images\calender.png" />
     <Content Include="Accounts\js\bootstrap.min.js" />
     <Content Include="Accounts\js\calendar-en.min.js" />
+    <Content Include="Accounts\datatables-responsive\dataTables.responsive.scss" />
     <None Include="Accounts\js\jquery-1.4.1-vsdoc.js" />
     <Content Include="Accounts\js\jquery-1.4.1.js" />
     <Content Include="Accounts\js\jquery-1.4.1.min.js" />

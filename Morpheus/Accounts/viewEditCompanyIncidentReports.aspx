@@ -1,21 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewEditCompanyIncidentReports.aspx.cs" Inherits="Morpheus.Accounts.viewEditCompanyIncidentReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <link href="css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/dataTables.responsive.css" rel="stylesheet" type="text/css" />
-     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
-    <style type="text/css">
-        .testOverFlow
-        {
-           
-            word-break:break-all;
-           
-        }
-    </style>
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+   <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+     <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });
+            
         });
 </script>
 
@@ -47,8 +48,8 @@
                     <div class="panel-body">
                         <label>Please select any Report To view the description and Action taken on incident Report.</label>
                         <br />
-                        <asp:GridView ID="dtgridview_IncidentReports" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline"
-                            runat="server"  FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False" 
+                        <asp:GridView ID="dtgridview_IncidentReports" class="table table-striped table-bordered table-hover"
+                            runat="server"  width="100%" AutoGenerateColumns="False" 
                             OnSelectedIndexChanged="dtgridview_IncidentReports_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_IncidentReports_SelectedIndexChanging"
                             AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_IncidentReports_RowDeleting">
                             <Columns>
@@ -65,11 +66,12 @@
                                       
                                 </asp:BoundField>
                                 <asp:BoundField DataField="severitylevel" HeaderText="severitylevel">
-                                    <ItemStyle CssClass="testOverFlow"/>
+                                    <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="description" HeaderText="Description" ItemStyle-VerticalAlign="Top">
-                                      <ItemStyle Wrap="true" Width="200px" Height="50px" CssClass="testOverFlow" />
-                                       
+                                     <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />                    
                                 </asp:BoundField>
                                 <asp:BoundField DataField="dateTime" HeaderText="DateTime" />
                                 <asp:BoundField DataField="location" HeaderText="Location" />

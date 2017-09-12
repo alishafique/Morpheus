@@ -1,12 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewIncidentReports.aspx.cs" Inherits="Morpheus.Accounts.viewIncidentReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+     
+     <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+     <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });
+            
         });
 </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="page-wrapper">
@@ -34,8 +47,8 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
 
-                        <asp:GridView ID="dtgridview_IncidentReports" class="table table-striped table-bordered table-hover"
-                            runat="server" FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False"
+                        <asp:GridView ID="dtgridview_IncidentReports" class="table table-striped table-bordered table-hover" Width="100%"
+                            runat="server" AutoGenerateColumns="False"
                             OnSelectedIndexChanged="dtgridview_IncidentReports_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_IncidentReports_SelectedIndexChanging"
                             AutoGenerateSelectButton="True" AllowPaging="false" OnPageIndexChanging="dtgridview_IncidentReports_PageIndexChanging" OnRowDeleting="dtgridview_IncidentReports_RowDeleting">
                             <Columns>
@@ -51,20 +64,25 @@
                                     <ItemStyle CssClass="hidden-field" />
                                     <HeaderStyle CssClass="hidden-field" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="severitylevel" HeaderText="severitylevel"></asp:BoundField>
-                                <asp:BoundField DataField="description" HeaderText="description" />
-                                <asp:BoundField DataField="status" HeaderText="status"></asp:BoundField>
-                                <asp:BoundField DataField="dateTime" HeaderText="dateTime" />
-                                <asp:BoundField DataField="location" HeaderText="location" />
-                                <asp:BoundField DataField="actionTaken" HeaderText="actionTaken" />
-                                <%-- <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />--%>
+                                <asp:BoundField DataField="severitylevel" HeaderText="Severity Level">
+                                    <%-- <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />--%>
+                                </asp:BoundField>
+                                <asp:BoundField DataField="description" HeaderText="Description">
+                                      <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="status" HeaderText="Status"></asp:BoundField>
+                                <asp:BoundField DataField="dateTime" HeaderText="Date Time" />
+                                <asp:BoundField DataField="location" HeaderText="Location" />
+                                <asp:BoundField DataField="actionTaken" HeaderText="Action Taken">
+                                      <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
+                            
                             </Columns>
 
-                            <PagerSettings />
-                            <PagerStyle HorizontalAlign="Left" CssClass="dataTables_paginate paging_simple_numbers" />
-                            <FooterStyle BackColor="#FF3399"></FooterStyle>
-
-
+          
                         </asp:GridView>
                         <!-- /.table-responsive -->
                     </div>
@@ -88,13 +106,7 @@
                                             <asp:TextBox ID="TextBox_reportedTo" class="form-control" ToolTip="reportedTo" ReadOnly="true" placeholder="reportedTo" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <%-- <div class="form-group">
-                                        <label>
-                                            Date:</label>
-                                        <asp:TextBox class="form-control" ID="txtbox_dateTimePicker" style="width:93%;float:left;" runat="server" 
-                                            ReadOnly="true" TextMode="DateTime"></asp:TextBox>
-                                        <img src="images/calender.png" style="float: left; height: 23px; padding-left: 5px;" />
-                                    </div>--%>
+                                    
                                     <div class="form-group">
                                         <label>Severity level:</label>
                                         <asp:DropDownList class="form-control" ID="dp_severityLevel" runat="server">
