@@ -28,7 +28,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    
     <!-- jQuery -->
     <script src="js/jquery.min.js" type="text/javascript"></script>
 
@@ -98,24 +98,24 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" type="checkbox" style="color:blue;" value="Remember Me">Remember Me
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <div class="form-group">
-                                    <a href="../SignUp.aspx" style="">Create New Account</a>
+                                    <a href="../SignUp.aspx" style="color:blue;">Create New Account</a>
                                  </div>
                                 <asp:Button ID="btn_logIn" runat="server" Text="log In" 
-                                    class="btn btn-lg btn-success btn-block" onclick="btn_logIn_Click" />
+                                    class="btn btn-primary btn-lg btn-block" onclick="btn_logIn_Click" />
                                  <div class="form-group" style="margin-top: 15px;">
-                                    <a href="../resetPassword.aspx">Forgot password?</a>
+                                    <a href="../resetPassword.aspx" style="color:blue;">Forgot password?</a>
                                 </div>
                             </fieldset>
                             
                         </form>
                         
                     </div>
-                    <a href="../Home.aspx" style="float:right;">Go to Home Page</a>
+                    <a href="../Home.aspx" style="float:right; color:blue;">Go to Home Page</a>
                 </div>
             </div>
         </div>

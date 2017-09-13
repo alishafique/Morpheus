@@ -409,22 +409,13 @@ namespace Morpheus {
         protected global::System.Web.UI.WebControls.TextBox TextBox_Description;
         
         /// <summary>
-        /// Dp_AssignTo control.
+        /// listEmployees control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Dp_AssignTo;
-        
-        /// <summary>
-        /// RequiredFieldValidator8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        protected global::System.Web.UI.WebControls.ListBox listEmployees;
         
         /// <summary>
         /// textbox_Status control.

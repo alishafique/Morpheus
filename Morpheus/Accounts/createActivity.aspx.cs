@@ -60,7 +60,7 @@ namespace Morpheus
                     {
                         _text = dt.Rows[i]["emp_name"].ToString()+" - "+ dt.Rows[i]["email"].ToString();
                         _value = dt.Rows[i]["UserId"].ToString()+" - "+ dt.Rows[i]["EmployeeId"].ToString();
-                        Dp_AssignTo.Items.Add(new ListItem() { Text = _text, Value = _value });
+                        listEmployees.Items.Add(new ListItem() { Text = _text, Value = _value });
                     }
                 }
                 else
@@ -79,7 +79,7 @@ namespace Morpheus
         private void clearForm()
         {
            textbox_createdBy.Text = "";
-            Dp_AssignTo.SelectedIndex = 0;
+            //Dp_AssignTo.SelectedIndex = 0;
             txtbox_ActivityName.Text = "";
             TextBox_site.Text = "";
             dp_ActivityType.SelectedIndex = 0;
@@ -94,7 +94,7 @@ namespace Morpheus
                 objCreateAct = new createActivity_Controller();
                 string[] getID = textbox_createdBy.Text.Split('-');
                 objAct.companyCreatedID = int.Parse(getID[0]);// Created by Company's ID
-                string[] selectAssignedTo = Dp_AssignTo.SelectedValue.Split('-');
+                string[] selectAssignedTo = listEmployees.SelectedValue.Split('-');
                 objAct.assigneduserID = int.Parse(selectAssignedTo[0]); // Assigned to Employee's Id
                 objAct.activity_Name = txtbox_ActivityName.Text;
                 objAct.activity_Location = TextBox_site.Text;

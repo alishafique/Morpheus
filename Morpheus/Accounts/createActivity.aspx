@@ -313,17 +313,11 @@
                                            Description:</label>
                                        <asp:TextBox ID="TextBox_Description" class="form-control" placeholder="Description" runat="server" Rows="3" TextMode="MultiLine"></asp:TextBox>
                                    </div>
-                                   <div class="form-group">
-                                       <label>
-                                           Assigned To Employee:</label>
-                                       <asp:DropDownList class="form-control" ID="Dp_AssignTo" runat="server">
-                                           <asp:ListItem Text="--Select Employee to Assign--" Value="0" />
-                                       </asp:DropDownList>
-                                       <asp:RequiredFieldValidator  ID="RequiredFieldValidator8"
-                                           Display="Dynamic" runat="server"
-                                           ControlToValidate="Dp_AssignTo" SetFocusOnError="true"
-                                           InitialValue="0" ErrorMessage="Please select Employee to assign Job.">
-                                       </asp:RequiredFieldValidator>
+                                
+                                   <div class="form-group" style="margin-bottom:15px;">
+                                      <label>Assigned To Employee(s)</label>
+                                       
+                                           <asp:ListBox ID="listEmployees" class="form-control" Height="150px" SelectionMode="Multiple" runat="server"></asp:ListBox>
                                    </div>
                                    <div class="form-group">
                                        <label>Status:</label>

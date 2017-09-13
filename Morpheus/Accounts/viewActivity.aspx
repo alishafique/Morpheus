@@ -70,6 +70,29 @@
            }
        }
 </script>
+    <style type="text/css">
+      .hidden-field {
+            display: none;
+        }
+    </style>
+      <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+     <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });
+            
+        });
+</script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -123,14 +146,17 @@
                        </div>
                        <!-- /.panel-heading -->
                        <div class="panel-body">
-                           <asp:Label ID="MessageLabel" runat="server" Text=""></asp:Label>
+                           
                            <asp:GridView ID="dtgridview_viewActivity" class="table table-striped table-bordered table-hover"
-                               runat="server" AllowSorting="True" FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False"
+                               runat="server" AutoGenerateColumns="False" Width="100%"
                                OnSelectedIndexChanged="dtgridview_viewActivity_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_viewActivity_SelectedIndexChanging"
-                               AutoGenerateSelectButton="True" AllowPaging="true" PageSize="10" OnPageIndexChanging="dtgridview_viewActivity_PageIndexChanging">
+                               AutoGenerateSelectButton="True" AllowPaging="false">
                                <Columns>
-                                   <asp:BoundField  DataField="ActivityID" HeaderText="Activity ID" />
-                                   <asp:BoundField  DataField="AssignedToUserID" HeaderText="Assigned To" />
+                                   <asp:BoundField  DataField="ActivityID" HeaderText="Activity ID">
+                                        <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
+                                   <asp:BoundField  DataField="user_name" HeaderText="Assigned To" />
                                    <asp:BoundField  DataField="Activity_Name" HeaderText="Name"/>
                                    <asp:BoundField  DataField="Activity_Location" HeaderText="Site"/>
                                    <asp:BoundField  DataField="Activity_Type" HeaderText="Type"/>
