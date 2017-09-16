@@ -35,7 +35,11 @@ namespace Controller
                 cmd.Parameters.Add("@Activity_Type", SqlDbType.VarChar).Value = obj.activity_Type;
                 cmd.Parameters.Add("@Activity_Description", SqlDbType.VarChar).Value = obj.activity_Description;
                 cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = obj.activity_Status;
-               
+                cmd.Parameters.Add("@startDate", SqlDbType.VarChar).Value = obj.StartDate;
+                cmd.Parameters.Add("@EndDate", SqlDbType.VarChar).Value = obj.EndDate;
+                cmd.Parameters.Add("@startTime", SqlDbType.VarChar).Value = obj.StartTime;
+                cmd.Parameters.Add("@EndTime", SqlDbType.VarChar).Value = obj.EndTime;
+
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
                 else

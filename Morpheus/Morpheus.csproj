@@ -123,6 +123,7 @@
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.css" />
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
     <Content Include="Accounts\forms\WebForm1.aspx" />
+    <Content Include="Accounts\images\profileUpload.png" />
     <Content Include="Accounts\images\sort_asc.png" />
     <Content Include="Accounts\images\sort_asc_disabled.png" />
     <Content Include="Accounts\images\sort_both.png" />
@@ -137,8 +138,29 @@
     <Content Include="Accounts\createActivity.aspx" />
     <Content Include="changePasswordLink.aspx" />
     <Content Include="ContactUs.aspx" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\style.min.css" />
     <Content Include="Home.aspx" />
+    <Content Include="icons\entypo.css" />
+    <Content Include="icons\entypo.svg" />
+    <Content Include="img\3.jpg" />
+    <Content Include="img\4.jpg" />
+    <Content Include="img\5.jpg" />
+    <Content Include="img\6.jpg" />
+    <Content Include="img\Main.jpg" />
     <Content Include="img\topBanner.png" />
+    <Content Include="js\functions.js" />
+    <Content Include="js\hammer.js" />
+    <Content Include="js\hammer.min.js" />
+    <Content Include="js\jquery-3.2.0.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.ui.touch-punch.min.js" />
+    <Content Include="js\ma5slider.min.js" />
+    <Content Include="js\run_prettify.js" />
+    <Content Include="js\slider.js" />
+    <Content Include="js\slider.min.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -197,8 +219,6 @@
     <Content Include="Accounts\UserControls\rightTopMenu.ascx" />
     <Content Include="Accounts\UserControls\SideNavigationMenu.ascx" />
     <Content Include="Accounts\ViewIncidentReports.aspx" />
-    <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="img\h1.jpeg" />
@@ -222,6 +242,10 @@
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="SignUp.aspx" />
     <Content Include="style.css" />
+    <Content Include="icons\entypo.eot" />
+    <Content Include="icons\entypo.ttf" />
+    <Content Include="icons\entypo.woff" />
+    <Content Include="css\style.css.map" />
     <None Include="Properties\PublishProfiles\Morpheus.pubxml" />
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">

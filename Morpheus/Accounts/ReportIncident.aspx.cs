@@ -159,7 +159,6 @@ namespace Morpheus
             {
                 // Log error to error file
                 showErrorMessage(e.Message + " Could not upload file. Please contact administrator.", false);
-
                 return false;
             }
         }

@@ -1,23 +1,76 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Morpheus.Home" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+ <link rel="stylesheet" type="text/css" href="css/style.min.css" />
+<link rel="stylesheet" type="text/css" href="icons/entypo.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
         <main class="site-main">
             
-        <section class="hero_area">
+     <%--   <section class="hero_area">
             <div class="hero_content">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12" style="margin:-45px;margin-left: 15px;">
-                            <%--<h1>Segura</h1>--%>
+                          
                             <h2>Dynamic Innovation in</h2>
                             <h2>Occupational Health & Safety</h2>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section>--%>
+        <section class="hero_area">
+          
+  <div class='o-sliderContainer hasShadow' id="pbSliderWrap3">
+    <div class='o-slider' id='pbSlider3'>
+      <div class="o-slider--item" data-image="img/hero.jpg">
+        <div class="o-slider-textWrap">
+          <h2 class="o-slider-title">Dynamic Innovation in</h2>
+          <span class="a-divider"></span>
+          <h2 class="o-slider-subTitle">Occupational Health & Safety</h2>
+        </div>
+      </div>
+      <div class="o-slider--item" data-image="img/Main.jpg">
+        <div class="o-slider-textWrap">
+          <h1 class="o-slider-title">712,000 workers employed</h1>
+          <span class="a-divider"></span>
+          <h2 class="o-slider-subTitle">in the construction industry in 2013 – Safework Australia</h2>
+        </div>
+      </div>
+      <div class="o-slider--item" data-image="img/3.jpg">
+        <div class="o-slider-textWrap">
+          <h1 class="o-slider-title">This is a title</h1>
+          <span class="a-divider"></span>
+          <h2 class="o-slider-subTitle">This is a sub title</h2>
+        </div>
+      </div>
+      <div class="o-slider--item" data-image="img/4.jpg">
+        <div class="o-slider-textWrap">
+          <h1 class="o-slider-title">This is a title</h1>
+          <span class="a-divider"></span>
+          <h2 class="o-slider-subTitle">This is a sub title</h2>
+        </div>
+      </div>
+      <div class="o-slider--item" data-image="img/5.jpg">
+        <div class="o-slider-textWrap">
+          <h1 class="o-slider-title">This is a title</h1>
+          <span class="a-divider"></span>
+          <h2 class="o-slider-subTitle">This is a sub title</h2>
+        </div>
+      </div>
+      <div class="o-slider--item" data-image="img/6.jpg">
+        <div class="o-slider-textWrap">
+          <h1 class="o-slider-title">This is a title</h1>
+          <span class="a-divider"></span>
+          <h2 class="o-slider-subTitle">This is a sub title</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+     
+                </section>
+         
         <section class="boxes_area">
             <div class="container">
                 <div class="row">
@@ -291,5 +344,34 @@
         </section>
                 
     </main>
+<script src="js/jquery-3.2.0.min.js" type="text/javascript"></script>
+<script src='js/hammer.min.js' type="text/javascript"></script>
+<script src='js/slider.js' type="text/javascript"></script>
+    <script type="text/javascript">
+       
+        $('#pbSlider3').pbTouchSlider({
+            slider_Wrap: '#pbSliderWrap3',
+            slider_Item_Width: 80,
+            slider_Threshold: 50,
+            slider_Speed: 400,
+            slider_Ease: 'linear',
+            slider_Breakpoints: {
+                default: {
+                    height: 475
+                },
+                tablet: {
+                    height: 300,
+                    media: 1024
+                },
+                smartphone: {
+                    height: 200,
+                    media: 768
+                }
+            }
+        } );
+       
+       
+       
+    </script>
    
 </asp:Content>

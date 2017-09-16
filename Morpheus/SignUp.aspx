@@ -32,13 +32,7 @@
         }
     </script>
     <style type="text/css">
-        /*label {
-            display: inline-block;
-            max-width: 100%;
-            margin-bottom: 5px;
-            font-weight: 700 !important;
-        }*/
-
+       
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

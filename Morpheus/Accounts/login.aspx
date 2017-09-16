@@ -106,7 +106,7 @@
                                     <a href="../SignUp.aspx" style="color:blue;">Create New Account</a>
                                  </div>
                                 <asp:Button ID="btn_logIn" runat="server" Text="log In" 
-                                    class="btn btn-primary btn-lg btn-block" onclick="btn_logIn_Click" />
+                                    class="btn btn-lg btn-success btn-block" onclick="btn_logIn_Click" />
                                  <div class="form-group" style="margin-top: 15px;">
                                     <a href="../resetPassword.aspx" style="color:blue;">Forgot password?</a>
                                 </div>

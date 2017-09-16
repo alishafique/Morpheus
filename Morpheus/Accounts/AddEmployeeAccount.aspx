@@ -130,7 +130,7 @@
                                         <asp:TextBox class="form-control" placeholder="Suburb" ID="txtbox_Address1Suburb"
                                             runat="server"></asp:TextBox>
                                         <asp:TextBox class="form-control" placeholder="State" ID="txtbox_Address1State" runat="server"></asp:TextBox>
-                                        <asp:TextBox class="form-control" placeholder="poste code" ID="txtbox_Address1Postcode"
+                                        <asp:TextBox class="form-control" placeholder="Post code" ID="txtbox_Address1Postcode"
                                             runat="server"></asp:TextBox>
                                     </div>
                                     <div class="form-group" >
@@ -143,18 +143,25 @@
                                     </div>
 
                                     <div class="form-group">
-                     
                                         <label>
                                             Date of Birth:</label><asp:Label ID="Label4" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                        <asp:TextBox class="form-control" ID="txtbox_dateTimePicker_DOB" style="width:92%;float:left;" runat="server" 
+                                       <%-- <div style="width:92%;float:left;">--%>
+                                        <asp:TextBox class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server" 
                                              TextMode="DateTime"></asp:TextBox>
-                                        <img src="images/calender.png" style="float: left; height: 23px; padding-left: 5px;" />
+                                             <%--</div>--%>
+                                        <%--<div style="float: left; height: 23px; padding-left: 5px;">
+                                        <img src="images/calender.png"  />
+                                            </div>--%>
+                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtbox_dateTimePicker_DOB" ErrorMessage="Enter Date of birth!" Display ="Dynamic"></asp:RequiredFieldValidator>
                                         
                                     </div>
-                                        <div><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtbox_dateTimePicker_DOB" ErrorMessage="Enter Date of birth!" Display ="Dynamic"></asp:RequiredFieldValidator></div>
-                                        <div class="form-group" style="padding-top:30px;">
+                                       
+                                        <div class="form-group" style="">
                                             <label>TFN:</label>
                                             <asp:TextBox CssClass="form-control" ID="TextBox_TFN" ToolTip="TFN" placeholder="TFN" runat="server"></asp:TextBox>
+                                              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox_TFN"
+                                                    ErrorMessage="Please Enter your TFN" SetFocusOnError="True" Display="Dynamic" />
+                                           
                                         </div>
                                         <div class="form-group">
                                             <label>ABN:</label>

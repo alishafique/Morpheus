@@ -187,5 +187,72 @@ namespace Controller
                 return false;
             }
         }
+
+        public DataTable loadEmployeesProfileImage(string name, int userID)
+        {
+            // Employee profile Image is in employeeProfile table
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "loadEmployeesProfileImage";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userID;
+                cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                {
+                    return dt;
+                }
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+
+        public DataTable spUploadImage(string name, int size, Byte[] bytes, int userid)
+        {
+            try
+            {
+
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spUploadImage";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = name;
+                cmd.Parameters.Add("@Size", SqlDbType.Int).Value = size;
+                cmd.Parameters.Add("@ImageData", SqlDbType.VarBinary).Value = bytes;
+                cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userid;
+                SqlParameter paramNewId = new SqlParameter()
+                {
+                    ParameterName = "@NewId",
+                    Value = -1,
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(paramNewId);
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                {
+                    return dt;
+                }
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
     }
 }

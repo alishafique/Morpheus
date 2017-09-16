@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 using System.Data;
+using System.Globalization;
 
 namespace Morpheus
 {
@@ -30,7 +31,7 @@ namespace Morpheus
                             employeeDashMenu1.Visible = false;
                             textbox_createdBy.Text = Session["userid"].ToString()+ "-" +Session["UserName"].ToString();
                             loadEmployees();
-                            loadMinutes();
+                            //loadMinutes();
                         }
                     }
                     else
@@ -101,6 +102,16 @@ namespace Morpheus
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
                 objAct.activity_Description = TextBox_Description.Text;
                 objAct.activity_Status = "";
+                string[] sptartDateTime = startDateTime.Text.Split(' ');
+                string[] endDateTime = txtfinishDateTime.Text.Split(' ');
+                objAct.StartDate = sptartDateTime[0];
+                objAct.StartTime = sptartDateTime[1];
+
+                objAct.EndDate = endDateTime[0];
+                objAct.EndTime = endDateTime[1];
+               
+                //objAct.EndTime = DateTime.Parse(dpHoursFinish.SelectedValue+":"+dpMinutesFinish.SelectedValue+" "+dpAMPMFinsih.SelectedValue);
+
                 if (objCreateAct.createActivityByCompany(objAct) == true)
                 {
                     showErrorMessage("Activity created Successfully!!!!!!!!", true);
@@ -118,22 +129,6 @@ namespace Morpheus
             }
         }
 
-        private void loadMinutes()
-        {
-            for (int i = 0; i <= 60; i++)
-            {
-                if (i == 0)
-                {
-                    dpMinutes.Items.Add("MM");
-                    dpMinutesFinish.Items.Add("MM");
-                }
-                else
-                {
-                    dpMinutes.Items.Add(i.ToString());
-                    dpMinutesFinish.Items.Add(i.ToString());
-                }
-            }
-        }
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)

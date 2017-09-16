@@ -69,7 +69,7 @@
        $(document).ready(function () {
            $("#<%=startDateTime.ClientID %>").dynDateTime({
                showsTime: true,
-               ifFormat: "%d/%m/%Y",
+               ifFormat: "%d/%m/%Y %H:%M",
                daFormat: "%l;%M %p, %e %m,  %Y",
                align: "BR",
                electric: false,
@@ -82,7 +82,7 @@
           $(document).ready(function () {
            $("#<%=txtfinishDateTime.ClientID %>").dynDateTime({
                showsTime: true,
-               ifFormat: "%d/%m/%Y",
+               ifFormat: "%d/%m/%Y %H:%M",
                daFormat: "%l;%M %p, %e %m,  %Y",
                align: "BR",
                electric: false,
@@ -171,14 +171,14 @@
                                            <tr>
                                                <label>Activity Start Date</label><asp:Label ID="Label8" runat="server" Text=" (Time should be in 24-hours format)" Font-Bold="true" ForeColor="lightgray"></asp:Label>
                                            </tr>
-                                           <thead>
+                                           <%--<thead>
                                                <tr>
                                                    <th>Date:<asp:Label ID="Label7" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                    <th class="tablePadding">HH:<asp:Label ID="Label10" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                    <th class="tablePadding">MM:<asp:Label ID="Label11" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                    <th class="tablePadding">AM/PM:<asp:Label ID="Label12" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                </tr>
-                                           </thead>
+                                           </thead>--%>
                                            <tbody>
                                                <tr>
                                                    <td>
@@ -186,7 +186,7 @@
                                                            TextMode="DateTime"></asp:TextBox>
                                                        
                                                    </td>
-                                                   <td class="tablePadding">
+                                                  <%-- <td class="tablePadding">
                                                        <asp:DropDownList CssClass="form-control" ID="dpHours" runat="server">
                                                            <asp:ListItem Value="0">HH</asp:ListItem>
                                                            <asp:ListItem>01</asp:ListItem>
@@ -211,14 +211,14 @@
                                                        </asp:DropDownList>
                                                        
                                                    </td>
-                                               
+                                               --%>
                                                </tr>
                                            </tbody>
                                        </table>
                                    </div>
                                    <div class="form-group">
                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="startDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please start enter date."></asp:RequiredFieldValidator>
-                                       <asp:RequiredFieldValidator  ID="Req_ID"
+                                      <%-- <asp:RequiredFieldValidator  ID="Req_ID"
                                            Display="Dynamic" runat="server"
                                            ControlToValidate="dpHours" SetFocusOnError="true"
                                            InitialValue="0" ErrorMessage="Please select Hours.">
@@ -228,7 +228,7 @@
                                            ControlToValidate="dpMinutes" SetFocusOnError="true"
                                            InitialValue="MM" ErrorMessage="Please select Minutes.">
                                        </asp:RequiredFieldValidator>
-                                       
+                                       --%>
                                    </div>
                                     <div class="form-group">
                                        <table style="width: 100%;">
@@ -236,21 +236,21 @@
                                                <label>
                                                    Activity finish date:</label><asp:Label ID="Label4" runat="server" Text=" (Time should be in 24-hours format)" Font-Bold="true" ForeColor="lightgray"></asp:Label>
                                            </tr>
-                                           <thead>
+                                           <%--<thead>
                                                <tr>
                                                    <th>Date:<asp:Label ID="Label9" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                    <th class="tablePadding">HH:<asp:Label ID="Label3" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                    <th class="tablePadding">MM:<asp:Label ID="Label5" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                    <th class="tablePadding">AM/PM:<asp:Label ID="Label6" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
                                                </tr>
-                                           </thead>
+                                           </thead>--%>
                                            <tbody>
                                                <tr>
                                                    <td>
                                                        <asp:TextBox class="form-control" ID="txtfinishDateTime" placeholder="DD/MM/YYYY" runat="server"
                                                            TextMode="DateTime"></asp:TextBox>
                                                    </td>
-                                                   <td class="tablePadding">
+                                                 <%--  <td class="tablePadding">
                                                        <asp:DropDownList CssClass="form-control" ID="dpHoursFinish" runat="server">
                                                            <asp:ListItem Value="0">HH</asp:ListItem>
                                                            <asp:ListItem>01</asp:ListItem>
@@ -272,14 +272,14 @@
                                                        <asp:DropDownList CssClass="form-control" ID="dpAMPMFinsih" runat="server">
                                                            <asp:ListItem>AM</asp:ListItem>
                                                            <asp:ListItem>PM</asp:ListItem>
-                                                       </asp:DropDownList></td>
+                                                       </asp:DropDownList></td>--%>
                                                </tr>
                                            </tbody>
                                        </table>
                                    </div>
                                    <div class="form-group">
                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtfinishDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please start enter date."></asp:RequiredFieldValidator>
-                                       <asp:RequiredFieldValidator  ID="RequiredFieldValidator6"
+                                      <%-- <asp:RequiredFieldValidator  ID="RequiredFieldValidator6"
                                            Display="Dynamic" runat="server"
                                            ControlToValidate="dpHoursFinish" SetFocusOnError="true"
                                            InitialValue="0" ErrorMessage="Please select Hours.">
@@ -289,7 +289,7 @@
                                            ControlToValidate="dpMinutesFinish" SetFocusOnError="true"
                                            InitialValue="MM" ErrorMessage="Please select Minutes.">
                                        </asp:RequiredFieldValidator>
-                                       
+                                       --%>
                                    </div>
                                    <div class="form-group">
                                        <label>Site</label><asp:Label ID="Label2" runat="server" Text="*" ForeColor="Red"></asp:Label>

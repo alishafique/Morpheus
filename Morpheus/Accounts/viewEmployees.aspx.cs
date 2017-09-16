@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 using System.Data;
-using System.Globalization;
-using System.Windows.Forms;
-using System.Drawing;
-
+using System.IO;
 
 namespace Morpheus.Accounts
 {
@@ -35,15 +29,18 @@ namespace Morpheus.Accounts
                             companySideMenu1.Visible = true;
                             employeeDashMenu1.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = false;
+                            ProfileImage.Visible = false;
                         }
                         if(Session["UserTypeID"].ToString() == "3")
                         {
                             loadEmployeeProfileByEmployee(int.Parse(Session["userid"].ToString()));
+                            loadProfileImage(Session["userid"].ToString() + "_Profile", int.Parse(Session["userid"].ToString()));
                             dashboardmenu1.Visible = false;
                             companySideMenu1.Visible = false;
                             employeeDashMenu1.Visible = true;
                             hideGrid.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = true;
+                            ProfileImage.Visible = true;
                         }
                     }
                     else
@@ -241,7 +238,7 @@ namespace Morpheus.Accounts
                     objEmpData.License = TextBox_License.Text;
                     if (objEmp.UpdateEmployeeProfileByCompany(objEmpData, int.Parse(TextBox_EmployeeId.Text)) == true)
                     {
-                        if (Session["UserTypeID"].ToString() != "3")
+                        if (Session["UserTypeID"].ToString() != "3") // company Updating Employee's Status i.e. Activate or Deactivate
                         {
                             if (objEmp.updateStatusOfEmployeeByCompany(int.Parse(TextBox_userId.Text), DropDownList_activeStatus.SelectedIndex) == true)
                             {
@@ -263,6 +260,10 @@ namespace Morpheus.Accounts
                     {
                         showErrorMessage(objEmp.ErrorString, false);
                     }
+                    if (profileUploadCtr.HasFile)
+                    {
+                        LinkButton1_Click(sender, e);
+                    }
                 }
                 else
                 {
@@ -274,6 +275,44 @@ namespace Morpheus.Accounts
             {
                 showErrorMessage(ex.Message, false);
             }
+        }
+
+        private bool UploadProfileImage(int employeeId)
+        {
+            try
+            {
+                objEmp = new viewEmployees_Controller();
+                string directoryName = TextBox_userId.Text + "_" + TextBox1_EmployeeEmail.Text;
+                if (!System.IO.Directory.Exists(Server.MapPath(@"~/data/" + directoryName + "/")))
+                {
+                    System.IO.Directory.CreateDirectory(Server.MapPath(@"~/data/" + directoryName + "/"));
+                }
+                string fileName = TextBox_userId.Text + "_Profile";
+                string ext = System.IO.Path.GetExtension(profileUploadCtr.FileName);
+                string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + fileName + "." + ext);
+                string[] imgNam = fileNameWithPath.Split('/');
+                if (!System.IO.File.Exists(fileName))
+                {
+                    profileUploadCtr.SaveAs(fileNameWithPath);
+                    imgprw.ImageUrl = "~/data/" + directoryName + "/" + fileName + "." + ext;
+                }
+                else
+                {
+                    System.IO.File.Delete(fileNameWithPath);
+                    profileUploadCtr.SaveAs(fileNameWithPath);
+                    imgprw.ImageUrl = "~/data/" + directoryName + "/" + fileName + "." + ext;
+                    showErrorMessage("file exsist", true);
+                }
+                
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+                return false;
+            }
+
         }
 
         private void clearTextBox()
@@ -321,6 +360,77 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
 
+        }
+
+        private void loadProfileImage(string name, int userid)
+        {
+            try
+            {
+                dt = new DataTable();
+                objEmp = new viewEmployees_Controller();
+                dt = objEmp.loadEmployeesProfileImage(name, userid);
+                if (dt != null)
+                {
+                    if (dt.Rows.Count != 0)
+                    {
+                        byte[] bytes = (byte[])dt.Rows[0]["ImageData"];
+                        string strBase64 = Convert.ToBase64String(bytes);
+                        imgprw.ImageUrl = "data:Image/png;base64," + strBase64;
+                    }
+                }
+                else
+                {
+                    showErrorMessage(objEmp.ErrorString, false);
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            // UploadProfileImage(1);
+            if (profileUploadCtr.HasFile)
+            {
+                objEmp = new viewEmployees_Controller();
+                dt = new DataTable();
+                HttpPostedFile postedFile = profileUploadCtr.PostedFile;
+                string filename = TextBox_userId.Text + "_Profile";//Path.GetFileName(postedFile.FileName);
+                string fileExtension = Path.GetExtension(profileUploadCtr.FileName);
+                int fileSize = postedFile.ContentLength;
+
+                if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
+                    || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
+                {
+                    Stream stream = postedFile.InputStream;
+                    BinaryReader binaryReader = new BinaryReader(stream);
+                    Byte[] bytes = binaryReader.ReadBytes((int)stream.Length);
+                    dt = objEmp.spUploadImage(filename, fileSize, bytes, int.Parse(Session["userid"].ToString()));
+
+                    if (dt != null)
+                    {
+                        loadProfileImage(Session["userid"].ToString() + "_Profile", int.Parse(Session["userid"].ToString()));
+                        showErrorMessage("Uploaded Profile image", true);
+                    }
+                    else
+                    {
+                        showErrorMessage(objEmp.ErrorString, false);
+                    }
+
+                }
+                else
+                {
+                    showErrorMessage("Only images (.jpg, .png, .gif and .bmp) can be uploaded", false);
+                }
+            }
+            else
+            {
+                showErrorMessage("No file selected",false);
+                profileUploadCtr.Focus();
+            }
         }
     }
 }

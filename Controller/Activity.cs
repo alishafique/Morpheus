@@ -16,6 +16,10 @@ namespace Controller
         private string Activity_Type;
         private string Activity_Description;
         private string Activity_Status;
+        private string startDate;
+        private string endDate;
+        private string startTime;
+        private string endTime;
         public Activity() { }
 
         public int companyCreatedID {  get { return CompanyCreatedID; } set { CompanyCreatedID = value; } }
@@ -25,5 +29,9 @@ namespace Controller
         public string activity_Type { get { return Activity_Type; } set { Activity_Type = value; } }
         public string activity_Description { get { return Activity_Description; } set { Activity_Description = value; } }
         public string activity_Status { get { return Activity_Status; } set { Activity_Status = value; } }
+        public string StartDate { get { return startDate; } set { startDate = value; } }
+        public string EndDate { get { return endDate; } set { endDate = value; } }
+        public string StartTime { get { return startTime; } set { startTime = value; } }
+        public string EndTime { get { return endTime; } set { endTime = value; } }
     }
 }

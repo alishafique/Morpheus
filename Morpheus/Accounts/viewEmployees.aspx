@@ -100,6 +100,7 @@
                x.style.display = 'none';
            }
        }
+      
 </script>
     <!-- DataTables CSS -->
     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
@@ -118,6 +119,7 @@
             });
             
         });
+        
 </script>
 </head>
 <body>
@@ -211,12 +213,15 @@
 
                    <div>
                    <div class="row" >
-                       <div class="col-lg-6">
+                       <div class="col-lg-12">
                            <div class="panel panel-default">
                                <div class="panel-heading">Edit details.</div>
                                <div class="panel-body">
                     
-                                   <div class="row" style="padding: 0 15px 15px 15px">
+                                   <div class="row">
+                                       <div class="col-lg-6">
+                                          
+
                                        <div style="width: 100%; display:none;">
                                            <div class="form-group" style="width: 50%; float: left; padding-right: 10px;">
                                                <label>Employee Id:</label>
@@ -227,6 +232,20 @@
                                                <asp:TextBox ID="TextBox_userId" class="form-control" ToolTip="User Id" ReadOnly="true" placeholder="User Id" runat="server"></asp:TextBox>
                                            </div>
                                        </div>
+                                           <div class="form-group" runat ="server" id="ProfileImage">
+
+                                               <div class="home-banner__avatar">
+                                                   <asp:Image ID="imgprw" runat="server" />
+                                                   <%--<asp:ImageButton ID="ImageButton1" class="imgUpload" onchange="imagepreview(this);"  runat="server" ImageUrl="~/Accounts/images/profileUpload.png" />--%>
+                                                   
+                                               </div>
+                                               <div>
+                                                   <asp:FileUpload ID="profileUploadCtr"  class="uploadFile form-group" onchange="imagepreview(this);" placeholder="Choose Images" runat="server" />                                                                   
+                                                   <asp:LinkButton ID="LinkButton1" CssClass="btn btn-outline btn-primary btn-xs" runat="server" OnClick="LinkButton1_Click">Upload Profile Image</asp:LinkButton>
+                                        <asp:RegularExpressionValidator id="RegularExpressionValidator1" SetFocusOnError="true" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
+                                            ValidationExpression ="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$" ControlToValidate="profileUploadCtr" Display="Dynamic" />
+                                                       </div>
+                                           </div>
                                        <div class="form-group">
                                            <label>Employee Name:</label>
                                            <asp:TextBox ID="TextBox_EmployeeName" class="form-control" ToolTip="Employee Name" placeholder="Employee Name" runat="server"></asp:TextBox>
@@ -234,18 +253,22 @@
                                        <div class="form-group">
                                            <label>Employee Email:</label>
                                            <asp:TextBox ID="TextBox1_EmployeeEmail" ReadOnly="true" class="form-control" ToolTip="Employee Email" placeholder="Employee Email" runat="server"></asp:TextBox>
-                                       </div>
-
-                                      
+                                       </div>                                   
                                        <div class="form-group">
-
-                                           <label>
-                                               Date of Birth:</label>
-                                           <asp:TextBox class="form-control" ID="txtbox_dateTimePicker_DOB" Style="width: 93%; float: left;" runat="server"
-                                               TextMode="DateTime"></asp:TextBox>
-                                           <img src="images/calender.png" style="float: left; height: 23px; padding-left: 5px;" />
+                                           <label>Date of Birth:</label>
+                                           <table style="width: 100%;">
+                                               <tr>
+                                                   <td><%--<label>Date of Birth:</label>--%></td>  
+                                               </tr>
+                                               <tr>
+                                                  
+                                                   <td style="width: 100%;" > <asp:TextBox class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server"
+                                               TextMode="DateTime"></asp:TextBox></td>
+                                                   <td><img src="images/calender.png" style="height: 23px; padding-left: 5px;" /></td>   
+                                               </tr>                                             
+                                           </table>                                                                                   
                                        </div>
-                                        <div class="form-group" style="margin-top: 51px;">
+                                        <div class="form-group">
                                         <label>Mobile Number:</label>
                                         <asp:TextBox ID="TextBox_Mobile" CssClass="form-control" ToolTip="Mobile" placeholder="Mobile" runat="server"></asp:TextBox>
                                     </div>
@@ -277,6 +300,7 @@
                                        </div>
                                        <asp:Button ID="btnUpdateEmployeeProfile" type="Update" class="btn btn-primary btn-lg btn-block"
                                            runat="server" Text="Update" OnClick="btnUpdateEmployeeProfile_Click" />
+                                           </div>
                                    </div>
                                    <!-- /.row (nested) -->
                                </div>
@@ -298,4 +322,20 @@
     </form>
 </body>
 </html>
-
+<script type="text/javascript">
+        //$('.imgUpload').on('click', function () {
+        //    $('.uploadFile').click();
+    //});
+    function chooseFile() {
+        document.getElementById('<%= profileUploadCtr.ClientID %>').click();
+    }
+        function imagepreview(input) {
+            if (input.files && input.files[0]) {
+                var fildr = new FileReader();
+                fildr.onload = function (e) {
+                    $('#imgprw').attr('src', e.target.result);
+                }
+                fildr.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
