@@ -23,7 +23,6 @@ namespace Morpheus.Accounts
                 {
                     if (Session["UserName"].ToString() != "")
                     {
-                        //lblUserName.Text = Session["UserName"].ToString();
                         if (Session["UserTypeID"].ToString() == "1")
                         {
                             populateCompany();
@@ -69,7 +68,6 @@ namespace Morpheus.Accounts
             }
 
         }
-
 
         protected void dtgridview_companies_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -122,7 +122,8 @@
     <Content Include="Accounts\datatables-plugins\index.html" />
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.css" />
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
-    <Content Include="Accounts\forms\WebForm1.aspx" />
+    <Content Include="Accounts\forms\Induction.aspx" />
+    <Content Include="Accounts\forms\SafetyFormQuestionair.aspx" />
     <Content Include="Accounts\images\profileUpload.png" />
     <Content Include="Accounts\images\sort_asc.png" />
     <Content Include="Accounts\images\sort_asc_disabled.png" />
@@ -134,12 +135,15 @@
     <Content Include="Accounts\viewCompanies.aspx" />
     <Content Include="Accounts\viewCompanyProfile.aspx" />
     <Content Include="Accounts\viewEditCompanyIncidentReports.aspx" />
+    <Content Include="Accounts\viewEmployeeActivity.aspx" />
     <Content Include="Accounts\viewEmployees.aspx" />
     <Content Include="Accounts\createActivity.aspx" />
     <Content Include="changePasswordLink.aspx" />
     <Content Include="ContactUs.aspx" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\owl.carousel.min.css" />
+    <Content Include="css\owl.theme.default.min.css" />
     <Content Include="css\style.min.css" />
     <Content Include="Home.aspx" />
     <Content Include="icons\entypo.css" />
@@ -149,6 +153,7 @@
     <Content Include="img\5.jpg" />
     <Content Include="img\6.jpg" />
     <Content Include="img\Main.jpg" />
+    <Content Include="img\safety-helmet.jpg" />
     <Content Include="img\topBanner.png" />
     <Content Include="js\functions.js" />
     <Content Include="js\hammer.js" />
@@ -158,6 +163,7 @@
     <Content Include="js\jquery.min.js" />
     <Content Include="js\jquery.ui.touch-punch.min.js" />
     <Content Include="js\ma5slider.min.js" />
+    <Content Include="js\owl.carousel.js" />
     <Content Include="js\run_prettify.js" />
     <Content Include="js\slider.js" />
     <Content Include="js\slider.min.js" />
@@ -182,6 +188,8 @@
     <Content Include="defualt.Master" />
     <Content Include="Accounts\CompanyDesign.Master" />
     <Content Include="Accounts\main.Master" />
+    <Content Include="WebForm1.aspx" />
+    <Content Include="WebForm2.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Accounts\ActivateDeactivateCompanyAccount.aspx" />
@@ -199,6 +207,7 @@
     <Content Include="Accounts\js\bootstrap.min.js" />
     <Content Include="Accounts\js\calendar-en.min.js" />
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.scss" />
+    <Content Include="Accounts\forms\formMain.Master" />
     <None Include="Accounts\js\jquery-1.4.1-vsdoc.js" />
     <Content Include="Accounts\js\jquery-1.4.1.js" />
     <Content Include="Accounts\js\jquery-1.4.1.min.js" />
@@ -298,12 +307,26 @@
     <Compile Include="Accounts\CompanyDesign.Master.designer.cs">
       <DependentUpon>CompanyDesign.Master</DependentUpon>
     </Compile>
-    <Compile Include="Accounts\forms\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Accounts\forms\formMain.Master.cs">
+      <DependentUpon>formMain.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Accounts\forms\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Accounts\forms\formMain.Master.designer.cs">
+      <DependentUpon>formMain.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\forms\Induction.aspx.cs">
+      <DependentUpon>Induction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\forms\Induction.aspx.designer.cs">
+      <DependentUpon>Induction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\forms\SafetyFormQuestionair.aspx.cs">
+      <DependentUpon>SafetyFormQuestionair.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\forms\SafetyFormQuestionair.aspx.designer.cs">
+      <DependentUpon>SafetyFormQuestionair.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -396,6 +419,13 @@
     <Compile Include="Accounts\viewEditCompanyIncidentReports.aspx.designer.cs">
       <DependentUpon>viewEditCompanyIncidentReports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Accounts\viewEmployeeActivity.aspx.cs">
+      <DependentUpon>viewEmployeeActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\viewEmployeeActivity.aspx.designer.cs">
+      <DependentUpon>viewEmployeeActivity.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Accounts\viewEmployees.aspx.cs">
       <DependentUpon>viewEmployees.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -466,6 +496,20 @@
     </Compile>
     <Compile Include="SignUp.aspx.designer.cs">
       <DependentUpon>SignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

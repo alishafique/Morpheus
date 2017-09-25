@@ -121,15 +121,6 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.TextBox textbox_activityID;
         
         /// <summary>
-        /// textbox_createdBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox textbox_createdBy;
-        
-        /// <summary>
         /// txtbox_ActivityName control.
         /// </summary>
         /// <remarks>
@@ -184,13 +175,13 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.TextBox TextBox_Description;
         
         /// <summary>
-        /// Dp_AssignTo control.
+        /// listEmployees control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Dp_AssignTo;
+        protected global::System.Web.UI.WebControls.ListBox listEmployees;
         
         /// <summary>
         /// textbox_Status control.
@@ -200,6 +191,15 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox textbox_Status;
+        
+        /// <summary>
+        /// TextBox_startDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_startDate;
         
         /// <summary>
         /// btnUpdateActivity control.

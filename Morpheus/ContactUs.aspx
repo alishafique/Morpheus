@@ -2,6 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <div class="bread_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ol class="breadcrumb">
+                        <li><a href="Home.aspx">Home</a></li>
+                        <li class="active">Contact Us</li>
+                    </ol>                    
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
      <div id="page-wrapper">
             <div class="row">

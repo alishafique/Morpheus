@@ -44,6 +44,7 @@
     }
         
 </script>
+      
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div id="page-wrapper">
@@ -125,7 +126,7 @@
                                     <div class="form-group">
                                         <label>
                                             Address:</label>
-                                        <asp:TextBox class="form-control" placeholder="Street Name" ID="txtbox_Address1Street"
+                                        <asp:TextBox class="form-control" placeholder="Street Name" onFocus="geolocate()" ID="txtbox_Address1Street"
                                             runat="server"></asp:TextBox>
                                         <asp:TextBox class="form-control" placeholder="Suburb" ID="txtbox_Address1Suburb"
                                             runat="server"></asp:TextBox>
@@ -143,20 +144,20 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>
-                                            Date of Birth:</label><asp:Label ID="Label4" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                       <%-- <div style="width:92%;float:left;">--%>
-                                        <asp:TextBox class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server" 
-                                             TextMode="DateTime"></asp:TextBox>
-                                             <%--</div>--%>
-                                        <%--<div style="float: left; height: 23px; padding-left: 5px;">
-                                        <img src="images/calender.png"  />
-                                            </div>--%>
+                                         <label>Date of Birth:</label>
+
+                                           <div style="width:100%;">
+                                         <div style="">
+                                               <asp:TextBox style="float:left; width:90%;" class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server"
+                                               TextMode="DateTime"></asp:TextBox>
+                                               <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" /></div>
+                                               </div>
+                                          
                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtbox_dateTimePicker_DOB" ErrorMessage="Enter Date of birth!" Display ="Dynamic"></asp:RequiredFieldValidator>
                                         
                                     </div>
                                        
-                                        <div class="form-group" style="">
+                                        <div class="form-group" style="margin-top:50px;">
                                             <label>TFN:</label>
                                             <asp:TextBox CssClass="form-control" ID="TextBox_TFN" ToolTip="TFN" placeholder="TFN" runat="server"></asp:TextBox>
                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox_TFN"
@@ -184,4 +185,62 @@
             <!-- /.row -->
             <!-- /#page-wrapper -->
         </div>
+     <script type="text/javascript">
+         var placeSearch, autocomplete;
+       <%--  var componentForm = {
+             street_number: 'short_name',
+             route: 'long_name',
+             '<%=locality.ClientID%>': 'long_name',
+             administrative_area_level_1: 'short_name',
+             country: 'long_name',
+             postal_code: 'short_name'
+         };--%>
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('<%=txtbox_Address1Street.ClientID %>')),
+            { types: ['geocode'] });
+
+
+        // When the user selects an address from the dropdown, populate the address
+          // fields in the form.
+          
+          autocomplete.addListener('place_changed', fillInAddress);
+          
+      }
+
+         function fillInAddress() {
+            
+          // Get the place details from the autocomplete object.
+          var place = autocomplete.getPlace();
+            // Get each component of the address from the place details
+             // and fill the corresponding field on the form.
+          document.getElementById('<%=txtbox_Address1Street.ClientID%>').value = place.address_components[0].long_name +" " +place.address_components[1].short_name;
+          document.getElementById('<%=txtbox_Address1Suburb.ClientID%>').value = place.address_components[2].long_name;
+          document.getElementById('<%=txtbox_Address1State.ClientID%>').value = place.address_components[4].short_name;
+          document.getElementById('<%=txtbox_Address1Postcode.ClientID%>').value = place.address_components[6].short_name;
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3_CGfJ3ebusaEsHfvc_6DUsIKehea6OU&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
+
 </asp:Content>

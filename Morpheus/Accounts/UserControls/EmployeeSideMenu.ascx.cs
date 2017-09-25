@@ -18,5 +18,10 @@ namespace Morpheus.Accounts.UserControls
         {
             Response.Redirect("ReportIncident.aspx");
         }
+
+        protected void LinkButton_ViewActivity_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("viewEmployeeActivity.aspx");
+        }
     }
 }

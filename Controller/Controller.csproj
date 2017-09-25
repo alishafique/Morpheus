@@ -76,6 +76,7 @@
     <Compile Include="viewActivity_Controller.cs" />
     <Compile Include="viewEditCompanies_Controller.cs" />
     <Compile Include="viewEditCompanyIncidentReports_Controller.cs" />
+    <Compile Include="viewEmployeeActivity_Controller.cs" />
     <Compile Include="viewEmployees_Controller.cs" />
     <Compile Include="ViewIncidentReprots_Controller.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

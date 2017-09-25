@@ -65,8 +65,7 @@
         }
     </style>
 
-    <%--<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>--%>
+   
 
      <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
@@ -121,6 +120,7 @@
         });
         
 </script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -232,7 +232,7 @@
                                                <asp:TextBox ID="TextBox_userId" class="form-control" ToolTip="User Id" ReadOnly="true" placeholder="User Id" runat="server"></asp:TextBox>
                                            </div>
                                        </div>
-                                           <div class="form-group" runat ="server" id="ProfileImage">
+                                           <div class="form-group" runat ="server" >
 
                                                <div class="home-banner__avatar">
                                                    <asp:Image ID="imgprw" runat="server" />
@@ -241,8 +241,8 @@
                                                </div>
                                                <div>
                                                    <asp:FileUpload ID="profileUploadCtr"  class="uploadFile form-group" onchange="imagepreview(this);" placeholder="Choose Images" runat="server" />                                                                   
-                                                   <asp:LinkButton ID="LinkButton1" CssClass="btn btn-outline btn-primary btn-xs" runat="server" OnClick="LinkButton1_Click">Upload Profile Image</asp:LinkButton>
-                                        <asp:RegularExpressionValidator id="RegularExpressionValidator1" SetFocusOnError="true" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
+                                                   <asp:LinkButton ID="LinkButton1" ValidationGroup="a" CssClass="btn btn-outline btn-primary btn-xs" runat="server" OnClick="LinkButton1_Click">Upload Profile Image</asp:LinkButton>
+                                        <asp:RegularExpressionValidator id="RegularExpressionValidator1" ValidationGroup="a" SetFocusOnError="true" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
                                             ValidationExpression ="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$" ControlToValidate="profileUploadCtr" Display="Dynamic" />
                                                        </div>
                                            </div>
@@ -256,19 +256,16 @@
                                        </div>                                   
                                        <div class="form-group">
                                            <label>Date of Birth:</label>
-                                           <table style="width: 100%;">
-                                               <tr>
-                                                   <td><%--<label>Date of Birth:</label>--%></td>  
-                                               </tr>
-                                               <tr>
-                                                  
-                                                   <td style="width: 100%;" > <asp:TextBox class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server"
-                                               TextMode="DateTime"></asp:TextBox></td>
-                                                   <td><img src="images/calender.png" style="height: 23px; padding-left: 5px;" /></td>   
-                                               </tr>                                             
-                                           </table>                                                                                   
+
+                                           <div style="width:100%;">
+                                               <div style="">
+                                               <asp:TextBox style="float:left; width:90%;" class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server"
+                                               TextMode="DateTime"></asp:TextBox>
+                                               <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" /></div>
+                                           </div>
+                                                                                                                              
                                        </div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-top: 50px;">
                                         <label>Mobile Number:</label>
                                         <asp:TextBox ID="TextBox_Mobile" CssClass="form-control" ToolTip="Mobile" placeholder="Mobile" runat="server"></asp:TextBox>
                                     </div>
@@ -285,7 +282,7 @@
                                        </div>
                                         <div class="form-group">
                                             <label>Address:</label>
-                                            <asp:TextBox ID="TextBox_StreetName" class="form-control" ToolTip="Street Name" placeholder="Street Name" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TextBox_StreetName" class="form-control" ToolTip="Street Name" onFocus="geolocate()" placeholder="Street Name" runat="server"></asp:TextBox>
                                             <asp:TextBox ID="TextBox_Suburb" class="form-control" ToolTip="Suburb" placeholder="Suburb" runat="server"></asp:TextBox>
                                             <asp:TextBox ID="TextBox_State" class="form-control" ToolTip="State" placeholder="State" runat="server"></asp:TextBox>
                                             <asp:TextBox ID="TextBox_Postcode" class="form-control" ToolTip="Postcode" placeholder="Postcode" runat="server"></asp:TextBox>
@@ -298,10 +295,49 @@
                                            <label>ABN:</label>
                                            <asp:TextBox ID="TextBox_ABN" class="form-control" ToolTip="ABN" placeholder="ABN" runat="server"></asp:TextBox>
                                        </div>
-                                       <asp:Button ID="btnUpdateEmployeeProfile" type="Update" class="btn btn-primary btn-lg btn-block"
-                                           runat="server" Text="Update" OnClick="btnUpdateEmployeeProfile_Click" />
+                                       <asp:Button ID="btnUpdateEmployeeProfile" type="Update" ValidationGroup="a" class="btn btn-primary btn-lg btn-block"
+                                           runat="server" Text="Update Profile" OnClick="btnUpdateEmployeeProfile_Click" />
                                            </div>
+
+                                       <div class="col-lg-6">
+                                           <h1>Upload Your Documents</h1>
+
+                                           <div class="form-group">
+                                               <label>Name of document</label>
+                                               <asp:TextBox ID="txtDocumentName" CssClass="form-control" placeholder="Enter document name. e.g. White Card" ToolTip="Document Name" runat="server"></asp:TextBox>                             
+                                               <asp:FileUpload ID="FtCdocuments"  class="uploadFile form-group"  placeholder="Choose Images" runat="server" />
+                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDocumentName" runat="server" Display="Dynamic" ErrorMessage="Enter document name." SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="FtCdocuments" runat="server" Display="Dynamic" ErrorMessage="Select Document To Upload." SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                           </div>
+                                        <asp:Button ID="btnUploadDocuments" CssClass="btn btn-primary" runat="server" Text="Upload Documents" OnClick="btnUploadDocuments_Click" />
+                                          
+                                           <div class="form-group" style="margin-top: 15px;">
+                                               <asp:GridView ID="GridView1" runat="server" Width="100%" class="table table-striped table-bordered table-hover" AutoGenerateColumns="false">
+                                                   <Columns>
+                                                       <asp:TemplateField HeaderText="Id">
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                           <ItemTemplate>
+                                                               <asp:HiddenField ID="Id" runat="server" Value='<%# Bind("Id") %>'></asp:HiddenField>
+                                                           </ItemTemplate>
+                                                       </asp:TemplateField>
+                                                       <asp:TemplateField HeaderText="Name">
+                                                           <ItemTemplate>
+                                                               <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+                                                           </ItemTemplate>
+                                                       </asp:TemplateField>
+                                                       <asp:TemplateField HeaderText="Document">
+                                                           <ItemTemplate>
+                                                               <asp:HyperLink ID="HLDocument" runat="server" NavigateUrl='<%# GetImage(Eval("ImageData")) %>' >View Document</asp:HyperLink>
+                                                           </ItemTemplate>
+                                                       </asp:TemplateField>
+                                                   </Columns>
+                                               </asp:GridView>
+                                           </div>
+                                       </div>
+
                                    </div>
+                            
                                    <!-- /.row (nested) -->
                                </div>
                                <!-- /.panel-body -->
@@ -339,3 +375,54 @@
             }
         }
     </script>
+
+  <script type="text/javascript">
+         var placeSearch, autocomplete;
+     
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+          // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('<%=TextBox_StreetName.ClientID %>')),
+            { types: ['geocode'] });
+
+
+        // When the user selects an address from the dropdown, populate the address
+          // fields in the form.
+          
+          autocomplete.addListener('place_changed', fillInAddress);
+          
+      }
+
+         function fillInAddress() {
+            
+          // Get the place details from the autocomplete object.
+          var place = autocomplete.getPlace();
+            // Get each component of the address from the place details
+             // and fill the corresponding field on the form.
+          document.getElementById('<%=TextBox_StreetName.ClientID%>').value = place.address_components[0].long_name +" " +place.address_components[1].short_name;
+          document.getElementById('<%=TextBox_Suburb.ClientID%>').value = place.address_components[2].long_name;
+          document.getElementById('<%=TextBox_State.ClientID%>').value = place.address_components[4].short_name;
+          document.getElementById('<%=TextBox_Postcode.ClientID%>').value = place.address_components[6].short_name;
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3_CGfJ3ebusaEsHfvc_6DUsIKehea6OU&libraries=places&callback=initAutocomplete" type="text/javascript"></script>

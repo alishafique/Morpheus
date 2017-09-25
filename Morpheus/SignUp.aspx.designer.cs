@@ -49,15 +49,6 @@ namespace Morpheus {
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
         
         /// <summary>
-        /// txtbox_CompanyName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbox_CompanyName;
-        
-        /// <summary>
         /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -74,6 +65,15 @@ namespace Morpheus {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel usernameupdatepanel;
+        
+        /// <summary>
+        /// txtbox_CompanyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtbox_CompanyName;
         
         /// <summary>
         /// Label2 control.
@@ -247,13 +247,13 @@ namespace Morpheus {
         protected global::System.Web.UI.WebControls.TextBox txtbox_Address1Street;
         
         /// <summary>
-        /// txtbox_Address1Suburb control.
+        /// locality control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbox_Address1Suburb;
+        protected global::System.Web.UI.WebControls.TextBox locality;
         
         /// <summary>
         /// txtbox_Address1State control.

@@ -60,7 +60,7 @@ namespace Morpheus
                     for(int i =0; i<dt.Rows.Count;i++)
                     {
                         _text = dt.Rows[i]["emp_name"].ToString()+" - "+ dt.Rows[i]["email"].ToString();
-                        _value = dt.Rows[i]["UserId"].ToString()+" - "+ dt.Rows[i]["EmployeeId"].ToString();
+                        _value = dt.Rows[i]["UserId"].ToString();//+" - "+ dt.Rows[i]["EmployeeId"].ToString();
                         listEmployees.Items.Add(new ListItem() { Text = _text, Value = _value });
                     }
                 }
@@ -79,13 +79,14 @@ namespace Morpheus
 
         private void clearForm()
         {
-           textbox_createdBy.Text = "";
+           //textbox_createdBy.Text = "";
             //Dp_AssignTo.SelectedIndex = 0;
             txtbox_ActivityName.Text = "";
             TextBox_site.Text = "";
             dp_ActivityType.SelectedIndex = 0;
             TextBox_Description.Text = "";
             objAct.activity_Status = "";
+            listEmployees.ClearSelection();
         }
         protected void btnAddActivity_Click(object sender, EventArgs e)
         {
@@ -93,35 +94,31 @@ namespace Morpheus
             {
                 objAct = new Activity();
                 objCreateAct = new createActivity_Controller();
+                int[] listAssing = new int[listEmployees.Items.Count];
                 string[] getID = textbox_createdBy.Text.Split('-');
                 objAct.companyCreatedID = int.Parse(getID[0]);// Created by Company's ID
-                string[] selectAssignedTo = listEmployees.SelectedValue.Split('-');
-                objAct.assigneduserID = int.Parse(selectAssignedTo[0]); // Assigned to Employee's Id
+
+               // string[] selectAssignedTo = listEmployees.SelectedValue.Split('-');
+                //objAct.assigneduserID = int.Parse(selectAssignedTo[0]); // Assigned to Employee's Id
                 objAct.activity_Name = txtbox_ActivityName.Text;
                 objAct.activity_Location = TextBox_site.Text;
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
                 objAct.activity_Description = TextBox_Description.Text;
                 objAct.activity_Status = "";
-                string[] sptartDateTime = startDateTime.Text.Split(' ');
-                string[] endDateTime = txtfinishDateTime.Text.Split(' ');
-                objAct.StartDate = sptartDateTime[0];
-                objAct.StartTime = sptartDateTime[1];
-
-                objAct.EndDate = endDateTime[0];
-                objAct.EndTime = endDateTime[1];
-               
-                //objAct.EndTime = DateTime.Parse(dpHoursFinish.SelectedValue+":"+dpMinutesFinish.SelectedValue+" "+dpAMPMFinsih.SelectedValue);
-
-                if (objCreateAct.createActivityByCompany(objAct) == true)
-                {
-                    showErrorMessage("Activity created Successfully!!!!!!!!", true);
+                objAct.StartDate = startDateTime.Text;
+                    for (int i = 0; i < listEmployees.Items.Count; i++)
+                    {
+                        if (listEmployees.Items[i].Selected)
+                        {
+                        if (objCreateAct.createActivityByCompany(objAct, int.Parse(listEmployees.Items[i].Value)) > 0)
+                            showErrorMessage("Activity has been created and assigned to Employee.", true);
+                        else
+                            showErrorMessage(objCreateAct.ErrorString, false);
+                        }
+                    }
+                    
                     clearForm();
-                }
-                else
-                {
-                    showErrorMessage(objCreateAct.ErrorString, false);
-                }
-
+       
             }
             catch (Exception ex)
             {

@@ -1,5 +1,71 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/CompanyDesign.Master" AutoEventWireup="true" CodeBehind="viewCompanyProfile.aspx.cs" Inherits="Morpheus.Accounts.viewCompanyProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%--<script type="text/javascript">
+        (function () {
+            var widget, initAF = function () {
+                widget = new AddressFinder.Widget(
+                  document.getElementById('<%=txtbox_Address1Street.ClientID %>'),
+                  'BALJQFKT6MRYUX7HV3C8',
+                  'AU',
+                  {
+                  }
+                );
+
+                widget.on("result:select", function (fullAddress, metaData) {
+                    document.getElementById('<%=txtbox_Address1Street.ClientID %>').value = metaData.address_line_1;
+                    document.getElementById('<%=txtbox_Address1Suburb.ClientID %>').value = metaData.locality_name;
+                    document.getElementById('<%=txtbox_Address1State.ClientID %>').value = metaData.state_territory;
+                    document.getElementById('<%=txtbox_Address1Postcode.ClientID %>').value = metaData.postcode;
+                });
+            };
+
+             function downloadAF(f) {
+                 var script = document.createElement('script');
+                 script.src = 'https://api.addressfinder.io/assets/v3/widget.js';
+                 script.async = true;
+                 script.onload = f;
+                 document.body.appendChild(script);
+             };
+
+             document.addEventListener("DOMContentLoaded", function () {
+                 downloadAF(initAF);
+             });
+
+         })();
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var widget, initAF = function () {
+                widget = new AddressFinder.Widget(
+                  document.getElementById('<%=txtbox_Address2Street.ClientID %>'),
+                  'BALJQFKT6MRYUX7HV3C8',
+                  'AU',
+                  {
+                  }
+                );
+
+                widget.on("result:select", function (fullAddress, metaData) {
+                    document.getElementById('<%=txtbox_Address2Street.ClientID %>').value = metaData.address_line_1;
+                    document.getElementById('<%=txtbox_Address2Suburb.ClientID %>').value = metaData.locality_name;
+                    document.getElementById('<%=txtbox_Address2State.ClientID %>').value = metaData.state_territory;
+                    document.getElementById('<%=txtbox_Address2Postcode.ClientID %>').value = metaData.postcode;
+                });
+            };
+
+             function downloadAF(f) {
+                 var script = document.createElement('script');
+                 script.src = 'https://api.addressfinder.io/assets/v3/widget.js';
+                 script.async = true;
+                 script.onload = f;
+                 document.body.appendChild(script);
+             };
+
+             document.addEventListener("DOMContentLoaded", function () {
+                 downloadAF(initAF);
+             });
+
+         })();
+    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div id="page-wrapper">
@@ -98,7 +164,7 @@
                                                    <asp:TextBox ID="TextBox_addressID1" runat="server" Visible="false" ReadOnly="true"></asp:TextBox>
                                                    <label>
                                                        Address 1:</label>
-                                                   <asp:TextBox class="form-control" placeholder="Street Name" ID="txtbox_Address1Street"
+                                                   <asp:TextBox class="form-control" placeholder="Street Name" onFocus="geolocate()" ID="txtbox_Address1Street"
                                                        runat="server"></asp:TextBox>
                                                </div>
                                                <div style="width: 100%">
@@ -115,10 +181,10 @@
                                            </div>
                                            <div class="form-group">
                                                <div id="myDIV">
-                                                   <asp:TextBox ID="TextBox_addressID2" runat="server" Visible="false" ReadOnly="true"></asp:TextBox>
+                                                   <asp:TextBox ID="TextBox_addressID2" onFocus="geolocate()" runat="server" Visible="false" ReadOnly="true"></asp:TextBox>
                                                    <label>
                                                        Address 2:</label>
-                                                   <asp:TextBox class="form-control" placeholder="Street Name" ID="txtbox_Address2Street"
+                                                   <asp:TextBox class="form-control" placeholder="Street Name" onFocus="geolocate()" ID="txtbox_Address2Street"
                                                        runat="server"></asp:TextBox>
                                                    <div style="width: 100%">
                                                        <div style="width: 50%; float: left; padding: 10px 10px 10px 0px;">
@@ -153,4 +219,70 @@
           
            <!-- /#page-wrapper -->
        </div>
+     <script type="text/javascript">
+         var placeSearch, autocomplete, autocomplete2;
+       
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('<%=txtbox_Address1Street.ClientID %>')),
+            { types: ['geocode'] });
+
+           autocomplete2 = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('<%=txtbox_Address2Street.ClientID %>')),
+            { types: ['geocode'] });
+
+
+        // When the user selects an address from the dropdown, populate the address
+          // fields in the form.
+          
+          autocomplete.addListener('place_changed', fillInAddress);
+          autocomplete2.addListener('place_changed', fillInAddress2);
+          
+      }
+
+         function fillInAddress() {
+            
+          // Get the place details from the autocomplete object.
+          var place = autocomplete.getPlace();
+            // Get each component of the address from the place details
+             // and fill the corresponding field on the form.
+          document.getElementById('<%=txtbox_Address1Street.ClientID%>').value = place.address_components[0].long_name +" " +place.address_components[1].short_name;
+          document.getElementById('<%=txtbox_Address1Suburb.ClientID%>').value = place.address_components[2].long_name;
+          document.getElementById('<%=txtbox_Address1State.ClientID%>').value = place.address_components[4].short_name;
+          document.getElementById('<%=txtbox_Address1Postcode.ClientID%>').value = place.address_components[6].short_name;
+         }
+          function fillInAddress2() {
+            
+          // Get the place details from the autocomplete object.
+          var place = autocomplete2.getPlace();
+            // Get each component of the address from the place details
+             // and fill the corresponding field on the form.
+          document.getElementById('<%=txtbox_Address2Street.ClientID%>').value = place.address_components[0].long_name +" " +place.address_components[1].short_name;
+          document.getElementById('<%=txtbox_Address2Suburb.ClientID%>').value = place.address_components[2].long_name;
+          document.getElementById('<%=txtbox_Address2State.ClientID%>').value = place.address_components[4].short_name;
+          document.getElementById('<%=txtbox_Address2Postcode.ClientID%>').value = place.address_components[6].short_name;
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3_CGfJ3ebusaEsHfvc_6DUsIKehea6OU&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
 </asp:Content>

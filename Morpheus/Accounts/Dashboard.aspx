@@ -16,6 +16,19 @@
                        <asp:Label ID="lblErrorMsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.                             
                    </div>
                </div>
+
+               <div class="col-lg-12">
+                   <div style="float:right;">
+                   <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
+                       <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />
+                       <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" VerticalAlign="Bottom" />
+                       <OtherMonthDayStyle ForeColor="#999999" />
+                       <SelectedDayStyle BackColor="#333399" ForeColor="White" />
+                       <TitleStyle BackColor="White" BorderColor="Black" BorderWidth="4px" BorderStyle="None" Font-Bold="True" Font-Size="12pt" ForeColor="#333399" />
+                       <TodayDayStyle BackColor="#CCCCCC" />
+                   </asp:Calendar>
+                       </div>
+               </div>
                <!-- /.col-lg-12 -->
            </div>
          </div>

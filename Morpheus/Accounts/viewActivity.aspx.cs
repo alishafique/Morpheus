@@ -29,6 +29,7 @@ namespace Morpheus.Accounts
                             employeeDashMenu1.Visible = false;
                             loadActivitiesCreatedByCompany();
                             btnUpdateActivity.Enabled = false;
+                            listEmployees.Enabled = false;
                         }
                     }
                     else
@@ -43,6 +44,36 @@ namespace Morpheus.Accounts
             }
         }
 
+        private void loadEmployees111()
+        {
+            try
+            {
+                dt = new DataTable();
+                createActivity_Controller objCreateAct = new createActivity_Controller();
+                dt = objCreateAct.listEmployeesByCompany(int.Parse(Session["userid"].ToString()));
+                if (dt != null)
+                {
+                    string _text = "";
+                    string _value = "";
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        _text = dt.Rows[i]["emp_name"].ToString() + " - " + dt.Rows[i]["email"].ToString();
+                        _value = dt.Rows[i]["UserId"].ToString();//+" - "+ dt.Rows[i]["EmployeeId"].ToString();
+                        listEmployees.Items.Add(new ListItem() { Text = _text, Value = _value });
+                    }
+                }
+                else
+                {
+                    showErrorMessage(objCreateAct.ErrorString, false);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
 
         private void loadActivitiesCreatedByCompany()
         {
@@ -80,16 +111,25 @@ namespace Morpheus.Accounts
             {
                 loadEmployees();
                 GridViewRow row = dtgridview_viewActivity.SelectedRow;
-               textbox_activityID.Text= row.Cells[2].Text;
-                textbox_createdBy.Text = "";
-               
-               Dp_AssignTo.SelectedValue = row.Cells[2].Text;
-               
+               textbox_activityID.Text= row.Cells[1].Text;
+
+                for(int i=0;i<listEmployees.Items.Count;i++)
+                {
+                    string[] temp = listEmployees.Items[i].Text.Split('-');
+                    if ( temp[1].Trim() == row.Cells[2].Text)
+                    {
+                        listEmployees.Items[i].Selected = true;
+                    }
+                }
+
+               // listEmployees.SelectedIndex = listEmployees.FindControl(row.Cells[2].Text);
                 txtbox_ActivityName.Text = row.Cells[3].Text;
                 TextBox_site.Text = row.Cells[4].Text;
                dp_ActivityType.SelectedValue = row.Cells[5].Text;
                 TextBox_Description.Text = row.Cells[6].Text;
+                TextBox_startDate.Text = row.Cells[7].Text;
                 btnUpdateActivity.Enabled = true;
+                listEmployees.Focus();
                 
             }
             catch (Exception ex)
@@ -102,7 +142,7 @@ namespace Morpheus.Accounts
         {
             try
             {
-                Dp_AssignTo.Items.Clear();
+                listEmployees.Items.Clear();
                
                 dt = new DataTable();
                 objView = new viewActivity_Controller();
@@ -114,8 +154,8 @@ namespace Morpheus.Accounts
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         _text = dt.Rows[i]["emp_name"].ToString() + " - " + dt.Rows[i]["email"].ToString();
-                        _value = dt.Rows[i]["UserId"].ToString();
-                        Dp_AssignTo.Items.Add(new ListItem() { Text = _text, Value = _value });
+                        _value = dt.Rows[i]["UserId"].ToString();//+" - "+ dt.Rows[i]["EmployeeId"].ToString();
+                        listEmployees.Items.Add(new ListItem() { Text = _text, Value = _value });
                     }
                 }
                 else
@@ -155,14 +195,28 @@ namespace Morpheus.Accounts
             {
                 Activity objAct = new Activity();
                 objView = new viewActivity_Controller();
-                objAct.assigneduserID = int.Parse(Dp_AssignTo.SelectedValue);
+               
                 objAct.activity_Name = txtbox_ActivityName.Text;
                 objAct.activity_Location = TextBox_site.Text;
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
                 objAct.activity_Description = TextBox_Description.Text;
                 objAct.activity_Status = textbox_Status.Text;
+                objAct.StartDate = TextBox_startDate.Text;
+                for (int i = 0; i < listEmployees.Items.Count; i++)
+                {
 
-                objView.UpdateActivityByCompany(objAct, int.Parse(textbox_activityID.Text));
+                    if (listEmployees.Items[i].Selected)
+                    {
+                        if (objView.UpdateActivityByCompany(objAct, int.Parse(textbox_activityID.Text), int.Parse(listEmployees.Items[i].Value)))
+                        {
+                            showErrorMessage("Updated.", true);
+                            loadActivitiesCreatedByCompany();
+                        }
+
+                        else
+                            showErrorMessage(objView.ErrorString, false);
+                    }
+                }
 
 
 
@@ -190,6 +244,32 @@ namespace Morpheus.Accounts
                 successMsg.Style.Add("display", "none");
             }
 
+        }
+
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string item = e.Row.Cells[0].Text;
+                foreach (Button button in e.Row.Cells[8].Controls.OfType<Button>())
+                {
+                    if (button.CommandName == "Delete")
+                    {
+                        button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
+                    }
+                }
+            }
+        }
+        protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            GridViewRow row = dtgridview_viewActivity.Rows[e.RowIndex];
+
+            int activityID = int.Parse(row.Cells[1].Text);
+
+            // delete here
+
+            
+            loadActivitiesCreatedByCompany();
         }
     }
 }

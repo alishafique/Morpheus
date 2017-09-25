@@ -139,7 +139,7 @@ namespace Morpheus
 
                                         if (txtbox_Address1Street.Text.Trim() != "")
                                         {
-                                            if (objSignUp.insertCompanyAddress(tempCompanyID, txtbox_Address1Street.Text.Trim(), txtbox_Address1Suburb.Text.Trim(), txtbox_Address1State.Text.Trim(), txtbox_Address1Postcode.Text.Trim()) == false)
+                                            if (objSignUp.insertCompanyAddress(tempCompanyID, txtbox_Address1Street.Text.Trim(), locality.Text.Trim(), txtbox_Address1State.Text.Trim(), txtbox_Address1Postcode.Text.Trim()) == false)
                                                 showErrorMessage(objSignUp.ErrorString, false);
                                         }
                                         if (txtbox_Address1Street.Text.Trim() != "")
@@ -192,6 +192,11 @@ namespace Morpheus
             }
         }
 
+
+        private void splitAdd(string add)
+        {
+            string[] temp = add.Split(',');
+        }
         protected void TextValidate(object source, ServerValidateEventArgs e)
         {
             e.IsValid = (e.Value.Length >= 6 && e.Value.Length <= 15);
@@ -204,7 +209,7 @@ namespace Morpheus
             txtbox_CompanyPassword.Text = "";
             txtbox_CompanyRePassword.Text = "";
             txtbox_Address1Street.Text = "";
-            txtbox_Address1Suburb.Text = "";
+            locality.Text = "";
             txtbox_Address1Postcode.Text = "";
             txtbox_Address1State.Text = "";
             txtbox_Address2Street.Text = "";
@@ -240,7 +245,7 @@ namespace Morpheus
                 return false;
             }
         }
-
+       
         [WebMethod]
         public static bool UserNameChecker(string newUserName)
         {
@@ -252,5 +257,8 @@ namespace Morpheus
             else
                 return false;
         }
+        
+
+
     }
 }

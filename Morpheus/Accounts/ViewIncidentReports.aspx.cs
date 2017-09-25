@@ -39,7 +39,6 @@ namespace Morpheus.Accounts
             }
         }
 
-
         private void loadReports(int EmployeeId)
         {
             try

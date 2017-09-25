@@ -3,7 +3,10 @@ using System.Web;
 using System.Web.UI.WebControls;
 using Controller;
 using System.Data;
+using System.Collections;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Morpheus.Accounts
 {
@@ -29,18 +32,19 @@ namespace Morpheus.Accounts
                             companySideMenu1.Visible = true;
                             employeeDashMenu1.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = false;
-                            ProfileImage.Visible = false;
+                            //ProfileImage.Visible = false;
                         }
                         if(Session["UserTypeID"].ToString() == "3")
                         {
                             loadEmployeeProfileByEmployee(int.Parse(Session["userid"].ToString()));
-                            loadProfileImage(Session["userid"].ToString() + "_Profile", int.Parse(Session["userid"].ToString()));
+                            loadProfileImage(int.Parse(Session["userid"].ToString()));
                             dashboardmenu1.Visible = false;
                             companySideMenu1.Visible = false;
                             employeeDashMenu1.Visible = true;
                             hideGrid.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = true;
-                            ProfileImage.Visible = true;
+                            loadEmployeeDocuments();
+                           // ProfileImage.Visible = true;
                         }
                     }
                     else
@@ -71,6 +75,7 @@ namespace Morpheus.Accounts
                 GridViewRow row = dtgridview_Employees.SelectedRow;
                 TextBox_EmployeeId.Text= row.Cells[1].Text.Replace("&nbsp;", "");
                 TextBox_userId.Text = row.Cells[2].Text.Replace("&nbsp;", "");
+                loadProfileImage(int.Parse(TextBox_userId.Text));
                 TextBox_EmployeeName.Text = row.Cells[3].Text.Replace("&nbsp;", "");
                 TextBox1_EmployeeEmail.Text = row.Cells[4].Text.Replace("&nbsp;", "");
                 txtbox_dateTimePicker_DOB.Text = row.Cells[6].Text;
@@ -245,6 +250,7 @@ namespace Morpheus.Accounts
                                 showErrorMessage("Updated Employee profile", true);
                                 loadEmployee(int.Parse(Session["userid"].ToString()));
                                 clearTextBox();
+                                imgprw.ImageUrl = "";
                             }
                             else
                             {
@@ -275,44 +281,6 @@ namespace Morpheus.Accounts
             {
                 showErrorMessage(ex.Message, false);
             }
-        }
-
-        private bool UploadProfileImage(int employeeId)
-        {
-            try
-            {
-                objEmp = new viewEmployees_Controller();
-                string directoryName = TextBox_userId.Text + "_" + TextBox1_EmployeeEmail.Text;
-                if (!System.IO.Directory.Exists(Server.MapPath(@"~/data/" + directoryName + "/")))
-                {
-                    System.IO.Directory.CreateDirectory(Server.MapPath(@"~/data/" + directoryName + "/"));
-                }
-                string fileName = TextBox_userId.Text + "_Profile";
-                string ext = System.IO.Path.GetExtension(profileUploadCtr.FileName);
-                string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + fileName + "." + ext);
-                string[] imgNam = fileNameWithPath.Split('/');
-                if (!System.IO.File.Exists(fileName))
-                {
-                    profileUploadCtr.SaveAs(fileNameWithPath);
-                    imgprw.ImageUrl = "~/data/" + directoryName + "/" + fileName + "." + ext;
-                }
-                else
-                {
-                    System.IO.File.Delete(fileNameWithPath);
-                    profileUploadCtr.SaveAs(fileNameWithPath);
-                    imgprw.ImageUrl = "~/data/" + directoryName + "/" + fileName + "." + ext;
-                    showErrorMessage("file exsist", true);
-                }
-                
-
-                return true;
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-                return false;
-            }
-
         }
 
         private void clearTextBox()
@@ -362,21 +330,22 @@ namespace Morpheus.Accounts
 
         }
 
-        private void loadProfileImage(string name, int userid)
+        public string GetImage(object img)
+        {
+            return "data:image/jpg;base64," + Convert.ToBase64String((byte[])img);
+        }
+
+        private void loadProfileImage(int userid)
         {
             try
             {
                 dt = new DataTable();
                 objEmp = new viewEmployees_Controller();
-                dt = objEmp.loadEmployeesProfileImage(name, userid);
-                if (dt != null)
+                dt = objEmp.loadEmployeePrfileImageURL(userid);
+                if(dt != null)
                 {
-                    if (dt.Rows.Count != 0)
-                    {
-                        byte[] bytes = (byte[])dt.Rows[0]["ImageData"];
-                        string strBase64 = Convert.ToBase64String(bytes);
-                        imgprw.ImageUrl = "data:Image/png;base64," + strBase64;
-                    }
+                    if (dt.Rows.Count > 0)
+                        imgprw.ImageUrl = dt.Rows[0]["profile_imageURL"].ToString();
                 }
                 else
                 {
@@ -390,47 +359,174 @@ namespace Morpheus.Accounts
 
         }
 
+        // Upload Employee's Profile image
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            // UploadProfileImage(1);
-            if (profileUploadCtr.HasFile)
+            try
             {
-                objEmp = new viewEmployees_Controller();
-                dt = new DataTable();
-                HttpPostedFile postedFile = profileUploadCtr.PostedFile;
-                string filename = TextBox_userId.Text + "_Profile";//Path.GetFileName(postedFile.FileName);
-                string fileExtension = Path.GetExtension(profileUploadCtr.FileName);
-                int fileSize = postedFile.ContentLength;
 
-                if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
-                    || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
+                if (profileUploadCtr.HasFile)
                 {
+                    objEmp = new viewEmployees_Controller();
+                    dt = new DataTable();
+                    HttpPostedFile postedFile = profileUploadCtr.PostedFile;
+                    string filename = TextBox_userId.Text + "_Profile";//
+                                                                       // Stream temp = Path.GetFileName(postedFile.FileName);
+                    string fileExtension = Path.GetExtension(profileUploadCtr.FileName);
+                    int fileSize = postedFile.ContentLength;
+                    if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
+                        || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
+                    {
+
+                        string directoryName = TextBox_userId.Text; // all data will be saved using userID of employee
+                        string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
+                        string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
+                        string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                        if (!System.IO.Directory.Exists(fullDirectoryPath))
+                        {
+                            System.IO.Directory.CreateDirectory(fullDirectoryPath);
+                        }
+
+                        //string[] imgNam = fileNameWithPath.Split('/');
+                        dt = objEmp.loadEmployeePrfileImageURL(int.Parse(TextBox_userId.Text));
+                        if (dt.Rows.Count > 0)
+                        {
+                            if (!System.IO.File.Exists(Server.MapPath(dt.Rows[0]["profile_imageURL"].ToString())))
+                            {
+                                if (objEmp.UpdateProfileEmployeeImage(pathTosave, int.Parse(TextBox_userId.Text)))
+                                {
+                                    Stream stream = postedFile.InputStream;
+                                    if (fileSize < 1000000)
+                                    {
+                                        profileUploadCtr.SaveAs(fileNameWithPath);
+                                    }
+                                    else
+                                    {
+                                        GenerateThumbnails(0.5, stream, fileNameWithPath);
+                                    }
+                                    imgprw.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
+                                    showErrorMessage("Profile picture changed successfully", true);
+                                }
+                                else
+                                {
+                                    showErrorMessage("unable to save files", false);
+                                }
+                            }
+                            else
+                            {
+                                System.IO.File.Delete(Server.MapPath(dt.Rows[0]["profile_imageURL"].ToString()));
+                                if (objEmp.UpdateProfileEmployeeImage(pathTosave, int.Parse(TextBox_userId.Text)))
+                                {
+                                    Stream stream = postedFile.InputStream;
+                                    if (fileSize < 1000000)
+                                    {
+                                        profileUploadCtr.SaveAs(fileNameWithPath);
+                                    }
+                                    else
+                                    {
+                                        GenerateThumbnails(0.5, stream, fileNameWithPath);
+                                    }
+                                    imgprw.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid(); ;
+                                    showErrorMessage("Profile picture changed successfully", true);
+                                }
+                                else
+                                {
+                                    showErrorMessage("unable to save files", false);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        showErrorMessage("Only images (.jpg, .png, .gif and .bmp) can be uploaded", false);
+                    }
+                }
+                else
+                {
+                    showErrorMessage("No file selected", false);
+                    profileUploadCtr.Focus();
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        private void GenerateThumbnails(double scaleFactor, Stream sourcePath, string targetPath)
+        {
+            using (var image = System.Drawing.Image.FromStream(sourcePath))
+            {
+                var newWidth = (int)(image.Width * scaleFactor);
+                var newHeight = (int)(image.Height * scaleFactor);
+                var thumbnailImg = new Bitmap(newWidth, newHeight);
+                var thumbGraph = Graphics.FromImage(thumbnailImg);
+                thumbGraph.CompositingQuality = CompositingQuality.HighQuality;
+                thumbGraph.SmoothingMode = SmoothingMode.HighQuality;
+                thumbGraph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                var imageRectangle = new Rectangle(0, 0, newWidth, newHeight);
+                thumbGraph.DrawImage(image, imageRectangle);
+                thumbnailImg.Save(targetPath, image.RawFormat);
+            }
+        }
+
+    
+
+        protected void btnUploadDocuments_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (FtCdocuments.HasFile)
+                {
+                    objEmp = new viewEmployees_Controller();
+                    dt = new DataTable();
+                    HttpPostedFile postedFile = FtCdocuments.PostedFile;
+                    string filename = txtDocumentName.Text;
+                    string fileExtension = Path.GetExtension(filename);
+                    int fileSize = postedFile.ContentLength;
                     Stream stream = postedFile.InputStream;
                     BinaryReader binaryReader = new BinaryReader(stream);
                     Byte[] bytes = binaryReader.ReadBytes((int)stream.Length);
-                    dt = objEmp.spUploadImage(filename, fileSize, bytes, int.Parse(Session["userid"].ToString()));
+                    dt = objEmp.spUploadImage(filename, fileSize, bytes, int.Parse(TextBox_userId.Text), "document");
 
                     if (dt != null)
                     {
-                        loadProfileImage(Session["userid"].ToString() + "_Profile", int.Parse(Session["userid"].ToString()));
-                        showErrorMessage("Uploaded Profile image", true);
+                        loadProfileImage(int.Parse(TextBox_userId.Text));
+                        showErrorMessage("Uploaded Document image", true);
                     }
                     else
                     {
                         showErrorMessage(objEmp.ErrorString, false);
                     }
-
                 }
                 else
                 {
-                    showErrorMessage("Only images (.jpg, .png, .gif and .bmp) can be uploaded", false);
+                    showErrorMessage("No file selected", false);
+                    profileUploadCtr.Focus();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                showErrorMessage("No file selected",false);
-                profileUploadCtr.Focus();
+                showErrorMessage(ex.Message, false);
             }
         }
+
+        private void loadEmployeeDocuments()
+        {
+            try
+            {
+                dt = new DataTable();
+                objEmp = new viewEmployees_Controller();
+                dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_userId.Text), "document");
+                GridView1.DataSource = dt;
+                GridView1.DataBind();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        
     }
 }

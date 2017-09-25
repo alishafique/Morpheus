@@ -188,17 +188,43 @@ namespace Controller
             }
         }
 
-        public DataTable loadEmployeesProfileImage(string name, int userID)
+        public bool UpdateProfileEmployeeImage(string imageURL, int userID)
         {
-            // Employee profile Image is in employeeProfile table
             try
             {
+                con = new Connection();
+                strQuery = "UpdateProfileEmployeeImage";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@profile_imageURL", SqlDbType.VarChar).Value = imageURL;
+                cmd.Parameters.Add("@UserID", SqlDbType.BigInt).Value = userID;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+
+        }
+
+        public DataTable loadEmployeePrfileImageURL(int userid)
+        {
+            try
+            {
+
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "loadEmployeesProfileImage";
+                strQuery = "loadEmployeePrfileImageURL";
                 cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userID;
-                cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
+                cmd.Parameters.Add("@UserId", SqlDbType.BigInt).Value = userid;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
                 {
@@ -210,14 +236,13 @@ namespace Controller
                     return null;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorString = ex.Message;
                 return null;
             }
         }
-
-        public DataTable spUploadImage(string name, int size, Byte[] bytes, int userid)
+        public DataTable spUploadImage(string name, int size, Byte[] bytes, int userid, string DocumentType)
         {
             try
             {
@@ -230,6 +255,8 @@ namespace Controller
                 cmd.Parameters.Add("@Size", SqlDbType.Int).Value = size;
                 cmd.Parameters.Add("@ImageData", SqlDbType.VarBinary).Value = bytes;
                 cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userid;
+                cmd.Parameters.Add("@DocumentType", SqlDbType.VarChar).Value = DocumentType;
+                cmd.Parameters.Add("@contentType", SqlDbType.VarChar).Value = DocumentType;
                 SqlParameter paramNewId = new SqlParameter()
                 {
                     ParameterName = "@NewId",
@@ -249,6 +276,34 @@ namespace Controller
                 }
             }
             catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+
+        public DataTable spLoadEmployeeDocuments(int userID, string DocumentType)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spLoadEmployeeDocuments";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userID;
+                cmd.Parameters.Add("@DocumentType", SqlDbType.VarChar).Value = DocumentType;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                {
+                    return dt;
+                }
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
             {
                 ErrorString = ex.Message;
                 return null;

@@ -148,9 +148,9 @@
                        <div class="panel-body">
                            
                            <asp:GridView ID="dtgridview_viewActivity" class="table table-striped table-bordered table-hover"
-                               runat="server" AutoGenerateColumns="False" Width="100%"
+                               runat="server" OnRowDeleting="OnRowDeleting" AutoGenerateColumns = "false" OnRowDataBound = "OnRowDataBound" Width="100%"
                                OnSelectedIndexChanged="dtgridview_viewActivity_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_viewActivity_SelectedIndexChanging"
-                               AutoGenerateSelectButton="True" AllowPaging="false">
+                               AutoGenerateSelectButton="True" >
                                <Columns>
                                    <asp:BoundField  DataField="ActivityID" HeaderText="Activity ID">
                                         <ItemStyle CssClass="hidden-field" />
@@ -160,11 +160,19 @@
                                    <asp:BoundField  DataField="Activity_Name" HeaderText="Name"/>
                                    <asp:BoundField  DataField="Activity_Location" HeaderText="Site"/>
                                    <asp:BoundField  DataField="Activity_Type" HeaderText="Type"/>
-                                   <asp:BoundField  DataField="Activity_Description" HeaderText="Description"/>
-                                   <asp:BoundField  DataField="Activity_Status" HeaderText="Status"/>
+                                   <asp:BoundField  DataField="Activity_Description" HeaderText="Description">
+                                        <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
+                                   <asp:BoundField DataField="startDate" HeaderText="StartDate" />
+                                   <asp:BoundField  DataField="Activity_Status" HeaderText="Status">
+                                         <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
+                                 
+                                <asp:CommandField ShowDeleteButton="True"  ButtonType="Button" />
                                </Columns>
-                               <PagerSettings /><PagerStyle HorizontalAlign = "Right" CssClass = "dataTables_paginate paging_simple_numbers" />
-                               <FooterStyle BackColor="#FF3399"></FooterStyle>
+                              
                            </asp:GridView>
                            <!-- /.table-responsive -->
                        </div>
@@ -172,70 +180,74 @@
                    </div>
                    <!-- /.panel -->
 
-                   <div>
-                   <div class="row" >
-                <div class="col-lg-6">
-                           <div class="panel panel-default">
-                               <div class="panel-heading">
-                                   Edit Activity details</div>
-                               <div class="panel-body">
-                                   <div class="row">
-                                       <div style="width: 98%; padding: 0px 0px 0px 20px; float: left;">
-                                           <asp:TextBox ID="textbox_activityID" runat="server" Visible="false"></asp:TextBox>
-                                           <div class="form-group">
+                  
+                       <div class="row">
+                           <div class="col-lg-6">
+                               <div class="panel panel-default">
+                                   <div class="panel-heading">
+                                       Edit Activity details
+                                   </div>
+                                   <div class="panel-body">
+                                       <div class="form-group hidden-field">
+                                           <label>Activity ID:</label>
+                                           <asp:TextBox ID="textbox_activityID" runat="server"></asp:TextBox>
+                                       </div>
+
+
+                                       <%--<div class="form-group">
                                                <label>Activity Created By:</label>
                                                <asp:TextBox class="form-control" ID="textbox_createdBy" ReadOnly="true" ToolTip="created by" runat="server"></asp:TextBox>
-                                           </div>
-                                           <div class="form-group">
-                                               <label>
-                                                   Activity Name:</label>
-                                               <asp:TextBox class="form-control" ID="txtbox_ActivityName" runat="server" ToolTip="Activity Name"
-                                                   placeholder="Activity Name"></asp:TextBox>
-                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtbox_ActivityName" Display="Dynamic" runat="server" ErrorMessage="Please enter Name of Activity!!"></asp:RequiredFieldValidator>
-                                           </div>
-                                           
-                                           <div class="form-group">
-                                               <label>Site</label>
-                                               <asp:TextBox class="form-control" ID="TextBox_site" runat="server" ToolTip="Activity Site"
-                                                   placeholder="Activity Site"></asp:TextBox>
-                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBox_site" Display="Dynamic" runat="server" ErrorMessage="Please enter Site of Activity!!"></asp:RequiredFieldValidator>
-                                           </div>
-                                           <div class="form-group">
-                                               <label>
-                                                   Activity Type</label>
-                                               <asp:DropDownList class="form-control" ID="dp_ActivityType" runat="server">
-                                                   <asp:ListItem Value="Plumber">Plumber</asp:ListItem>
-                                                   <asp:ListItem Value="Electrician">Electrician</asp:ListItem>
-                                                    <asp:ListItem Value="Plasterer">Plasterer</asp:ListItem>
-                                                    <asp:ListItem Value="Glazier">Glazier</asp:ListItem>
-                                                    <asp:ListItem Value="Welder">Welder</asp:ListItem>
-                                                    <asp:ListItem Value="Mason">Mason</asp:ListItem>
-                                               </asp:DropDownList>
-                                           </div>
-                                           <div class="form-group">
-                                               <label>
-                                                   Description:</label>
-                                                <asp:TextBox ID="TextBox_Description" class="form-control" placeholder="Description" runat="server" Rows="3" TextMode="MultiLine"></asp:TextBox>
-                                           </div>
-                                        
-                                           <div class="form-group">
-                                               <label>
-                                                   Assigned To Employee:</label>
-                                               <asp:DropDownList class="form-control" ID="Dp_AssignTo" runat="server" >
-                                                   <asp:ListItem Text="--Select Employee to Assign--" Value="0" />
-                                               </asp:DropDownList>
-
-                                           </div>
-                                           <div class="form-group">
-                                               <label>Status:</label>
-                                               <asp:TextBox class="form-control" ID="textbox_Status" placeholder="Status" ToolTip="Status" runat="server"></asp:TextBox>
-                                           </div>
-                                           <asp:Button ID="btnUpdateActivity" type="submit" class="btn btn-primary btn-lg btn-block"
-                                               runat="server" Text="Update" OnClick="btnUpdateActivity_Click" />
+                                           </div>--%>
+                                       <div class="form-group">
+                                           <label>
+                                               Activity Name:</label>
+                                           <asp:TextBox class="form-control" ID="txtbox_ActivityName" runat="server" ToolTip="Activity Name"
+                                               placeholder="Activity Name"></asp:TextBox>
+                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtbox_ActivityName" Display="Dynamic" runat="server" ErrorMessage="Please enter Name of Activity!!"></asp:RequiredFieldValidator>
                                        </div>
-                                       
-                                       <!-- /.col-lg-6 (nested) -->
+
+                                       <div class="form-group">
+                                           <label>Site</label>
+                                           <asp:TextBox class="form-control" ID="TextBox_site" runat="server" ToolTip="Activity Site"
+                                               placeholder="Activity Site"></asp:TextBox>
+                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBox_site" Display="Dynamic" runat="server" ErrorMessage="Please enter Site of Activity!!"></asp:RequiredFieldValidator>
+                                       </div>
+                                       <div class="form-group">
+                                           <label>
+                                               Activity Type</label>
+                                           <asp:DropDownList class="form-control" ID="dp_ActivityType" runat="server">
+                                               <asp:ListItem Value="Plumber">Plumber</asp:ListItem>
+                                               <asp:ListItem Value="Electrician">Electrician</asp:ListItem>
+                                               <asp:ListItem Value="Plasterer">Plasterer</asp:ListItem>
+                                               <asp:ListItem Value="Glazier">Glazier</asp:ListItem>
+                                               <asp:ListItem Value="Welder">Welder</asp:ListItem>
+                                               <asp:ListItem Value="Mason">Mason</asp:ListItem>
+                                           </asp:DropDownList>
+                                       </div>
+                                       <div class="form-group">
+                                           <label>
+                                               Description:</label>
+                                           <asp:TextBox ID="TextBox_Description" class="form-control" placeholder="Description" runat="server" Rows="3" TextMode="MultiLine"></asp:TextBox>
+                                       </div>
+
+                                       <div class="form-group" style="margin-bottom: 15px;">
+                                           <label>Assigned To Employee(s)</label>
+                                           <asp:ListBox ID="listEmployees" class="form-control" Height="150px" SelectionMode="Multiple" runat="server"></asp:ListBox>
+                                       </div>
+                                       <div class="form-group">
+                                           <label>Status:</label>
+                                           <asp:TextBox class="form-control" ID="textbox_Status" placeholder="Status" ToolTip="Status" runat="server"></asp:TextBox>
+                                       </div>
+                                       <div class="form-group">
+                                           <label>Start Date:</label>
+                                           <asp:TextBox ID="TextBox_startDate" CssClass="form-control" runat="server"></asp:TextBox>
+                                       </div>
+                                       <asp:Button ID="btnUpdateActivity" type="submit" class="btn btn-primary btn-lg btn-block"
+                                           runat="server" Text="Update" OnClick="btnUpdateActivity_Click" />
                                    </div>
+
+                                   <!-- /.col-lg-6 (nested) -->
+
                                    <!-- /.row (nested) -->
                                </div>
                                <!-- /.panel-body -->
@@ -243,8 +255,8 @@
                            <!-- /.panel -->
                        </div>
                 <!-- /.col-lg-12 -->
-             </div>
-                   </div>
+                    </div>
+                  
 
                </div>
                <!-- /.col-lg-12 -->

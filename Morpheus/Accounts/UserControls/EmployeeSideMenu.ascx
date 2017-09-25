@@ -20,7 +20,7 @@
                             <a href=""><i class="fa fa-bar-chart-o fa-fw"></i>Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li> <asp:LinkButton ID="LinkButton_StartActivity" runat="server">Start Activity</asp:LinkButton> </li>
-                                <li> <asp:LinkButton ID="LinkButton_ViewActivity" runat="server">View Activity</asp:LinkButton> </li>
+                                <li> <asp:LinkButton ID="LinkButton_ViewActivity" runat="server" OnClick="LinkButton_ViewActivity_Click">View Activity</asp:LinkButton> </li>
                             </ul>
                         </li>
                             <!-- /.nav-second-level -->

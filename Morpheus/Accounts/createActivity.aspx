@@ -69,20 +69,7 @@
        $(document).ready(function () {
            $("#<%=startDateTime.ClientID %>").dynDateTime({
                showsTime: true,
-               ifFormat: "%d/%m/%Y %H:%M",
-               daFormat: "%l;%M %p, %e %m,  %Y",
-               align: "BR",
-               electric: false,
-               singleClick: false,
-               displayArea: ".siblings('.dtcDisplayArea')",
-               button: ".next()"
-           });
-       });
-
-          $(document).ready(function () {
-           $("#<%=txtfinishDateTime.ClientID %>").dynDateTime({
-               showsTime: true,
-               ifFormat: "%d/%m/%Y %H:%M",
+               ifFormat: "%d/%m/%Y",
                daFormat: "%l;%M %p, %e %m,  %Y",
                align: "BR",
                electric: false,
@@ -167,131 +154,24 @@
                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtbox_ActivityName" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please enter Name of Activity"></asp:RequiredFieldValidator>
                                    </div>
                                    <div class="form-group">
-                                       <table style="width: 100%;">
-                                           <tr>
-                                               <label>Activity Start Date</label><asp:Label ID="Label8" runat="server" Text=" (Time should be in 24-hours format)" Font-Bold="true" ForeColor="lightgray"></asp:Label>
-                                           </tr>
-                                           <%--<thead>
-                                               <tr>
-                                                   <th>Date:<asp:Label ID="Label7" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                                   <th class="tablePadding">HH:<asp:Label ID="Label10" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                                   <th class="tablePadding">MM:<asp:Label ID="Label11" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                                   <th class="tablePadding">AM/PM:<asp:Label ID="Label12" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                               </tr>
-                                           </thead>--%>
-                                           <tbody>
-                                               <tr>
-                                                   <td>
-                                                       <asp:TextBox class="form-control" ID="startDateTime" placeholder="DD/MM/YYYY" runat="server"
-                                                           TextMode="DateTime"></asp:TextBox>
-                                                       
-                                                   </td>
-                                                  <%-- <td class="tablePadding">
-                                                       <asp:DropDownList CssClass="form-control" ID="dpHours" runat="server">
-                                                           <asp:ListItem Value="0">HH</asp:ListItem>
-                                                           <asp:ListItem>01</asp:ListItem>
-                                                           <asp:ListItem>02</asp:ListItem>
-                                                           <asp:ListItem>03</asp:ListItem>
-                                                           <asp:ListItem>04</asp:ListItem>
-                                                           <asp:ListItem>05</asp:ListItem>
-                                                           <asp:ListItem>06</asp:ListItem>
-                                                           <asp:ListItem>07</asp:ListItem>
-                                                           <asp:ListItem>08</asp:ListItem>
-                                                           <asp:ListItem>09</asp:ListItem>
-                                                           <asp:ListItem>10</asp:ListItem>
-                                                           <asp:ListItem>11</asp:ListItem>
-                                                           <asp:ListItem>12</asp:ListItem>
-                                                       </asp:DropDownList></td>
-                                                   <td class="tablePadding">
-                                                       <asp:DropDownList CssClass="form-control" ID="dpMinutes" runat="server"></asp:DropDownList></td>
-                                                   <td class="tablePadding">
-                                                       <asp:DropDownList CssClass="form-control" ID="dpAMPM" runat="server">
-                                                           <asp:ListItem>AM</asp:ListItem>
-                                                           <asp:ListItem>PM</asp:ListItem>
-                                                       </asp:DropDownList>
-                                                       
-                                                   </td>
-                                               --%>
-                                               </tr>
-                                           </tbody>
-                                       </table>
+                                       <div class="form-group">
+                                           <label>Start Date:</label>
+
+                                            <div>
+                                               <div style="">
+                                               <asp:TextBox style="float:left; width:90%;" class="form-control" ID="startDateTime"  runat="server"
+                                               TextMode="DateTime"></asp:TextBox>
+                                               <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" /> <br /></div>
+                                           </div>
+                                          
+                                           <div style="width:100%;">
+                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="startDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please start enter date."></asp:RequiredFieldValidator>
+                                               </div>
+                                       </div>
                                    </div>
-                                   <div class="form-group">
-                                       <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="startDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please start enter date."></asp:RequiredFieldValidator>
-                                      <%-- <asp:RequiredFieldValidator  ID="Req_ID"
-                                           Display="Dynamic" runat="server"
-                                           ControlToValidate="dpHours" SetFocusOnError="true"
-                                           InitialValue="0" ErrorMessage="Please select Hours.">
-                                       </asp:RequiredFieldValidator>
-                                       <asp:RequiredFieldValidator  ID="RequiredFieldValidator3"
-                                           Display="Dynamic" runat="server"
-                                           ControlToValidate="dpMinutes" SetFocusOnError="true"
-                                           InitialValue="MM" ErrorMessage="Please select Minutes.">
-                                       </asp:RequiredFieldValidator>
-                                       --%>
-                                   </div>
-                                    <div class="form-group">
-                                       <table style="width: 100%;">
-                                           <tr>
-                                               <label>
-                                                   Activity finish date:</label><asp:Label ID="Label4" runat="server" Text=" (Time should be in 24-hours format)" Font-Bold="true" ForeColor="lightgray"></asp:Label>
-                                           </tr>
-                                           <%--<thead>
-                                               <tr>
-                                                   <th>Date:<asp:Label ID="Label9" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                                   <th class="tablePadding">HH:<asp:Label ID="Label3" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                                   <th class="tablePadding">MM:<asp:Label ID="Label5" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                                   <th class="tablePadding">AM/PM:<asp:Label ID="Label6" runat="server" Text="*" ForeColor="Red"></asp:Label></th>
-                                               </tr>
-                                           </thead>--%>
-                                           <tbody>
-                                               <tr>
-                                                   <td>
-                                                       <asp:TextBox class="form-control" ID="txtfinishDateTime" placeholder="DD/MM/YYYY" runat="server"
-                                                           TextMode="DateTime"></asp:TextBox>
-                                                   </td>
-                                                 <%--  <td class="tablePadding">
-                                                       <asp:DropDownList CssClass="form-control" ID="dpHoursFinish" runat="server">
-                                                           <asp:ListItem Value="0">HH</asp:ListItem>
-                                                           <asp:ListItem>01</asp:ListItem>
-                                                           <asp:ListItem>02</asp:ListItem>
-                                                           <asp:ListItem>03</asp:ListItem>
-                                                           <asp:ListItem>04</asp:ListItem>
-                                                           <asp:ListItem>05</asp:ListItem>
-                                                           <asp:ListItem>06</asp:ListItem>
-                                                           <asp:ListItem>07</asp:ListItem>
-                                                           <asp:ListItem>08</asp:ListItem>
-                                                           <asp:ListItem>09</asp:ListItem>
-                                                           <asp:ListItem>10</asp:ListItem>
-                                                           <asp:ListItem>11</asp:ListItem>
-                                                           <asp:ListItem>12</asp:ListItem>
-                                                       </asp:DropDownList></td>
-                                                   <td class="tablePadding">
-                                                       <asp:DropDownList CssClass="form-control" ID="dpMinutesFinish" runat="server"></asp:DropDownList></td>
-                                                   <td class="tablePadding">
-                                                       <asp:DropDownList CssClass="form-control" ID="dpAMPMFinsih" runat="server">
-                                                           <asp:ListItem>AM</asp:ListItem>
-                                                           <asp:ListItem>PM</asp:ListItem>
-                                                       </asp:DropDownList></td>--%>
-                                               </tr>
-                                           </tbody>
-                                       </table>
-                                   </div>
-                                   <div class="form-group">
-                                       <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtfinishDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please start enter date."></asp:RequiredFieldValidator>
-                                      <%-- <asp:RequiredFieldValidator  ID="RequiredFieldValidator6"
-                                           Display="Dynamic" runat="server"
-                                           ControlToValidate="dpHoursFinish" SetFocusOnError="true"
-                                           InitialValue="0" ErrorMessage="Please select Hours.">
-                                       </asp:RequiredFieldValidator>
-                                       <asp:RequiredFieldValidator  ID="RequiredFieldValidator7"
-                                           Display="Dynamic" runat="server"
-                                           ControlToValidate="dpMinutesFinish" SetFocusOnError="true"
-                                           InitialValue="MM" ErrorMessage="Please select Minutes.">
-                                       </asp:RequiredFieldValidator>
-                                       --%>
-                                   </div>
-                                   <div class="form-group">
+                                                               
+                                   
+                                   <div class="form-group" style="margin-top: 27px;">
                                        <label>Site</label><asp:Label ID="Label2" runat="server" Text="*" ForeColor="Red"></asp:Label>
                                        <asp:TextBox class="form-control" ID="TextBox_site" runat="server" placeholder="Site Name" ToolTip="Activity Site"></asp:TextBox>
                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBox_site" Display="Dynamic" runat="server" ErrorMessage="Please enter Site of Activity!!"></asp:RequiredFieldValidator>

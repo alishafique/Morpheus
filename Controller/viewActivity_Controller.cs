@@ -71,7 +71,7 @@ namespace Controller
             }
         }
 
-        public bool UpdateActivityByCompany(Activity objAct, int ActivityId)
+        public bool UpdateActivityByCompany(Activity objAct, int ActivityId, int assignedTo)
         {
             try
             {
@@ -79,13 +79,13 @@ namespace Controller
                 strQuery = "UpdateActivityByCompany";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@actID", SqlDbType.BigInt).Value = ActivityId;
-                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = objAct.assigneduserID;
+                cmd.Parameters.Add("@AssignedToUserID", SqlDbType.BigInt).Value = assignedTo;
                 cmd.Parameters.Add("@Activity_Name", SqlDbType.VarChar).Value = objAct.activity_Name;
                 cmd.Parameters.Add("@Activity_Location", SqlDbType.VarChar).Value = objAct.activity_Location;
-                cmd.Parameters.Add("@Activity_Type", SqlDbType.DateTime).Value = objAct.activity_Type;
-                cmd.Parameters.Add("@Activity_Description", SqlDbType.BigInt).Value = objAct.activity_Description;
+                cmd.Parameters.Add("@Activity_Type", SqlDbType.VarChar).Value = objAct.activity_Type;
+                cmd.Parameters.Add("@Activity_Description", SqlDbType.VarChar).Value = objAct.activity_Description;
                 cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = objAct.activity_Status;
-                
+                cmd.Parameters.Add("@startDate", SqlDbType.VarChar).Value = objAct.StartDate;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
                 else
