@@ -86,6 +86,7 @@ namespace Controller
                 cmd.Parameters.Add("@Activity_Description", SqlDbType.VarChar).Value = objAct.activity_Description;
                 cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = objAct.activity_Status;
                 cmd.Parameters.Add("@startDate", SqlDbType.VarChar).Value = objAct.StartDate;
+                cmd.Parameters.Add("@formsAttached", SqlDbType.VarChar).Value = objAct.FormsURL;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
                 else
@@ -95,6 +96,29 @@ namespace Controller
                 }
             }
             catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
+        public bool deleteCompanyCreatedActivity(int actID)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "deleteCompanyCreatedActivity";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@ActivityID", SqlDbType.BigInt).Value = actID;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch (Exception ex)
             {
                 ErrorString = ex.Message;
                 return false;

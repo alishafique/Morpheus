@@ -6,7 +6,7 @@
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;dy 
+    -ms-text-size-adjust: 100%;
 }
 
 body {
@@ -128,7 +128,7 @@ code, kbd, pre, samp {
 }
 
 button, input, optgroup, select, textarea {
-    margin: 0;
+  margin: 0;
     font: inherit;
     color: inherit;
 }

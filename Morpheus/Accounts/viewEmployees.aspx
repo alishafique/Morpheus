@@ -299,7 +299,7 @@
                                            runat="server" Text="Update Profile" OnClick="btnUpdateEmployeeProfile_Click" />
                                            </div>
 
-                                       <div class="col-lg-6">
+                                       <div class="col-lg-6" style="display:none;">
                                            <h1>Upload Your Documents</h1>
 
                                            <div class="form-group">

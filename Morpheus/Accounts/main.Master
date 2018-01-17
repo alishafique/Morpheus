@@ -81,12 +81,56 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.min.js" type="text/javascript"></script>
-   
+     <script src="../scripts/jquery.signalR-2.2.2.min.js" type="text/javascript"></script>
+    <script src="/signalR/hubs" type="text/javascript"></script>
+     <script type="text/javascript">
+
+          $(function () {
+
+              // Proxy created on the fly
+              var job = $.connection.myHub;
+
+              // Declare a function on the job hub so the server can invoke it
+              job.client.displayStatus = function () {
+                 
+                  getData();
+              };
+
+              // Start the connection
+              $.connection.hub.start();
+              getData();
+          });
+
+          function getData() {
+              var $tbl = $('#tbl');
+              $.ajax({
+                  url: 'Dashboard.aspx/GetData',
+                  contentType: "application/json; charset=utf-8",
+                  dataType: "json",
+                  type: "POST",
+                  success: function (data) {
+                      //debugger;
+                      if (data.d.length > 0) {
+                          var newdata = data.d;
+                          $tbl.empty();
+                          //$tbl.append(' <tr><th>ID</th><th>Name</th><th>Last Executed Date</th><th>Status</th></tr>');
+                          var rows = [];
+
+                          for (var i = 0; i < newdata.length; i++) {
+                              rows.push('<li><a href="#"><div>' + newdata[i].id + ' incident Reports<span class="pull-right text-muted small">4 minutes ago</span></div></a></li><li class="divider"></li>');
+                          }
+                          $tbl.append(rows.join(''));
+                      }
+                  }
+              });
+          }
+    </script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    
     <form id="form1" runat="server">
      <div id="wrapper">
         <!-- Navigation -->

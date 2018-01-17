@@ -1,8 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Morpheus.Accounts.AdminDashboard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div id="page-wrapper">
+         <%--<table id="tbl"></table>--%>
            <div class="row">
                <div class="col-lg-12">
                    <h1 class="page-header">
@@ -18,6 +20,56 @@
                </div>
 
                <div class="col-lg-12">
+                   <div class="col-lg-3 col-md-6">
+                       <div class="panel panel-green" id="EmployeeCount" runat="server">
+                           <div class="panel-heading">
+                               <div class="row">
+                                   <div class="col-xs-3">
+                                       <i class="fa fa-user fa-5x"></i>
+                                   </div>
+                                   <div class="col-xs-9 text-right">
+                                       <div class="huge">
+                                           <asp:Label ID="lblEmployeeCount" runat="server" Text=""></asp:Label>
+                                       </div>
+                                       <div>
+                                           Employee(s)
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <a href="#">
+                               <div class="panel-footer">
+                                   <span class="pull-left">View Details</span> <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                   <div class="clearfix">
+                                   </div>
+                               </div>
+                           </a>
+                       </div>
+                   </div>
+                   <div class="col-lg-3 col-md-6">
+                       <div class="panel panel-red" id="incidentReportPanel" runat="server">
+                           <div class="panel-heading">
+                               <div class="row">
+                                   <div class="col-xs-3">
+                                       <i class="fa fa-support fa-5x"></i>
+                                   </div>
+                                   <div class="col-xs-9 text-right">
+                                       <div class="huge">
+                                           <asp:Label ID="lblIncidentReportCount" runat="server" Text=""></asp:Label>
+                                       </div>
+                                       <div>Incident Reports</div>
+                                   </div>
+                               </div>
+                           </div>
+                           <a href="#">
+                               <div class="panel-footer">
+                                   <span class="pull-left">View Details</span>
+                                   <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                   <div class="clearfix"></div>
+                               </div>
+                           </a>
+                       </div>
+                   </div>
                    <div style="float:right;">
                    <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="White" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="190px" NextPrevFormat="FullMonth" Width="350px">
                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" />

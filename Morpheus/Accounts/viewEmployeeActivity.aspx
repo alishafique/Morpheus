@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewEmployeeActivity.aspx.cs" Inherits="Morpheus.Accounts.viewEmployeeActivity" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <style type="text/css">
       .hidden-field {
@@ -10,6 +11,32 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+    <style type="text/css">
+
+        .Background {
+            background-color: Black;
+            filter: alpha(opacity=90);
+            opacity: 0.8;
+        }
+
+        .Popup {
+            background-color: #FFFFFF;
+            border-width: 3px;
+            border-style: solid;
+            border-color: black;
+            padding-top: 10px;
+            padding-left: 10px;
+            width: 80%;
+            height: 80%;
+        }
+
+        .lbl {
+            font-size: 16px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+    </style>
 
      <!-- DataTables JavaScript -->
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -25,6 +52,9 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+
+</asp:ScriptManager>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -118,8 +148,20 @@
                             <asp:Label ID="lblStartDate" runat="server" Text=""></asp:Label>
                         </div>
 
-                        <asp:Button ID="btnStart" class="btn btn-success btn-lg" runat="server" Text="Start Activity" OnClick="btnStart_Click" />
+                        <asp:Button ID="btnStart" class="btn btn-success btn-lg" runat="server" Text="Start Activity" OnClick="btnStart_Click"/>
                     </div>
+
+
+
+                    <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="btnStart"
+                        CancelControlID="btnSubmitSurvey" BackgroundCssClass="Background">
+                    </cc1:ModalPopupExtender>
+                    <asp:Panel ID="Panl1" runat="server" CssClass="Popup" align="center" Style="display: none">
+                        <iframe style="width: 100%; height: 100%;" id="irm1" src="survey.aspx" runat="server"></iframe>
+                        <br />
+                        <asp:Button ID="btnSubmitSurvey" runat="server" Text="Submit" />
+                    </asp:Panel>
+
 
                 </div>
             </div>

@@ -169,6 +169,10 @@
                                          <ItemStyle CssClass="hidden-field" />
                                        <HeaderStyle CssClass="hidden-field" />
                                    </asp:BoundField>
+                                   <asp:BoundField  DataField="formsAttached" HeaderText="formsAttached">
+                                         <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
                                  
                                 <asp:CommandField ShowDeleteButton="True"  ButtonType="Button" />
                                </Columns>
@@ -242,6 +246,15 @@
                                            <label>Start Date:</label>
                                            <asp:TextBox ID="TextBox_startDate" CssClass="form-control" runat="server"></asp:TextBox>
                                        </div>
+                                        <div class="form-group" style="">
+                                            <label>Select forms to assign:</label>
+                                            <div class="checkbox" style="margin-left: 25px;">
+                                                <asp:CheckBoxList ID="cbFormsList" runat="server" >
+                                                    <asp:ListItem Value="forms/SafetyFormQuestionair.aspx">SafetyFormQuestionair</asp:ListItem>
+                                                    <asp:ListItem Value="forms/Induction.aspx">Induction Form</asp:ListItem>
+                                                </asp:CheckBoxList>
+                                            </div>
+                                        </div>
                                        <asp:Button ID="btnUpdateActivity" type="submit" class="btn btn-primary btn-lg btn-block"
                                            runat="server" Text="Update" OnClick="btnUpdateActivity_Click" />
                                    </div>

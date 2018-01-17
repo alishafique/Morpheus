@@ -30,26 +30,28 @@ namespace Morpheus.Accounts
                 log_in._UserName = txtbox_userName.Text;
                 log_in._Password = txtbox_Password.Text;
                 dtUser = log_in.Validate_User();
-
-                if (dtUser.Rows.Count > 0)
+                if (dtUser != null)
                 {
-                    if (dtUser.Rows[0]["active_status"].ToString() == "1")
+                    if (dtUser.Rows.Count > 0)
                     {
-                        Session["userid"] = dtUser.Rows[0]["user_id"].ToString();
-                        Session["UserName"] = dtUser.Rows[0]["user_name"].ToString();
-                        Session["UserTypeID"] = dtUser.Rows[0]["role_id"].ToString();
-                        Response.Redirect("Dashboard.aspx");
+                        if (dtUser.Rows[0]["active_status"].ToString() == "1")
+                        {
+                            Session["userid"] = dtUser.Rows[0]["user_id"].ToString();
+                            Session["UserName"] = dtUser.Rows[0]["user_name"].ToString();
+                            Session["UserTypeID"] = dtUser.Rows[0]["role_id"].ToString();
+                            Response.Redirect("Dashboard.aspx");
+                        }
+                        else
+                            showErrorMessage("Your UserName is In Active. Please contact administrator..", false);
+                        
                     }
                     else
                     {
-                        showErrorMessage("Your UserName is In Active. Please contact administrator..", false);
-               
+                        showErrorMessage("Please enter valid User Name and Password.", false);
                     }
                 }
                 else
-                {
-                    showErrorMessage("Please enter valid User Name and Password.", false);
-                }
+                    showErrorMessage(log_in._errorMsg, false);
             }
             catch (Exception ex)
             {

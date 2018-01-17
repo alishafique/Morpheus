@@ -96,6 +96,7 @@ namespace Morpheus
                 objCreateAct = new createActivity_Controller();
                 int[] listAssing = new int[listEmployees.Items.Count];
                 string[] getID = textbox_createdBy.Text.Split('-');
+                string formsArrayURL = "";
                 objAct.companyCreatedID = int.Parse(getID[0]);// Created by Company's ID
 
                // string[] selectAssignedTo = listEmployees.SelectedValue.Split('-');
@@ -106,7 +107,17 @@ namespace Morpheus
                 objAct.activity_Description = TextBox_Description.Text;
                 objAct.activity_Status = "";
                 objAct.StartDate = startDateTime.Text;
-                    for (int i = 0; i < listEmployees.Items.Count; i++)
+
+                foreach (ListItem item in cbFormsList.Items)
+                {
+                    if (item.Selected)
+                    {
+                        formsArrayURL += item.Value+",";
+                    }
+                }
+
+                objAct.FormsURL = formsArrayURL.TrimEnd(','); ;
+                for (int i = 0; i < listEmployees.Items.Count; i++)
                     {
                         if (listEmployees.Items[i].Selected)
                         {

@@ -191,8 +191,6 @@ namespace Morpheus
                 showErrorMessage(ex.Message, false);
             }
         }
-
-
         private void splitAdd(string add)
         {
             string[] temp = add.Split(',');

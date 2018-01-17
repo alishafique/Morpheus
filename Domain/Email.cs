@@ -32,8 +32,28 @@ namespace Domain
                 Email.masterEmail(_to, _subject, Body);
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
+                Error = ex.Message;
+                return false;
+            }
+        }
+        public static bool ContactUsEmail(string _name, string _email, string _phone , string _msg)
+        {
+            try
+            {
+                string _to = "admin@segura.com.au";
+                string _subject = ("Inquiry From Segura.com.au");
+                string Body = "<b>Sender Name:</b> " + _name + " <br/> "
+                          + "<b>Sender Email : </b>" + _email + "<br/>"
+                           + "<b>Sender Phone : </b>" + _phone + "<br/>"
+                          + "<b>Comments : </b>" + _msg;
+                Email.masterEmail(_to, _subject, Body);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Error = ex.Message;
                 return false;
             }
         }
@@ -86,7 +106,6 @@ namespace Domain
                 return false;
             }
         }
-
         public static bool companyDeActivation(string _to, string _name)
         {
 
@@ -112,7 +131,6 @@ namespace Domain
                 return false;
             }
         }
-
         public static bool SendPasswordResetEmail(string _to, string UserName, string UniqueId)
         {
 
@@ -134,7 +152,6 @@ namespace Domain
                 return false;
             }
         }
-
         private static void masterEmail(string _to,string _subject, string _body)
         {
             MailMessage _mail = new MailMessage();
@@ -153,8 +170,6 @@ namespace Domain
             _smtp.EnableSsl = true;
             _smtp.Send(_mail);
         }
-
-
         public void Close()
         {
             throw new NotImplementedException();

@@ -207,5 +207,61 @@ namespace Controller
             dt = con.GetDataUsingSp(cmd);
             return dt;
         }
+
+        public Int64 CountIncidentReports(int rptToID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spCountIncidentReports";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@reportedTo", SqlDbType.BigInt).Value = rptToID;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                {
+                    return Int64.Parse(dt.Rows[0]["count"].ToString());
+                }
+                else
+                {
+                    ErrorString = con.strError;
+                    return 0;
+                }
+               
+      
+            }
+            catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return 0;
+            }
+        }
+        public Int64 EmployeeCount(int _Id)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spEmployeeCount";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@createdByCompanyId", SqlDbType.BigInt).Value = _Id;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                {
+                    return Int64.Parse(dt.Rows[0]["count"].ToString());
+                }
+                else
+                {
+                    ErrorString = con.strError;
+                    return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return 0;
+            }
+        }
     }
 }

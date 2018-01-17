@@ -229,6 +229,15 @@ namespace Morpheus {
         protected global::System.Web.UI.WebControls.TextBox textbox_Status;
         
         /// <summary>
+        /// cbFormsList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cbFormsList;
+        
+        /// <summary>
         /// btnAddActivity control.
         /// </summary>
         /// <remarks>

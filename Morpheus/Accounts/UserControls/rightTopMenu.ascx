@@ -11,8 +11,10 @@
       color:#1A0006; 
     } 
   </style> 
+   
+  
 <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                <%--<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
@@ -62,15 +64,17 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                <!-- /.dropdown -->
+                <!-- /.dropdown -->--%>
               
                 <!-- /.dropdown -->
-                <li class="dropdown">
+                <li class="dropdown" >
+                    
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-bell fa-fw"></i> <asp:Label ID="lblNotification" runat="server" Text=""></asp:Label> <i class="fa fa-caret-down"></i>
+                        
                     </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
+                    <ul class="dropdown-menu dropdown-alerts" id ="tbl">
+                       <%-- <li>
                             <a href="#">
                                 <div>
                                     <i class="fa fa-comment fa-fw"></i> New Comment
@@ -120,7 +124,8 @@
                                 <strong>See All Alerts</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        </li>
+                        </li>--%>
+                       
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>

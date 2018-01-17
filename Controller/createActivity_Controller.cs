@@ -38,6 +38,7 @@ namespace Controller
                 cmd.Parameters.Add("@Activity_Description", SqlDbType.VarChar).Value = obj.activity_Description;
                 cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = obj.activity_Status;
                 cmd.Parameters.Add("@startDate", SqlDbType.VarChar).Value = obj.StartDate;
+                cmd.Parameters.Add("@formsAttached", SqlDbType.VarChar).Value = obj.FormsURL;
 
                 val = con.InsertUpdateDataUsingSpWithReturn(cmd);
                 return val;

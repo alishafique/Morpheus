@@ -20,7 +20,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header" style="color:rgb(64, 64, 64);">
                         Contact Us</h1>
-                        <%--<asp:Label ID="lblErrorMessage" runat="server" Font-Bold="true" Font-Size="14" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>--%>
+                    <%--<asp:Label ID="lblErrorMessage" runat="server" Font-Bold="true" Font-Size="14" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>--%>
                       <div class="alert alert-success alert-dismissable" id="successMsg" style="display: none;" runat="server">
                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                <asp:Label ID="lblsuccessmsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label></a>.          
@@ -49,28 +49,45 @@
                                     <form role="form">
                                        
                                             <div class="form-group">
-                                                <label>First Name:</label>
-                                                <asp:TextBox CssClass="form-control" placeholder="Enter First Name" ID="TextBox1" runat="server"></asp:TextBox>
+                                                <label>Name:</label>
+                                                <asp:TextBox CssClass="form-control" placeholder="Enter Full Name" ID="txtName" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="nameReq" runat="server" ControlToValidate="txtName"
+                                                ErrorMessage="Name Required" SetFocusOnError="True" Display="Dynamic" />
                                             </div>
-                                        <div class="form-group">
-                                            <label>Last Name:</label>
-                                            <asp:TextBox CssClass="form-control" placeholder="Enter Last Name" ID="TextBox2" runat="server"></asp:TextBox>
-                                        </div>
-                                             
+                                                                                  
                                            <div class="form-group">
                                                <label>Email:</label>
-                                               <asp:TextBox CssClass="form-control" placeholder="Enter Email Address" ID="TextBox3" runat="server"></asp:TextBox>
+                                               <asp:TextBox CssClass="form-control" placeholder="Enter Email Address" ID="txtEmail" runat="server"></asp:TextBox>
+                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtEmail"
+                                                ErrorMessage="Email Required" SetFocusOnError="True" Display="Dynamic" />
                                            </div>
                                         <div class="form-group">
                                             <label>Phone:</label>
-                                            <asp:TextBox CssClass="form-control" placeholder="Enter Phone Number" ID="TextBox4" runat="server"></asp:TextBox>
+                                            <asp:TextBox CssClass="form-control" placeholder="Enter Phone Number" ID="txtPhone" runat="server"></asp:TextBox>
                                         </div>
                                         <div class="form-group">
                                             <label>Your Message:</label>
-                                            <asp:TextBox CssClass="form-control" placeholder="Enter Your Message" TextMode="MultiLine" Rows="6" ID="TextBox5" runat="server"></asp:TextBox>
+                                            <asp:TextBox CssClass="form-control" placeholder="Enter Your Message" TextMode="MultiLine" Rows="6" ID="txtMessage" runat="server"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtMessage"
+                                                ErrorMessage="Comments Required" SetFocusOnError="True" Display="Dynamic" />
                                         </div>
-                                         <asp:Button ID="btnAddActivity" type="submit" class="btn btn-primary btn-lg btn-block"
-                                       runat="server" Text="Submit"/>
+                                        <p>
+                                            <label for="CaptchaCodeTextBox">
+                                                Retype the characters from the picture:</label><asp:Label ID="Label10" runat="server" Text="*" ForeColor="Red"></asp:Label>
+                                        </p>
+                                        <BotDetect:WebFormsCaptcha runat="server" ID="ExampleCaptcha"
+                                            UserInputControlID="CaptchaCodeTextBox" />
+                                        <div class="form-group">
+                                            <asp:TextBox CssClass="form-control" ID="CaptchaCodeTextBox" runat="server"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="CaptchaCodeTextBox"
+                                                ErrorMessage="Please enter Captcha!!!!" SetFocusOnError="True" Display="Dynamic" />
+                                            <%--<asp:Button ID="ValidateCaptchaButton" runat="server" />--%>
+                                            <asp:Label ID="CaptchaCorrectLabel" runat="server" Font-Size="16" ForeColor="Green"></asp:Label>
+                                            <asp:Label ID="CaptchaIncorrectLabel" Font-Size="16" ForeColor="Red" runat="server"
+                                                CssClass="incorrect"></asp:Label>
+                                        </div>
+                                         <asp:Button ID="btnContactUs" type="submit" class="btn btn-primary btn-lg btn-block"
+                                       runat="server" Text="Submit" OnClick="btnContactUs_Click"/>
                                     </form>
                                 
                                 <!-- /.col-lg-6 (nested) -->

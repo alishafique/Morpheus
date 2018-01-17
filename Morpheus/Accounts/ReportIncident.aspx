@@ -229,7 +229,7 @@
                                         <label>
                                             Attach Images: (Max 2 Files)</label>
                                         <asp:FileUpload AllowMultiple="true" runat="server" ID="fUploadCtrl" />
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="fUploadCtrl" ErrorMessage="File Required!" Display="Dynamic" />
+                                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="fUploadCtrl" ErrorMessage="File Required!" Display="Dynamic" />--%>
                                         <asp:RegularExpressionValidator id="RegularExpressionValidator1" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
                                             ValidationExpression ="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$" ControlToValidate="fUploadCtrl" Display="Dynamic" />
                                     </div>

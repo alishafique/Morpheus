@@ -41,7 +41,7 @@
                     <asp:RadioButton ID="RadioButton8" runat="server" Text="No" />
                 </div>
                 
-                <asp:Button ID="BtnSubmit" CssClass="btn btn-primary btn-lg btn-block" runat="server" Text="Button" />
+                <asp:Button ID="BtnSubmit" CssClass="btn btn-primary btn-lg btn-block" runat="server" Text="Submit" />
 
             </div>
         </div>

@@ -91,25 +91,31 @@ namespace Morpheus
 
                 if (result > 0)
                 {
-                    bool filesUploaded = SaveFiles(result);
-
-                    if (filesUploaded)
+                    if (fUploadCtrl.HasFile)
+                    {
+                        bool filesUploaded = SaveFiles(result);
+                        if (filesUploaded)
+                        {
+                            showErrorMessage("Reported Successfully.", true);
+                            clearTextbox();
+                        }
+                        else
+                        {
+                            //todo: log error here
+                            showErrorMessage("Report submitted but Unable to upload Image", false);
+                            fUploadCtrl.Enabled = false;
+                            clearTextbox();
+                        }
+                    }
+                    else
                     {
                         showErrorMessage("Reported Successfully.", true);
                         clearTextbox();
                     }
-                    else
-                    {
-                        //todo: log error here
-                        showErrorMessage("Report submitted but Unable to upload Image", false);
-                        fUploadCtrl.Enabled = false;
-                        clearTextbox();
-                    }
                 }
                 else
-                {
-                    showErrorMessage("Unable to create Incident report: "+ obj.ErrorString, false);
-                }
+                    showErrorMessage("Unable to create Incident report: " + obj.ErrorString, false);
+                
             }
             catch (Exception ex)
             {
@@ -119,8 +125,8 @@ namespace Morpheus
 
         private void clearTextbox()
         {
-            txtbox_ReportedBy.Text = "";
-            txtbox_dateTimePicker.Text = "";
+            txtbox_ReportedBy.Text = (Session["UserName"].ToString());
+            txtbox_dateTimePicker.Text = DateTime.Now.ToString();
             dp_severityLevel.SelectedIndex = 0;
             txtbox_siteName.Text = "";
             txtbox_Description.Text = "";
