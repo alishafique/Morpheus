@@ -53,6 +53,15 @@ namespace Morpheus.Accounts
                 dt = objviewEditCompanies.populateCompanyGridview();
                 if (dt != null)
                 {
+                    dt.Columns.Add("Status1", typeof(string)); // added column of age.
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        //dt.Rows[i]["Age"] = getAge(dt.Rows[i]["DOB"].ToString());
+                        if (dt.Rows[i]["Status"] + string.Empty == "1")
+                            dt.Rows[i]["Status1"] = "Active";
+                        else
+                            dt.Rows[i]["Status1"] = "Disabled";
+                    }
                     dtgridview_companies.DataSource = dt;
                     dtgridview_companies.DataBind();
                 }

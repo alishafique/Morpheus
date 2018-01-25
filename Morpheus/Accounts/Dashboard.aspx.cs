@@ -59,13 +59,16 @@ namespace Morpheus.Accounts
             {
                 string _empCt = string.Empty;
                 _empCt = objController.EmployeeCount(int.Parse(Session["userid"].ToString())).ToString();
-                if (_empCt != "0")
+                if (_empCt != "0" && _empCt != "-1")
                 {
                     lblEmployeeCount.Text = _empCt;
                 }
                 else
                 {
-                    showErrorMessage(objController.ErrorString, false);
+                    if(_empCt == "-1")
+                        lblEmployeeCount.Text = "0";
+                    else
+                        showErrorMessage(objController.ErrorString, false);
                 }
             }
             catch (Exception ex)
@@ -135,6 +138,11 @@ namespace Morpheus.Accounts
         private static void dependency_OnChange(object sender, SqlNotificationEventArgs e)
         {
             MyHub.Show();
+        }
+
+        protected void btnUploadLogo_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

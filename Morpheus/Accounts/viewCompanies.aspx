@@ -71,7 +71,11 @@
                                    <asp:BoundField  DataField="Email" HeaderText="Email"/>
                                    <asp:BoundField  DataField="MemberShip" HeaderText="MemberShip"/>
                                    <asp:BoundField  DataField="Type" HeaderText="Type"/>
-                                   <asp:BoundField  DataField="Status" HeaderText="Status"/>
+                                   <asp:BoundField  DataField="Status" HeaderText="Status">
+                                        <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
+                                   <asp:BoundField  DataField="Status1" HeaderText="Status"/>
                                </Columns>
                                <PagerSettings /><PagerStyle HorizontalAlign = "left" CssClass = "dataTables_paginate paging_simple_numbers" />
                                <FooterStyle BackColor="#FF3399"></FooterStyle>

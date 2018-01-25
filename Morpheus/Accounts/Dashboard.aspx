@@ -1,6 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Morpheus.Accounts.AdminDashboard" %>
+
+<%@ Register Assembly="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.EditorControls" TagPrefix="ig" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   
+    <%--<script type="text/javascript">  
+          function ShowImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#<%=impPrev.ClientID%>').prop('src', e.target.result)
+                        .width(240);
+                };
+                reader.readAsDataURL(input.files[0]);
+                }
+            }
+    </script>  --%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div id="page-wrapper">
@@ -18,7 +31,13 @@
                        <asp:Label ID="lblErrorMsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.                             
                    </div>
                </div>
-
+               
+                <%-- <div style="float:right;">
+                <asp:Image ID="impPrev" runat="server" Height="150px" />
+            <asp:FileUpload ID="fUpLogo" runat="server" class="uploadFile form-group" onchange="ShowImagePreview(this);"  placeholder="Choose Logo" />  
+            <asp:Button ID="btnUploadLogo" runat="server" CssClass="btn btn-primary btn-xs" Text="Upload" OnClick="btnUploadLogo_Click"></asp:Button>
+             <asp:Label ID="lblError" ForeColor="Red" runat="server" Text=""></asp:Label>
+                    </div>--%>
                <div class="col-lg-12">
                    <div class="col-lg-3 col-md-6">
                        <div class="panel panel-green" id="EmployeeCount" runat="server">
@@ -84,4 +103,6 @@
                <!-- /.col-lg-12 -->
            </div>
          </div>
+
+    
 </asp:Content>

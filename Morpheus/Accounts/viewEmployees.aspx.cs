@@ -382,16 +382,16 @@ namespace Morpheus.Accounts
                         string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
                         string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
                         string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
-                        if (!System.IO.Directory.Exists(fullDirectoryPath))
+                        if (!Directory.Exists(fullDirectoryPath))
                         {
-                            System.IO.Directory.CreateDirectory(fullDirectoryPath);
+                            Directory.CreateDirectory(fullDirectoryPath);
                         }
 
                         //string[] imgNam = fileNameWithPath.Split('/');
                         dt = objEmp.loadEmployeePrfileImageURL(int.Parse(TextBox_userId.Text));
                         if (dt.Rows.Count > 0)
                         {
-                            if (!System.IO.File.Exists(Server.MapPath(dt.Rows[0]["profile_imageURL"].ToString())))
+                            if (!File.Exists(Server.MapPath(dt.Rows[0]["profile_imageURL"].ToString())))
                             {
                                 if (objEmp.UpdateProfileEmployeeImage(pathTosave, int.Parse(TextBox_userId.Text)))
                                 {
@@ -414,7 +414,7 @@ namespace Morpheus.Accounts
                             }
                             else
                             {
-                                System.IO.File.Delete(Server.MapPath(dt.Rows[0]["profile_imageURL"].ToString()));
+                                File.Delete(Server.MapPath(dt.Rows[0]["profile_imageURL"].ToString()));
                                 if (objEmp.UpdateProfileEmployeeImage(pathTosave, int.Parse(TextBox_userId.Text)))
                                 {
                                     Stream stream = postedFile.InputStream;
@@ -469,8 +469,6 @@ namespace Morpheus.Accounts
                 thumbnailImg.Save(targetPath, image.RawFormat);
             }
         }
-
-    
 
         protected void btnUploadDocuments_Click(object sender, EventArgs e)
         {

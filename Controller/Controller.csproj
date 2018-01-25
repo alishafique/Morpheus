@@ -50,6 +50,7 @@
     <Compile Include="ActivateDeactivateCompanyAccount_Controller.cs" />
     <Compile Include="Activity.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="AddSubcontractor_Controller.cs" />
     <Compile Include="changePasswordLink_Controller.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="ChangePassword_Controller.cs" />
@@ -68,11 +69,13 @@
     </Compile>
     <Compile Include="IncidentReport.cs" />
     <Compile Include="login_Controller.cs" />
+    <Compile Include="Main_Controller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reportIncident_Controller.cs" />
     <Compile Include="resetPassword_Controller.cs" />
     <Compile Include="SignUp_Controller.cs" />
+    <Compile Include="StartCardQuestionair_Controller.cs" />
     <Compile Include="viewActivity_Controller.cs" />
     <Compile Include="viewEditCompanies_Controller.cs" />
     <Compile Include="viewEditCompanyIncidentReports_Controller.cs" />

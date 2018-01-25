@@ -21,12 +21,12 @@ namespace Morpheus.Accounts
                 {
                     if (Session["UserName"].ToString() != "")
                     {
-                        lblUserName.Text = Session["UserName"].ToString();
+                      //  lblUserName.Text = Session["UserName"].ToString();
                         if (Session["UserTypeID"].ToString() == "2")
                         {
-                            dashboardmenu1.Visible = false;
-                            companySideMenu1.Visible = true;
-                            employeeDashMenu1.Visible = false;
+                            //dashboardmenu1.Visible = false;
+                            //companySideMenu1.Visible = true;
+                            //employeeDashMenu1.Visible = false;
                             loadActivitiesCreatedByCompany();
                             btnUpdateActivity.Enabled = false;
                             listEmployees.Enabled = false;
@@ -105,11 +105,12 @@ namespace Morpheus.Accounts
                 }
 
                 // listEmployees.SelectedIndex = listEmployees.FindControl(row.Cells[2].Text);
-                txtbox_ActivityName.Text = row.Cells[3].Text;
-                TextBox_site.Text = row.Cells[4].Text;
-               dp_ActivityType.SelectedValue = row.Cells[5].Text;
-                TextBox_Description.Text = row.Cells[6].Text;
+                txtbox_ActivityName.Text = row.Cells[3].Text.Trim();
+                TextBox_site.Text = row.Cells[4].Text.Trim();
+               dp_ActivityType.SelectedValue = row.Cells[5].Text.Trim();
+                TextBox_Description.Text = row.Cells[6].Text.Trim().Replace("&nbsp;","");
                 TextBox_startDate.Text = row.Cells[7].Text;
+                textbox_Status.Text = row.Cells[8].Text.Trim();
                 btnUpdateActivity.Enabled = true;
                 listEmployees.Focus();
                 
@@ -181,9 +182,10 @@ namespace Morpheus.Accounts
                 objAct.activity_Name = txtbox_ActivityName.Text;
                 objAct.activity_Location = TextBox_site.Text;
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
-                objAct.activity_Description = TextBox_Description.Text;
-                objAct.activity_Status = textbox_Status.Text;
+                objAct.activity_Description = TextBox_Description.Text.Trim();
+                objAct.activity_Status = textbox_Status.Text.Trim();
                 objAct.StartDate = TextBox_startDate.Text;
+                objAct.activity_Status = textbox_Status.Text;
                 string formsArrayURL = "";
                 foreach (ListItem item in cbFormsList.Items)
                 {

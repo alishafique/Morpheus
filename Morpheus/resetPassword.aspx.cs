@@ -18,30 +18,17 @@ namespace Morpheus
 
         }
 
-        protected void btnAddCompany_Click(object sender, EventArgs e)
+        protected void btnResetPassword_Click(object sender, EventArgs e)
         {
             try
             {
                 objReset = new resetPassword_Controller();
                 dt = new DataTable();
-                //DataTable tempdt = new DataTable();
-                //DataTable dtuserId = new DataTable();
-                //dtuserId = objReset.getUserIDByUserName(txtbox_email.Text);
-                //tempdt = objReset.checkResetPasswordLinkSent(int.Parse(dtuserId.Rows[0]["user_id"].ToString()));
-                //if (tempdt == null)
-                //{
-                //    showErrorMessage(objReset.ErrorString, false);
-                //}
-                //else if (tempdt.Rows.Count == 0)
-                //{
-
                 dt = objReset.spResetPasswordFunc(txtbox_email.Text);
                 if (dt != null)
                 {
                     if (dt.Rows[0]["ReturnCode"].ToString() == "0")
-                    {
                         showErrorMessage("Email does not exsist!!!", false);
-                    }
                     else
                     if (dt.Rows[0]["ReturnCode"].ToString() == "1")
                     {
@@ -49,26 +36,14 @@ namespace Morpheus
                         {
                             showErrorMessage("Password reset link has been sent to your Email", true);
                             txtbox_email.Text = "";
-                            myDiv.Style.Add("display", "none");
-                            
+                            myDiv.Style.Add("display", "none");                           
                         }
                         else
-                        {
                             showErrorMessage(objReset.ErrorString,false);
-                        }
                     }
                 }
                 else
-                {
                     showErrorMessage(objReset.ErrorString, false);
-                }
-                //}
-                //else
-                //{
-                //    showErrorMessage("Email link already sent", false);
-                //}
-
-
             }
             catch(Exception ex)
             {

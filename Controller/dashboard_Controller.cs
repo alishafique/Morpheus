@@ -25,12 +25,26 @@ namespace Controller
         // load membership planes into dropdown menu
         public DataTable loadMemberShipPlanes ()
         {
-            dt = new DataTable();
-            con = new Connection();
-            strQuery = "select membership_id,membership_level,description from membership";
-            cmd = new SqlCommand(strQuery);
-            dt = con.GetData(cmd);
-            return dt;
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "sploadMemberShipPlanes";
+                cmd = new SqlCommand(strQuery);
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
         }
 
         public DataTable loadCompanyTypes()
@@ -248,7 +262,11 @@ namespace Controller
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
                 {
-                    return Int64.Parse(dt.Rows[0]["count"].ToString());
+                    Int64 temp = Int64.Parse(dt.Rows[0]["count"].ToString());
+                    if (temp == 0)
+                        return -1;
+                    else
+                        return temp;
                 }
                 else
                 {

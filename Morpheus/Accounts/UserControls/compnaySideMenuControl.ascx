@@ -20,6 +20,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Employee<span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level">
                                 <li><asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" CausesValidation="false"> Add Employee</asp:LinkButton></li>
+                                 <li><a href="AddSubcontractor.aspx">Add SubContractor</a></li>
                                 <li> <asp:LinkButton ID="LinkButton_ViewEmployees" runat="server" OnClick="LinkButton_ViewEmployees_Click" CausesValidation="false">View Employees</asp:LinkButton> </li>
                             </ul>
                             </li>
@@ -27,8 +28,8 @@
                    
                         <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li> <asp:LinkButton ID="LinkButton_CreateActivity" runat="server" OnClick="LinkButton_CreateActivity_Click" CausesValidation="false">Create Activity</asp:LinkButton> </li>
-                                <li><asp:LinkButton ID="LinkButton_ViewActivities" runat="server" OnClick="LinkButton_ViewActivities_Click" CausesValidation="false">View Activities</asp:LinkButton> </li>
+                                <li> <asp:LinkButton ID="LinkButton_CreateActivity" runat="server" CausesValidation="false" OnClick="LinkButton_CreateActivity_Click">Create Activity</asp:LinkButton> </li>
+                                <li><asp:LinkButton ID="LinkButton_ViewActivities" runat="server" CausesValidation="false" OnClick="LinkButton_ViewActivities_Click">View Activities</asp:LinkButton> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -42,7 +43,7 @@
                         <li><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="#">View Forms</a> </li>
-                                <li><a href="#">Form Builder</a> </li>
+                                <li><a href="FormBuilder.aspx">Form Builder</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

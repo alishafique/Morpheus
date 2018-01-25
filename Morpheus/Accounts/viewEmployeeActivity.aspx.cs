@@ -25,6 +25,10 @@ namespace Morpheus.Accounts
                         {
                             loadEmployeesActivity(int.Parse(Session["userid"].ToString()));
                             btnStart.Enabled = false;
+                            if(Session["SuccessMsg"] != null)
+                            {
+                                showErrorMessage(Session["SuccessMsg"].ToString(), true);
+                            }
                         }
                     }
                     else
@@ -89,9 +93,9 @@ namespace Morpheus.Accounts
                 lblActivity_Name.Text = row.Cells[3].Text;
                 lblActivity_Location.Text = row.Cells[4].Text; 
                 lblActivity_Type.Text= row.Cells[5].Text;
-                lblActivity_Description.Text= row.Cells[6].Text;
-                lblActivity_Status.Text= row.Cells[7].Text;
-                lblStartDate.Text= row.Cells[8].Text;
+                lblActivity_Description.Text= row.Cells[7].Text;
+                lblActivity_Status.Text= row.Cells[9].Text;
+                lblStartDate.Text= row.Cells[6].Text;
                 btnStart.Enabled = true;
                 btnStart.Focus();
 
@@ -108,6 +112,19 @@ namespace Morpheus.Accounts
         }
 
         protected void btnStart_Click(object sender, EventArgs e)
+        {
+            if (lblActivity_Status.Text != "Started")
+            {
+                Session["ActivityId"] = lblActivityID.Text;
+                Response.Redirect("forms/StartCardQuestionair.aspx");
+            }
+            else
+            {
+                showErrorMessage("Unable to start activity. It shows this activity is already been started.", false);
+            }
+        }
+
+        protected void btnSubmitSurvey_Click(object sender, EventArgs e)
         {
             
         }

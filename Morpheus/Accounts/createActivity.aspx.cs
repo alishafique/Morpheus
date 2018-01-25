@@ -23,14 +23,15 @@ namespace Morpheus
                 {
                     if (Session["UserName"].ToString() != "")
                     {
-                        lblUserName.Text = Session["UserName"].ToString();
+                        //lblUserName.Text = Session["UserName"].ToString();
                         if (Session["UserTypeID"].ToString() == "2")
                         {
-                            dashboardmenu1.Visible = false;
-                            companySideMenu1.Visible = true;
-                            employeeDashMenu1.Visible = false;
+                            //dashboardmenu1.Visible = false;
+                            //companySideMenu1.Visible = true;
+                            //employeeDashMenu1.Visible = false;
                             textbox_createdBy.Text = Session["userid"].ToString()+ "-" +Session["UserName"].ToString();
                             loadEmployees();
+                            textbox_Status.Text = "Not-Started";
                             //loadMinutes();
                         }
                     }
@@ -105,7 +106,7 @@ namespace Morpheus
                 objAct.activity_Location = TextBox_site.Text;
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
                 objAct.activity_Description = TextBox_Description.Text;
-                objAct.activity_Status = "";
+                objAct.activity_Status = textbox_Status.Text;
                 objAct.StartDate = startDateTime.Text;
 
                 foreach (ListItem item in cbFormsList.Items)

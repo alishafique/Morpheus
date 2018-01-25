@@ -42,8 +42,8 @@
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtbox_email" runat="server" ErrorMessage="The email field is required." Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                   
-                                        <asp:Button ID="btnAddCompany" type="submit" class="btn btn-primary" runat="server"
-                                        Text="Submit" OnClick="btnAddCompany_Click"  />
+                                        <asp:Button ID="btnResetPassword" type="submit" class="btn btn-primary" runat="server"
+                                        Text="Submit" OnClick="btnResetPassword_Click"  />
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

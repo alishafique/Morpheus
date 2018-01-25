@@ -37,6 +37,15 @@
         }
 
     </style>
+    <style type="text/css">
+        .btnRound {
+            display: block;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            
+        }
+    </style>
 
      <!-- DataTables JavaScript -->
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -52,9 +61,9 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    <%--<asp:ScriptManager ID="ScriptManager1" runat="server">
 
-</asp:ScriptManager>
+</asp:ScriptManager>--%>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -92,15 +101,14 @@
                                    <asp:BoundField DataField="Activity_Name" HeaderText="Activity_Name" />
                                    <asp:BoundField DataField="Activity_Location" HeaderText="Activity Location" />
                                    <asp:BoundField DataField="Activity_Type" HeaderText="Activity Type" />
+                                  <asp:BoundField DataField="startDate" HeaderText="ToStartDate" />
                                    <asp:BoundField DataField="Activity_Description" HeaderText="Description">
                                         <ItemStyle CssClass="hidden-field" />
                                        <HeaderStyle CssClass="hidden-field" />
-                                   </asp:BoundField>
+                                   </asp:BoundField>                               
+                                    <asp:BoundField DataField="ActivityStartedDate" HeaderText="ActivityStartedDate" />
                                    <asp:BoundField DataField="Activity_Status" HeaderText="Status" >
-                                        <ItemStyle CssClass="hidden-field" />
-                                       <HeaderStyle CssClass="hidden-field" />
                                    </asp:BoundField>
-                                   <asp:BoundField DataField="startDate" HeaderText="startDate" />
                                </Columns>
                            </asp:GridView>
 
@@ -128,7 +136,7 @@
                             <asp:Label ID="lblActivity_Name" runat="server" Text=""></asp:Label>
                         </div>
                         <div class="form-group">
-                            <label>Activity Location:</label>
+                            <label>Activity Location:</label><br />
                             <asp:Label ID="lblActivity_Location" runat="server" Text=""></asp:Label>
                         </div>
                          <div class="form-group">
@@ -148,25 +156,26 @@
                             <asp:Label ID="lblStartDate" runat="server" Text=""></asp:Label>
                         </div>
 
-                        <asp:Button ID="btnStart" class="btn btn-success btn-lg" runat="server" Text="Start Activity" OnClick="btnStart_Click"/>
+                        <asp:Button ID="btnStart" class="btn btn-success btn-lg btnRound" runat="server" Text="Start Activity" OnClick="btnStart_Click"/>
                     </div>
 
 
 
-                    <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="btnStart"
+                 <%--   <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="btnStart"
                         CancelControlID="btnSubmitSurvey" BackgroundCssClass="Background">
                     </cc1:ModalPopupExtender>
                     <asp:Panel ID="Panl1" runat="server" CssClass="Popup" align="center" Style="display: none">
                         <iframe style="width: 100%; height: 100%;" id="irm1" src="survey.aspx" runat="server"></iframe>
                         <br />
-                        <asp:Button ID="btnSubmitSurvey" runat="server" Text="Submit" />
-                    </asp:Panel>
+                        <asp:Button ID="btnSubmitSurvey" runat="server" Text="Submit" OnClick="btnSubmitSurvey_Click" />
+                    </asp:Panel>--%>
 
 
                 </div>
             </div>
 
             </div>
-
-    </div>
+        </div>
+       
+    
 </asp:Content>

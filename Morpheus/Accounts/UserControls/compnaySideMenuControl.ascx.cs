@@ -21,7 +21,7 @@ namespace Morpheus.Accounts.UserControls
 
         protected void LinkButton_ViewEmployees_Click(object sender, EventArgs e)
         {
-            Response.Redirect("viewEmployees.aspx");
+            Response.Redirect("ViewEmployeeList.aspx");
         }
 
         protected void LinkButton_CreateActivity_Click(object sender, EventArgs e)
