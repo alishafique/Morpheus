@@ -23,17 +23,20 @@ namespace Morpheus
                 {
                     if (Session["UserName"].ToString() != "")
                     {
-                        //lblUserName.Text = Session["UserName"].ToString();
                         if (Session["UserTypeID"].ToString() == "2")
                         {
-                            //dashboardmenu1.Visible = false;
-                            //companySideMenu1.Visible = true;
-                            //employeeDashMenu1.Visible = false;
                             textbox_createdBy.Text = Session["userid"].ToString()+ "-" +Session["UserName"].ToString();
                             loadEmployees();
                             textbox_Status.Text = "Not-Started";
-                            //loadMinutes();
                         }
+                        else if(Session["UserTypeID"].ToString() == "4")
+                        {
+                            textbox_createdBy.Text = Session["userid"].ToString() + "-" + Session["UserName"].ToString();
+                            loadEmployees();
+                            textbox_Status.Text = "Not-Started";
+                        }
+                        else
+                            Response.Redirect("login.aspx");
                     }
                     else
                     {

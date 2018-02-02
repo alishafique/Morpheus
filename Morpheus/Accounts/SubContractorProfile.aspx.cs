@@ -1,5 +1,4 @@
-﻿using Controller;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,35 +9,49 @@ using Controller;
 
 namespace Morpheus.Accounts
 {
-    public partial class viewCompanyProfile : System.Web.UI.Page
+    public partial class SubContractorProfile : System.Web.UI.Page
     {
-        companyProfile_Controller objProfile;
-        Dictionary<string, Int16> company_type = new Dictionary<string, Int16>();
-        Dictionary<string, Int16> memberShip_type = new Dictionary<string, Int16>();
         DataTable dt;
+        SubContractorProfile_Controller obj;
+        Dictionary<string, Int16> company_type = new Dictionary<string, Int16>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            try
             {
-                loadDropBoxOnPageLoad();
-                loadProfile();
+                if (!this.IsPostBack)
+                {
+                    if (Session["UserTypeID"].ToString() == "4")
+                    {
+                        loadDropBoxOnPageLoad();
+                        loadProfile();
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Accounts/login.aspx", false);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Response.Redirect("~/Accounts/login.aspx", false);
             }
         }
 
-        protected void btnUpdateCompanyDetails_Click(object sender, EventArgs e)
+        protected void btnUpdateSubContractorProfile_Click(object sender, EventArgs e)
         {
             try
             {
                 Company objCom = new Company();
                 Address objAdd1 = new Address();
                 Address objAdd2 = new Address();
-                objProfile = new companyProfile_Controller();
+                obj = new SubContractorProfile_Controller();
                 objCom.companyName = txtbox_CompanyName.Text;
                 objCom.company_email = txtbox_CompanyEmail.Text;
-                objCom.membership_id = int.Parse(Dp_MemberShipPlan.SelectedValue);
+
+                objCom.companyType_id = int.Parse(dp_CompanyType.SelectedValue);
                 objCom.Mobile = TextBox_Mobile.Text;
                 objCom.Landline = TextBox_landline.Text;
-
+                objCom.ABN = txtbox_ABN.Text;
                 // Address 1
                 objAdd1.StreetAddress = txtbox_Address1Street.Text;
                 objAdd1.Postcode = txtbox_Address1Postcode.Text;
@@ -52,41 +65,41 @@ namespace Morpheus.Accounts
 
 
                 int tempId = int.Parse(txtbox_CompanyID.Text);
-                if (objProfile.UpdateCompanyProfile(objCom, tempId) == true)
+                if (obj.UpdateCompanyProfile(objCom, tempId) == true)
                 {
                     if (TextBox_addressID1.Text != "")
                     {
-                        if (objProfile.UpdateCompanyAddress(objAdd1, int.Parse(TextBox_addressID1.Text)) == true)
+                        if (obj.UpdateCompanyAddress(objAdd1, int.Parse(TextBox_addressID1.Text)) == true)
                         {
                             if (TextBox_addressID2.Text != "")
                             {
-                                if (objProfile.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == false)
+                                if (obj.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == false)
                                     showErrorMessage("Address 2 failed to Update", true);
                             }
                             if (TextBox_addressID2.Text == "" && txtbox_Address2Street.Text != "")
                             {
-                                if (objProfile.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
+                                if (obj.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
                                     showErrorMessage("Unable to Add Address 2", true);
                             }
 
                             showErrorMessage("Updated Successfully", true);
                         }
                         else
-                            showErrorMessage("profile was not Updated: " + objProfile.ErrorString, false);
+                            showErrorMessage("profile was not Updated: " + obj.ErrorString, false);
                     }
                     else
                     {
-                        if (objProfile.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd1) == false)
+                        if (obj.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd1) == false)
                             showErrorMessage("Address 1 failed to Update", false);
 
                         if (TextBox_addressID2.Text != "")
                         {
-                            if (objProfile.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == false)
+                            if (obj.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == false)
                                 showErrorMessage("Address 2 failed to Update", true);
                         }
                         if (TextBox_addressID2.Text == "" && txtbox_Address2Street.Text != "")
                         {
-                            if (objProfile.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
+                            if (obj.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
                                 showErrorMessage("Unable to Add Address 2", true);
                         }
 
@@ -95,46 +108,47 @@ namespace Morpheus.Accounts
                 }
                 else
                 {
-                    showErrorMessage("Unable to update Company's Details.", false);
+                    showErrorMessage("Unable to update Company's Details.: "+obj.ErrorString, false);
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                showErrorMessage(ex.Message + " Please contact administrator.", false);
+                showErrorMessage(ex.Message, false);
             }
-
         }
 
         private void loadProfile()
         {
             try
             {
-                memberShip_type.Add("Silver", 0);
-                memberShip_type.Add("Gold", 1);
-                memberShip_type.Add("Platinium", 2);
-                objProfile = new companyProfile_Controller();
+                obj = new SubContractorProfile_Controller();
                 dt = new DataTable();
-                dt = objProfile.loadCompanyProfile(int.Parse(Session["userid"].ToString()));
+                company_type.Add("Construction", 0);
+                company_type.Add("Hospitality", 1);
+
+                dt = obj.loadCompanyProfile(int.Parse(Session["userid"].ToString()));
                 if (dt != null)
                 {
                     txtbox_CompanyID.Text = dt.Rows[0]["CompanyID"].ToString();
                     txtbox_UserId.Text = dt.Rows[0]["UserID"].ToString();
                     txtbox_CompanyName.Text = dt.Rows[0]["CompanyName"].ToString();
                     txtbox_CompanyEmail.Text = dt.Rows[0]["Email"].ToString();
-                    TextBox_CompanyType.Text = dt.Rows[0]["Type"].ToString();
+                    txtbox_ABN.Text = dt.Rows[0]["ABN"].ToString();
+
+                    if (company_type.ContainsKey(dt.Rows[0]["Type"].ToString())) // select the type of Sub-Contractor
+                    {
+                        dp_CompanyType.SelectedIndex = company_type[dt.Rows[0]["Type"].ToString()];
+                    }
+                    //TextBox_CompanyType.Text = dt.Rows[0]["Type"].ToString();
                     TextBox_Mobile.Text = dt.Rows[0]["MobileNumber"].ToString();
                     TextBox_landline.Text = dt.Rows[0]["LandlineNumber"].ToString();
-                    if (memberShip_type.ContainsKey(dt.Rows[0]["MemberShip"].ToString()))
-                    {
-                        Dp_MemberShipPlan.SelectedIndex = memberShip_type[dt.Rows[0]["MemberShip"].ToString()];
-                    }
 
                     loadAddressTxtboxes(int.Parse(dt.Rows[0]["CompanyID"].ToString()));
 
                 }
                 else
                 {
-                    showErrorMessage(objProfile.ErrorString, false);
+                    showErrorMessage(obj.ErrorString, false);
                 }
             }
             catch (Exception ex)
@@ -144,13 +158,30 @@ namespace Morpheus.Accounts
 
         }
 
+        private void loadDropBoxOnPageLoad()
+        {
+            obj = new SubContractorProfile_Controller();
+            dt = new DataTable();
+            //CompanyType dropbox load from db
+            dt = obj.LoadCompanyTypes();
+            if (dt != null)
+            {
+                dp_CompanyType.DataSource = dt;
+                dp_CompanyType.DataTextField = "type_name";
+                dp_CompanyType.DataValueField = "company_Type_id";
+                dp_CompanyType.DataBind();
+            }
+            else
+                showErrorMessage(obj.ErrorString, false);
+        }
+
         private void loadAddressTxtboxes(int id)
         {
             try
             {
-                objProfile = new companyProfile_Controller();
+                obj = new SubContractorProfile_Controller();
                 dt = new DataTable();
-                dt = objProfile.loadAddress(id);
+                dt = obj.loadAddress(id);
                 if (dt != null)
                 {
                     if (dt.Rows.Count > 1)
@@ -185,36 +216,13 @@ namespace Morpheus.Accounts
                 }
                 else
                 {
-                    showErrorMessage(objProfile.ErrorString, false);
+                    showErrorMessage(obj.ErrorString, false);
                 }
             }
             catch (Exception ex)
             {
                 showErrorMessage(ex.Message, false);
             }
-        }
-
-        private void loadDropBoxOnPageLoad()
-        {
-            try
-            {
-                objProfile = new companyProfile_Controller();
-                dt = new DataTable();
-                // Membership DropBox
-                dt = objProfile.loadMemberShipPlanes();
-                Dp_MemberShipPlan.DataSource = dt;
-
-                dt.Columns.Add("FullDesc", typeof(string), "membership_level + ' - ' + description");
-                Dp_MemberShipPlan.DataTextField = "FullDesc";
-                Dp_MemberShipPlan.DataValueField = "membership_id";
-                Dp_MemberShipPlan.DataBind();
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-
-
         }
 
         private void showErrorMessage(string message, bool status)

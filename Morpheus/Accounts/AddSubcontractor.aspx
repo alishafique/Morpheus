@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="AddSubcontractor.aspx.cs" Inherits="Morpheus.Accounts.AddSubcontractor" %>
+﻿<%@ Page Title="Add Sub-Contractor" enableEventValidation="false" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="AddSubcontractor.aspx.cs" Inherits="Morpheus.Accounts.AddSubcontractor" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript" language="javascript">
        function myshowHide(id) {
@@ -124,15 +124,19 @@
                                             ControlToValidate="txtbox_CompanyRePassword" ErrorMessage="Your passwords do not match up!"
                                             Display="Dynamic" />
                                     </div>
-                                        <div class="form-group" style="color: black;">
-                                            <label>Mobile Number:</label><asp:Label ID="Label4" runat="server" Text="*" ForeColor="Red"></asp:Label>
+                                        <div class="form-group">
+                                            <label>Project Contact Number:</label><asp:Label ID="Label4" runat="server" Text="*" ForeColor="Red"></asp:Label>
                                             <asp:TextBox ID="TextBox_Mobile" CssClass="form-control" ToolTip="Mobile" placeholder="Mobile" runat="server"></asp:TextBox>
                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox_Mobile"
                                                     ErrorMessage="Please Enter Mobile Number!!:" SetFocusOnError="True" Display="Dynamic" />
                                         </div>
-                                            <div class="form-group" style="color: black; font-weight: 700;">
+                                            <div class="form-group">
                                             <label>Landline Number:</label>
                                             <asp:TextBox ID="TextBox_landline" CssClass="form-control" ToolTip="landline" placeholder="Landline" runat="server"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ABN:</label>
+                                            <asp:TextBox ID="txtbox_ABN" CssClass="form-control" ToolTip="ABN" placeholder="ABN" runat="server"></asp:TextBox>
                                         </div>
                                     <div class="form-group">
                                         <label>
@@ -166,13 +170,6 @@
                                             <asp:ListItem Text="--Select--" Value="0" />
                                         </asp:DropDownList>
                                     </div>
-                                   <%-- <div class="form-group">
-                                        <label>
-                                            Select Membership Plan:</label><asp:Label ID="Label6" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                        <asp:DropDownList class="form-control" ID="Dp_MemberShipPlan" runat="server">
-                                            <asp:ListItem Text="--Select Membership Plan--" Value="0" />
-                                        </asp:DropDownList>
-                                    </div>--%>
                                     <asp:Button ID="btnAddSubContractor" type="submit" class="btn btn-primary btn-lg btn-block" runat="server"
                                         Text="Submit" OnClick="btnAddSubContractor_Click" />
                                     </form>
@@ -259,5 +256,5 @@
         }
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3_CGfJ3ebusaEsHfvc_6DUsIKehea6OU&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3_CGfJ3ebusaEsHfvc_6DUsIKehea6OU&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
 </asp:Content>

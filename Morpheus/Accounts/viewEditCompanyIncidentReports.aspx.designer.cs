@@ -67,6 +67,33 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.GridView dtgridview_IncidentReports;
         
         /// <summary>
+        /// Div1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        
+        /// <summary>
+        /// gdIncidentSubcontractor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gdIncidentSubcontractor;
+        
+        /// <summary>
+        /// pnlpopup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlpopup;
+        
+        /// <summary>
         /// TextBox_ReportId control.
         /// </summary>
         /// <remarks>
@@ -148,6 +175,15 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.TextBox txtbox_actionTaken;
         
         /// <summary>
+        /// pnlDisplayImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDisplayImage;
+        
+        /// <summary>
         /// btnUpdateReport control.
         /// </summary>
         /// <remarks>
@@ -157,12 +193,12 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.Button btnUpdateReport;
         
         /// <summary>
-        /// pnlDisplayImage control.
+        /// btnClose control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDisplayImage;
+        protected global::System.Web.UI.WebControls.Button btnClose;
     }
 }

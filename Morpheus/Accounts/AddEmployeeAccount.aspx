@@ -81,7 +81,7 @@
                                         <label>
                                             Employee Name:</label>
                                         <asp:TextBox class="form-control" ID="txtbox_EmpName" runat="server" ToolTip="Comapany Name"
-                                            placeholder="Comapany Name"></asp:TextBox>
+                                            placeholder="John Smith"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
                                         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
@@ -144,21 +144,20 @@
                                     </div>
 
                                     <div class="form-group">
-                                         <label>Date of Birth:</label>
-
+                                         <label>Date of Birth:</label><asp:Label ID="Label4" runat="server" Text="*" ForeColor="Red"></asp:Label>
                                            <div style="width:100%;">
                                          <div style="">
                                                <asp:TextBox style="float:left; width:90%;" class="form-control" ID="txtbox_dateTimePicker_DOB"  runat="server"
                                                TextMode="DateTime"></asp:TextBox>
                                                <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" /></div>
                                                </div>
-                                          
+                                                  
                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtbox_dateTimePicker_DOB" ErrorMessage="Enter Date of birth!" Display ="Dynamic"></asp:RequiredFieldValidator>
                                         
                                     </div>
                                        
                                         <div class="form-group" style="margin-top:50px;">
-                                            <label>TFN:</label>
+                                            <label>TFN:</label><asp:Label ID="Label5" runat="server" Text="*" ForeColor="Red"></asp:Label>
                                             <asp:TextBox CssClass="form-control" ID="TextBox_TFN" ToolTip="TFN" placeholder="TFN" runat="server"></asp:TextBox>
                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox_TFN"
                                                     ErrorMessage="Please Enter your TFN" SetFocusOnError="True" Display="Dynamic" />

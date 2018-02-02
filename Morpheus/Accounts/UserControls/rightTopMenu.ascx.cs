@@ -35,6 +35,14 @@ namespace Morpheus.Accounts.UserControls
                     //changePassword.Visible = false;
                    // AdminChangePassword.Visible = false;
                 }
+                if (Session["UserTypeID"].ToString() == "4")
+                {
+                    LinkButton_profile.Visible = true;
+                    LinkButton_EmployeeProfile.Visible = false;
+                    // changePassword.Visible = true;
+                    //changePassword.Visible = false;
+                    // AdminChangePassword.Visible = false;
+                }
             }
             catch (Exception)
             {
@@ -60,6 +68,10 @@ namespace Morpheus.Accounts.UserControls
             if (Session["UserTypeID"].ToString() == "2")
             {
                 Response.Redirect("viewCompanyProfile.aspx");
+            }
+            if (Session["UserTypeID"].ToString() == "4")
+            {
+                Response.Redirect("SubContractorProfile.aspx");
             }
         }
 

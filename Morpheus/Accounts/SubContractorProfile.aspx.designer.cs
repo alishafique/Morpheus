@@ -10,7 +10,7 @@
 namespace Morpheus.Accounts {
     
     
-    public partial class AddSubcontractor {
+    public partial class SubContractorProfile {
         
         /// <summary>
         /// successMsg control.
@@ -49,6 +49,24 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
         
         /// <summary>
+        /// txtbox_UserId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtbox_UserId;
+        
+        /// <summary>
+        /// txtbox_CompanyID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtbox_CompanyID;
+        
+        /// <summary>
         /// txtbox_CompanyName control.
         /// </summary>
         /// <remarks>
@@ -74,15 +92,6 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel usernameupdatepanel;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// txtbox_CompanyEmail control.
@@ -112,85 +121,22 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.Label lbl_error_message;
         
         /// <summary>
-        /// Label2 control.
+        /// dp_CompanyAccountStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.DropDownList dp_CompanyAccountStatus;
         
         /// <summary>
-        /// txtbox_CompanyPassword control.
+        /// dp_CompanyType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbox_CompanyPassword;
-        
-        /// <summary>
-        /// passwordReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator passwordReq;
-        
-        /// <summary>
-        /// customValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator customValidator;
-        
-        /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
-        /// txtbox_CompanyRePassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbox_CompanyRePassword;
-        
-        /// <summary>
-        /// confirmPasswordReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator confirmPasswordReq;
-        
-        /// <summary>
-        /// comparePasswords control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator comparePasswords;
-        
-        /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.DropDownList dp_CompanyType;
         
         /// <summary>
         /// TextBox_Mobile control.
@@ -200,15 +146,6 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox_Mobile;
-        
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// TextBox_landline control.
@@ -227,6 +164,15 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtbox_ABN;
+        
+        /// <summary>
+        /// TextBox_addressID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_addressID1;
         
         /// <summary>
         /// txtbox_Address1Street control.
@@ -265,6 +211,15 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.TextBox txtbox_Address1Postcode;
         
         /// <summary>
+        /// TextBox_addressID2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_addressID2;
+        
+        /// <summary>
         /// txtbox_Address2Street control.
         /// </summary>
         /// <remarks>
@@ -301,30 +256,12 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.TextBox txtbox_Address2Postcode;
         
         /// <summary>
-        /// Label5 control.
+        /// btnUpdateSubContractorProfile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-        
-        /// <summary>
-        /// dp_CompanyType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dp_CompanyType;
-        
-        /// <summary>
-        /// btnAddSubContractor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddSubContractor;
+        protected global::System.Web.UI.WebControls.Button btnUpdateSubContractorProfile;
     }
 }

@@ -24,7 +24,7 @@ namespace Controller
             {
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "viewEmployeeByCompany";
+                strQuery = "spViewEmployeeByCompany";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@createdByCompanyId", SqlDbType.BigInt).Value = comapnyId;
                 dt = con.GetDataUsingSp(cmd);

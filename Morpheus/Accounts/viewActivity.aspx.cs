@@ -21,21 +21,23 @@ namespace Morpheus.Accounts
                 {
                     if (Session["UserName"].ToString() != "")
                     {
-                      //  lblUserName.Text = Session["UserName"].ToString();
                         if (Session["UserTypeID"].ToString() == "2")
                         {
-                            //dashboardmenu1.Visible = false;
-                            //companySideMenu1.Visible = true;
-                            //employeeDashMenu1.Visible = false;
                             loadActivitiesCreatedByCompany();
                             btnUpdateActivity.Enabled = false;
                             listEmployees.Enabled = false;
                         }
+                        else if(Session["UserTypeID"].ToString() == "4")
+                        {
+                            loadActivitiesCreatedByCompany();
+                            btnUpdateActivity.Enabled = false;
+                            listEmployees.Enabled = false;
+                        }
+                        else
+                            Response.Redirect("login.aspx");
                     }
                     else
-                    {
                         Response.Redirect("login.aspx");
-                    }
                 }
                 catch (Exception)
                 {

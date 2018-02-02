@@ -1,6 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewEditCompanyIncidentReports.aspx.cs" Inherits="Morpheus.Accounts.viewEditCompanyIncidentReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+    <style type="text/css">      
+        #mask
+        {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            z-index: 4;
+            opacity: 0.4;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; /* first!*/
+            filter: alpha(opacity=40); /* second!*/
+            background-color: gray;
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
    <!-- DataTables CSS -->
     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
 
@@ -16,9 +31,23 @@
             $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
                 responsive: true
             });
-            
         });
+       
 </script>
+
+    <script type="text/javascript" language="javascript">
+        function ShowPopup() {
+            $('#mask').show();
+            $('#<%=pnlpopup.ClientID %>').show();
+        }
+        function HidePopup() {
+            $('#mask').hide();
+            $('#<%=pnlpopup.ClientID %>').hide();
+        }
+        $(".btnClose").live('click',function () {
+            HidePopup();
+        });
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -42,7 +71,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default" runat="server" id="hideGrid">
                     <div class="panel-heading">
-                        List of Reports
+                        List of Reports by Employees
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -51,7 +80,7 @@
                         <asp:GridView ID="dtgridview_IncidentReports" class="table table-striped table-bordered table-hover"
                             runat="server"  width="100%" AutoGenerateColumns="False" 
                             OnSelectedIndexChanged="dtgridview_IncidentReports_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_IncidentReports_SelectedIndexChanging"
-                            AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_IncidentReports_RowDeleting">
+                            AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_IncidentReports_RowDeleting" OnRowDataBound="dtgridview_IncidentReports_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="id" HeaderText="Report Id" Visible="true">
                                        <ItemStyle CssClass="hidden-field" />
@@ -80,6 +109,7 @@
                                     <HeaderStyle CssClass="hidden-field" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="UpdatedDateTime" HeaderText="Updated DateTime"></asp:BoundField>
+                                <asp:BoundField DataField="status" HeaderText="Status"></asp:BoundField>
                                 <%-- <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />--%>
                             </Columns>
                             <PagerSettings />                        
@@ -89,15 +119,65 @@
                     <!-- /.panel-body -->
                 </div>
 
-
-
+                 <div class="panel panel-default" runat="server" id="Div1">
+                    <div class="panel-heading">
+                        List of Reports by Employees Of Sub-Contractors
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <label>Please select any Report To view the description and Action taken on incident Report.</label>
+                        <br />
+                        <asp:GridView ID="gdIncidentSubcontractor" class="table table-striped table-bordered table-hover"
+                            runat="server"  width="100%" AutoGenerateColumns="False" 
+                            OnSelectedIndexChanged="gdIncidentSubcontractor_SelectedIndexChanged" OnSelectedIndexChanging="gdIncidentSubcontractor_SelectedIndexChanging"
+                            AutoGenerateSelectButton="True" OnRowDataBound="gdIncidentSubcontractor_RowDataBound">
+                            <Columns>
+                                <asp:BoundField DataField="id" HeaderText="Report Id" Visible="true">
+                                       <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                    
+                                </asp:BoundField>
+                                <asp:BoundField AccessibleHeaderText="user_id" DataField="user_id" HeaderText="user_id">
+                                    <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="user_name" HeaderText="Reported By">
+                                      
+                                </asp:BoundField>
+                                <asp:BoundField DataField="severitylevel" HeaderText="severitylevel">
+                                    <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="description" HeaderText="Description" ItemStyle-VerticalAlign="Top">
+                                     <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />                    
+                                </asp:BoundField>
+                                <asp:BoundField DataField="dateTime" HeaderText="DateTime" />
+                                <asp:BoundField DataField="location" HeaderText="Location" />
+                                <asp:BoundField DataField="actionTaken" HeaderText="ActionTaken">
+                                    <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="UpdatedDateTime" HeaderText="Updated DateTime"></asp:BoundField>
+                                <asp:BoundField DataField="status" HeaderText="Status"></asp:BoundField>
+                                <%-- <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />--%>
+                            </Columns>
+                            <PagerSettings />                        
+                        </asp:GridView>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                
+                <asp:Panel ID="pnlpopup" runat="server" BackColor="Gray" Height="100%"
+                    Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">Edit details of Report.</div>
                             <div class="panel-body">
 
-                                <div class="row" style="padding: 0 15px 15px 15px">
+                               
                                     <div style="width: 100%; display: none;">
                                         <div class="form-group" style="width: 50%; float: left; padding-right: 10px;">
                                             <label>Report Id:</label>
@@ -145,16 +225,14 @@
                                         <label>Action Taken:</label>
                                         <asp:TextBox ID="txtbox_actionTaken" class="form-control" Rows="2" ToolTip="Action Taken" placeholder="Please enter the Action Taken by you regarding the incident" TextMode="MultiLine" runat="server"></asp:TextBox>
                                     </div>
-
-                                    <asp:Button ID="btnUpdateReport" type="Update" class="btn btn-primary btn-lg btn-block"
-                                        runat="server" Text="Update" OnClick="btnUpdateReport_Click" />
-
-
-                                    <div class="form-group" style="margin-top:15px;">
+                                <div class="form-group" style="margin-top:15px;">
                                         <asp:Panel ID="pnlDisplayImage" runat="server"></asp:Panel>
-
                                     </div>
-                                </div>
+                                    <asp:Button ID="btnUpdateReport" type="Update" class="btn btn-primary"
+                                        runat="server" Text="Update" OnClick="btnUpdateReport_Click" />
+                                    <asp:Button ID="btnClose" CssClass="btn btn-primary" runat="server" Text="Close" OnClick="btnClose_Click" />
+                                    
+                         
                                 <!-- /.row (nested) -->
                             </div>
                             <!-- /.panel-body -->
@@ -163,6 +241,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+                 </asp:Panel>
             </div>
         </div>
              

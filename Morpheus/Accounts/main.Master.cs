@@ -31,6 +31,7 @@ namespace Morpheus.Accounts
                             dashboardmenu1.Visible = true;
                             companySideMenu1.Visible = false;
                             employeeDashMenu1.Visible = false;
+                            SubContractorSideMenu1.Visible = false;
                             HidebuttonFull();
                         }
                         else if (Session["UserTypeID"].ToString() == "2")
@@ -38,6 +39,7 @@ namespace Morpheus.Accounts
                             dashboardmenu1.Visible = false;
                             companySideMenu1.Visible = true;
                             employeeDashMenu1.Visible = false;
+                            SubContractorSideMenu1.Visible = false;
                             LoadCompanyLogo(int.Parse(Session["userid"].ToString()));
                         }
                         else if (Session["UserTypeID"].ToString() == "3")
@@ -45,6 +47,7 @@ namespace Morpheus.Accounts
                             dashboardmenu1.Visible = false;
                             companySideMenu1.Visible = false;
                             employeeDashMenu1.Visible = true;
+                            SubContractorSideMenu1.Visible = false;
                             //HidebuttonFull();
                             int comID = GetCompanyIdOfEmployee(int.Parse(Session["userid"].ToString()));
                             if(comID >0)
@@ -53,6 +56,20 @@ namespace Morpheus.Accounts
                                 HidebuttonFull();
                             }
                            
+                        }
+                        else if(Session["UserTypeID"].ToString() == "4")
+                        {
+                            dashboardmenu1.Visible = false;
+                            companySideMenu1.Visible = false;
+                            employeeDashMenu1.Visible = false;
+                            SubContractorSideMenu1.Visible = true;
+                            //HidebuttonFull();
+                            int comID = GetCompanyIdOfSubContractor(int.Parse(Session["userid"].ToString()));
+                            if (comID > 0)
+                            {
+                                LoadCompanyLogo(comID);
+                                HidebuttonFull();
+                            }
                         }
                     }
                     else
@@ -236,6 +253,30 @@ namespace Morpheus.Accounts
                 }
             }
             catch(Exception ex)
+            {
+                lblError.Text = ex.Message;
+                return 0;
+            }
+        }
+
+        private int GetCompanyIdOfSubContractor(int CompanyID)
+        {
+            try
+            {
+                obj = new Main_Controller();
+                dt = new DataTable();
+                dt = obj.GetCompanyIdOfSubContractor(CompanyID);
+                if (dt != null)
+                {
+                    return int.Parse(dt.Rows[0]["CreatedByCompany"].ToString());
+                }
+                else
+                {
+                    lblError.Text = obj.ErrorString;
+                    return 0;
+                }
+            }
+            catch (Exception ex)
             {
                 lblError.Text = ex.Message;
                 return 0;

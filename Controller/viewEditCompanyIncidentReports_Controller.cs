@@ -24,7 +24,7 @@ namespace Controller
             {
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "loadIncidentReportsByCompany";
+                strQuery = "spLoadIncidentReportsByCompany";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@reportedTo", SqlDbType.BigInt).Value = userID;
                 dt = con.GetDataUsingSp(cmd);
@@ -42,6 +42,56 @@ namespace Controller
             {
                 ErrorString = ex.Message;
                 return null;
+            }
+        }
+
+        public DataTable LoadSubContractors(int CompanyId)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spViewContractorList";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@CreatedByCompany", SqlDbType.BigInt).Value = CompanyId;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+
+        public bool UpdateIncidentReportStatus(int ReportID,int UpdatedbyId)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spUpdateIncidentReportStatus";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@id", SqlDbType.BigInt).Value = ReportID;
+                cmd.Parameters.Add("@status", SqlDbType.VarChar).Value = "Seen";
+                cmd.Parameters.Add("@UpdatedbyId", SqlDbType.BigInt).Value = UpdatedbyId;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
             }
         }
     }

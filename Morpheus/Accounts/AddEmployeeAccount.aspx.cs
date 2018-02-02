@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
 
 namespace Morpheus.Accounts
 {
@@ -35,7 +36,7 @@ namespace Morpheus.Accounts
                         objEmp.Created_dateTime = DateTime.Now;
 
                         objEmp.Emp_name = txtbox_EmpName.Text;
-                        objEmp.Date_of_birth = DateTime.Parse(txtbox_dateTimePicker_DOB.Text);
+                        objEmp.Date_of_birth = DateTime.ParseExact(txtbox_dateTimePicker_DOB.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         objEmp.address = txtbox_Address1Street.Text;
                         objEmp.Suburb = txtbox_Address1Suburb.Text;
                         objEmp.State = txtbox_Address1State.Text;

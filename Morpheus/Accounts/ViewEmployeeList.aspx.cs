@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -25,27 +26,24 @@ namespace Morpheus.Accounts
                 {
                     if (Session["UserName"].ToString() != "")
                     {
-                        //lblUserName.Text = Session["UserName"].ToString();
+       
                         if (Session["UserTypeID"].ToString() == "2")
                         {
                             loadEmployee(int.Parse(Session["userid"].ToString()));
-                            //dashboardmenu1.Visible = false;
-                            //companySideMenu1.Visible = true;
-                            //employeeDashMenu1.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = false;
-                            //ProfileImage.Visible = false;
                         }
                         if (Session["UserTypeID"].ToString() == "3")
                         {
                             loadEmployeeProfileByEmployee(int.Parse(Session["userid"].ToString()));
                             loadProfileImage(int.Parse(Session["userid"].ToString()));
-                            //dashboardmenu1.Visible = false;
-                            //companySideMenu1.Visible = false;
-                            //employeeDashMenu1.Visible = true;
                             hideGrid.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = true;
                             loadEmployeeDocuments();
-                            // ProfileImage.Visible = true;
+                        }
+                        if (Session["UserTypeID"].ToString() == "4")
+                        {
+                            loadEmployee(int.Parse(Session["userid"].ToString()));
+                            btnUpdateEmployeeProfile.Enabled = false;
                         }
                     }
                     else
@@ -185,10 +183,17 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 objEmp = new viewEmployees_Controller();
                 dt = objEmp.viewEmployeeByCompany(companyId);
-
+                dt.Columns.Add("active_status1", typeof(string));
                 if (dt != null)
                 {
-
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        //dt.Rows[i]["Age"] = getAge(dt.Rows[i]["DOB"].ToString());
+                        if (dt.Rows[i]["active_status"] + string.Empty == "1")
+                            dt.Rows[i]["active_status1"] = "Active";
+                        else
+                            dt.Rows[i]["active_status1"] = "Disabled";
+                    }
                     dtgridview_Employees.DataSource = dt;
                     dtgridview_Employees.DataBind();
                 }
@@ -231,7 +236,7 @@ namespace Morpheus.Accounts
                     objEmpData = new Employee();
                     objEmp = new viewEmployees_Controller();
                     objEmpData.Emp_name = TextBox_EmployeeName.Text;
-                    objEmpData.Date_of_birth = DateTime.Parse(this.txtbox_dateTimePicker_DOB.Text);
+                    objEmpData.Date_of_birth = DateTime.ParseExact(txtbox_dateTimePicker_DOB.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
                     objEmpData.address = TextBox_StreetName.Text;
                     objEmpData.Suburb = TextBox_Suburb.Text;

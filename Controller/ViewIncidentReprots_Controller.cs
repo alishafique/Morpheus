@@ -23,7 +23,7 @@ namespace Controller
             {
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "loadIncidentReportsByEmployee";
+                strQuery = "spLoadIncidentReportsByEmployee";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@reportedBy", SqlDbType.BigInt).Value = employeeId;
                 dt = con.GetDataUsingSp(cmd);

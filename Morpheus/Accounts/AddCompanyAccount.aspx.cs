@@ -90,10 +90,11 @@ namespace Morpheus.Accounts
                     objCompany.Landline = TextBox_landline.Text;
                     // create Company profile
                     tempCompanyID = objDashController.createCompanyAccountByAdmin(objCompany);
+
                     if (tempCompanyID > 0)
                     {
                         // create User_name for company
-                        tempUserID = objDashController.createUserAccountUserTable(2, txtbox_CompanyPassword.Text, objCompany);
+                        tempUserID = objDashController.createUserAccountUserTable(2, txtbox_CompanyPassword.Text, objCompany); // 2 represent the Role id i.e. Company type
                         if (tempUserID > 0)
                         {
                             objDashController.insertTbCompanyUser(tempUserID, tempCompanyID);

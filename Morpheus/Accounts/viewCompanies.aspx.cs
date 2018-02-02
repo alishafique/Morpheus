@@ -99,19 +99,10 @@ namespace Morpheus.Accounts
                 txtbox_CompanyID.Text = row.Cells[1].Text; // load Company Id
                 txtbox_CompanyID.Enabled = false;
                 loadAddressTxtboxes(Int32.Parse(row.Cells[1].Text));  // load address by company id
-                txtbox_CompanyName.Text = row.Cells[3].Text.Replace("&amp;", "&");    // Load COmpany Name
+                txtbox_CompanyName.Text = row.Cells[3].Text.Replace("&amp;", "&").Replace("&nbsp;", ""); ;    // Load COmpany Name
                 txtbox_CompanyEmail.Text = row.Cells[4].Text;       // load Company EMail
                 dp_CompanyAccountStatus.SelectedIndex = Int32.Parse(row.Cells[7].Text); // load Account Status
-                //if (dp_CompanyAccountStatus.SelectedIndex == 0)
-                //{
-                //    dp_CompanyAccountStatus.BackColor = System.Drawing.Color.Red;
-                //    dp_CompanyAccountStatus.ForeColor = System.Drawing.Color.White;
-                //}
-                //else if (dp_CompanyAccountStatus.SelectedIndex == 1)
-                //{
-                //    dp_CompanyAccountStatus.BackColor = System.Drawing.Color.LawnGreen;
-                //}
-
+               
                 if (memberShip_type.ContainsKey(row.Cells[5].Text))
                 {
                     Dp_MemberShipPlan.SelectedIndex = memberShip_type[row.Cells[5].Text];
@@ -133,6 +124,7 @@ namespace Morpheus.Accounts
                 }
 
                 btnUpdateCompanyDetails.Enabled = true;
+                btnUpdateCompanyDetails.Focus();
             }
             catch (Exception ex)
             {
@@ -224,10 +216,7 @@ namespace Morpheus.Accounts
                         showErrorMessage("No address for this company!!!", true);
                 }
                 else
-                {
                     showErrorMessage(objviewEditCompanies.ErrorString, false);
-                }
-
             }
             catch (Exception ex)
             {
@@ -255,44 +244,58 @@ namespace Morpheus.Accounts
                 objAdd1.State = txtbox_Address1State.Text;
                 objAdd1.Suburb = txtbox_Address1Suburb.Text;
 
+                objAdd2.StreetAddress = txtbox_Address2Street.Text;
+                objAdd2.Postcode = txtbox_Address2Postcode.Text;
+                objAdd2.State = txtbox_Address2State.Text;
+                objAdd2.Suburb = txtbox_Address2Suburb.Text;
+
+
                 if (objviewEditCompanies.UpdateCompanyProfile(objCom, int.Parse(txtbox_CompanyID.Text)) == true)
                 {
-
-                    if (objviewEditCompanies.UpdateCompanyAddress(objAdd1, int.Parse(TextBox_addressID1.Text)) == true)
+                    if (TextBox_addressID1.Text != "")
                     {
-
-                        if (TextBox_addressID2.Text != "")
+                        if (objviewEditCompanies.UpdateCompanyAddress(objAdd1, int.Parse(TextBox_addressID1.Text)) == true)
                         {
-                            objAdd2.StreetAddress = txtbox_Address2Street.Text;
-                            objAdd2.Postcode = txtbox_Address2Postcode.Text;
-                            objAdd2.State = txtbox_Address2State.Text;
-                            objAdd2.Suburb = txtbox_Address2Suburb.Text;
+                            if (TextBox_addressID2.Text != "")
+                            {
+                                if (objviewEditCompanies.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == false)
+                                    showErrorMessage("Address 2 failed to Update", true);
+                            }
+                            if (TextBox_addressID2.Text == "" && txtbox_Address2Street.Text != "")
+                            {
+                                if (objviewEditCompanies.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
+                                    showErrorMessage("Unable to Add Address 2", true);
+                            }
 
-                            if (objviewEditCompanies.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == true)
-                            {
-                                showErrorMessage("Updated Successfully", true);
-                            }
+                            showErrorMessage("Updated Successfully", true);
                         }
-                        if (TextBox_addressID2.Text == "" && txtbox_Address2Street.Text != "")
-                        {
-                            objAdd2.StreetAddress = txtbox_Address2Street.Text;
-                            objAdd2.Postcode = txtbox_Address2Postcode.Text;
-                            objAdd2.State = txtbox_Address2State.Text;
-                            objAdd2.Suburb = txtbox_Address2Suburb.Text;
-                            if (objviewEditCompanies.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == true)
-                            {
-                                showErrorMessage("Updated Successfully", true);
-                            }
-                        }
-                        showErrorMessage("Updated Successfully", true);
+                        else
+                            showErrorMessage("profile was not Updated: " + objviewEditCompanies.ErrorString, false);
                     }
                     else
                     {
-                        showErrorMessage("profile was not Updated: " + objviewEditCompanies.ErrorString, false);
+                        if (objviewEditCompanies.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd1) == false)
+                            showErrorMessage("Address 1 failed to Update", false);
+
+                        if (TextBox_addressID2.Text != "")
+                        {
+                            if (objviewEditCompanies.UpdateCompanyAddress(objAdd2, int.Parse(TextBox_addressID2.Text)) == false)
+                                showErrorMessage("Address 2 failed to Update", true);
+                        }
+                        if (TextBox_addressID2.Text == "" && txtbox_Address2Street.Text != "")
+                        {
+                            if (objviewEditCompanies.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
+                                showErrorMessage("Unable to Add Address 2", true);
+                        }
+
+
+                        showErrorMessage("Updated Successfully", true);
                     }
-
                 }
-
+                else
+                {
+                    showErrorMessage("Unable to update Company's Details.", false);
+                }
                 populateCompany();
             }
             catch (Exception ex)

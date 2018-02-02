@@ -13,11 +13,13 @@ namespace Controller
        private string strcompany_email;
        private DateTime dtcreated_date_time;
        private int intcompanyType_id;
-        private string mobileNo;
-        private string landlineNo;
+       private string mobileNo;
+       private string landlineNo;
        public Company()
        {
        }
+
+        public string ABN { get; set; }
         public string Mobile
         {
             get { return mobileNo; }

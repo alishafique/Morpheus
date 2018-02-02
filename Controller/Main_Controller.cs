@@ -66,6 +66,31 @@ namespace Controller
                 return null;
             }
         }
+
+        public DataTable GetCompanyIdOfSubContractor(int SubCOntractorID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spGetCompanyIdOfSubContractor";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = SubCOntractorID;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
         public bool UpdateCompanyLogo(string imageURL, int ComID)
         {
             try

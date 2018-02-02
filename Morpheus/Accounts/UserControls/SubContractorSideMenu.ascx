@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="compnaySideMenuControl.ascx.cs" Inherits="Morpheus.Accounts.UserControls.compnaySideMenuControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SubContractorSideMenu.ascx.cs" Inherits="Morpheus.Accounts.UserControls.SubContractorSideMenu" %>
 <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -19,23 +19,17 @@
                         <li>
                             <a href="#"><i class="fa fa-male fa-fw"></i>Employees<span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level">
-                                <li><asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" CausesValidation="false"> Add Employee</asp:LinkButton></li>
-                                <li> <asp:LinkButton ID="LinkButton_ViewEmployees" runat="server" OnClick="LinkButton_ViewEmployees_Click" CausesValidation="false">View Employees</asp:LinkButton> </li>
+                                <li><a href="AddEmployeeAccount.aspx"> Add Employee</a></li>
+                                <li> <a href="ViewEmployeeList.aspx">View Employees</a> </li>
                             </ul>
                             </li>
-                        <li>
-                            <a href="#"><i class="fa fa fa-user fa-fw"></i>Sub-Contractor<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                 <li><a href="AddSubcontractor.aspx">Add Sub-Contractor</a></li>
-                                <li><a href="ViewSub-Contractor.aspx">View Sub-Contractor</a></li>
-                            </ul>
-                        </li>
+                       
                             <!-- /.nav-second-level -->
                    
                         <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li> <asp:LinkButton ID="LinkButton_CreateActivity" runat="server" CausesValidation="false" OnClick="LinkButton_CreateActivity_Click">Create Activity</asp:LinkButton> </li>
-                                <li><asp:LinkButton ID="LinkButton_ViewActivities" runat="server" CausesValidation="false" OnClick="LinkButton_ViewActivities_Click">View Activities</asp:LinkButton> </li>
+                                <li> <a href="createActivity.aspx">Create Activity</a> </li>
+                                <li><a href="viewActivity.aspx">View Activities</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

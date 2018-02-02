@@ -20,17 +20,37 @@ namespace Morpheus.Accounts
         {
             try
             {
+                if (Session["UserTypeID"].ToString() == "1")
+                {
+                    incidentReportPanel.Style.Add("display", "none");
+                    EmployeeCount.Style.Add("display", "none");
+                    lblDashmsg.Text = "Site-Admin";
+                } else
                 if (Session["UserTypeID"].ToString() == "2")
                 {
                     IncidentReportCounter();
                     EmployeeCounter();
                     incidentReportPanel.Style.Add("display", "block");
                     EmployeeCount.Style.Add("display", "block");
+                    lblDashmsg.Text = "Company's";
                 }
-                else
+                else if (Session["UserTypeID"].ToString() == "3")
                 {
                     incidentReportPanel.Style.Add("display", "none");
                     EmployeeCount.Style.Add("display", "none");
+                    lblDashmsg.Text = "Employee's";
+                }
+                else if (Session["UserTypeID"].ToString() == "4")
+                {
+                    IncidentReportCounter();
+                    EmployeeCounter();
+                    incidentReportPanel.Style.Add("display", "block");
+                    EmployeeCount.Style.Add("display", "block");
+                    lblDashmsg.Text = "Sub-Contractor's";
+                }
+                else
+                {
+                    Response.Redirect("login.aspx");
                 }
 
                 UserID = Int64.Parse(Session["userid"].ToString());

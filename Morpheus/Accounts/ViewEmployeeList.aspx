@@ -105,7 +105,11 @@
                                    <asp:BoundField DataField="date_of_birth" HeaderText="Date of birth" DataFormatString="{0:dd/MM/yyyy}" ></asp:BoundField>
                                    <asp:BoundField DataField="ABN" HeaderText="ABN" />
                                    <asp:BoundField DataField="TFN" HeaderText="TFN" />
-                                   <asp:BoundField DataField="active_status" HeaderText="Status" />
+                                   <asp:BoundField DataField="active_status" HeaderText="Status" >
+                                       <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
+                                   <asp:BoundField DataField="active_status1" HeaderText="Status" />
                                    <%-- <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />--%>
                                          
                                </Columns>

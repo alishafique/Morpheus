@@ -76,12 +76,14 @@
     <Compile Include="resetPassword_Controller.cs" />
     <Compile Include="SignUp_Controller.cs" />
     <Compile Include="StartCardQuestionair_Controller.cs" />
+    <Compile Include="SubContractorProfile_Controller.cs" />
     <Compile Include="viewActivity_Controller.cs" />
     <Compile Include="viewEditCompanies_Controller.cs" />
     <Compile Include="viewEditCompanyIncidentReports_Controller.cs" />
     <Compile Include="viewEmployeeActivity_Controller.cs" />
     <Compile Include="viewEmployees_Controller.cs" />
     <Compile Include="ViewIncidentReprots_Controller.cs" />
+    <Compile Include="ViewSub-Contractor_Controller.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

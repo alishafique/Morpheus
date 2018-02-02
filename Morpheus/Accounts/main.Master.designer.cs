@@ -121,6 +121,15 @@ namespace Morpheus.Accounts {
         protected global::Morpheus.Accounts.UserControls.compnaySideMenuControl companySideMenu1;
         
         /// <summary>
+        /// SubContractorSideMenu1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Morpheus.Accounts.UserControls.SubContractorSideMenu SubContractorSideMenu1;
+        
+        /// <summary>
         /// employeeDashMenu1 control.
         /// </summary>
         /// <remarks>

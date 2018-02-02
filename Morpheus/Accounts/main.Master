@@ -7,8 +7,11 @@
 <%@ Register Assembly="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.EditorControls" TagPrefix="ig" %>
 <%@ Register src="~/Accounts/UserControls/SideNavigationMenu.ascx" tagname="DashboardSideMenu" tagprefix="uc1" %>
 <%@ Register Src="~/Accounts/UserControls/compnaySideMenuControl.ascx" TagName="companySideMenu" TagPrefix="uc2" %>
+<%@ Register Src="~/Accounts/UserControls/SubContractorSideMenu.ascx" TagPrefix="uc5" TagName="SubContractorSideMenu" %>
 <%@ Register src="~/Accounts/UserControls/rightTopMenu.ascx" TagName="rightTopMenu" TagPrefix="uc3" %>
 <%@ Register src="~/Accounts/UserControls/EmployeeSideMenu.ascx" TagName="employeeDashMenu" TagPrefix="uc4" %>
+
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -152,8 +155,10 @@
    
 </head>
 <body>
-    
+     <div id="mask">
+     </div>
     <form id="form1" runat="server">
+       
      <div id="wrapper">
         <!-- Navigation -->
          
@@ -178,9 +183,9 @@
               <div style="float:left;">
                 <asp:Image ID="impPrev" runat="server" Height="150px" />
                   <br />
-                  <asp:LinkButton ID="btnEditlogo" runat="server" OnClick="btnEditlogo_Click">Edit</asp:LinkButton>
+                  <asp:LinkButton ID="btnEditlogo" runat="server" CausesValidation="false" OnClick="btnEditlogo_Click">Edit</asp:LinkButton>
             <asp:FileUpload ID="fUpLogo" runat="server" class="uploadFile form-group" onchange="ShowImagePreview(this);"  placeholder="Choose Logo" />  
-            <asp:Button ID="btnUploadLogo" runat="server" CssClass="btn btn-primary btn-xs" Text="Upload Logo" OnClick="btnUploadLogo_Click"></asp:Button>
+            <asp:Button ID="btnUploadLogo" runat="server" CssClass="btn btn-primary btn-xs" CausesValidation="false" Text="Upload Logo" OnClick="btnUploadLogo_Click"></asp:Button>
              <asp:Label ID="lblError" ForeColor="Red" runat="server" Text=""></asp:Label>
                   </div>
                     </div>
@@ -194,6 +199,7 @@
             <!-- /.navbar-top-links -->
              <uc1:DashboardSideMenu ID = "dashboardmenu1"  runat="server" Visible ="false"  />
              <uc2:companySideMenu ID = "companySideMenu1" runat="server" Visible="false" />
+             <uc5:SubContractorSideMenu runat="server" ID="SubContractorSideMenu1" Visible="false" />
              <uc4:employeeDashMenu ID= "employeeDashMenu1" runat="server" Visible="false" />
            
             <!-- /.navbar-static-side -->
