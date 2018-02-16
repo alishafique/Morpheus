@@ -1,9 +1,17 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="viewEmployees.aspx.cs" Inherits="Morpheus.Accounts.viewEmployees" %>
 
+<%@ Register Assembly="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.EditorControls" TagPrefix="ig" %>
+
+<%@ Register Assembly="Infragistics4.Web.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.ListControls" TagPrefix="ig" %>
+
 <%@ Register src="~/Accounts/UserControls/SideNavigationMenu.ascx" tagname="DashboardSideMenu" tagprefix="uc1" %>
 <%@ Register Src="~/Accounts/UserControls/compnaySideMenuControl.ascx" TagName="companySideMenu" TagPrefix="uc2" %>
 <%@ Register src="~/Accounts/UserControls/rightTopMenu.ascx" TagName="rightTopMenu" TagPrefix="uc3" %>
 <%@ Register src="~/Accounts/UserControls/EmployeeSideMenu.ascx" TagName="employeeDashMenu" TagPrefix="uc4" %>
+
+<%@ Register assembly="Infragistics4.Web.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" namespace="Infragistics.Web.UI" tagprefix="ig" %>
+
+<%@ Register assembly="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="System.Web.UI" tagprefix="cc1" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -106,6 +114,8 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+    <link id="link1" href="../ig_ui/css/themes/infragistics2012/infragistics.theme.css" rel="Stylesheet" type="text/css" />
+    <link id="link2" href="../ig_ui/css/structure/infragistics.css" rel="Stylesheet" type="text/css" />
 
      <!-- DataTables JavaScript -->
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -120,9 +130,12 @@
         });
         
 </script>
+  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+     <script src="../ig_ui/js/infragistics.js" type="text/javascript" id="igClientScript"></script>
     
 </head>
 <body>
+    
     <form id="form1" runat="server">
    <div id="wrapper">
         <!-- Navigation -->
@@ -299,41 +312,63 @@
                                            runat="server" Text="Update Profile" OnClick="btnUpdateEmployeeProfile_Click" />
                                            </div>
 
-                                       <div class="col-lg-6" style="display:none;">
+                                       <div class="col-lg-6" style="">
                                            <h1>Upload Your Documents</h1>
 
-                                           <div class="form-group">
-                                               <label>Name of document</label>
-                                               <asp:TextBox ID="txtDocumentName" CssClass="form-control" placeholder="Enter document name. e.g. White Card" ToolTip="Document Name" runat="server"></asp:TextBox>                             
-                                               <asp:FileUpload ID="FtCdocuments"  class="uploadFile form-group"  placeholder="Choose Images" runat="server" />
-                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDocumentName" runat="server" Display="Dynamic" ErrorMessage="Enter document name." SetFocusOnError="true"></asp:RequiredFieldValidator>
-                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="FtCdocuments" runat="server" Display="Dynamic" ErrorMessage="Select Document To Upload." SetFocusOnError="true"></asp:RequiredFieldValidator>
-                                           </div>
-                                        <asp:Button ID="btnUploadDocuments" CssClass="btn btn-primary" runat="server" Text="Upload Documents" OnClick="btnUploadDocuments_Click" />
+                                        
                                           
                                            <div class="form-group" style="margin-top: 15px;">
-                                               <asp:GridView ID="GridView1" runat="server" Width="100%" class="table table-striped table-bordered table-hover" AutoGenerateColumns="false">
+                                               <asp:GridView ID="grdViewDocuments" runat="server" Width="100%" class="table table-striped table-bordered table-hover" AutoGenerateColumns="False">
                                                    <Columns>
-                                                       <asp:TemplateField HeaderText="Id">
+                                                       <asp:BoundField DataField="DocumentID" HeaderText="DocumentID">
                                                            <ItemStyle CssClass="hidden-field" />
                                                            <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:BoundField>
+                                                       <asp:BoundField DataField="DocumentName" HeaderText="DocumentName" />
+                                                       <asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID">
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:BoundField>
+                                                       <asp:BoundField DataField="DocumentURL" HeaderText="DocumentURL" >
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:BoundField>
+                                                       <asp:BoundField DataField="DocumentStatus" HeaderText="DocumentStatus" />
+                                                       <asp:TemplateField>
                                                            <ItemTemplate>
-                                                               <asp:HiddenField ID="Id" runat="server" Value='<%# Bind("Id") %>'></asp:HiddenField>
+                                                               <asp:LinkButton ID="removeDocument" runat="server"
+                                                                   CommandArgument='<%# Eval("DocumentID")%>'
+                                                                   OnClientClick="return confirm('Do you want to delete?')"
+                                                                   Text="Delete" OnClick="removeDocument_Click" CausesValidation="false"></asp:LinkButton>
                                                            </ItemTemplate>
                                                        </asp:TemplateField>
-                                                       <asp:TemplateField HeaderText="Name">
+                                                       <asp:TemplateField>
                                                            <ItemTemplate>
-                                                               <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
-                                                           </ItemTemplate>
-                                                       </asp:TemplateField>
-                                                       <asp:TemplateField HeaderText="Document">
-                                                           <ItemTemplate>
-                                                               <asp:HyperLink ID="HLDocument" runat="server" NavigateUrl='<%# GetImage(Eval("ImageData")) %>' >View Document</asp:HyperLink>
+                                                               <asp:LinkButton ID="lnkDownload" Text="Download" CommandArgument='<%# Eval("DocumentURL") %>' CausesValidation="false" runat="server" OnClick="DownloadFile"></asp:LinkButton>
                                                            </ItemTemplate>
                                                        </asp:TemplateField>
                                                    </Columns>
                                                </asp:GridView>
                                            </div>
+                                              <div class="form-group">
+                                               <label>Name of document</label>
+                                                  <ig:WebScriptManager ID="WebScriptManager1" runat="server" ></ig:WebScriptManager>
+                                                
+                                                  <asp:DropDownList ID="dpdDocuments" CssClass="form-control" runat="server">
+                                                      <asp:ListItem>White Card</asp:ListItem>
+                                                      <asp:ListItem>Blue Card</asp:ListItem>
+                                                      <asp:ListItem>High Risk Work</asp:ListItem>
+                                                      <asp:ListItem>Working at heights</asp:ListItem>
+                                                  </asp:DropDownList>
+                                                  <br />
+                                                   
+                                               <asp:FileUpload ID="FtCdocuments"  class="uploadFile form-group"  placeholder="Choose Images" runat="server" />
+                                              <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDocumentName" runat="server" Display="Dynamic" ErrorMessage="Enter document name." SetFocusOnError="true"></asp:RequiredFieldValidator>--%>
+                                               <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="FtCdocuments" runat="server" Display="Dynamic" ErrorMessage="Select Document To Upload." SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                                  <asp:RegularExpressionValidator id="RegularExpressionValidator2" ValidationGroup="aa" SetFocusOnError="true" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
+                                            ValidationExpression ="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$" ControlToValidate="FtCdocuments" Display="Dynamic" />
+                                           </div>
+                                        <asp:Button ID="btnUploadDocuments" CssClass="btn btn-primary" runat="server" ValidationGroup="aa" Text="Upload Document" OnClick="btnUploadDocuments_Click" />
                                        </div>
 
                                    </div>

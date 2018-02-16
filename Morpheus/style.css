@@ -86,13 +86,13 @@ a.none:hover {text-decoration: none;}
 
 /* Home */
 .home_content h2:after,.box h3:after {content: '';position: absolute;width: 30px;background-color: #404040;height: 2px;left: 0;bottom: 0;}
-.box i {position: absolute;right: 0;top: 0;margin: 0;color: #404040;font-size: 45px;}
+.box i {position: absolute;right: 0;top: 0;margin: 0;color: #005FA6;font-size: 45px;}
 .boxes_area h3 {font-size: 16px;font-weight: 500;margin-top: 0;margin-bottom: 18px;}
 .services {padding-top: 50px;padding-bottom: 50px;}
 h2.section-title {text-align: center;color: #404040; font-weight: bolder;}
 .services p.desc {text-align: center;font-size: 13px;margin-bottom: 20px;}
 .services .media {margin-top: 30px;}
-.services .media i {font-size: 45px;color: #404040;}
+.services .media i {font-size: 45px;color: #005FA6;}
 .services .media h4 {font-size: 15px;font-weight: 600;color: #404040;}
 .services .media p {text-align: left;}
 
@@ -104,7 +104,7 @@ h2.section-title {text-align: center;color: #404040; font-weight: bolder;}
 .home_list .thumbnail {border: none;padding: 0;}
 .thumbnail .caption {padding: 9px;color: #404040;padding-left: 0;padding-right: 0;}
 .home_list h3 {font-size: 16px;font-weight: 600;margin-top: 10px;margin-bottom: 10px;color: #404040;}
-.home_list p {color:#8c8c8c}
+.home_list p {color:black;}
 .home_list a.btn {font-size: 13px;padding: 0;color: #005FA6;}
 .home_bottom .row {margin-left: -5px;margin-right: -5px;}
 .home_bottom div[class*="col-"] {padding-right: 5px;padding-left: 5px;position: relative;}

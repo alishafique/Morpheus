@@ -98,6 +98,7 @@ namespace Morpheus.Accounts
 
                 btnUpdateEmployeeProfile.Enabled = true;
                 btnUpdateEmployeeProfile.Focus();
+                loadEmployeeDocuments();
             }
             catch (Exception ex)
             {
@@ -520,9 +521,17 @@ namespace Morpheus.Accounts
             {
                 dt = new DataTable();
                 objEmp = new viewEmployees_Controller();
-                dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_userId.Text), "document");
-                GridView1.DataSource = dt;
-                GridView1.DataBind();
+                dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_EmployeeId.Text));
+                if (dt != null)
+                {
+                    grdViewDocuments.DataSource = dt;
+                    grdViewDocuments.DataBind();
+                }
+                else
+                {
+                    showErrorMessage(objEmp.ErrorString, false);
+                }
+
             }
             catch (Exception ex)
             {
@@ -530,6 +539,82 @@ namespace Morpheus.Accounts
             }
         }
 
+        protected void removeDocument_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                objEmp = new viewEmployees_Controller();
+                LinkButton lnkRemove = (LinkButton)sender;
+                string val = lnkRemove.CommandArgument;
+                if (objEmp.DeletDocumentByEmployee(int.Parse(val)))
+                {
+                    showErrorMessage("Document Deleted Successfully.", true);
+                    loadEmployeeDocuments();
+                }
+                else
+                    showErrorMessage(objEmp.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+        protected void DownloadFile(object sender, EventArgs e)
+        {
+            try
+            {
+                string filePath = (sender as LinkButton).CommandArgument;
+                Response.ContentType = ContentType;
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
+                Response.WriteFile(filePath);
+                Response.End();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
 
+        protected void btnApprove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                objEmp = new viewEmployees_Controller();
+                LinkButton lnkApprove = (LinkButton)sender;
+                string documentID = lnkApprove.CommandArgument;
+                if (objEmp.UpdateDocumentStatus(int.Parse(documentID), "Approved"))
+                {
+                    showErrorMessage("Document Updated Successfully.", true);
+                    loadEmployeeDocuments();
+                }
+                else
+                    showErrorMessage(objEmp.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        protected void btnReject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                objEmp = new viewEmployees_Controller();
+                LinkButton lnkApprove = (LinkButton)sender;
+                string documentID = lnkApprove.CommandArgument;
+                if (objEmp.UpdateDocumentStatus(int.Parse(documentID), "Reject"))
+                {
+                    showErrorMessage("Document Updated Successfully.", true);
+                    loadEmployeeDocuments();
+                }
+                else
+                    showErrorMessage(objEmp.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
     }
 }

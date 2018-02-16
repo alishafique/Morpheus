@@ -40,7 +40,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Sign Up as Company</div>
+                            Contact Us</div>
                         <%--<asp:Label ID="Label1" runat="server" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>--%>
                         <div class="panel-body">
                              

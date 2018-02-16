@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="ViewEmployeeList.aspx.cs" Inherits="Morpheus.Accounts.ViewEmployeeList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="ViewEmployeeList.aspx.cs" ValidateRequest="false" Inherits="Morpheus.Accounts.ViewEmployeeList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <style type="text/css">
       .hidden-field {
@@ -53,7 +53,6 @@
             });
             
         });
-        
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -212,41 +211,71 @@
                                            runat="server" Text="Update Profile" OnClick="btnUpdateEmployeeProfile_Click" />
                                            </div>
 
-                                       <div class="col-lg-6" style="display:none;">
-                                           <h1>Upload Your Documents</h1>
+                                       <div class="col-lg-6">
+                                           <h1>Uploaded Documents</h1>
 
-                                           <div class="form-group">
+                                          
+                                          
+                                           <div class="form-group" style="margin-top: 15px;">
+                                                 <asp:GridView ID="grdViewDocuments" runat="server" Width="100%" class="table1 table-striped table-bordered table-hover" AutoGenerateColumns="False">
+                                                   <Columns>
+                                                       <asp:BoundField DataField="DocumentID" HeaderText="DocumentID">
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:BoundField>
+                                                       <asp:BoundField DataField="DocumentName" HeaderText="DocumentName" />
+                                                       <asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID">
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:BoundField>
+                                                       <asp:BoundField DataField="DocumentURL" HeaderText="DocumentURL" >
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:BoundField>
+                                                       <asp:BoundField DataField="DocumentStatus" HeaderText="DocumentStatus" />
+                                                       <asp:TemplateField>
+                                                           <ItemTemplate>
+                                                               <asp:LinkButton ID="removeDocument" runat="server"
+                                                                   CommandArgument='<%# Eval("DocumentID")%>'
+                                                                   OnClientClick="return confirm('Do you want to delete?')"
+                                                                   Text="Delete" OnClick="removeDocument_Click" CausesValidation="false"></asp:LinkButton>
+                                                           </ItemTemplate>
+                                                           <ItemStyle CssClass="hidden-field" />
+                                                           <HeaderStyle CssClass="hidden-field" />
+                                                       </asp:TemplateField>
+                                                       <asp:TemplateField>
+                                                           <ItemTemplate>
+                                                               <asp:LinkButton ID="lnkDownload" Text="View" CommandArgument='<%# Eval("DocumentURL") %>' CausesValidation="false" runat="server" OnClick="DownloadFile"></asp:LinkButton>
+                                                           </ItemTemplate>
+                                                       </asp:TemplateField>
+
+                                                       <asp:TemplateField>
+                                                           <ItemTemplate>
+                                                               <asp:LinkButton ID="btnApprove" Text="Approve" CssClass="btn btn-primary btn-xs" CommandArgument='<%# Eval("DocumentID") %>' CausesValidation="false" runat="server" OnClick="btnApprove_Click" >
+                                       
+                                                               </asp:LinkButton>
+                                                           </ItemTemplate>
+                                                       </asp:TemplateField>
+                                                       <asp:TemplateField>
+                                                           <ItemTemplate>
+                                                               <asp:LinkButton ID="btnReject" Text="Reject" CssClass="btn btn-primary btn-xs" CommandArgument='<%# Eval("DocumentID") %>' CausesValidation="false" runat="server" OnClick="btnReject_Click" >
+                                       
+                                                               </asp:LinkButton>
+                                                           </ItemTemplate>
+                                                       </asp:TemplateField>
+                                  
+                                                   </Columns>
+                                               </asp:GridView>
+                                           </div>
+
+                                            <div class="form-group" style="display:none;">
                                                <label>Name of document</label>
                                                <asp:TextBox ID="txtDocumentName" CssClass="form-control" placeholder="Enter document name. e.g. White Card" ToolTip="Document Name" runat="server"></asp:TextBox>                             
                                                <asp:FileUpload ID="FtCdocuments"  class="uploadFile form-group"  placeholder="Choose Images" runat="server" />
                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDocumentName" runat="server" Display="Dynamic" ErrorMessage="Enter document name." SetFocusOnError="true"></asp:RequiredFieldValidator>
                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="FtCdocuments" runat="server" Display="Dynamic" ErrorMessage="Select Document To Upload." SetFocusOnError="true"></asp:RequiredFieldValidator>
                                            </div>
-                                        <asp:Button ID="btnUploadDocuments" CssClass="btn btn-primary" runat="server" Text="Upload Documents" OnClick="btnUploadDocuments_Click" />
-                                          
-                                           <div class="form-group" style="margin-top: 15px;">
-                                               <asp:GridView ID="GridView1" runat="server" Width="100%" class="table table-striped table-bordered table-hover" AutoGenerateColumns="false">
-                                                   <Columns>
-                                                       <asp:TemplateField HeaderText="Id">
-                                                           <ItemStyle CssClass="hidden-field" />
-                                                           <HeaderStyle CssClass="hidden-field" />
-                                                           <ItemTemplate>
-                                                               <asp:HiddenField ID="Id" runat="server" Value='<%# Bind("Id") %>'></asp:HiddenField>
-                                                           </ItemTemplate>
-                                                       </asp:TemplateField>
-                                                       <asp:TemplateField HeaderText="Name">
-                                                           <ItemTemplate>
-                                                               <asp:Label ID="lblName" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
-                                                           </ItemTemplate>
-                                                       </asp:TemplateField>
-                                                       <asp:TemplateField HeaderText="Document">
-                                                           <ItemTemplate>
-                                                               <asp:HyperLink ID="HLDocument" runat="server" NavigateUrl='<%# GetImage(Eval("ImageData")) %>' >View Document</asp:HyperLink>
-                                                           </ItemTemplate>
-                                                       </asp:TemplateField>
-                                                   </Columns>
-                                               </asp:GridView>
-                                           </div>
+                                        <asp:Button ID="btnUploadDocuments" CssClass="btn btn-primary" Visible="false" runat="server" Text="Upload Documents" OnClick="btnUploadDocuments_Click" />
                                        </div>
 
                                    </div>

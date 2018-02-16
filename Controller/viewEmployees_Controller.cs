@@ -282,21 +282,18 @@ namespace Controller
             }
         }
 
-        public DataTable spLoadEmployeeDocuments(int userID, string DocumentType)
+        public DataTable spLoadEmployeeDocuments(int empId)
         {
             try
             {
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "spLoadEmployeeDocuments";
+                strQuery = "spLoadEmployeesDocument";
                 cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@userId", SqlDbType.BigInt).Value = userID;
-                cmd.Parameters.Add("@DocumentType", SqlDbType.VarChar).Value = DocumentType;
+                cmd.Parameters.Add("@EmployeeID", SqlDbType.BigInt).Value = empId;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
-                {
                     return dt;
-                }
                 else
                 {
                     ErrorString = con.strError;
@@ -307,6 +304,82 @@ namespace Controller
             {
                 ErrorString = ex.Message;
                 return null;
+            }
+        }
+
+        public bool AddDocuments(string DocumentName, int EmpID, string DocumentURL)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spAddDocuments";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@DocumentName", SqlDbType.VarChar).Value = DocumentName;
+                cmd.Parameters.Add("@EmployeeID", SqlDbType.BigInt).Value = EmpID;
+                cmd.Parameters.Add("@DocumentURL", SqlDbType.VarChar).Value = DocumentURL;
+                cmd.Parameters.Add("@DocumentStatus", SqlDbType.VarChar).Value = "Pending";
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
+        public bool DeletDocumentByEmployee(int DocID)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spDeletDocumentByEmployee";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@DocumentID", SqlDbType.BigInt).Value = DocID;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
+        public bool UpdateDocumentStatus(int docuID, string status)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spUpdateDocumentStatus";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@DocumentID", SqlDbType.BigInt).Value = docuID;
+                cmd.Parameters.Add("@DocumentStatus", SqlDbType.VarChar).Value = status;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
             }
         }
     }

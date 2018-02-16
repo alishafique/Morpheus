@@ -8,6 +8,10 @@ using Controller;
 using System.Data;
 using System.Windows.Forms;
 using System.Text;
+using Morpheus.Accounts.Reports;
+using Microsoft.Reporting.WebForms;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace Morpheus.Accounts
 {
@@ -16,6 +20,9 @@ namespace Morpheus.Accounts
         DataTable dt;
         viewEditCompanyIncidentReports_Controller obj;
         Dictionary<string, Int16> severanityLevel = new Dictionary<string, Int16>();
+        private int _USERID;
+        private int _reportID;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -28,6 +35,7 @@ namespace Morpheus.Accounts
                         LoadSubContractorReports();
                         btnUpdateReport.Enabled = false;
                         btnUpdateReport.Visible = false;
+                        
                     }
                     else if (Session["UserTypeID"].ToString() == "4")
                     {
@@ -40,10 +48,23 @@ namespace Morpheus.Accounts
                         Response.Redirect("login.aspx");
                     }
                 }
+                else
+                {
+                    //CrystalReportViewer1.RefreshReport();
+                    //CrystalReportViewer1.ReportSource = Session["report"];
+                }
             }
             catch (Exception)
             {
                 Response.Redirect("login.aspx");
+            }
+        }
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (Session["report"] != null)
+            {
+                //CrystalReportViewer1.ReportSource = Session["report"];
             }
         }
 
@@ -102,8 +123,6 @@ namespace Morpheus.Accounts
             }
         }
 
-
-
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)
@@ -151,9 +170,18 @@ namespace Morpheus.Accounts
                 severanityLevel.Add("Level 3 – Within 3 hours, no physical danger, work has been", 2);
 
                 GridViewRow row = dtgridview_IncidentReports.SelectedRow;
+
+                
+                Session.Add("_reportID", row.Cells[1].Text);
+
+               loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(Session["userid"].ToString()));
+
+
                 TextBox_ReportId.Text = row.Cells[1].Text;
                 TextBox_user_id.Text = row.Cells[2].Text;
                 TextBox_Reportedby.Text = row.Cells[3].Text;
+                
+
 
                 if (severanityLevel.ContainsKey(row.Cells[4].Text))
                 {
@@ -252,6 +280,12 @@ namespace Morpheus.Accounts
                 severanityLevel.Add("Level 3 – Within 3 hours, no physical danger, work has been", 2);
 
                 GridViewRow row = gdIncidentSubcontractor.SelectedRow;
+
+      
+                Session.Add("_reportID", row.Cells[1].Text);
+
+                //loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(row.Cells[11].Text));
+
                 TextBox_ReportId.Text = row.Cells[1].Text;
                 TextBox_user_id.Text = row.Cells[2].Text;
                 TextBox_Reportedby.Text = row.Cells[3].Text;
@@ -327,6 +361,121 @@ namespace Morpheus.Accounts
             if (e.Row.Cells[10].Text == "unseen")
             {
                 e.Row.CssClass = "danger";
+            }
+        }
+
+        private void loadCrystalReport(int reportID, int USERID)
+        {
+            try
+            {
+                //ReportDocument rptD = new ReportDocument();
+                //spLoadReportTableAdapter da = new spLoadReportTableAdapter();
+                //spCompanyLogoTableAdapter daCom = new spCompanyLogoTableAdapter();
+                //dsIncidentReport ds = new dsIncidentReport();
+                //dsIncidentReport.spLoadReportDataTable dt = (dsIncidentReport.spLoadReportDataTable) ds.Tables["spLoadReport"];
+                //dsIncidentReport.spCompanyLogoDataTable dt1 = (dsIncidentReport.spCompanyLogoDataTable)ds.Tables["spCompanyLogo"];
+
+                //da.Fill(dt, USERID, reportID);
+                //daCom.Fill(dt1, USERID);
+
+                //rpt = new viewIncidentReport();
+                //rpt.SetDataSource(ds);
+                ////CrystalReportViewer1.ReportSource = rpt;
+                ////rpt.ExportToHttpResponse(ExportFormatType.ExcelRecord, Response, true, "PersonDetails");
+                //Session.Add("report", rpt);
+
+                obj = new viewEditCompanyIncidentReports_Controller();
+                rptViewer.ProcessingMode = ProcessingMode.Local;
+                
+               // rptViewer.LocalReport.ReportPath = Server.MapPath("~/Accounts/Reports/rptIncident.rdlc");
+                dsIncidentReport dsCustomers = LoadReport(reportID, USERID);
+              
+                ReportDataSource datasource = new ReportDataSource("IncidentReportDS", dsCustomers.Tables[0]);
+                rptViewer.LocalReport.DataSources.Clear();
+                rptViewer.LocalReport.DataSources.Add(datasource);
+
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(rdPdf.Checked)
+                {
+                    //ReportDocument rptD = new ReportDocument();
+                    //spLoadReportTableAdapter da = new spLoadReportTableAdapter();
+                    //spCompanyLogoTableAdapter daCom = new spCompanyLogoTableAdapter();
+                    //dsIncidentReport ds = new dsIncidentReport();
+                    //dsIncidentReport.spLoadReportDataTable dt = (dsIncidentReport.spLoadReportDataTable)ds.Tables["spLoadReport"];
+                    //dsIncidentReport.spCompanyLogoDataTable dt1 = (dsIncidentReport.spCompanyLogoDataTable)ds.Tables["spCompanyLogo"];
+
+                    //da.Fill(dt, int.Parse(Session["userid"].ToString()), int.Parse(Session["_reportID"].ToString()));
+      
+                    //daCom.Fill(dt1, int.Parse(Session["userid"].ToString()));
+
+                    //rpt = new viewIncidentReport();
+                    //rpt.SetDataSource(ds);
+                    ////CrystalReportViewer1.ReportSource = rpt;
+                    //rpt.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, Session["_reportID"].ToString());
+                    //Session.Add("report", rpt);
+                }
+                if (rdExcel.Checked)
+                {
+                   // ReportDocument rptD = new ReportDocument();
+                   // spLoadReportTableAdapter da = new spLoadReportTableAdapter();
+                   // spCompanyLogoTableAdapter daCom = new spCompanyLogoTableAdapter();
+                   // dsIncidentReport ds = new dsIncidentReport();
+                   // dsIncidentReport.spLoadReportDataTable dt = (dsIncidentReport.spLoadReportDataTable)ds.Tables["spLoadReport"];
+                   // dsIncidentReport.spCompanyLogoDataTable dt1 = (dsIncidentReport.spCompanyLogoDataTable)ds.Tables["spCompanyLogo"];
+
+                   // da.Fill(dt, int.Parse(Session["userid"].ToString()), int.Parse(Session["_reportID"].ToString()));
+
+                   // daCom.Fill(dt1, int.Parse(Session["userid"].ToString()));
+
+                   // rpt = new viewIncidentReport();
+                   // rpt.SetDataSource(ds);
+                   //// CrystalReportViewer1.ReportSource = rpt;
+                   // rpt.ExportToHttpResponse(ExportFormatType.Excel, Response, true, Session["_reportID"].ToString());
+                   // Session.Add("report", rpt);
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+        public dsIncidentReport LoadReport(int reportID, int ReportedTo)
+        {
+            try
+            {
+                string conString = ConfigurationManager.ConnectionStrings["morpheus_db"].ConnectionString;
+                SqlCommand cmd = new SqlCommand("spLoadReport");
+                cmd.Parameters.Add("@ReportedTo", SqlDbType.BigInt).Value = ReportedTo;
+                cmd.Parameters.Add("@ReportID", SqlDbType.BigInt).Value = reportID;
+                using (SqlConnection con = new SqlConnection(conString))
+                {
+                    using (SqlDataAdapter sda = new SqlDataAdapter())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;                 
+                        sda.SelectCommand = cmd;
+                        using (dsIncidentReport dsIncRpt = new dsIncidentReport())
+                        {
+                            sda.Fill(dsIncRpt, "LoadReport");
+                            return dsIncRpt;
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+                return null;
             }
         }
     }

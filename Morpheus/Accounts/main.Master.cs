@@ -92,66 +92,77 @@ namespace Morpheus.Accounts
                 {
                     obj = new Main_Controller();
                     dt = new DataTable();
-                    int _CompanyId = int.Parse(Session["userid"].ToString().Trim());
-                    HttpPostedFile postedFile = fUpLogo.PostedFile;
-                    string filename = _CompanyId + "_CompanyLogo";//
-                                                                       
-                    string fileExtension = Path.GetExtension(fUpLogo.FileName);
-                    int fileSize = postedFile.ContentLength;
-                    if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
-                        || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
+                    DataTable dtcomID = new DataTable();
+                    dtcomID = obj.GetCompanyIdOfUser(int.Parse(Session["userid"].ToString().Trim()));
+                    if (dtcomID != null && dtcomID.Rows.Count > 0)
                     {
+                        int _CompanyId = int.Parse(dtcomID.Rows[0]["CompanyID"].ToString());
+                        HttpPostedFile postedFile = fUpLogo.PostedFile;
+                        string filename = _CompanyId + "_CompanyLogo";//
 
-                        string directoryName = _CompanyId.ToString(); // all data will be saved using userID of employee
-                        string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
-                        string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
-                        string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
-                        if (!Directory.Exists(fullDirectoryPath))
-                            Directory.CreateDirectory(fullDirectoryPath);
-
-                        dt = obj.CompanyLogo(_CompanyId); // get company logo url from db
-                        if (dt.Rows.Count > 0)
+                        string fileExtension = Path.GetExtension(fUpLogo.FileName);
+                        int fileSize = postedFile.ContentLength;
+                        if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
+                            || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
                         {
-                            if (!File.Exists(Server.MapPath(dt.Rows[0]["CompanyLogo"].ToString())))
+
+                            string directoryName = _CompanyId.ToString(); // all data will be saved using userID of employee
+                            string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
+                            string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
+                            string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                            if (!Directory.Exists(fullDirectoryPath))
+                                Directory.CreateDirectory(fullDirectoryPath);
+
+                            dt = obj.CompanyLogo(_CompanyId); // get company logo url from db
+                            if (dt.Rows.Count > 0)
                             {
-                                if (obj.UpdateCompanyLogo(pathTosave, _CompanyId))
+                                if (!File.Exists(Server.MapPath(dt.Rows[0]["CompanyLogo"].ToString())))
                                 {
-                                    Stream stream = postedFile.InputStream;
-                                    if (fileSize < 1000000)
-                                        fUpLogo.SaveAs(fileNameWithPath);
+                                    if (obj.UpdateCompanyLogo(pathTosave, _CompanyId))
+                                    {
+                                        Stream stream = postedFile.InputStream;
+                                        if (fileSize < 1000000)
+                                            fUpLogo.SaveAs(fileNameWithPath);
+                                        else
+                                            GenerateThumbnails(0.5, stream, fileNameWithPath);
+
+                                        impPrev.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
+                                        //showErrorMessage("Profile picture changed successfully", true);
+                                    }
                                     else
-                                        GenerateThumbnails(0.5, stream, fileNameWithPath);
-                 
-                                    impPrev.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
-                                    //showErrorMessage("Profile picture changed successfully", true);
+                                        lblError.Text = "unable to save files";
                                 }
                                 else
-                                    lblError.Text = "unable to save files";
+                                {
+                                    File.Delete(Server.MapPath(dt.Rows[0]["CompanyLogo"].ToString()));
+                                    if (obj.UpdateCompanyLogo(pathTosave, _CompanyId))
+                                    {
+                                        Stream stream = postedFile.InputStream;
+                                        if (fileSize < 1000000)
+                                            fUpLogo.SaveAs(fileNameWithPath);
+                                        else
+                                            GenerateThumbnails(0.5, stream, fileNameWithPath);
+
+                                        impPrev.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
+                                        //showErrorMessage("Profile picture changed successfully", true);
+                                        Hidebutton();
+
+
+                                    }
+                                    else
+                                        lblError.Text = "unable to save files";
+                                }
                             }
                             else
                             {
-                                File.Delete(Server.MapPath(dt.Rows[0]["CompanyLogo"].ToString()));
-                                if (obj.UpdateCompanyLogo(pathTosave, _CompanyId))
-                                {
-                                    Stream stream = postedFile.InputStream;
-                                    if (fileSize < 1000000)
-                                        fUpLogo.SaveAs(fileNameWithPath);
-                                    else
-                                        GenerateThumbnails(0.5, stream, fileNameWithPath);
-                             
-                                    impPrev.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid(); ;
-                                    //showErrorMessage("Profile picture changed successfully", true);
-                                    Hidebutton();
 
-
-                                }
-                                else
-                                    lblError.Text = "unable to save files";
                             }
                         }
+                        else
+                            lblError.Text = "Only images (.jpg, .png, .gif and .bmp) can be uploaded";
                     }
                     else
-                        lblError.Text = "Only images (.jpg, .png, .gif and .bmp) can be uploaded";
+                        lblError.Text = obj.ErrorString;
                 }
                 else
                     lblError.Text = "No Logo Selected.";
@@ -191,26 +202,35 @@ namespace Morpheus.Accounts
                 thumbnailImg.Save(targetPath, image.RawFormat);
             }
         }
-        private void LoadCompanyLogo(int CompanyId)
+        private void LoadCompanyLogo(int userID)
         {
             try
             {
                 dt = new DataTable();
                 obj = new Main_Controller();
-                dt = obj.CompanyLogo(CompanyId);
-                if (dt != null)
+                DataTable dtCom = new DataTable();
+                dtCom = obj.GetCompanyIdOfUser(userID);
+                if (dtCom != null && dtCom.Rows.Count > 0)
                 {
-                    if (dt.Rows.Count > 0 && dt.Rows[0]["CompanyLogo"].ToString() != "")
+                    int companyID = int.Parse(dtCom.Rows[0]["CompanyID"].ToString()); // Get company ID
+
+                    dt = obj.CompanyLogo(companyID);
+                    if (dt != null)
                     {
-                       impPrev.ImageUrl = dt.Rows[0]["CompanyLogo"].ToString();
-                       Hidebutton();
+                        if (dt.Rows.Count > 0 && dt.Rows[0]["CompanyLogo"].ToString() != "")
+                        {
+                            impPrev.ImageUrl = dt.Rows[0]["CompanyLogo"].ToString();
+                            Hidebutton();
+                        }
+                        else
+                        {
+                            fUpLogo.Visible = true;
+                            btnUploadLogo.Visible = true;
+                            btnEditlogo.Visible = false;
+                        }
                     }
                     else
-                    {
-                        fUpLogo.Visible = true;
-                        btnUploadLogo.Visible = true;
-                        btnEditlogo.Visible = false;
-                    }
+                        lblError.Text = obj.ErrorString;
                 }
                 else
                     lblError.Text = obj.ErrorString;

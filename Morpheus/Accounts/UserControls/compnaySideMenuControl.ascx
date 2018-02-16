@@ -48,7 +48,7 @@
                         </li>
                         <li><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="#">View Forms</a> </li>
+                                <li><a href="rptViewIncident.aspx">View Forms</a> </li>
                                 <li><a href="FormBuilder.aspx">Form Builder</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -57,7 +57,7 @@
                     <ul class="nav navbar-nav main-navbar-nav">
                         <li class="active"><a href = "Home.aspx" title="">Home</a></li>
                        <li><a href="#" title="">Products</a></li>
-                        <li><a href="#" title="">About US</a></li>
+                        <li><a href="AboutUs.aspx" title="">About US</a></li>
                         <li><a href="ContactUs.aspx" title="">Contact US</a></li>
                         <li><a href="#" title="">FAQs</a></li>
                         
@@ -86,8 +86,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12 fbox">
-                    <h4>SEGURA</h4>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam congue lectus diam, sit amet cursus massa efficitur sed. </p>
+                    <h4>SEGURO</h4>
+                    <p class="text">Seguro is providing an online Web Application solution to companies in managing their employees. </p>
                     <ul class="list-inline">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -120,7 +120,7 @@
                     <h4>Contact Us</h4>
                     <p class="text">Life is too precious. Contact us now.</p>
                     <p><a href="tel:+61755006003"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +617 5500 6003</a></p>
-                    <p><a href="mailto:iletisim@agrisosgb.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> admin@segura.com.au</a></p>
+                    <p><a href="mailto:iletisim@agrisosgb.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> admin@seguro.com.au</a></p>
                 </div>
             </div>
         </div>
@@ -128,14 +128,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <p class="pull-left">&copy; 2017 Segura</p>
+                        <p class="pull-left">&copy; 2018 Seguro</p>
                     </div>
                     <div class="col-md-8">
                         <ul class="list-inline navbar-right">
                             <li><a href="Home.aspx">HOME</a></li>
                             <li><a href="#">PRODUCTS</a></li>
                             <li><a href="#">ABOUT US</a></li>
-                            <li><a href="#">CONTACT US</a></li>
+                            <li><a href="ContactUs.aspx">CONTACT US</a></li>
                             <li><a href="#">FAQs</a></li>
                             <li><a href="Accounts/login.aspx">LOGIN</a></li>
                             <li><a href="SignUp.aspx">CREATE NEW ACCOUNT</a></li>

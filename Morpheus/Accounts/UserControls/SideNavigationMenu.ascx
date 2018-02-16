@@ -32,27 +32,25 @@
                             </li>
                             <!-- /.nav-second-level -->
                    
-                        <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Activity<span class="fa arrow"></span></a>
+                        <li><a href="#"><i class="fa fa-bullhorn fa-fw"></i>Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="#">Create Activity</a> </li>
                                 <li><a href="#">View Activities</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                       <%-- <li><a href="#"><i class="fa fa-sitemap fa-fw"></i>Incident<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li><asp:LinkButton ID="lnkbtn_ReportIncident" runat="server" 
-                                        CausesValidation="false" onclick="lnkbtn_ReportIncident_Click">Report Incident</asp:LinkButton></li>
-                                <li>
-                                    <asp:LinkButton ID="lnkbtn_viewIncidentReports" CausesValidation="false" 
-                                        runat="server" onclick="lnkbtn_viewIncidentReports_Click">View Incidents</asp:LinkButton></li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>--%>
+                       
+                    
                         <li><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="#">View Forms</a> </li>
                                 <li><a href="#">Form Builder</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                         <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Settings<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="addUpdateNews.aspx">Add/Update News</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

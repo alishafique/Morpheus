@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css" />
 <link rel="stylesheet" type="text/css" href="icons/entypo.css" />
     <style type="text/css">
-                 .sizing {
+                 /*.sizing {
                     width: 100%;
                     height: 400px;
                     overflow: hidden;
@@ -33,9 +33,12 @@
                 }
                 .sizing img
                 {
-                   /*height:100%;*/
-                }
+                   /*height:100%;
+                     }
+                 */
+               
             </style>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
@@ -63,9 +66,9 @@
          <div class="item sizing">
           <img src="img/5.jpg" />
         <div class="o-slidr-textWrap">
-          <h1 class="heading1">Dynamic Innovation in</h1>
+          <h1 class="heading1" style="color:black;">Dynamic Innovation in</h1>
           <span class="a-dvider"></span>
-          <h2 class="heading2">Occupational Health & Safety</h2>
+          <h2 class="heading2" style="color:black;">Occupational Health & Safety</h2>
         </div>
       </div>
       <div class="item sizing" >
@@ -95,18 +98,18 @@
       <div class="item sizing" >
           <img src="img/4.jpg" />
         <div class="o-slier-textWrap">
-          <h1 class="heading1">This is a title</h1>
+          <h1 class="heading1" style="color:black;">This is a title</h1>
           <span class="a-ivider"></span>
-          <h2 class="heading2">This is a sub title</h2>
+          <h2 class="heading2" style="color:black;">This is a sub title</h2>
         </div>
       </div>
      
       <div class="item sizing" >
           <img src="img/6.jpg" />
         <div class="o-slidr-textWrap">
-          <h1 class="heading1">This is a title</h1>
+          <h1 class="heading1" style="color:black;">This is a title</h1>
           <span class="a-diider"></span>
-          <h2 class="heading2">This is a sub title</h2>
+          <h2 class="heading2" style="color:black;">This is a sub title</h2>
         </div>
       </div>
     </div>
@@ -127,7 +130,30 @@
                     <div class="col-sm-4">
                         <div class="box">
                             <h3>Legal Minefield - Your Obligations – Employer/Employee</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                            <p>With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees.With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees<a href="#" data-toggle="modal" data-target="#LegalMinefield" style="color:#005FA6;">   More..</a></p>
+                            <div class="modal fade" id="LegalMinefield" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel1">Legal Minefield - Your Obligations – Employer/Employee</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                           <p>With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees.</p>
+                                            <p>Deciding whether workers are employees or contractors can be a legal minefield for which businesses are unprepared until a dispute arises, or an ATO auditor or Fair Work inspector pays a visit.</p>
+                                            <p>Unfortunately, ignorance of the law is no defence, and getting it wrong can leave you heavily out of pocket.</p>
+                                            <p>Unfortunately, ignorance of the law is no defence, and getting it wrong can leave you heavily out of pocket.</p>
+                                            <h2>Don’t assume</h2>
+                                            <p>The ATO recently warned small businesses not to be fooled by the myth that simply calling a worker a contractor releases businesses from super and tax payments. The ATO recently warned small businesses not to be fooled by the myth that simply calling a worker a contractor releases businesses from super and tax payments.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                             <i class="fa fa-exclamation-triangle"></i>
                         </div>
                     </div>
@@ -136,7 +162,7 @@
                             <h3>OMS/GU Press Release and add to Latest
                                  <br />
                                 News</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                            <p>Under construction.</p>
                             <i class="fa fa-clipboard"></i>
                         </div>
                     </div>
@@ -154,30 +180,30 @@
                                 <i class="fa fa-cogs"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">FIRST SERVICE TITLE</h4>
-                                <p>Lorem ipsum dolor amet,consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                                <h4 class="media-heading">INCIDENT REPORTING</h4>
+                                <p>An easier way to report incident to your company. On one click you can export it to PDF/Excel file.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
                             <div class="media-left media-middle">
-                                <i class="fa fa-user-md"></i>
+                                <i class="fa fa-male"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">SECOND SERVICE TITLE</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                                <h4 class="media-heading">MANAGE EMPLOYEES</h4>
+                                <p>Add/Update/Delete your employee's account. Interactive dashboard to manage your employees.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
                             <div class="media-left media-middle">
-                                <i class="fa fa-stethoscope"></i>
+                                <i class="fa fa-user fa-fw"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">THIRD SERVICE TITLE</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                                <h4 class="media-heading">MANAGE SUB-CONTRACTORS</h4>
+                                <p>Add/update/Delete your Sub-Contractor's Account. A simple way to manage your staff in one place.</p>
                             </div>
                         </div>
                     </div>
@@ -187,8 +213,8 @@
                                 <i class="fa fa-graduation-cap"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">FOURTH SERVICE TITLE</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                                <h4 class="media-heading">ASSIGN JOBS TO EMPLOYEES</h4>
+                                <p>Create/Update jobs and Assign it to your employees. An easy Way to keep track of jobs and employees.</p>
                             </div>
                         </div>
                     </div>
@@ -198,19 +224,19 @@
                                 <i class="fa fa-file-text-o"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">FIFTH SERVICE TITLE</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                                <h4 class="media-heading">EXPORT INCIDENT REPORTS</h4>
+                                <p>Upon few clicks you can easily download your incident report in PDF and Excel formate.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
                             <div class="media-left media-middle">
-                                <i class="fa fa-heartbeat"></i>
+                                <i class="fa fa-database"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">SIXTH SERVICE TITLE</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
+                                <h4 class="media-heading">FULL DATABASE RECORDS OF EMPLOYEES</h4>
+                                <p>Our application keep full records of your employees. An easy way of managing the Employees.</p>
                             </div>
                         </div>
                     </div>                     
@@ -225,42 +251,114 @@
                         <div class="home_list">
                             <ul>
                                 <li class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="thumbnail">
-                                        <img src="img/h1.jpeg" alt="Post">
-                                        <div class="caption">
-                                            <h3><a href="#">Post Title</a></h3>
-                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                            <a href="#" class="btn btn-link" role="button">More</a>
+                                    <div class="thumbnail" id="NewsDiv1" runat="server">
+                                        <img id="imgNews1" class="img-responsive" alt="Post" runat="server" />
+                                        <div class="caption" >
+                                            <h3><a href="#"><asp:Label ID="lblNews1PostTitle" runat="server" Text=""></asp:Label></a></h3>
+                                            <p><asp:Label ID="lblNews1Detail" runat="server" Text=""></asp:Label></p>
+                                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#News1Detail" role="button">More</a>
+                                            <div class="modal fade" id="News1Detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Detail Of news</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <asp:Label ID="lblNewsDetail1" runat="server" Text=""></asp:Label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                                         </div>
                                     </div>                                        
                                 </li>
                                 <li class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="thumbnail">
-                                        <img src="img/h2.jpg" class="img-responsive" alt="Post">
+                                        <img id="imgNews2" class="img-responsive" alt="Post" runat="server" />
                                         <div class="caption">
-                                            <h3><a href="#">Post Title</a></h3>
-                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                            <a href="#" class="btn btn-link" role="button">More</a>
+                                            <h3><a href="#"><asp:Label ID="lblNews2PostTitle" runat="server" Text=""></asp:Label></a></h3>
+                                            <p><asp:Label ID="lblNews2Detail" runat="server" Text=""></asp:Label></p>
+                                            <a href="#" class="btn btn-link" role="button" data-toggle="modal" data-target="#News2Detail">More</a>
+                                             <div class="modal fade" id="News2Detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel2">Detail Of news</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <asp:Label ID="lblNewsDetail2" runat="server" Text=""></asp:Label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                                                </div>
                                         </div>
                                     </div>                                        
                                 </li>
                                 <li class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="thumbnail">
-                                        <img src="img/h3.jpeg" class="img-responsive" alt="Post">
+                                        <img id="imgNews3" class="img-responsive" alt="Post" runat="server" />
                                         <div class="caption">
-                                            <h3><a href="#">Post Title</a></h3>
-                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                            <a href="#" class="btn btn-link" role="button">More</a>
+                                            <h3><a href="#"><asp:Label ID="lblNews3PostTitle" runat="server" Text=""></asp:Label></a></h3>
+                                            <p><asp:Label ID="lblNews3Detail" runat="server" Text=""></asp:Label></p>
+                                            <a href="#" class="btn btn-link" role="button" data-toggle="modal" data-target="#News3Detail">More</a>
+                                             <div class="modal fade" id="News3Detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel3">Detail Of news</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <asp:Label ID="lblNewsDetail3" runat="server" Text=""></asp:Label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                                         </div>
                                     </div>                                        
                                 </li>
                                 <li class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="thumbnail">
-                                        <img src="img/h4.jpeg" class="img-responsive" alt="Post">
+                                        <img id="imgNews4" class="img-responsive" alt="Post" runat="server">
                                         <div class="caption">
-                                            <h3><a href="#">Post Title</a></h3>
-                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                            <a href="#" class="btn btn-link" role="button">More</a>
+                                            <h3><a href="#"><asp:Label ID="lblNews4PostTitle" runat="server" Text=""></asp:Label></a></h3>
+                                            <p><asp:Label ID="lblNews4Detail" runat="server" Text=""></asp:Label></p>
+                                            <a href="#" class="btn btn-link" role="button" data-toggle="modal" data-target="#News4Detail">More</a>
+                                             <div class="modal fade" id="News4Detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel4">Detail Of news</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <asp:Label ID="lblNewsDetail4" runat="server" Text=""></asp:Label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                                         </div>
                                     </div>                                        
                                 </li>                                    
@@ -268,14 +366,14 @@
                         </div>
                         
                         <div class="col-sm-9 home_bottom">
-                            <h2 class="sub_title">REFERENCES</h2>
+                            <h2 class="sub_title">PARTNERS</h2>
                             <div class="clearfix"></div>
                             <div class="row">
                                 <div class="carousel slide" data-ride="carousel" data-type="multi" data-interval="6000" id="myCarousel">
                                     <div class="carousel-inner">
                                         <div class="item active">
                                             <div class="col-md-2 col-sm-6 col-xs-12 p10">
-                                                <a href="#"><img src="img/l1.jpg" class="img-responsive" alt="Reference"></a>
+                                                <a href="#"><img src="img/l1.jpg" class="img-responsive" alt="Reference" /></a>
                                             </div>
                                         </div>
                                         <div class="item">

@@ -374,18 +374,16 @@ namespace Morpheus.Accounts
                                                                        // Stream temp = Path.GetFileName(postedFile.FileName);
                     string fileExtension = Path.GetExtension(profileUploadCtr.FileName);
                     int fileSize = postedFile.ContentLength;
-                    if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
+                    if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".jpeg"
                         || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
                     {
 
                         string directoryName = TextBox_userId.Text; // all data will be saved using userID of employee
                         string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
-                        string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
+                        string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + fileExtension);
                         string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
                         if (!Directory.Exists(fullDirectoryPath))
-                        {
                             Directory.CreateDirectory(fullDirectoryPath);
-                        }
 
                         //string[] imgNam = fileNameWithPath.Split('/');
                         dt = objEmp.loadEmployeePrfileImageURL(int.Parse(TextBox_userId.Text));
@@ -397,20 +395,14 @@ namespace Morpheus.Accounts
                                 {
                                     Stream stream = postedFile.InputStream;
                                     if (fileSize < 1000000)
-                                    {
                                         profileUploadCtr.SaveAs(fileNameWithPath);
-                                    }
                                     else
-                                    {
                                         GenerateThumbnails(0.5, stream, fileNameWithPath);
-                                    }
                                     imgprw.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
                                     showErrorMessage("Profile picture changed successfully", true);
                                 }
                                 else
-                                {
                                     showErrorMessage("unable to save files", false);
-                                }
                             }
                             else
                             {
@@ -419,27 +411,20 @@ namespace Morpheus.Accounts
                                 {
                                     Stream stream = postedFile.InputStream;
                                     if (fileSize < 1000000)
-                                    {
                                         profileUploadCtr.SaveAs(fileNameWithPath);
-                                    }
                                     else
-                                    {
                                         GenerateThumbnails(0.5, stream, fileNameWithPath);
-                                    }
+
                                     imgprw.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid(); ;
                                     showErrorMessage("Profile picture changed successfully", true);
                                 }
                                 else
-                                {
                                     showErrorMessage("unable to save files", false);
-                                }
                             }
                         }
                     }
                     else
-                    {
                         showErrorMessage("Only images (.jpg, .png, .gif and .bmp) can be uploaded", false);
-                    }
                 }
                 else
                 {
@@ -478,24 +463,55 @@ namespace Morpheus.Accounts
                 {
                     objEmp = new viewEmployees_Controller();
                     dt = new DataTable();
-                    HttpPostedFile postedFile = FtCdocuments.PostedFile;
-                    string filename = txtDocumentName.Text;
-                    string fileExtension = Path.GetExtension(filename);
-                    int fileSize = postedFile.ContentLength;
-                    Stream stream = postedFile.InputStream;
-                    BinaryReader binaryReader = new BinaryReader(stream);
-                    Byte[] bytes = binaryReader.ReadBytes((int)stream.Length);
-                    dt = objEmp.spUploadImage(filename, fileSize, bytes, int.Parse(TextBox_userId.Text), "document");
+                    dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_EmployeeId.Text));
+                    bool result = false;
+                    for(int i = 0;i<dt.Rows.Count;i++)
+                    {
+                        if(dt.Rows[i]["DocumentName"].ToString() == dpdDocuments.SelectedValue && dt.Rows[i]["EmployeeID"].ToString() == TextBox_EmployeeId.Text)
+                        {
+                            showErrorMessage(dpdDocuments.SelectedValue +" : is already uploaded. Please delete first this document and then upload it again.", false);
+                            result = true;
+                            break;
+                        }
+                    }
+                    if (result == false)
+                    {
+                        HttpPostedFile postedFile = FtCdocuments.PostedFile;
+                        string filename = int.Parse(TextBox_EmployeeId.Text) + "_" + dpdDocuments.SelectedValue;//txtDocumentName.Text;
+                        string fileExtension = Path.GetExtension(postedFile.FileName);
+                        int fileSize = postedFile.ContentLength;
+                        if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".jpeg"
+                            || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".bmp")
+                        {
+                            string directoryName = TextBox_EmployeeId.Text; // all data will be saved using userID of employee
+                            string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
+                            string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + fileExtension);
+                            string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                            if (!Directory.Exists(fullDirectoryPath))
+                                Directory.CreateDirectory(fullDirectoryPath);
 
-                    if (dt != null)
-                    {
-                        loadProfileImage(int.Parse(TextBox_userId.Text));
-                        showErrorMessage("Uploaded Document image", true);
+                            if (objEmp.AddDocuments(dpdDocuments.SelectedValue, int.Parse(TextBox_EmployeeId.Text), pathTosave) == true)
+                            {
+                                Stream stream = postedFile.InputStream;
+                                if (fileSize < 1000000)
+                                    FtCdocuments.SaveAs(fileNameWithPath);
+                                else
+                                    GenerateThumbnails(0.5, stream, fileNameWithPath);
+
+                                showErrorMessage("Document Added successfully", true);
+                            }
+                            else
+                            {
+                                showErrorMessage("Unable to save Documents: " + objEmp.ErrorString, false);
+                            }
+
+                        }
+                        else
+                            showErrorMessage("Only images (.jpg, .png, .jpeg, .gif and .bmp) can be uploaded.", false);
                     }
-                    else
-                    {
-                        showErrorMessage(objEmp.ErrorString, false);
-                    }
+
+
+                    loadEmployeeDocuments();
                 }
                 else
                 {
@@ -515,9 +531,17 @@ namespace Morpheus.Accounts
             {
                 dt = new DataTable();
                 objEmp = new viewEmployees_Controller();
-                dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_userId.Text), "document");
-                GridView1.DataSource = dt;
-                GridView1.DataBind();
+                dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_EmployeeId.Text));
+                if(dt!=null)
+                {
+                    grdViewDocuments.DataSource = dt;
+                    grdViewDocuments.DataBind();
+                }
+                else
+                {
+                    showErrorMessage(objEmp.ErrorString, false);
+                }
+                
             }
             catch(Exception ex)
             {
@@ -525,6 +549,27 @@ namespace Morpheus.Accounts
             }
         }
 
-        
+        protected void removeDocument_Click(object sender, EventArgs e)
+        {
+            objEmp = new viewEmployees_Controller();
+            LinkButton lnkRemove = (LinkButton)sender;
+            string val = lnkRemove.CommandArgument;
+            if (objEmp.DeletDocumentByEmployee(int.Parse(val)))
+            {
+                showErrorMessage("Document Deleted Successfully.", true);
+                loadEmployeeDocuments();
+            }
+            else
+                showErrorMessage(objEmp.ErrorString, false);
+        }
+        protected void DownloadFile(object sender, EventArgs e)
+        {
+            string filePath = (sender as LinkButton).CommandArgument;
+            Response.ContentType = ContentType;
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
+            Response.WriteFile(filePath);
+            Response.End();
+        }
+
     }
 }

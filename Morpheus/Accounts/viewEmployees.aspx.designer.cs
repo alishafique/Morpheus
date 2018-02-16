@@ -13,6 +13,24 @@ namespace Morpheus.Accounts {
     public partial class viewEmployees {
         
         /// <summary>
+        /// link1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlLink link1;
+        
+        /// <summary>
+        /// link2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlLink link2;
+        
+        /// <summary>
         /// form1 control.
         /// </summary>
         /// <remarks>
@@ -301,13 +319,31 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.Button btnUpdateEmployeeProfile;
         
         /// <summary>
-        /// txtDocumentName control.
+        /// grdViewDocuments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDocumentName;
+        protected global::System.Web.UI.WebControls.GridView grdViewDocuments;
+        
+        /// <summary>
+        /// WebScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Infragistics.Web.UI.WebScriptManager WebScriptManager1;
+        
+        /// <summary>
+        /// dpdDocuments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dpdDocuments;
         
         /// <summary>
         /// FtCdocuments control.
@@ -319,15 +355,6 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.FileUpload FtCdocuments;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
@@ -337,6 +364,15 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
+        
+        /// <summary>
         /// btnUploadDocuments control.
         /// </summary>
         /// <remarks>
@@ -344,14 +380,5 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUploadDocuments;
-        
-        /// <summary>
-        /// GridView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

@@ -117,6 +117,30 @@ namespace Controller
             }
 
         }
+        public DataTable GetCompanyIdOfUser(int userid)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spGetCompanyIdOfUser";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@user_id", SqlDbType.BigInt).Value = userid;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+
+        }
 
 
     }

@@ -51,6 +51,7 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="AddSubcontractor_Controller.cs" />
+    <Compile Include="addUpdateNews_Controller.cs" />
     <Compile Include="changePasswordLink_Controller.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="ChangePassword_Controller.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Home_Controller.cs" />
     <Compile Include="IncidentReport.cs" />
     <Compile Include="login_Controller.cs" />
     <Compile Include="Main_Controller.cs" />

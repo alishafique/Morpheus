@@ -29,9 +29,7 @@ namespace Controller
                 cmd.Parameters.Add("@reportedTo", SqlDbType.BigInt).Value = userID;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
-                {
                     return dt;
-                }
                 else
                 {
                     ErrorString = con.strError;
@@ -92,6 +90,33 @@ namespace Controller
             {
                 ErrorString = ex.Message;
                 return false;
+            }
+        }
+
+        public DataTable LoadReport(int reportID, int ReportedTo)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spLoadReport";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@ReportedTo", SqlDbType.BigInt).Value = ReportedTo;
+                cmd.Parameters.Add("@ReportID", SqlDbType.BigInt).Value = reportID;
+
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
             }
         }
     }

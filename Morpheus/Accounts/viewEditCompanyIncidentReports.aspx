@@ -1,4 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewEditCompanyIncidentReports.aspx.cs" Inherits="Morpheus.Accounts.viewEditCompanyIncidentReports" %>
+
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">      
         #mask
@@ -110,6 +113,10 @@
                                 </asp:BoundField>
                                 <asp:BoundField DataField="UpdatedDateTime" HeaderText="Updated DateTime"></asp:BoundField>
                                 <asp:BoundField DataField="status" HeaderText="Status"></asp:BoundField>
+                                 <asp:BoundField DataField="reportedTo" HeaderText="reportedTo">
+                                    <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
                                 <%-- <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />--%>
                             </Columns>
                             <PagerSettings />                        
@@ -127,6 +134,8 @@
                     <div class="panel-body">
                         <label>Please select any Report To view the description and Action taken on incident Report.</label>
                         <br />
+                       
+
                         <asp:GridView ID="gdIncidentSubcontractor" class="table table-striped table-bordered table-hover"
                             runat="server"  width="100%" AutoGenerateColumns="False" 
                             OnSelectedIndexChanged="gdIncidentSubcontractor_SelectedIndexChanged" OnSelectedIndexChanging="gdIncidentSubcontractor_SelectedIndexChanging"
@@ -160,6 +169,10 @@
                                 </asp:BoundField>
                                 <asp:BoundField DataField="UpdatedDateTime" HeaderText="Updated DateTime"></asp:BoundField>
                                 <asp:BoundField DataField="status" HeaderText="Status"></asp:BoundField>
+                                <asp:BoundField DataField="reportedTo" HeaderText="reportedTo">
+                                    <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />
+                                </asp:BoundField>
                                 <%-- <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />--%>
                             </Columns>
                             <PagerSettings />                        
@@ -169,9 +182,30 @@
                     <!-- /.panel-body -->
                 </div>
                 
-                <asp:Panel ID="pnlpopup" runat="server" BackColor="Gray" Height="100%"
+                <asp:Panel ID="pnlpopup" runat="server" BackColor="Gray" 
                     Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
-                <div class="row">
+                    <div class="form-group" style="padding:5px 5px 5px 5px;">
+                     <%--<CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" HasCrystalLogo="False" ToolPanelView="None" />--%>
+                        <asp:ScriptManager ID="ScriptManager1" runat="server">
+                        </asp:ScriptManager>
+                        <rsweb:ReportViewer ID="rptViewer" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="830px" Height="595px">
+                          
+                            <LocalReport ReportPath="Accounts\Reports\rptIncident.rdlc">
+                            </LocalReport>
+                          
+                        </rsweb:ReportViewer>
+                        <asp:EntityDataSource ID="EntityDataSource1" runat="server">
+                        </asp:EntityDataSource>
+                        <asp:SqlDataSource ID="DataSourceBind" runat="server"></asp:SqlDataSource>
+                        <br />
+                        <div class =" form-group" style="display:none;">
+                            
+                            <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" /><asp:RadioButton ID="rdExcel" CssClass="radio-inline" GroupName="export" Text="Excel" runat="server" />
+                            <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" OnClick="btnExport_Click" Text="Export" />
+                        </div>
+                        </div>
+
+                <div class="row" style=" display: none;">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">Edit details of Report.</div>
@@ -188,13 +222,7 @@
                                             <asp:TextBox ID="TextBox_user_id" class="form-control" ToolTip="user_id" ReadOnly="true" placeholder="user_id" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <%-- <div class="form-group">
-                                        <label>
-                                            Date:</label>
-                                        <asp:TextBox class="form-control" ID="txtbox_dateTimePicker" style="width:93%;float:left;" runat="server" 
-                                            ReadOnly="true" TextMode="DateTime"></asp:TextBox>
-                                        <img src="images/calender.png" style="float: left; height: 23px; padding-left: 5px;" />
-                                    </div>--%>
+                                   
                                     <div class="form-group">
                                         <label>Reported by:</label>
                                         <asp:TextBox ID="TextBox_Reportedby" class="form-control" ToolTip="Reportedby" ReadOnly="true" placeholder="Reportedby" runat="server"></asp:TextBox>
@@ -230,7 +258,7 @@
                                     </div>
                                     <asp:Button ID="btnUpdateReport" type="Update" class="btn btn-primary"
                                         runat="server" Text="Update" OnClick="btnUpdateReport_Click" />
-                                    <asp:Button ID="btnClose" CssClass="btn btn-primary" runat="server" Text="Close" OnClick="btnClose_Click" />
+                                   
                                     
                          
                                 <!-- /.row (nested) -->
@@ -241,7 +269,17 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+                    <div class="form-group">
+                        <asp:Button ID="btnClose" CssClass="btn btn-primary" runat="server" Text="Close" OnClick="btnClose_Click" />
+                    </div>
                  </asp:Panel>
+                <div class="form-group">
+                    
+                </div>
+               <%-- <asp:Panel ID="ViewReport" runat="server" BackColor="Gray" Height="100%"
+                    Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
+                    
+                </asp:Panel>--%>
             </div>
         </div>
              
