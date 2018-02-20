@@ -7,6 +7,7 @@ using System.Collections;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Morpheus.Accounts
 {
@@ -27,7 +28,7 @@ namespace Morpheus.Accounts
                         lblUserName.Text = Session["UserName"].ToString();
                         if (Session["UserTypeID"].ToString() == "2")
                         {
-                            loadEmployee(int.Parse(Session["userid"].ToString()));
+                            //loadEmployee(int.Parse(Session["userid"].ToString()));
                             dashboardmenu1.Visible = false;
                             companySideMenu1.Visible = true;
                             employeeDashMenu1.Visible = false;
@@ -60,74 +61,74 @@ namespace Morpheus.Accounts
 
         }
 
-        protected void dtgridview_Employees_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            dtgridview_Employees.PageIndex = e.NewPageIndex;
-            loadEmployee(int.Parse(Session["userid"].ToString()));
-        }
+        //protected void dtgridview_Employees_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    dtgridview_Employees.PageIndex = e.NewPageIndex;
+        //    loadEmployee(int.Parse(Session["userid"].ToString()));
+        //}
 
-        protected void dtgridview_Employees_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                objEmp = new viewEmployees_Controller();
-                dt = new DataTable();
-                GridViewRow row = dtgridview_Employees.SelectedRow;
-                TextBox_EmployeeId.Text= row.Cells[1].Text.Replace("&nbsp;", "");
-                TextBox_userId.Text = row.Cells[2].Text.Replace("&nbsp;", "");
-                loadProfileImage(int.Parse(TextBox_userId.Text));
-                TextBox_EmployeeName.Text = row.Cells[3].Text.Replace("&nbsp;", "");
-                TextBox1_EmployeeEmail.Text = row.Cells[4].Text.Replace("&nbsp;", "");
-                txtbox_dateTimePicker_DOB.Text = row.Cells[6].Text;
-                TextBox_ABN.Text = row.Cells[7].Text.Replace("&nbsp;","");
-                TextBox_TFN.Text = row.Cells[8].Text.Replace("&nbsp;", "");
-                DropDownList_activeStatus.SelectedValue = row.Cells[9].Text.Replace("&nbsp;", "");
-                dt = objEmp.loadAddressByEmployeeId(int.Parse(TextBox_EmployeeId.Text));
+        //protected void dtgridview_Employees_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        objEmp = new viewEmployees_Controller();
+        //        dt = new DataTable();
+        //        GridViewRow row = dtgridview_Employees.SelectedRow;
+        //        TextBox_EmployeeId.Text= row.Cells[1].Text.Replace("&nbsp;", "");
+        //        TextBox_userId.Text = row.Cells[2].Text.Replace("&nbsp;", "");
+        //        loadProfileImage(int.Parse(TextBox_userId.Text));
+        //        TextBox_EmployeeName.Text = row.Cells[3].Text.Replace("&nbsp;", "");
+        //        TextBox1_EmployeeEmail.Text = row.Cells[4].Text.Replace("&nbsp;", "");
+        //        txtbox_dateTimePicker_DOB.Text = row.Cells[6].Text;
+        //        TextBox_ABN.Text = row.Cells[7].Text.Replace("&nbsp;","");
+        //        TextBox_TFN.Text = row.Cells[8].Text.Replace("&nbsp;", "");
+        //        DropDownList_activeStatus.SelectedValue = row.Cells[9].Text.Replace("&nbsp;", "");
+        //        dt = objEmp.loadAddressByEmployeeId(int.Parse(TextBox_EmployeeId.Text));
 
-                if(dt != null)
-                {
-                    TextBox_StreetName.Text = dt.Rows[0]["Address"].ToString();
-                    TextBox_Suburb.Text = dt.Rows[0]["suburb"].ToString();
-                    TextBox_State.Text = dt.Rows[0]["state"].ToString();
-                    TextBox_Postcode.Text= dt.Rows[0]["postcode"].ToString();
-                    TextBox_License.Text = dt.Rows[0]["license"].ToString();
-                    TextBox_Mobile.Text = dt.Rows[0]["mobile"].ToString();
-                }
-                else
-                {
-                    showErrorMessage("Unable to load Address with following error: "+objEmp.ErrorString, false);
-                }
+        //        if(dt != null)
+        //        {
+        //            TextBox_StreetName.Text = dt.Rows[0]["Address"].ToString();
+        //            TextBox_Suburb.Text = dt.Rows[0]["suburb"].ToString();
+        //            TextBox_State.Text = dt.Rows[0]["state"].ToString();
+        //            TextBox_Postcode.Text= dt.Rows[0]["postcode"].ToString();
+        //            TextBox_License.Text = dt.Rows[0]["license"].ToString();
+        //            TextBox_Mobile.Text = dt.Rows[0]["mobile"].ToString();
+        //        }
+        //        else
+        //        {
+        //            showErrorMessage("Unable to load Address with following error: "+objEmp.ErrorString, false);
+        //        }
                 
-                btnUpdateEmployeeProfile.Enabled = true;
-                btnUpdateEmployeeProfile.Focus();
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-                clearTextBox();
-                TextBox_EmployeeId.Text = "";
-            }
+        //        btnUpdateEmployeeProfile.Enabled = true;
+        //        btnUpdateEmployeeProfile.Focus();
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        showErrorMessage(ex.Message, false);
+        //        clearTextBox();
+        //        TextBox_EmployeeId.Text = "";
+        //    }
 
-        }
+        //}
 
-        protected void dtgridview_Employees_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-        {
-            try
-            {
+        //protected void dtgridview_Employees_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        //{
+        //    try
+        //    {
 
-                GridViewRow row = dtgridview_Employees.Rows[e.NewSelectedIndex];
-                if (row.Cells[1].Text == "ANATR")
-                {
-                    e.Cancel = true;
-                    showErrorMessage("You cannot select " + row.Cells[2].Text + ".", false);
-                }
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message + " Please contact administrator.", false);
-            }
+        //        GridViewRow row = dtgridview_Employees.Rows[e.NewSelectedIndex];
+        //        if (row.Cells[1].Text == "ANATR")
+        //        {
+        //            e.Cancel = true;
+        //            showErrorMessage("You cannot select " + row.Cells[2].Text + ".", false);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        showErrorMessage(ex.Message + " Please contact administrator.", false);
+        //    }
 
-        }
+        //}
 
         private string convertDate(string i)
         {
@@ -178,32 +179,32 @@ namespace Morpheus.Accounts
 
         }
         
-        private void loadEmployee(int companyId)
-        {
-            try
-            {
-                dt = new DataTable();
-                objEmp = new viewEmployees_Controller();
-                dt = objEmp.viewEmployeeByCompany(companyId);
+        //private void loadEmployee(int companyId)
+        //{
+        //    try
+        //    {
+        //        dt = new DataTable();
+        //        objEmp = new viewEmployees_Controller();
+        //        dt = objEmp.viewEmployeeByCompany(companyId);
                
-                if (dt != null)
-                {
+        //        if (dt != null)
+        //        {
                     
-                    dtgridview_Employees.DataSource = dt;
-                    dtgridview_Employees.DataBind();
-                }
-                else
-                {
-                    showErrorMessage(objEmp.ErrorString, false);
-                }
+        //            dtgridview_Employees.DataSource = dt;
+        //            dtgridview_Employees.DataBind();
+        //        }
+        //        else
+        //        {
+        //            showErrorMessage(objEmp.ErrorString, false);
+        //        }
                 
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        showErrorMessage(ex.Message, false);
+        //    }
 
-        }
+        //}
 
         private void showErrorMessage(string message, bool status)
         {
@@ -226,12 +227,13 @@ namespace Morpheus.Accounts
         {
             try
             {
+                //System.Threading.Thread.Sleep(5000);
                 if (TextBox_EmployeeId.Text != "")
                 {
                     objEmpData = new Employee();
                     objEmp = new viewEmployees_Controller();
                     objEmpData.Emp_name = TextBox_EmployeeName.Text;
-                    objEmpData.Date_of_birth = DateTime.Parse(this.txtbox_dateTimePicker_DOB.Text);
+                    objEmpData.Date_of_birth = DateTime.ParseExact(txtbox_dateTimePicker_DOB.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
 
                     objEmpData.address = TextBox_StreetName.Text;
                     objEmpData.Suburb = TextBox_Suburb.Text;
@@ -248,7 +250,7 @@ namespace Morpheus.Accounts
                             if (objEmp.updateStatusOfEmployeeByCompany(int.Parse(TextBox_userId.Text), DropDownList_activeStatus.SelectedIndex) == true)
                             {
                                 showErrorMessage("Updated Employee profile", true);
-                                loadEmployee(int.Parse(Session["userid"].ToString()));
+                                //loadEmployee(int.Parse(Session["userid"].ToString()));
                                 clearTextBox();
                                 imgprw.ImageUrl = "";
                             }
@@ -303,32 +305,32 @@ namespace Morpheus.Accounts
             btnUpdateEmployeeProfile.Enabled = false;
         }
 
-        protected void dtgridview_Employees_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            try
-            {
-                //if ((MessageBox.Show("Are you sure, you want to Delete the Employee Record!!", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)) == System.Windows.Forms.DialogResult.Yes)
-                //{
-                    objEmp = new viewEmployees_Controller();
-                    GridViewRow row = (GridViewRow)dtgridview_Employees.Rows[e.RowIndex];
-                    int userid = int.Parse(row.Cells[2].Text);
-                    if (objEmp.deleteEmployeeByCompany(userid) == true)
-                    {
-                        showErrorMessage(row.Cells[3].Text + " deleted", true);
-                        loadEmployee(int.Parse(Session["userid"].ToString()));
-                    }
-                    else
-                    {
-                        showErrorMessage(objEmp.ErrorString, false);
-                    }
-                //}
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
+        //protected void dtgridview_Employees_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        //{
+        //    try
+        //    {
+        //        //if ((MessageBox.Show("Are you sure, you want to Delete the Employee Record!!", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)) == System.Windows.Forms.DialogResult.Yes)
+        //        //{
+        //            objEmp = new viewEmployees_Controller();
+        //            GridViewRow row = (GridViewRow)dtgridview_Employees.Rows[e.RowIndex];
+        //            int userid = int.Parse(row.Cells[2].Text);
+        //            if (objEmp.deleteEmployeeByCompany(userid) == true)
+        //            {
+        //                showErrorMessage(row.Cells[3].Text + " deleted", true);
+        //                loadEmployee(int.Parse(Session["userid"].ToString()));
+        //            }
+        //            else
+        //            {
+        //                showErrorMessage(objEmp.ErrorString, false);
+        //            }
+        //        //}
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        showErrorMessage(ex.Message, false);
+        //    }
 
-        }
+        //}
 
         public string GetImage(object img)
         {
@@ -364,7 +366,6 @@ namespace Morpheus.Accounts
         {
             try
             {
-
                 if (profileUploadCtr.HasFile)
                 {
                     objEmp = new viewEmployees_Controller();
@@ -381,7 +382,7 @@ namespace Morpheus.Accounts
                         string directoryName = TextBox_userId.Text; // all data will be saved using userID of employee
                         string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
                         string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + fileExtension);
-                        string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                        string pathTosave = "~/data/" + directoryName + "/" + filename + fileExtension;
                         if (!Directory.Exists(fullDirectoryPath))
                             Directory.CreateDirectory(fullDirectoryPath);
 
@@ -486,7 +487,7 @@ namespace Morpheus.Accounts
                             string directoryName = TextBox_EmployeeId.Text; // all data will be saved using userID of employee
                             string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
                             string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + fileExtension);
-                            string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                            string pathTosave = "~/data/" + directoryName + "/" + filename + fileExtension;
                             if (!Directory.Exists(fullDirectoryPath))
                                 Directory.CreateDirectory(fullDirectoryPath);
 
@@ -565,10 +566,17 @@ namespace Morpheus.Accounts
         protected void DownloadFile(object sender, EventArgs e)
         {
             string filePath = (sender as LinkButton).CommandArgument;
-            Response.ContentType = ContentType;
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
-            Response.WriteFile(filePath);
-            Response.End();
+            if (File.Exists(Server.MapPath(filePath)))
+            {
+                Response.ContentType = ContentType;
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
+                Response.WriteFile(filePath);
+                Response.End();
+            }
+            else
+            {
+                showErrorMessage("No file exist.", false);
+            }
         }
 
     }

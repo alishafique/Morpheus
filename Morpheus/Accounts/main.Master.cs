@@ -108,8 +108,8 @@ namespace Morpheus.Accounts
 
                             string directoryName = _CompanyId.ToString(); // all data will be saved using userID of employee
                             string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
-                            string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
-                            string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                            string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + fileExtension);
+                            string pathTosave = "~/data/" + directoryName + "/" + filename + fileExtension;
                             if (!Directory.Exists(fullDirectoryPath))
                                 Directory.CreateDirectory(fullDirectoryPath);
 
@@ -127,7 +127,6 @@ namespace Morpheus.Accounts
                                             GenerateThumbnails(0.5, stream, fileNameWithPath);
 
                                         impPrev.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
-                                        //showErrorMessage("Profile picture changed successfully", true);
                                     }
                                     else
                                         lblError.Text = "unable to save files";
@@ -144,10 +143,7 @@ namespace Morpheus.Accounts
                                             GenerateThumbnails(0.5, stream, fileNameWithPath);
 
                                         impPrev.ImageUrl = pathTosave + "?rand=" + Guid.NewGuid();
-                                        //showErrorMessage("Profile picture changed successfully", true);
                                         Hidebutton();
-
-
                                     }
                                     else
                                         lblError.Text = "unable to save files";

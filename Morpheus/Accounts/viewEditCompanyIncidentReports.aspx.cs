@@ -112,7 +112,7 @@ namespace Morpheus.Accounts
                     gdIncidentSubcontractor.DataSource = dt;
                     gdIncidentSubcontractor.DataBind();
                 }
-                else
+                else if(dt.Rows.Count != 0)
                 {
                     showErrorMessage(obj.ErrorString, false);
                 }

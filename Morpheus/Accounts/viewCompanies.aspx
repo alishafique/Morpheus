@@ -4,7 +4,38 @@
       .hidden-field {
             display: none;
         }
-      
+
+         #successMsg {
+             -webkit-animation: seconds 1.0s forwards;
+             -webkit-animation-iteration-count: 1;
+             -webkit-animation-delay: 5s;
+             animation: seconds 1.0s forwards;
+             animation-iteration-count: 1;
+             animation-delay: 5s;
+             position: relative;
+             background: red;
+         }
+         @-webkit-keyframes seconds {
+             0% {
+                 opacity: 1;
+             }
+
+             100% {
+                 opacity: 0;
+                 left: -9999px;
+             }
+         }
+
+         @keyframes seconds {
+             0% {
+                 opacity: 1;
+             }
+
+             100% {
+                 opacity: 0;
+                 left: -9999px;
+             }
+         }
     </style>
    <!-- DataTables CSS -->
     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />

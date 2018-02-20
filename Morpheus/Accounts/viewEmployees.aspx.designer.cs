@@ -40,6 +40,15 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// lblUserName control.
         /// </summary>
         /// <remarks>
@@ -128,15 +137,6 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl hideGrid;
-        
-        /// <summary>
-        /// dtgridview_Employees control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dtgridview_Employees;
         
         /// <summary>
         /// TextBox_EmployeeId control.
@@ -326,15 +326,6 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdViewDocuments;
-        
-        /// <summary>
-        /// WebScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Infragistics.Web.UI.WebScriptManager WebScriptManager1;
         
         /// <summary>
         /// dpdDocuments control.

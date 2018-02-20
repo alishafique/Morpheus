@@ -248,6 +248,7 @@
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
     <Content Include="Accounts\FormBuilder.aspx" />
     <Content Include="Accounts\forms\Induction.aspx" />
+    <Content Include="Accounts\images\loader.gif" />
     <Content Include="Accounts\images\profileUpload.png" />
     <Content Include="Accounts\images\sort_asc.png" />
     <Content Include="Accounts\images\sort_asc_disabled.png" />

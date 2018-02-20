@@ -212,10 +212,8 @@
                                            </div>
 
                                        <div class="col-lg-6">
-                                           <h1>Uploaded Documents</h1>
-
-                                          
-                                          
+                                           <h1>Employee's Documents</h1>
+ 
                                            <div class="form-group" style="margin-top: 15px;">
                                                  <asp:GridView ID="grdViewDocuments" runat="server" Width="100%" class="table1 table-striped table-bordered table-hover" AutoGenerateColumns="False">
                                                    <Columns>

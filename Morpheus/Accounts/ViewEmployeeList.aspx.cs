@@ -74,12 +74,12 @@ namespace Morpheus.Accounts
                 TextBox_EmployeeId.Text = row.Cells[1].Text.Replace("&nbsp;", "");
                 TextBox_userId.Text = row.Cells[2].Text.Replace("&nbsp;", "");
                 loadProfileImage(int.Parse(TextBox_userId.Text));
-                TextBox_EmployeeName.Text = row.Cells[3].Text.Replace("&nbsp;", "");
+                TextBox_EmployeeName.Text = row.Cells[3].Text.Replace("&nbsp;", "").Replace("&#39;","'");
                 TextBox1_EmployeeEmail.Text = row.Cells[4].Text.Replace("&nbsp;", "");
                 txtbox_dateTimePicker_DOB.Text = row.Cells[6].Text;
                 TextBox_ABN.Text = row.Cells[7].Text.Replace("&nbsp;", "");
                 TextBox_TFN.Text = row.Cells[8].Text.Replace("&nbsp;", "");
-                DropDownList_activeStatus.SelectedValue = row.Cells[9].Text.Replace("&nbsp;", "");
+                DropDownList_activeStatus.SelectedValue = row.Cells[9].Text.Replace("&nbsp;", "").Replace("&#39;", "'");
                 dt = objEmp.loadAddressByEmployeeId(int.Parse(TextBox_EmployeeId.Text));
 
                 if (dt != null)
@@ -237,7 +237,7 @@ namespace Morpheus.Accounts
                     objEmpData = new Employee();
                     objEmp = new viewEmployees_Controller();
                     objEmpData.Emp_name = TextBox_EmployeeName.Text;
-                    objEmpData.Date_of_birth = DateTime.ParseExact(txtbox_dateTimePicker_DOB.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    objEmpData.Date_of_birth = DateTime.ParseExact(txtbox_dateTimePicker_DOB.Text, "d/M/yyyy", CultureInfo.InvariantCulture);
 
                     objEmpData.address = TextBox_StreetName.Text;
                     objEmpData.Suburb = TextBox_Suburb.Text;
@@ -249,38 +249,31 @@ namespace Morpheus.Accounts
                     objEmpData.License = TextBox_License.Text;
                     if (objEmp.UpdateEmployeeProfileByCompany(objEmpData, int.Parse(TextBox_EmployeeId.Text)) == true)
                     {
-                        if (Session["UserTypeID"].ToString() != "3") // company Updating Employee's Status i.e. Activate or Deactivate
+                        if (Session["UserTypeID"].ToString() != "3") 
                         {
+                            // company Updating Employee's Status i.e. Activate or Deactivate
                             if (objEmp.updateStatusOfEmployeeByCompany(int.Parse(TextBox_userId.Text), DropDownList_activeStatus.SelectedIndex) == true)
                             {
                                 showErrorMessage("Updated Employee profile", true);
                                 loadEmployee(int.Parse(Session["userid"].ToString()));
                                 clearTextBox();
                                 imgprw.ImageUrl = "";
+                                grdViewDocuments.DataSource = null;
+                                grdViewDocuments.DataBind();
                             }
                             else
-                            {
                                 showErrorMessage(objEmp.ErrorString, false);
-                            }
                         }
                         else
-                        {
                             showErrorMessage("Updated Employee profile", true);
-                        }
                     }
                     else
-                    {
                         showErrorMessage(objEmp.ErrorString, false);
-                    }
                     if (profileUploadCtr.HasFile)
-                    {
                         LinkButton1_Click(sender, e);
-                    }
                 }
                 else
-                {
                     showErrorMessage("Please select employee to Update to its Profile!!!!", false);
-                }
 
             }
             catch (Exception ex)
@@ -564,10 +557,17 @@ namespace Morpheus.Accounts
             try
             {
                 string filePath = (sender as LinkButton).CommandArgument;
-                Response.ContentType = ContentType;
-                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
-                Response.WriteFile(filePath);
-                Response.End();
+                if (File.Exists(Server.MapPath(filePath)))
+                {
+                    Response.ContentType = ContentType;
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
+                    Response.WriteFile(filePath);
+                    Response.End();
+                }
+                else
+                {
+                    showErrorMessage("No document Exist", false);
+                }
             }
             catch(Exception ex)
             {

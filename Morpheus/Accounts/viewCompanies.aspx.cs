@@ -47,7 +47,6 @@ namespace Morpheus.Accounts
         {
             try
             {
-                resetDisplayMsg();
                 objviewEditCompanies = new viewEditCompanies_Controller();
                 dt = new DataTable();
                 dt = objviewEditCompanies.populateCompanyGridview();
@@ -99,36 +98,31 @@ namespace Morpheus.Accounts
                 txtbox_CompanyID.Text = row.Cells[1].Text; // load Company Id
                 txtbox_CompanyID.Enabled = false;
                 loadAddressTxtboxes(Int32.Parse(row.Cells[1].Text));  // load address by company id
-                txtbox_CompanyName.Text = row.Cells[3].Text.Replace("&amp;", "&").Replace("&nbsp;", ""); ;    // Load COmpany Name
+                txtbox_CompanyName.Text = row.Cells[3].Text.Replace("&amp;", "&").Replace("&nbsp;", "");    // Load COmpany Name
                 txtbox_CompanyEmail.Text = row.Cells[4].Text;       // load Company EMail
                 dp_CompanyAccountStatus.SelectedIndex = Int32.Parse(row.Cells[7].Text); // load Account Status
                
                 if (memberShip_type.ContainsKey(row.Cells[5].Text))
-                {
                     Dp_MemberShipPlan.SelectedIndex = memberShip_type[row.Cells[5].Text];
-                }
+
                 if (company_type.ContainsKey(row.Cells[6].Text))
-                {
                     dp_CompanyType.SelectedIndex = company_type[row.Cells[6].Text];
-                }
 
                 dt = objviewEditCompanies.phoneNumberOfCompany(int.Parse(row.Cells[1].Text));
-                if (dt == null)
-                {
-                    showErrorMessage("Mobile Number error: " + objviewEditCompanies.ErrorString, false);
-                }
-                else
+                if (dt!=null)
                 {
                     TextBox_Mobile.Text = dt.Rows[0]["MobileNumber"].ToString();
                     TextBox_landline.Text = dt.Rows[0]["LandlineNumber"].ToString();
                 }
+                else
+                    showErrorMessage("Mobile Number error: " + objviewEditCompanies.ErrorString, false);
 
                 btnUpdateCompanyDetails.Enabled = true;
                 btnUpdateCompanyDetails.Focus();
             }
             catch (Exception ex)
             {
-                showErrorMessage(" Please contact administrator.", false);
+                showErrorMessage(" Please contact administrator.: "+ ex.Message, false);
             }
 
         }
@@ -137,7 +131,6 @@ namespace Morpheus.Accounts
         {
             try
             {
-
                 GridViewRow row = dtgridview_companies.Rows[e.NewSelectedIndex];
                 if (row.Cells[1].Text == "ANATR")
                 {
@@ -154,22 +147,29 @@ namespace Morpheus.Accounts
         // load dropbox
         private void loadDropBoxOnPageLoad()
         {
-            objviewEditCompanies = new viewEditCompanies_Controller();
-            dt = new DataTable();
-            // Membership DropBox
-            dt = objviewEditCompanies.loadMemberShipPlanes();
-            Dp_MemberShipPlan.DataSource = dt;
+            try
+            {
+                objviewEditCompanies = new viewEditCompanies_Controller();
+                dt = new DataTable();
+                // Membership DropBox
+                dt = objviewEditCompanies.loadMemberShipPlanes();
+                Dp_MemberShipPlan.DataSource = dt;
 
-            dt.Columns.Add("FullDesc", typeof(string), "membership_level + ' - ' + description");
-            Dp_MemberShipPlan.DataTextField = "FullDesc";
-            Dp_MemberShipPlan.DataValueField = "membership_id";
-            Dp_MemberShipPlan.DataBind();
-            //CompanyType dropbox load from db
-            dt = objviewEditCompanies.loadCompanyTypes();
-            dp_CompanyType.DataSource = dt;
-            dp_CompanyType.DataTextField = "type_name";
-            dp_CompanyType.DataValueField = "company_Type_id";
-            dp_CompanyType.DataBind();
+                dt.Columns.Add("FullDesc", typeof(string), "membership_level + ' - ' + description");
+                Dp_MemberShipPlan.DataTextField = "FullDesc";
+                Dp_MemberShipPlan.DataValueField = "membership_id";
+                Dp_MemberShipPlan.DataBind();
+                //CompanyType dropbox load from db
+                dt = objviewEditCompanies.loadCompanyTypes();
+                dp_CompanyType.DataSource = dt;
+                dp_CompanyType.DataTextField = "type_name";
+                dp_CompanyType.DataValueField = "company_Type_id";
+                dp_CompanyType.DataBind();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
         }
         private void loadAddressTxtboxes(int id)
         {
@@ -249,7 +249,6 @@ namespace Morpheus.Accounts
                 objAdd2.State = txtbox_Address2State.Text;
                 objAdd2.Suburb = txtbox_Address2Suburb.Text;
 
-
                 if (objviewEditCompanies.UpdateCompanyProfile(objCom, int.Parse(txtbox_CompanyID.Text)) == true)
                 {
                     if (TextBox_addressID1.Text != "")
@@ -265,9 +264,7 @@ namespace Morpheus.Accounts
                             {
                                 if (objviewEditCompanies.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
                                     showErrorMessage("Unable to Add Address 2", true);
-                            }
-
-                            showErrorMessage("Updated Successfully", true);
+                            }                    
                         }
                         else
                             showErrorMessage("profile was not Updated: " + objviewEditCompanies.ErrorString, false);
@@ -287,14 +284,12 @@ namespace Morpheus.Accounts
                             if (objviewEditCompanies.insertCompanyAddress(int.Parse(txtbox_CompanyID.Text), objAdd2) == false)
                                 showErrorMessage("Unable to Add Address 2", true);
                         }
-
-
-                        showErrorMessage("Updated Successfully", true);
                     }
+                    showErrorMessage("Updated Successfully", true);
                 }
                 else
                 {
-                    showErrorMessage("Unable to update Company's Details.", false);
+                    showErrorMessage("Unable to update Company's Details.: "+ objviewEditCompanies.ErrorString, false);
                 }
                 populateCompany();
             }
@@ -322,11 +317,12 @@ namespace Morpheus.Accounts
 
         }
 
-        private void resetDisplayMsg()
-        {
-            successMsg.Style.Add("display", "none");
-            errorMsg.Style.Add("display", "none");
-        }
+        //private void resetDisplayMsg()
+        //{
+        //    successMsg.Style.Add("display", "none");
+        //    errorMsg.Style.Add("display", "none");
+        //}
+
 
         protected void dtgridview_companies_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
