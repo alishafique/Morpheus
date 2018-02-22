@@ -12,6 +12,7 @@ using Morpheus.Accounts.Reports;
 using Microsoft.Reporting.WebForms;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Morpheus.Accounts
 {
@@ -284,7 +285,7 @@ namespace Morpheus.Accounts
       
                 Session.Add("_reportID", row.Cells[1].Text);
 
-                //loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(row.Cells[11].Text));
+                loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(row.Cells[11].Text));
 
                 TextBox_ReportId.Text = row.Cells[1].Text;
                 TextBox_user_id.Text = row.Cells[2].Text;
@@ -383,6 +384,7 @@ namespace Morpheus.Accounts
                 ////CrystalReportViewer1.ReportSource = rpt;
                 ////rpt.ExportToHttpResponse(ExportFormatType.ExcelRecord, Response, true, "PersonDetails");
                 //Session.Add("report", rpt);
+             
 
                 obj = new viewEditCompanyIncidentReports_Controller();
                 rptViewer.ProcessingMode = ProcessingMode.Local;
@@ -393,6 +395,8 @@ namespace Morpheus.Accounts
                 ReportDataSource datasource = new ReportDataSource("IncidentReportDS", dsCustomers.Tables[0]);
                 rptViewer.LocalReport.DataSources.Clear();
                 rptViewer.LocalReport.DataSources.Add(datasource);
+
+                
 
             }
             catch(Exception ex)
@@ -405,43 +409,27 @@ namespace Morpheus.Accounts
         {
             try
             {
-                if(rdPdf.Checked)
+                string deviceInfo = "";
+                string mimeType = "";
+                string encoding = "";
+                string fileNameExtension = "";
+                string[] streams = null;
+                Warning[] warnings = null;
+                byte[] bytes;
+                FileStream fs;
+                if (rdPdf.Checked)
                 {
-                    //ReportDocument rptD = new ReportDocument();
-                    //spLoadReportTableAdapter da = new spLoadReportTableAdapter();
-                    //spCompanyLogoTableAdapter daCom = new spCompanyLogoTableAdapter();
-                    //dsIncidentReport ds = new dsIncidentReport();
-                    //dsIncidentReport.spLoadReportDataTable dt = (dsIncidentReport.spLoadReportDataTable)ds.Tables["spLoadReport"];
-                    //dsIncidentReport.spCompanyLogoDataTable dt1 = (dsIncidentReport.spCompanyLogoDataTable)ds.Tables["spCompanyLogo"];
-
-                    //da.Fill(dt, int.Parse(Session["userid"].ToString()), int.Parse(Session["_reportID"].ToString()));
-      
-                    //daCom.Fill(dt1, int.Parse(Session["userid"].ToString()));
-
-                    //rpt = new viewIncidentReport();
-                    //rpt.SetDataSource(ds);
-                    ////CrystalReportViewer1.ReportSource = rpt;
-                    //rpt.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, Session["_reportID"].ToString());
-                    //Session.Add("report", rpt);
+                    bytes = this.rptViewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
+                    Response.Buffer = true;
+                    Response.Clear();
+                    Response.ContentType = mimeType;
+                    Response.AddHeader("content-disposition", "attachment; filename=" + "Incidentreport" + "." + "pdf");
+                    Response.BinaryWrite(bytes); // create the filepdf
+                    Response.Flush(); // send it to the client to download
                 }
                 if (rdExcel.Checked)
                 {
-                   // ReportDocument rptD = new ReportDocument();
-                   // spLoadReportTableAdapter da = new spLoadReportTableAdapter();
-                   // spCompanyLogoTableAdapter daCom = new spCompanyLogoTableAdapter();
-                   // dsIncidentReport ds = new dsIncidentReport();
-                   // dsIncidentReport.spLoadReportDataTable dt = (dsIncidentReport.spLoadReportDataTable)ds.Tables["spLoadReport"];
-                   // dsIncidentReport.spCompanyLogoDataTable dt1 = (dsIncidentReport.spCompanyLogoDataTable)ds.Tables["spCompanyLogo"];
-
-                   // da.Fill(dt, int.Parse(Session["userid"].ToString()), int.Parse(Session["_reportID"].ToString()));
-
-                   // daCom.Fill(dt1, int.Parse(Session["userid"].ToString()));
-
-                   // rpt = new viewIncidentReport();
-                   // rpt.SetDataSource(ds);
-                   //// CrystalReportViewer1.ReportSource = rpt;
-                   // rpt.ExportToHttpResponse(ExportFormatType.Excel, Response, true, Session["_reportID"].ToString());
-                   // Session.Add("report", rpt);
+                  
                 }
             }
             catch(Exception ex)

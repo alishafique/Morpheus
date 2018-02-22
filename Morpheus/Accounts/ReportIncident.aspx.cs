@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 using System.Data;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Morpheus
 {
@@ -149,11 +152,14 @@ namespace Morpheus
                     foreach (HttpPostedFile file in fUploadCtrl.PostedFiles)
                     {
                         string fileName = Guid.NewGuid().ToString();
-                        string ext = System.IO.Path.GetExtension(file.FileName);
-
-                        Evidence evidence = new Evidence(incidentID, fileName + "." + ext);
-                       
-                        file.SaveAs(Server.MapPath(".") + "\\upload\\" + fileName + "." + ext);
+                        string ext = Path.GetExtension(file.FileName);
+                        int fileSize = file.ContentLength;
+                        Evidence evidence = new Evidence(incidentID, fileName + ext);
+                        Stream stream = file.InputStream;
+                        if (fileSize < 1000000)
+                            file.SaveAs(Server.MapPath(".") + "\\upload\\" + fileName + ext);
+                        else
+                            GenerateThumbnails(0.5, stream, Server.MapPath(".") + "\\upload\\" + fileName + ext);
 
                         evidenceController.insertIncidentReport(evidence);
                     }
@@ -169,6 +175,29 @@ namespace Morpheus
             }
         }
 
+        private void GenerateThumbnails(double scaleFactor, Stream sourcePath, string targetPath)
+        {
+            try
+            {
+                using (var image = System.Drawing.Image.FromStream(sourcePath))
+                {
+                    var newWidth = (int)(image.Width * scaleFactor);
+                    var newHeight = (int)(image.Height * scaleFactor);
+                    var thumbnailImg = new Bitmap(newWidth, newHeight);
+                    var thumbGraph = Graphics.FromImage(thumbnailImg);
+                    thumbGraph.CompositingQuality = CompositingQuality.HighQuality;
+                    thumbGraph.SmoothingMode = SmoothingMode.HighQuality;
+                    thumbGraph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    var imageRectangle = new Rectangle(0, 0, newWidth, newHeight);
+                    thumbGraph.DrawImage(image, imageRectangle);
+                    thumbnailImg.Save(targetPath, image.RawFormat);
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)

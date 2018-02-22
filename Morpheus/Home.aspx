@@ -64,7 +64,15 @@
   <div id="pbSliderWrap4">
     <div class='owl-carousel owl-theme' id='pbSlider4'>
          <div class="item sizing">
-          <img src="img/5.jpg" />
+          <img src="img/Main.jpg" />
+       <%-- <div class="o-slidr-textWrap">
+          <h1 class="heading1" style="color:black;">Dynamic Innovation in</h1>
+          <span class="a-dvider"></span>
+          <h2 class="heading2" style="color:black;">Occupational Health & Safety</h2>
+        </div>--%>
+      </div>
+      <div class="item sizing" >
+           <img src="img/5.jpg" />
         <div class="o-slidr-textWrap">
           <h1 class="heading1" style="color:black;">Dynamic Innovation in</h1>
           <span class="a-dvider"></span>
@@ -72,22 +80,14 @@
         </div>
       </div>
       <div class="item sizing" >
-          <img src="img/safety-helmet.jpg" />
+          <img src="img/ws-safety-and-health-representative-banner.jpg" />
         <div class="o-slier-textWrap">
           <h2 class="heading1"  style="color:black;" >Dynamic Innovation</h2>
           <span class="a-diider" ></span>
           <h2 class="heading2"  style="color:black;">in Occupational Health & Safety</h2>
         </div>
       </div>
-      <div class="item sizing" >
-          <img src="img/Main.jpg" />
-      <%--  <div class="o-slidr-textWrap">
-          <h1 class="heading1" style="color:black;">712,000 workers employed</h1>
-          <span class="a-dvider"></span>
-          <h2 class="heading2" style="color:black;">in the construction industry in 2013 – Safework Australia</h2>
-        </div>--%>
-      </div>
-      <div class="item sizing" >
+     <%-- <div class="item sizing" >
           <img src="img/3.jpg" />
         <div class="o-slier-textWrap">
           <h1 class="heading1"  style="color:black;">This is a title</h1>
@@ -111,7 +111,7 @@
           <span class="a-diider"></span>
           <h2 class="heading2" style="color:black;">This is a sub title</h2>
         </div>
-      </div>
+      </div>--%>
     </div>
   </div>
      

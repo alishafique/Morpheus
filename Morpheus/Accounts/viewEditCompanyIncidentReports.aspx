@@ -184,25 +184,26 @@
                 
                 <asp:Panel ID="pnlpopup" runat="server" BackColor="Gray" 
                     Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
+                    <div class =" form-group" style="display:block;"> 
+                            <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" /><asp:RadioButton ID="rdExcel" CssClass="radio-inline" GroupName="export" Text="Excel" runat="server" />
+                            <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" OnClick="btnExport_Click" Text="Export" />
+                        </div>
                     <div class="form-group" style="padding:5px 5px 5px 5px;">
                      <%--<CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" HasCrystalLogo="False" ToolPanelView="None" />--%>
                         <asp:ScriptManager ID="ScriptManager1" runat="server">
                         </asp:ScriptManager>
-                        <rsweb:ReportViewer ID="rptViewer" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="830px" Height="595px">
+                        <rsweb:ReportViewer ID="rptViewer" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="732px" Height="900px">
                           
                             <LocalReport ReportPath="Accounts\Reports\rptIncident.rdlc">
                             </LocalReport>
                           
                         </rsweb:ReportViewer>
+                        
                         <asp:EntityDataSource ID="EntityDataSource1" runat="server">
                         </asp:EntityDataSource>
                         <asp:SqlDataSource ID="DataSourceBind" runat="server"></asp:SqlDataSource>
                         <br />
-                        <div class =" form-group" style="display:none;">
-                            
-                            <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" /><asp:RadioButton ID="rdExcel" CssClass="radio-inline" GroupName="export" Text="Excel" runat="server" />
-                            <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" OnClick="btnExport_Click" Text="Export" />
-                        </div>
+                        
                         </div>
 
                 <div class="row" style=" display: none;">
@@ -253,9 +254,7 @@
                                         <label>Action Taken:</label>
                                         <asp:TextBox ID="txtbox_actionTaken" class="form-control" Rows="2" ToolTip="Action Taken" placeholder="Please enter the Action Taken by you regarding the incident" TextMode="MultiLine" runat="server"></asp:TextBox>
                                     </div>
-                                <div class="form-group" style="margin-top:15px;">
-                                        <asp:Panel ID="pnlDisplayImage" runat="server"></asp:Panel>
-                                    </div>
+                                
                                     <asp:Button ID="btnUpdateReport" type="Update" class="btn btn-primary"
                                         runat="server" Text="Update" OnClick="btnUpdateReport_Click" />
                                    
@@ -269,6 +268,9 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+                    <div class="form-group" style="margin-top: 15px;">
+                        <asp:Panel ID="pnlDisplayImage" runat="server"></asp:Panel>
+                    </div>
                     <div class="form-group">
                         <asp:Button ID="btnClose" CssClass="btn btn-primary" runat="server" Text="Close" OnClick="btnClose_Click" />
                     </div>
