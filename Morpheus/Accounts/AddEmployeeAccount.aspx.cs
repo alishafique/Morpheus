@@ -123,12 +123,16 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }

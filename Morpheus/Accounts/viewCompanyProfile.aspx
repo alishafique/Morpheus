@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewCompanyProfile.aspx.cs" Inherits="Morpheus.Accounts.viewCompanyProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div id="page-wrapper">

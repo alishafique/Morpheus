@@ -20,7 +20,7 @@ namespace Morpheus.Accounts
             try
             {
                 if (!this.IsPostBack)
-                {                  
+                {
                     if (Session["UserTypeID"].ToString() != "2")
                         Response.Redirect("login.aspx");
                     else
@@ -35,19 +35,26 @@ namespace Morpheus.Accounts
 
         private void loadDropBoxOnPageLoad()
         {
-            obj = new AddSubcontractor_Controller();
-            dt = new DataTable();
-            //CompanyType dropbox load from db
-            dt = obj.LoadCompanyTypes();
-            if (dt != null)
+            try
             {
-                dp_CompanyType.DataSource = dt;
-                dp_CompanyType.DataTextField = "type_name";
-                dp_CompanyType.DataValueField = "company_Type_id";
-                dp_CompanyType.DataBind();
+                obj = new AddSubcontractor_Controller();
+                dt = new DataTable();
+                //CompanyType dropbox load from db
+                dt = obj.LoadCompanyTypes();
+                if (dt != null)
+                {
+                    dp_CompanyType.DataSource = dt;
+                    dp_CompanyType.DataTextField = "type_name";
+                    dp_CompanyType.DataValueField = "company_Type_id";
+                    dp_CompanyType.DataBind();
+                }
+                else
+                    showErrorMessage(obj.ErrorString, false);
             }
-            else
-                showErrorMessage(obj.ErrorString, false);
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
         }
 
         private void showErrorMessage(string message, bool status)
@@ -57,12 +64,16 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }
@@ -105,13 +116,9 @@ namespace Morpheus.Accounts
                             if (obj.insertTbCompanyUser(tempUserID, tempCompanyID))
                             {
                                 if (txtbox_Address1Suburb.Text.Trim() != "")
-                                {
                                     obj.insertCompanyAddress(tempCompanyID, txtbox_Address1Street.Text.Trim(), txtbox_Address1Suburb.Text.Trim(), txtbox_Address1State.Text.Trim(), txtbox_Address1Postcode.Text.Trim());
-                                }
                                 if (txtbox_Address2Suburb.Text.Trim() != "")
-                                {
                                     obj.insertCompanyAddress(tempCompanyID, txtbox_Address2Street.Text.Trim(), txtbox_Address2Suburb.Text.Trim(), txtbox_Address2State.Text.Trim(), txtbox_Address2Postcode.Text.Trim());
-                                }
                                 resetFeilds();
                                 showErrorMessage("Successfully Added Sub-contract's Account", true);
                             }

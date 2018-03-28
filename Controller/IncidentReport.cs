@@ -22,6 +22,8 @@ namespace Controller
 
         public DateTime reportDateTime { get; set; }
 
+        public string ReportedDateTimeToShow { get; set; }
+
         public string Location { get; set; }
         public string ActionTaken { get; set; }
     }

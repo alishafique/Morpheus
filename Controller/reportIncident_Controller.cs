@@ -35,7 +35,14 @@ namespace Controller
                 cmd.Parameters.Add("@location", SqlDbType.VarChar).Value = objIncidentReport.Location;
                 cmd.Parameters.Add("@actionTaken", SqlDbType.VarChar).Value = objIncidentReport.ActionTaken;
                 val = con.InsertUpdateDataUsingSpWithReturn(cmd);
-                return val;
+                if (val != 0)
+                    return val;
+                else
+                {
+                    ErrorString = con.strError;
+                    return val;
+                }
+
             }
             catch (Exception ex)
             {

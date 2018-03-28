@@ -65,13 +65,24 @@
             display: none;
         }
     </style>
-     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" />
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-   <script type="text/javascript" language="javascript">
-       $(document).ready(function () {
-           $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
-       });
-</script>
+   <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+     <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });  
+        });
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -125,7 +136,7 @@
                        </div>
                        <!-- /.panel-heading -->
                        <div class="panel-body">
-                           <asp:Label ID="MessageLabel" runat="server" Text=""></asp:Label>
+                          
                            <asp:GridView ID="dtgridview_companies" class="table table-striped table-bordered table-hover"
                                runat="server" FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False"
                                OnSelectedIndexChanged="dtgridview_companies_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_companies_SelectedIndexChanging"
@@ -144,7 +155,11 @@
                                    <asp:BoundField  DataField="Email" HeaderText="Email"/>
                                    <asp:BoundField  DataField="MemberShip" HeaderText="MemberShip"/>
                                    <asp:BoundField  DataField="Type" HeaderText="Type"/>
-                                   <asp:BoundField  DataField="Status" HeaderText="Status"/>
+                                   <asp:BoundField  DataField="Status" HeaderText="Status" >
+                                       <ItemStyle CssClass="hidden-field" />
+                                       <HeaderStyle CssClass="hidden-field" />
+                                   </asp:BoundField>
+                                   <asp:BoundField DataField="active_status1" HeaderText="Status" />
                                </Columns>
                            </asp:GridView>
                            <!-- /.table-responsive -->

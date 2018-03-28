@@ -75,20 +75,13 @@ namespace Morpheus
                 if (Session["UserTypeID"].ToString() == "3")
                 {
                     dt = obj.selectReportedToIncidentId(int.Parse(Session["userid"].ToString()));
-
-                    if (dt != null)
-                    {
-                        objIncdentReport.ReportedTo = int.Parse(dt.Rows[0]["createdByCompanyId"].ToString());
-                    }
+                    if (dt != null && dt.Rows.Count > 0)
+                        objIncdentReport.ReportedTo = int.Parse(dt.Rows[0]["createdByCompanyId"].ToString()); // get the company ID 
                     else
-                    {
                         showErrorMessage(obj.ErrorString, false);
-                    }
                 }
                 else
-                {
                     Response.Redirect("login.aspx");
-                }
 
                 int result = obj.insertIncidentReport(objIncdentReport);
 
@@ -156,12 +149,16 @@ namespace Morpheus
                         int fileSize = file.ContentLength;
                         Evidence evidence = new Evidence(incidentID, fileName + ext);
                         Stream stream = file.InputStream;
+
                         if (fileSize < 1000000)
                             file.SaveAs(Server.MapPath(".") + "\\upload\\" + fileName + ext);
                         else
                             GenerateThumbnails(0.5, stream, Server.MapPath(".") + "\\upload\\" + fileName + ext);
 
-                        evidenceController.insertIncidentReport(evidence);
+                        if (evidenceController.insertIncidentReport(evidence) < 0)
+                        {
+                            
+                        }
                     }
 
                     return true;
@@ -205,12 +202,16 @@ namespace Morpheus
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }

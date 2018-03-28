@@ -36,7 +36,7 @@
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
-                            <li><a href="tel:+617 5500 6003"><i class="fa fa-phone"></i> +617 5500 6003</a></li>
+                            <li><a href="tel:+617 5500 6003"><i class="fa fa-phone"></i> +61433 792 402</a></li>
                             <li><a href="Accounts/login.aspx">[ Log In ]</a></li>
                         </ul>                        
                     </div>
@@ -55,16 +55,16 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                     <ul class="nav navbar-nav main-navbar-nav">
-                        <li class="active"><a href = "Home.aspx" title="">Home</a></li>
-                       <li><a href="#" title="">Products</a></li>
-                        <li><a href="AboutUs.aspx" title="">About US</a></li>
-                        <li><a href="ContactUs.aspx" title="">Contact US</a></li>
-                        <li><a href="#" title="">FAQs</a></li>
+                        <li class="active"><a href = "Home.aspx" title="">HOME</a></li>
+                       <%--<li><a href="#" title="">Products</a></li>--%>
+                        <li><a href="AboutUs.aspx" title="">ABOUT US</a></li>
+                        <li><a href="ContactUs.aspx" title="">CONTACT US</a></li>
+                       <%-- <li><a href="#" title="">FAQs</a></li>--%>
                         
                          <li class="dropdown">
-                            <a href="Accounts/login.aspx" title="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> LogIn <span class="caret"></span></a>
+                            <a href="Accounts/login.aspx" title="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> LOGIN <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="Accounts/login.aspx" title="Log In">LogIn</a></li>
+                                <li><a href="Accounts/login.aspx" title="Log In">LOG IN</a></li>
                                 <li><a href="SignUp.aspx" title="Create New Account">Create New Account</a></li>
                                 
                                
@@ -87,24 +87,24 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12 fbox">
                     <h4>SEGURO</h4>
-                    <p class="text">Seguro is providing an online Web Application solution to companies in managing their employees. </p>
+                    <p class="text">Seguro is an online Web Application solution to assist companies with employee management. </p>
                     <ul class="list-inline">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>                        
                     </ul>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fbox">
+                <div class="col-md-3 col-sm-6 col-xs-12 fbox" style="">
                     <h4>SERVICES</h4>
                     <ul class="big">
-                        <li><a href="#" title="">Title One</a></li>
-                        <li><a href="#" title="">Title Two</a></li>
-                        <li><a href="#" title="">Title Three</a></li>
-                        <li><a href="#" title="">Title Four</a></li>
-                        <li><a href="#" title="">Title Five</a></li>
-                        <li><a href="#" title="">Title Six</a></li>
-                        <li><a href="#" title="">Title Seven</a></li>
-                        <li><a href="#" title="">Title Eight</a></li>
+                        <li><a href="#" title="">INCIDENT REPORTING</a></li>
+                        <li><a href="#" title="">MANAGE EMPLOYEES</a></li>
+                        <li><a href="#" title="">MANAGE SUB-CONTRACTORS</a></li>
+                        <li><a href="#" title="">ASSIGN JOBS TO EMPLOYEES</a></li>
+                        <li><a href="#" title="">EMPLOYEE DB MANAGEMENT</a></li>
+                        <li><a href="#" title="">CUSTOMISED ADD-ON EXTENSIONS</a></li>
+                       <%-- <li><a href="#" title="">Title Seven</a></li>
+                        <li><a href="#" title="">Title Eight</a></li>--%>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 fbox">
@@ -119,7 +119,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 fbox">
                     <h4>Contact Us</h4>
                     <p class="text">Life is too precious. Contact us now.</p>
-                    <p><a href="tel:+61755006003"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +617 5500 6003</a></p>
+                    <p><a href="tel:+61755006003"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +61433 792 402</a></p>
                     <p><a href="mailto:iletisim@agrisosgb.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> admin@seguro.com.au</a></p>
                 </div>
             </div>
@@ -133,10 +133,10 @@
                     <div class="col-md-8">
                         <ul class="list-inline navbar-right">
                             <li><a href="Home.aspx">HOME</a></li>
-                            <li><a href="#">PRODUCTS</a></li>
+                           <%-- <li><a href="#">PRODUCTS</a></li>--%>
                             <li><a href="#">ABOUT US</a></li>
                             <li><a href="ContactUs.aspx">CONTACT US</a></li>
-                            <li><a href="#">FAQs</a></li>
+                           <%-- <li><a href="#">FAQs</a></li>--%>
                             <li><a href="Accounts/login.aspx">LOGIN</a></li>
                             <li><a href="SignUp.aspx">CREATE NEW ACCOUNT</a></li>
                         </ul>

@@ -8,6 +8,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using System.Drawing.Imaging;
 
 namespace Morpheus.Accounts
 {
@@ -35,7 +36,7 @@ namespace Morpheus.Accounts
                             btnUpdateEmployeeProfile.Enabled = false;
                             //ProfileImage.Visible = false;
                         }
-                        if(Session["UserTypeID"].ToString() == "3")
+                        if (Session["UserTypeID"].ToString() == "3")
                         {
                             loadEmployeeProfileByEmployee(int.Parse(Session["userid"].ToString()));
                             loadProfileImage(int.Parse(Session["userid"].ToString()));
@@ -45,7 +46,7 @@ namespace Morpheus.Accounts
                             hideGrid.Visible = false;
                             btnUpdateEmployeeProfile.Enabled = true;
                             loadEmployeeDocuments();
-                           // ProfileImage.Visible = true;
+                            // ProfileImage.Visible = true;
                         }
                     }
                     else
@@ -60,75 +61,6 @@ namespace Morpheus.Accounts
             }
 
         }
-
-        //protected void dtgridview_Employees_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    dtgridview_Employees.PageIndex = e.NewPageIndex;
-        //    loadEmployee(int.Parse(Session["userid"].ToString()));
-        //}
-
-        //protected void dtgridview_Employees_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        objEmp = new viewEmployees_Controller();
-        //        dt = new DataTable();
-        //        GridViewRow row = dtgridview_Employees.SelectedRow;
-        //        TextBox_EmployeeId.Text= row.Cells[1].Text.Replace("&nbsp;", "");
-        //        TextBox_userId.Text = row.Cells[2].Text.Replace("&nbsp;", "");
-        //        loadProfileImage(int.Parse(TextBox_userId.Text));
-        //        TextBox_EmployeeName.Text = row.Cells[3].Text.Replace("&nbsp;", "");
-        //        TextBox1_EmployeeEmail.Text = row.Cells[4].Text.Replace("&nbsp;", "");
-        //        txtbox_dateTimePicker_DOB.Text = row.Cells[6].Text;
-        //        TextBox_ABN.Text = row.Cells[7].Text.Replace("&nbsp;","");
-        //        TextBox_TFN.Text = row.Cells[8].Text.Replace("&nbsp;", "");
-        //        DropDownList_activeStatus.SelectedValue = row.Cells[9].Text.Replace("&nbsp;", "");
-        //        dt = objEmp.loadAddressByEmployeeId(int.Parse(TextBox_EmployeeId.Text));
-
-        //        if(dt != null)
-        //        {
-        //            TextBox_StreetName.Text = dt.Rows[0]["Address"].ToString();
-        //            TextBox_Suburb.Text = dt.Rows[0]["suburb"].ToString();
-        //            TextBox_State.Text = dt.Rows[0]["state"].ToString();
-        //            TextBox_Postcode.Text= dt.Rows[0]["postcode"].ToString();
-        //            TextBox_License.Text = dt.Rows[0]["license"].ToString();
-        //            TextBox_Mobile.Text = dt.Rows[0]["mobile"].ToString();
-        //        }
-        //        else
-        //        {
-        //            showErrorMessage("Unable to load Address with following error: "+objEmp.ErrorString, false);
-        //        }
-                
-        //        btnUpdateEmployeeProfile.Enabled = true;
-        //        btnUpdateEmployeeProfile.Focus();
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        showErrorMessage(ex.Message, false);
-        //        clearTextBox();
-        //        TextBox_EmployeeId.Text = "";
-        //    }
-
-        //}
-
-        //protected void dtgridview_Employees_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-        //{
-        //    try
-        //    {
-
-        //        GridViewRow row = dtgridview_Employees.Rows[e.NewSelectedIndex];
-        //        if (row.Cells[1].Text == "ANATR")
-        //        {
-        //            e.Cancel = true;
-        //            showErrorMessage("You cannot select " + row.Cells[2].Text + ".", false);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        showErrorMessage(ex.Message + " Please contact administrator.", false);
-        //    }
-
-        //}
 
         private string convertDate(string i)
         {
@@ -158,7 +90,7 @@ namespace Morpheus.Accounts
                     TextBox_ABN.Text = dt.Rows[0]["ABN"].ToString();
                     TextBox_TFN.Text = dt.Rows[0]["TFN"].ToString();
                     hideEmployee.Visible = false;
-                    
+
                     TextBox_StreetName.Text = dt.Rows[0]["Address"].ToString();
                     TextBox_Suburb.Text = dt.Rows[0]["suburb"].ToString();
                     TextBox_State.Text = dt.Rows[0]["state"].ToString();
@@ -172,39 +104,12 @@ namespace Morpheus.Accounts
                     showErrorMessage(objEmp.ErrorString, false);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 showErrorMessage(ex.Message, false);
             }
 
         }
-        
-        //private void loadEmployee(int companyId)
-        //{
-        //    try
-        //    {
-        //        dt = new DataTable();
-        //        objEmp = new viewEmployees_Controller();
-        //        dt = objEmp.viewEmployeeByCompany(companyId);
-               
-        //        if (dt != null)
-        //        {
-                    
-        //            dtgridview_Employees.DataSource = dt;
-        //            dtgridview_Employees.DataBind();
-        //        }
-        //        else
-        //        {
-        //            showErrorMessage(objEmp.ErrorString, false);
-        //        }
-                
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        showErrorMessage(ex.Message, false);
-        //    }
-
-        //}
 
         private void showErrorMessage(string message, bool status)
         {
@@ -213,12 +118,16 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }
@@ -255,29 +164,18 @@ namespace Morpheus.Accounts
                                 imgprw.ImageUrl = "";
                             }
                             else
-                            {
                                 showErrorMessage(objEmp.ErrorString, false);
-                            }
                         }
                         else
-                        {
                             showErrorMessage("Updated Employee profile", true);
-                        }
                     }
                     else
-                    {
                         showErrorMessage(objEmp.ErrorString, false);
-                    }
                     if (profileUploadCtr.HasFile)
-                    {
                         LinkButton1_Click(sender, e);
-                    }
                 }
                 else
-                {
                     showErrorMessage("Please select employee to Update to its Profile!!!!", false);
-                }
-
             }
             catch (Exception ex)
             {
@@ -305,33 +203,6 @@ namespace Morpheus.Accounts
             btnUpdateEmployeeProfile.Enabled = false;
         }
 
-        //protected void dtgridview_Employees_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        //{
-        //    try
-        //    {
-        //        //if ((MessageBox.Show("Are you sure, you want to Delete the Employee Record!!", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)) == System.Windows.Forms.DialogResult.Yes)
-        //        //{
-        //            objEmp = new viewEmployees_Controller();
-        //            GridViewRow row = (GridViewRow)dtgridview_Employees.Rows[e.RowIndex];
-        //            int userid = int.Parse(row.Cells[2].Text);
-        //            if (objEmp.deleteEmployeeByCompany(userid) == true)
-        //            {
-        //                showErrorMessage(row.Cells[3].Text + " deleted", true);
-        //                loadEmployee(int.Parse(Session["userid"].ToString()));
-        //            }
-        //            else
-        //            {
-        //                showErrorMessage(objEmp.ErrorString, false);
-        //            }
-        //        //}
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        showErrorMessage(ex.Message, false);
-        //    }
-
-        //}
-
         public string GetImage(object img)
         {
             return "data:image/jpg;base64," + Convert.ToBase64String((byte[])img);
@@ -344,17 +215,20 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 objEmp = new viewEmployees_Controller();
                 dt = objEmp.loadEmployeePrfileImageURL(userid);
-                if(dt != null)
+                if (dt != null)
                 {
                     if (dt.Rows.Count > 0)
-                        imgprw.ImageUrl = dt.Rows[0]["profile_imageURL"].ToString();
+                    {
+                        imgprw.ImageUrl = dt.Rows[0]["profile_imageURL"].ToString() + "?rand=" + Guid.NewGuid();
+                        ViewState["imgProfileURL"] = dt.Rows[0]["profile_imageURL"].ToString();
+                    }
                 }
                 else
                 {
                     showErrorMessage(objEmp.ErrorString, false);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 showErrorMessage(ex.Message, false);
             }
@@ -433,7 +307,7 @@ namespace Morpheus.Accounts
                     profileUploadCtr.Focus();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 showErrorMessage(ex.Message, false);
             }
@@ -456,6 +330,44 @@ namespace Morpheus.Accounts
             }
         }
 
+        private static RotateFlipType GetOrientationToFlipType(int orientationValue)
+        {
+            RotateFlipType rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+
+            switch (orientationValue)
+            {
+                case 1:
+                    rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+                    break;
+                case 2:
+                    rotateFlipType = RotateFlipType.RotateNoneFlipX;
+                    break;
+                case 3:
+                    rotateFlipType = RotateFlipType.Rotate180FlipNone;
+                    break;
+                case 4:
+                    rotateFlipType = RotateFlipType.Rotate180FlipX;
+                    break;
+                case 5:
+                    rotateFlipType = RotateFlipType.Rotate90FlipX;
+                    break;
+                case 6:
+                    rotateFlipType = RotateFlipType.Rotate90FlipNone;
+                    break;
+                case 7:
+                    rotateFlipType = RotateFlipType.Rotate270FlipX;
+                    break;
+                case 8:
+                    rotateFlipType = RotateFlipType.Rotate270FlipNone;
+                    break;
+                default:
+                    rotateFlipType = RotateFlipType.RotateNoneFlipNone;
+                    break;
+            }
+
+            return rotateFlipType;
+        }
+
         protected void btnUploadDocuments_Click(object sender, EventArgs e)
         {
             try
@@ -466,11 +378,11 @@ namespace Morpheus.Accounts
                     dt = new DataTable();
                     dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_EmployeeId.Text));
                     bool result = false;
-                    for(int i = 0;i<dt.Rows.Count;i++)
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        if(dt.Rows[i]["DocumentName"].ToString() == dpdDocuments.SelectedValue && dt.Rows[i]["EmployeeID"].ToString() == TextBox_EmployeeId.Text)
+                        if (dt.Rows[i]["DocumentName"].ToString() == dpdDocuments.SelectedValue && dt.Rows[i]["EmployeeID"].ToString() == TextBox_EmployeeId.Text)
                         {
-                            showErrorMessage(dpdDocuments.SelectedValue +" : is already uploaded. Please delete first this document and then upload it again.", false);
+                            showErrorMessage(dpdDocuments.SelectedValue + " : is already uploaded. Please delete first this document and then upload it again.", false);
                             result = true;
                             break;
                         }
@@ -533,7 +445,7 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 objEmp = new viewEmployees_Controller();
                 dt = objEmp.spLoadEmployeeDocuments(int.Parse(TextBox_EmployeeId.Text));
-                if(dt!=null)
+                if (dt != null)
                 {
                     grdViewDocuments.DataSource = dt;
                     grdViewDocuments.DataBind();
@@ -542,9 +454,9 @@ namespace Morpheus.Accounts
                 {
                     showErrorMessage(objEmp.ErrorString, false);
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 showErrorMessage(ex.Message, false);
             }
@@ -579,5 +491,34 @@ namespace Morpheus.Accounts
             }
         }
 
+        protected void btnRotat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string sImage = Server.MapPath(@"" + ViewState["imgProfileURL"].ToString());
+                var img = System.Drawing.Image.FromFile(sImage);
+                //File.WriteAllText(sImage, "empty");
+                foreach (var prop in img.PropertyItems)
+                {
+                    if (prop.Id == 0x0112) //value of EXIF
+                    {
+                        int orientationValue = img.GetPropertyItem(prop.Id).Value[0];
+                        RotateFlipType rotateFlipType = GetOrientationToFlipType(orientationValue);
+                        img.RotateFlip(rotateFlipType);
+                        img.RemovePropertyItem(0x0112);
+                        img.Save(sImage, ImageFormat.Jpeg);
+                        loadProfileImage(int.Parse(Session["userid"].ToString()));
+                        break;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        
     }
 }

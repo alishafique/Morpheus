@@ -31,7 +31,7 @@
     <link href="css/metisMenu.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet" type="text/css" />
+    <link href=<%="'css/sb-admin-2.css?version="+ DateTime.Now.ToString("yyyyMMddhhmmss") +"'"%> rel="stylesheet" type="text/css" />
 
     <!-- Morris Charts CSS -->
     <link href="css/morris.css" rel="stylesheet" type="text/css" />
@@ -71,7 +71,9 @@
       .hidden-field {
             display: none;
         }
+        
     </style>
+   
      <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
     <link href="css/calendar-blue.css" rel="stylesheet" type="text/css" />
@@ -88,6 +90,17 @@
                button: ".next()"
            });
        });
+
+         function ShowImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#<%=imgprw.ClientID%>').prop('src', e.target.result)
+                        
+                };
+                reader.readAsDataURL(input.files[0]);
+                }
+          }  
        </script>
 
    <script type="text/javascript" language="javascript">
@@ -120,8 +133,34 @@
             });
             
         });
-        
-    </script>   
+    </script>  
+    <script type="text/javascript">  
+        jQuery.fn.extend({
+            live: function (event, callback) {
+                if (this.selector) {
+                    jQuery(document).on(event, this.selector, callback);
+                }
+            }
+        });
+        function ShowProgress() {
+            setTimeout(function () {
+                var modal1 = $('<div />');
+                modal1.addClass("modal1");
+                $('body').append(modal1);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
+        }
+          $(function () {
+              $('.btn').on("click", function () {
+               ShowProgress();
+           });
+          });
+    </script>  
+     
 </head>
 <body>
     
@@ -129,7 +168,11 @@
       <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
      
-      
+         <div class="loading" align="center">
+             Loading. Please wait.<br />
+             <br />
+             <img src="images/loader.gif" alt="" />
+         </div>
                 <div id="wrapper">
 
                     <!-- Navigation -->
@@ -182,39 +225,7 @@
                                     <div class="panel-heading">
                                         List of Employees
                                     </div>
-                                    <!-- /.panel-heading -->
-                                    <%--<div class="panel-body">
-
-                                    <asp:GridView ID="dtgridview_Employees" Width="100%" class="table table-striped table-bordered table-hover"
-                                        runat="server" FooterStyle-BackColor="#FF3399" AutoGenerateColumns="False"
-                                        OnSelectedIndexChanged="dtgridview_Employees_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_Employees_SelectedIndexChanging"
-                                        AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_Employees_RowDeleting">
-                                        <Columns>
-                                            <asp:BoundField DataField="EmployeeId" HeaderText="Emp Id" Visible="true">
-                                                <ItemStyle CssClass="hidden-field" />
-                                                <HeaderStyle CssClass="hidden-field" />
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="UserId" HeaderText="UserId" Visible="true">
-                                                <ItemStyle CssClass="hidden-field" />
-                                                <HeaderStyle CssClass="hidden-field" />
-                                            </asp:BoundField>
-                                            <asp:BoundField AccessibleHeaderText="Name" DataField="Name" HeaderText="Name" />
-                                            <asp:BoundField DataField="email" HeaderText="email"></asp:BoundField>
-                                            <asp:BoundField DataField="created_dateTime" HeaderText="Created dateTime" />
-                                            <asp:BoundField DataField="date_of_birth" HeaderText="Date of birth" DataFormatString="{0:dd/MM/yyyy}"></asp:BoundField>
-                                            <asp:BoundField DataField="ABN" HeaderText="ABN" />
-                                            <asp:BoundField DataField="TFN" HeaderText="TFN" />
-                                            <asp:BoundField DataField="active_status" HeaderText="Status" />
-                                            <asp:CommandField HeaderText="Delete" ShowDeleteButton="true" ShowHeader="true" />
-                                        </Columns>
-
-                                        <PagerSettings />
-                                        <PagerStyle HorizontalAlign="Left" CssClass="dataTables_paginate paging_simple_numbers" />
-                                        <FooterStyle BackColor="#FF3399"></FooterStyle>
-                                    </asp:GridView>
-                                    <!-- /.table-responsive -->
-                                </div>--%>
-                                    <!-- /.panel-body -->
+                                
                                 </div>
                                 <!-- /.panel -->
 
@@ -227,8 +238,6 @@
 
                                                     <div class="row">
                                                         <div class="col-lg-6">
-
-
                                                             <div style="width: 100%; display: none;">
                                                                 <div class="form-group" style="width: 50%; float: left; padding-right: 10px;">
                                                                     <label>Employee Id:</label>
@@ -241,16 +250,15 @@
                                                             </div>
                                                             <div class="form-group" runat="server">
 
-                                                                <div class="home-banner__avatar">
-                                                                    <asp:Image ID="imgprw" runat="server" />
-                                                                    <%--<asp:ImageButton ID="ImageButton1" class="imgUpload" onchange="imagepreview(this);"  runat="server" ImageUrl="~/Accounts/images/profileUpload.png" />--%>
+                                                                <div class="">
+                                                                    <asp:Image ID="imgprw" CssClass="preview-nodeCenter nodeCenter fadeChange" runat="server" />
+                                                 
                                                                 </div>
                                                                 <div>
 
-                                                                    <asp:FileUpload ID="profileUploadCtr" class="uploadFile form-group" onchange="imagepreview(this);" placeholder="Choose Images" runat="server" />
-
+                                                                    <asp:FileUpload ID="profileUploadCtr" class="uploadFile form-group" onchange="ShowImagePreview(this);"  placeholder="Choose Images" runat="server" />
+                                                                    <asp:LinkButton ID="btnRotat" OnClick="btnRotat_Click" runat="server" CausesValidation="false">Rotate</asp:LinkButton>
                                                                     <asp:LinkButton ID="LinkButton1" ValidationGroup="a" OnClientClick="showProgress()" CssClass="btn btn-outline btn-primary btn-xs" runat="server" OnClick="LinkButton1_Click">Upload Profile Image</asp:LinkButton>
-
                                                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ValidationGroup="a" SetFocusOnError="true" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
                                                                         ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$" ControlToValidate="profileUploadCtr" Display="Dynamic" />
                                                                 </div>

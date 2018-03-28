@@ -87,15 +87,5 @@ namespace Morpheus.Accounts.UserControls
         {
                 Response.Redirect("changePassword.aspx");
         }
-
-        //protected void AdminChangePassword_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("changePassword.aspx");
-        //}
-
-        //protected void EmployeeChangePassword_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("changePassword.aspx");
-        //}
     }
 }

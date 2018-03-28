@@ -97,9 +97,10 @@ namespace Morpheus.Accounts
                     if (dtcomID != null && dtcomID.Rows.Count > 0)
                     {
                         int _CompanyId = int.Parse(dtcomID.Rows[0]["CompanyID"].ToString());
-                        HttpPostedFile postedFile = fUpLogo.PostedFile;
+                        
                         string filename = _CompanyId + "_CompanyLogo";//
 
+                        HttpPostedFile postedFile = fUpLogo.PostedFile;
                         string fileExtension = Path.GetExtension(fUpLogo.FileName);
                         int fileSize = postedFile.ContentLength;
                         if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".gif"
@@ -215,7 +216,7 @@ namespace Morpheus.Accounts
                     {
                         if (dt.Rows.Count > 0 && dt.Rows[0]["CompanyLogo"].ToString() != "")
                         {
-                            impPrev.ImageUrl = dt.Rows[0]["CompanyLogo"].ToString();
+                            impPrev.ImageUrl = dt.Rows[0]["CompanyLogo"].ToString() + "?rand=" + Guid.NewGuid();
                             Hidebutton();
                         }
                         else

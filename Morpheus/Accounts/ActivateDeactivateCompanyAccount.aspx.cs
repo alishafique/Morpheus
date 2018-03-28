@@ -52,16 +52,22 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 objADC = new ActivateDeactivateCompanyAccount_Controller();
                 dt = objADC.populateGridviewToActivateOrDeactivate();
+                dt.Columns.Add("active_status1", typeof(string));
                 if (dt != null)
                 {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        if (row["Status"] + string.Empty == "1")
+                            row["active_status1"] = "Active";
+                        else
+                            row["active_status1"] = "Disabled";
+                    }
+
                     dtgridview_companies.DataSource = dt;
                     dtgridview_companies.DataBind();
                 }
                 else
-                {
-                    showErrorMessage(objADC.ErrorString, false);
-                }
-             
+                    showErrorMessage(objADC.ErrorString, false);    
             }
             catch(Exception ex)
             {
@@ -73,22 +79,16 @@ namespace Morpheus.Accounts
         {
             try
             {
-               
-                // Get the currently selected row using the SelectedRow property.
                 GridViewRow row = dtgridview_companies.SelectedRow;
-
-                //MessageLabel.Text = "Editing CompanyID : " + row.Cells[1].Text + ".";
                 txtbox_UserId.Text = row.Cells[2].Text;         // load User ID
                 txtbox_UserId.Enabled = false;
                 txtbox_CompanyID.Text = row.Cells[1].Text; // load Company Id
                 txtbox_CompanyID.Enabled = false;
                 txtbox_CompanyName.Text = row.Cells[3].Text.Replace("&amp;", "&");    // Load COmpany Name
                 txtbox_CompanyEmail.Text = row.Cells[4].Text;       // load Company EMail
-                dp_CompanyAccountStatus.SelectedIndex = Int32.Parse(row.Cells[7].Text); // load Account Status      
-               
+                dp_CompanyAccountStatus.SelectedIndex = Int32.Parse(row.Cells[7].Text); // load Account Status                
                 btnUpdateCompanyDetails.Enabled = true;
-                dp_CompanyAccountStatus.Focus();
-             
+                dp_CompanyAccountStatus.Focus();   
             }
             catch (Exception ex)
             {
@@ -96,12 +96,10 @@ namespace Morpheus.Accounts
             }
 
         }
-
         protected void dtgridview_companies_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
             try
             {
-
                 GridViewRow row = dtgridview_companies.Rows[e.NewSelectedIndex];
                 if (row.Cells[1].Text == "ANATR")
                 {
@@ -128,7 +126,7 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
-                string script = @"setTimeout(function(){document.getElementById('" + successMsg.ClientID + "').style.display='none';},4000);";
+                string script = @"setTimeout(function(){document.getElementById('" + successMsg.ClientID + "').style.display='none';},8000);";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
@@ -136,7 +134,7 @@ namespace Morpheus.Accounts
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
-                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},5000);";
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
@@ -152,23 +150,17 @@ namespace Morpheus.Accounts
                         if (dp_CompanyAccountStatus.SelectedIndex == 1)
                         {
                             if (objADC.notificationToCompany(txtbox_CompanyEmail.Text, txtbox_CompanyName.Text) == true)
-                            {
                                 showErrorMessage("Company's Account has been Activated. And Notification has been sent to company.", true);
-                            }
                         }
                         else
                         {
                             if (objADC.notificationDeActiveToCompany(txtbox_CompanyEmail.Text, txtbox_CompanyName.Text) == true)
-                            {
                                 showErrorMessage("Company's Account has been successfully de-activated", true);
-                            }
                         }
                         populateToActivateOrDeactivateCompany();
                     }
                     else
-                    {
                         showErrorMessage(objADC.ErrorString, false);
-                    }
             }
             catch (Exception ex)
             {

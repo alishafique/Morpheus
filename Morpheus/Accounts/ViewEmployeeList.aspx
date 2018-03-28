@@ -34,6 +34,17 @@
                x.style.display = 'none';
            }
        }
+
+          function ShowImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#<%=imgprw.ClientID%>').prop('src', e.target.result)
+                        
+                };
+                reader.readAsDataURL(input.files[0]);
+                }
+          }  
       
 </script>
     <!-- DataTables CSS -->
@@ -146,13 +157,12 @@
                                        </div>
                                            <div class="form-group" runat ="server" >
 
-                                               <div class="home-banner__avatar">
-                                                   <asp:Image ID="imgprw" runat="server" />
-                                                   <%--<asp:ImageButton ID="ImageButton1" class="imgUpload" onchange="imagepreview(this);"  runat="server" ImageUrl="~/Accounts/images/profileUpload.png" />--%>
-                                                   
+                                               <div>
+                                                   <asp:Image ID="imgprw" CssClass="preview-nodeCenter nodeCenter fadeChange" runat="server" />
+                                                  
                                                </div>
                                                <div>
-                                                   <asp:FileUpload ID="profileUploadCtr"  class="uploadFile form-group" onchange="imagepreview(this);" placeholder="Choose Images" runat="server" />                                                                   
+                                                   <asp:FileUpload ID="profileUploadCtr"  class="uploadFile form-group" onchange="ShowImagePreview(this);" placeholder="Choose Images" runat="server" />                                                                   
                                                    <asp:LinkButton ID="LinkButton1" ValidationGroup="a" CssClass="btn btn-outline btn-primary btn-xs" runat="server" OnClick="LinkButton1_Click">Upload Profile Image</asp:LinkButton>
                                         <asp:RegularExpressionValidator id="RegularExpressionValidator1" ValidationGroup="a" SetFocusOnError="true" runat="server" ErrorMessage="Only JPEG, PNG, & TIFF file is allowed!"
                                             ValidationExpression ="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$" ControlToValidate="profileUploadCtr" Display="Dynamic" />

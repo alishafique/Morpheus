@@ -40,19 +40,64 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-         <%--function autoHide()
-        {  //hide after 5 seconds   
-            setTimeout(function() { document.getlementById('<%=errorMsg.ClientID%>').style.display = 'none'; },5000);
-        }--%>
+  <style type="text/css">
+        .modal1
+        {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            min-height: 100%;
+            width: 100%;
+        }
+        .loading
+        {
+            font-family: Arial;
+            font-size: 10pt;
+            /*border: 5px solid #67CFF5;
+            width: 200px;
+            height: 100px;*/
+            display: none;
+            position: fixed;
+            /*background-color: White;*/
+            z-index: 999;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+     <script type="text/javascript">
+        function ShowProgress() {
+            setTimeout(function () {
+                var modal1 = $('<div />');
+                modal1.addClass("modal1");
+                $('body').append(modal1);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
+        }
+        $(function () {
+            $('.btn').live("click", function () {
+                ShowProgress();
+            });
+        });
     </script>
+   
 </head>
 <body>
     <form id="form1" runat="server">
+  
     <div>
-    
-        
+
+        <div class="loading" align="center">
+            <p style="color:white;">Loading. Please wait.</p>
+            <img src="images/loader.gif" alt="" />
+        </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">

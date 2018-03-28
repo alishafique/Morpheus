@@ -26,12 +26,12 @@ namespace Controller
         public DataTable populateCompanyGridview()
         {
             try
-            { 
-            dt = new DataTable();
-            con = new Connection();
-            strQuery = "spShowCompanies";
-            cmd = new SqlCommand(strQuery);
-            dt = con.GetDataUsingSp(cmd);
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spShowCompanies";
+                cmd = new SqlCommand(strQuery);
+                dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
                 {
                     return dt;

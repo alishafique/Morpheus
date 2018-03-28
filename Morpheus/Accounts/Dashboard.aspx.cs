@@ -103,14 +103,52 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
+        }
+        public static string TimeAgo(DateTime dt)
+        {
+            TimeSpan span = DateTime.Now - dt;
+            if (span.Days > 365)
+            {
+                int years = (span.Days / 365);
+                if (span.Days % 365 != 0)
+                    years += 1;
+                return String.Format("about {0} {1} ago",
+                years, years == 1 ? "year" : "years");
+            }
+            if (span.Days > 30)
+            {
+                int months = (span.Days / 30);
+                if (span.Days % 31 != 0)
+                    months += 1;
+                return String.Format("about {0} {1} ago",
+                months, months == 1 ? "month" : "months");
+            }
+            if (span.Days > 0)
+                return String.Format("about {0} {1} ago",
+                span.Days, span.Days == 1 ? "day" : "days");
+            if (span.Hours > 0)
+                return String.Format("about {0} {1} ago",
+                span.Hours, span.Hours == 1 ? "hour" : "hours");
+            if (span.Minutes > 0)
+                return String.Format("about {0} {1} ago",
+                span.Minutes, span.Minutes == 1 ? "minute" : "minutes");
+            if (span.Seconds > 5)
+                return String.Format("about {0} seconds ago", span.Seconds);
+            if (span.Seconds <= 5)
+                return "just now";
+            return string.Empty;
         }
 
         [WebMethod]
@@ -121,8 +159,11 @@ namespace Morpheus.Accounts
                 using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["morpheus_db"].ConnectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand(@"SELECT count( distinct [id])
-                FROM [dbo].[incidentReport] where [reportedTo] ="+ UserID, connection))
+                    using (SqlCommand command = new SqlCommand(@"SELECT TOP (10) N.[ID] ,U.[user_name],N.[ReportedToID],N.[Description],N.[dateTime]
+                            FROM [dbo].[tblNotification] N 
+							inner join [user_name] U  on 
+							 U.[user_id] = N.[ReportedByID] 
+							 where N.[ReportedToID]=" + UserID+ "order by N.[dateTime] desc", connection))
                     {
                         // Make sure the command object does not already have
                         // a notification object associated with it.
@@ -133,20 +174,15 @@ namespace Morpheus.Accounts
 
                         if (connection.State == ConnectionState.Closed)
                             connection.Open();
-
-
                         using (var reader = command.ExecuteReader())
                             return reader.Cast<IDataRecord>()
                                 .Select(x => new IncidentReport()
                                 {
                                     id = x.GetInt32(0),
-                                    //ReportedBy = x.GetInt64(1),
-                                    //ReportedTo = x.GetInt64(2),
+                                    Description = x.GetString(3),
+                                    ReportedDateTimeToShow = TimeAgo(x.GetDateTime(4)),
                                     //Severitylevel = x.GetString(3)
                                 }).ToList();
-
-
-
                     }
                 }
             }

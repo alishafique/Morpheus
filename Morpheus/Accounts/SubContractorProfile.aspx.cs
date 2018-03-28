@@ -107,9 +107,7 @@ namespace Morpheus.Accounts
                     }
                 }
                 else
-                {
                     showErrorMessage("Unable to update Company's Details.: "+obj.ErrorString, false);
-                }
             }
             catch(Exception ex)
             {
@@ -136,9 +134,7 @@ namespace Morpheus.Accounts
                     txtbox_ABN.Text = dt.Rows[0]["ABN"].ToString();
 
                     if (company_type.ContainsKey(dt.Rows[0]["Type"].ToString())) // select the type of Sub-Contractor
-                    {
                         dp_CompanyType.SelectedIndex = company_type[dt.Rows[0]["Type"].ToString()];
-                    }
                     //TextBox_CompanyType.Text = dt.Rows[0]["Type"].ToString();
                     TextBox_Mobile.Text = dt.Rows[0]["MobileNumber"].ToString();
                     TextBox_landline.Text = dt.Rows[0]["LandlineNumber"].ToString();
@@ -147,9 +143,7 @@ namespace Morpheus.Accounts
 
                 }
                 else
-                {
                     showErrorMessage(obj.ErrorString, false);
-                }
             }
             catch (Exception ex)
             {
@@ -215,9 +209,7 @@ namespace Morpheus.Accounts
                     }
                 }
                 else
-                {
                     showErrorMessage(obj.ErrorString, false);
-                }
             }
             catch (Exception ex)
             {

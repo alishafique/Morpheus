@@ -16,6 +16,7 @@ namespace Morpheus.Accounts
         DataTable dtUser;
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             if (!Page.IsPostBack)
             {
                 //lblerrorMessage.Visible = false;
@@ -26,6 +27,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                System.Threading.Thread.Sleep(2000);
                 dtUser = new DataTable();
                 log_in._UserName = txtbox_userName.Text;
                 log_in._Password = txtbox_Password.Text;
@@ -67,7 +69,7 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
-                string script = @"setTimeout(function(){document.getElementById('" + successMsg.ClientID + "').style.display='none';},4000);";
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
@@ -75,7 +77,8 @@ namespace Morpheus.Accounts
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
-               
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }

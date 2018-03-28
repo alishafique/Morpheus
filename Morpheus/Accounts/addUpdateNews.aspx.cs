@@ -54,30 +54,30 @@ namespace Morpheus.Accounts
                             {
                                 lblNews1PostTitle.Text = dt.Rows[i]["postTitle"].ToString();
                                 lblNewsDetail1.Value = dt.Rows[i]["newsDescription"].ToString();
-                                imgNews1.ImageUrl = dt.Rows[i]["postImage"].ToString();
-                                Session["imgNews1"] = dt.Rows[i]["postImage"].ToString();
+                                imgNews1.ImageUrl = dt.Rows[i]["postImage"].ToString() + "?rand=" + Guid.NewGuid();
+                                ViewState["imgNews1"] = dt.Rows[i]["postImage"].ToString();
 
                             }
                             if (dt.Rows[i]["id"].ToString() == "2")
                             {
                                 lblNews2PostTitle.Text = dt.Rows[i]["postTitle"].ToString();
                                 lblNewsDetail2.Value = dt.Rows[i]["newsDescription"].ToString();
-                                imgNews2.ImageUrl = dt.Rows[i]["postImage"].ToString();
-                                Session["imgNews2"] = dt.Rows[i]["postImage"].ToString();
+                                imgNews2.ImageUrl = dt.Rows[i]["postImage"].ToString() + "?rand=" + Guid.NewGuid();
+                                ViewState["imgNews2"] = dt.Rows[i]["postImage"].ToString();
                             }
                             if (dt.Rows[i]["id"].ToString() == "3")
                             {
                                 lblNews3PostTitle.Text = dt.Rows[i]["postTitle"].ToString();
                                 lblNewsDetail3.Value = dt.Rows[i]["newsDescription"].ToString();
-                                imgNews3.ImageUrl = dt.Rows[i]["postImage"].ToString();
-                                Session["imgNews3"] = dt.Rows[i]["postImage"].ToString();
+                                imgNews3.ImageUrl = dt.Rows[i]["postImage"].ToString() + "?rand=" + Guid.NewGuid();
+                                ViewState["imgNews3"] = dt.Rows[i]["postImage"].ToString();
                             }
                             if (dt.Rows[i]["id"].ToString() == "4")
                             {
                                 lblNews4PostTitle.Text = dt.Rows[i]["postTitle"].ToString();
                                 lblNewsDetail4.Value = dt.Rows[i]["newsDescription"].ToString();
-                                imgNews4.ImageUrl = dt.Rows[i]["postImage"].ToString();
-                                Session["imgNews4"] = dt.Rows[i]["postImage"].ToString();
+                                imgNews4.ImageUrl = dt.Rows[i]["postImage"].ToString() + "?rand=" + Guid.NewGuid();
+                                ViewState["imgNews4"] = dt.Rows[i]["postImage"].ToString();
                             }
                         }
                     }
@@ -100,12 +100,16 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }
@@ -132,7 +136,7 @@ namespace Morpheus.Accounts
 
         protected void btnNews1_Click(object sender, EventArgs e)
         {
-            string fileUploaded = Uploadnews(fctrNews1, 1, imgNews1, Session["imgNews1"].ToString());
+            string fileUploaded = Uploadnews(fctrNews1, 1, imgNews1, ViewState["imgNews1"].ToString());
             if (fileUploaded != "")
             {
                 if (UpdateNews(1, lblNews1PostTitle.Text, lblNewsDetail1.Value, fileUploaded))
@@ -148,7 +152,7 @@ namespace Morpheus.Accounts
 
         protected void btnNews2_Click(object sender, EventArgs e)
         {
-            string fileUploaded = Uploadnews(fctrNews2, 2, imgNews2, Session["imgNews2"].ToString());
+            string fileUploaded = Uploadnews(fctrNews2, 2, imgNews2, ViewState["imgNews2"].ToString());
             if (fileUploaded != "")
             {
                 if (UpdateNews(2, lblNews2PostTitle.Text, lblNewsDetail2.Value, fileUploaded))
@@ -164,7 +168,7 @@ namespace Morpheus.Accounts
 
         protected void btnNews3_Click(object sender, EventArgs e)
         {
-            string fileUploaded = Uploadnews(fctrNews3, 3, imgNews3, Session["imgNews3"].ToString());
+            string fileUploaded = Uploadnews(fctrNews3, 3, imgNews3, ViewState["imgNews3"].ToString());
             if (fileUploaded != "")
             {
                 if (UpdateNews(3, lblNews3PostTitle.Text, lblNewsDetail3.Value, fileUploaded))
@@ -180,7 +184,7 @@ namespace Morpheus.Accounts
 
         protected void btnNews4_Click(object sender, EventArgs e)
         {
-            string fileUploaded = Uploadnews(fctrNews4, 4, imgNews4, Session["imgNews4"].ToString());
+            string fileUploaded = Uploadnews(fctrNews4, 4, imgNews4, ViewState["imgNews4"].ToString());
             if (fileUploaded != "")
             {
                 if (UpdateNews(4, lblNews4PostTitle.Text, lblNewsDetail4.Value, fileUploaded))
@@ -203,7 +207,7 @@ namespace Morpheus.Accounts
                     obj = new addUpdateNews_Controller();
 
                     HttpPostedFile postedFile = ftpCtr.PostedFile;
-                    string filename = newsPostNumber + "_PostNews";
+                    string filename = newsPostNumber + "_" + Guid.NewGuid();
 
                     string fileExtension = Path.GetExtension(ftpCtr.FileName);
                     int fileSize = postedFile.ContentLength;
@@ -213,18 +217,18 @@ namespace Morpheus.Accounts
 
                         string directoryName = "News"; // all data will be saved using userID of employee
                         string fullDirectoryPath = Server.MapPath(@"~/data/" + directoryName + "/");
-                        string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + "." + fileExtension);
-                        string pathTosave = "~/data/" + directoryName + "/" + filename + "." + fileExtension;
+                        string fileNameWithPath = Server.MapPath("~/data/" + directoryName + "/" + filename + fileExtension);
+                        string pathTosave = "~/data/" + directoryName + "/" + filename + fileExtension;
                         if (!Directory.Exists(fullDirectoryPath))
                             Directory.CreateDirectory(fullDirectoryPath);
 
-                        if (!File.Exists(Server.MapPath(pathTosave)))
+                        if (!File.Exists(Server.MapPath(imgURL)))
                         {
                             ftpCtr.SaveAs(fileNameWithPath);
                         }
                         else
                         {
-                            File.Delete(Server.MapPath(pathTosave));
+                            File.Delete(Server.MapPath(imgURL));
                             ftpCtr.SaveAs(fileNameWithPath);
                         }
 

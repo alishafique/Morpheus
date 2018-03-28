@@ -2,23 +2,13 @@
 
 <%@ Register Assembly="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.EditorControls" TagPrefix="ig" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--<script type="text/javascript">  
-          function ShowImagePreview(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#<%=impPrev.ClientID%>').prop('src', e.target.result)
-                        .width(240);
-                };
-                reader.readAsDataURL(input.files[0]);
-                }
-            }
-    </script>  --%>
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <div id="page-wrapper">
-         <%--<table id="tbl"></table>--%>
+           
+         <table id="tbl1"></table>
            <div class="row">
                <div class="col-lg-12">
                    <h1 class="page-header">

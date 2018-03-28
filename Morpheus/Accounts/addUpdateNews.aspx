@@ -3,7 +3,13 @@
 <%@ Register Assembly="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.EditorControls" TagPrefix="ig" %>
 <%@ Register assembly="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="System.Web.UI" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-      <script type="text/javascript">  
+    <style type="text/css">
+        .imgSize
+        {
+            min-height:200px;
+        }
+    </style>  
+    <script type="text/javascript">  
           function ShowImagePreview1(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -74,7 +80,7 @@
                        <!-- /.panel-heading -->
                        <div class="panel-body">
 
-                           <asp:Image ID="imgNews1" Width="262px" Height="200px" runat="server" />
+                           <asp:Image ID="imgNews1" Width="262px" CssClass="imgSize" Height="200px" runat="server" />
                            <asp:FileUpload ID="fctrNews1" runat="server" onchange="ShowImagePreview1(this);" />
 
                          <div class="form-group">

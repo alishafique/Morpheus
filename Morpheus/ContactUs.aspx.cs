@@ -5,12 +5,14 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Controller;
 using Domain;
 
 namespace Morpheus
 {
     public partial class ContactUs : System.Web.UI.Page
     {
+        ContactUs_Controller obj;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -20,13 +22,14 @@ namespace Morpheus
         {
             try
             {
+                obj = new ContactUs_Controller();
                 if (Page.IsValid)
                 {
                     bool isHuman = ExampleCaptcha.Validate();
                     if (isHuman)
                     {
-                        if (Email.ContactUsEmail(txtName.Text, txtEmail.Text, txtPhone.Text, txtMessage.Text))
-                        {
+                        if (Email.ContactUsEmail(txtName.Text, txtEmail.Text, txtPhone.Text, txtMessage.Text) && obj.InsertContactUsForm(txtName.Text, txtEmail.Text, txtPhone.Text, txtMessage.Text))
+                        {                          
                             showErrorMessage("Thank you for contacting us", true);
                             txtName.Text = "";
                             txtEmail.Text = "";
@@ -34,9 +37,7 @@ namespace Morpheus
                             txtPhone.Text = "";
                         }
                         else
-                        {
-                            showErrorMessage(Email.Error, false);
-                        }
+                            showErrorMessage(Email.Error + ". " + obj.ErrorString , false);
                     }
                     else
                     {

@@ -149,26 +149,19 @@ namespace Morpheus.Accounts
                     TextBox_userId.Text = dt.Rows[0]["UserId"].ToString();
                     TextBox_EmployeeName.Text = dt.Rows[0]["emp_name"].ToString();
                     TextBox1_EmployeeEmail.Text = dt.Rows[0]["email"].ToString();
-
                     txtbox_dateTimePicker_DOB.Text = convertDate(dt.Rows[0]["date_of_birth"].ToString());
-
-
                     TextBox_ABN.Text = dt.Rows[0]["ABN"].ToString();
                     TextBox_TFN.Text = dt.Rows[0]["TFN"].ToString();
                     hideEmployee.Visible = false;
-
                     TextBox_StreetName.Text = dt.Rows[0]["Address"].ToString();
                     TextBox_Suburb.Text = dt.Rows[0]["suburb"].ToString();
                     TextBox_State.Text = dt.Rows[0]["state"].ToString();
                     TextBox_Postcode.Text = dt.Rows[0]["postcode"].ToString();
                     TextBox_License.Text = dt.Rows[0]["license"].ToString();
                     TextBox_Mobile.Text = dt.Rows[0]["mobile"].ToString();
-
                 }
                 else
-                {
                     showErrorMessage(objEmp.ErrorString, false);
-                }
             }
             catch (Exception ex)
             {
@@ -218,12 +211,16 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
+                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }
@@ -344,7 +341,7 @@ namespace Morpheus.Accounts
                 if (dt != null)
                 {
                     if (dt.Rows.Count > 0)
-                        imgprw.ImageUrl = dt.Rows[0]["profile_imageURL"].ToString();
+                        imgprw.ImageUrl = dt.Rows[0]["profile_imageURL"].ToString() + "?rand=" + Guid.NewGuid();
                 }
                 else
                 {

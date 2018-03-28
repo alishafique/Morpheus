@@ -36,7 +36,7 @@
                    /*height:100%;
                      }
                  */
-               
+      
             </style>
     
 </asp:Content>
@@ -65,26 +65,22 @@
     <div class='owl-carousel owl-theme' id='pbSlider4'>
          <div class="item sizing">
           <img src="img/Main.jpg" />
-       <%-- <div class="o-slidr-textWrap">
-          <h1 class="heading1" style="color:black;">Dynamic Innovation in</h1>
-          <span class="a-dvider"></span>
-          <h2 class="heading2" style="color:black;">Occupational Health & Safety</h2>
-        </div>--%>
+        <div class="o-slidr-textWrap">
+          <h2 class="heading1" style="color:black; text-align:center;">Dynamic Innovation in Occupational Health & Safety</h2>
+       
+        </div>
       </div>
       <div class="item sizing" >
            <img src="img/5.jpg" />
         <div class="o-slidr-textWrap">
-          <h1 class="heading1" style="color:black;">Dynamic Innovation in</h1>
-          <span class="a-dvider"></span>
-          <h2 class="heading2" style="color:black;">Occupational Health & Safety</h2>
+          <h2 class="heading1" style="color:black;text-align:center;">Dynamic Innovation in Mining, Oil & Gas Safety</h2>
         </div>
       </div>
       <div class="item sizing" >
           <img src="img/ws-safety-and-health-representative-banner.jpg" />
         <div class="o-slier-textWrap">
-          <h2 class="heading1"  style="color:black;" >Dynamic Innovation</h2>
-          <span class="a-diider" ></span>
-          <h2 class="heading2"  style="color:black;">in Occupational Health & Safety</h2>
+          <h2 class="heading1"  style="color:black; text-align:center;" >Dynamic Innovation in Construction Safety</h2>
+          
         </div>
       </div>
      <%-- <div class="item sizing" >
@@ -117,34 +113,51 @@
      
                </div>
          
-        <section class="boxes_area">
+        <section class="boxes_area" >
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="box">
                             <h3>Why Do I Need an OHS System?</h3>
-                            <p>Health and safety laws have evolved as result of oversight, or failure to provide safe working conditions for workers.  Whilst majority of employers genuinely care for their employees, they aren’t always able, or often overlook the necessary requirements for safety in their day to day operations.</p>
+                            <p>Health and safety laws have evolved as result of oversight, or failure to provide safe working conditions for workers.  Whilst majority of employers genuinely.. <a href="#" data-toggle="modal" data-target="#OHSSystem" style="color:#005FA6;">   More..</a> </p>
+                            <div class="modal fade" id="OHSSystem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel2" style="color:black;">Why Do I Need an OHS System?</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p style="color:black;">Health and safety laws have evolved as result of oversight, or failure to provide safe working conditions for workers.  Whilst majority of employers genuinely care for their employees, the necessary requirements for safety in their day to day operations are often overlooked or can be difficult to keep track of.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                             <i class="fa fa-cogs"></i>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="box">
-                            <h3>Legal Minefield - Your Obligations – Employer/Employee</h3>
-                            <p>With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees.With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees<a href="#" data-toggle="modal" data-target="#LegalMinefield" style="color:#005FA6;">   More..</a></p>
+                            <h3>Legal Minefield - Your Obligations</h3>
+                            <p>With flexible workforce arrangements becoming increasingly common, it’s vital Employers understand their obligations to employees.<a href="#"> </a><a href="#" data-toggle="modal" data-target="#LegalMinefield" style="color:#005FA6;">   More..</a></p>
                             <div class="modal fade" id="LegalMinefield" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel1">Legal Minefield - Your Obligations – Employer/Employee</h4>
+                                            <h4 class="modal-title" style="color:black;" id="myModalLabel1">Legal Minefield - Your Obligations – Employer/Employee</h4>
                                         </div>
                                         <div class="modal-body">
-                                           <p>With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees.</p>
-                                            <p>Deciding whether workers are employees or contractors can be a legal minefield for which businesses are unprepared until a dispute arises, or an ATO auditor or Fair Work inspector pays a visit.</p>
-                                            <p>Unfortunately, ignorance of the law is no defence, and getting it wrong can leave you heavily out of pocket.</p>
-                                            <p>Unfortunately, ignorance of the law is no defence, and getting it wrong can leave you heavily out of pocket.</p>
-                                            <h2>Don’t assume</h2>
-                                            <p>The ATO recently warned small businesses not to be fooled by the myth that simply calling a worker a contractor releases businesses from super and tax payments. The ATO recently warned small businesses not to be fooled by the myth that simply calling a worker a contractor releases businesses from super and tax payments.</p>
+                                           <p style="color:black;">With flexible workforce arrangements becoming increasingly common, it’s vital you understand your obligations to employees.</p>
+                                            <p style="color:black;">Deciding whether workers are employees or contractors can be a legal minefield for which businesses are unprepared until a dispute arises, or an ATO auditor or Fair Work inspector pays a visit.</p>
+                                            <p style="color:black;">Unfortunately, ignorance of the law is no defence, and getting it wrong can leave you heavily out of pocket.</p>
+                                            <h2 style="color:black;">Don’t assume</h2>
+                                            <p style="color:black;">The ATO recently warned small businesses not to be fooled by the myth that simply calling a worker a contractor releases businesses from super and tax payments.</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -159,9 +172,9 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="box">
-                            <h3>OMS/GU Press Release and add to Latest
+                            <h3>OMS/GU Press Release and-
                                  <br />
-                                News</h3>
+                                -add to Latest News</h3>
                             <p>Under construction.</p>
                             <i class="fa fa-clipboard"></i>
                         </div>
@@ -169,6 +182,8 @@
                 </div>
             </div>
         </section>
+            <div style="background-repeat: repeat-x; background-image: url(img/diveder.png); height:15px; width:100%"></div>
+
         <section class="services">
             <h2 class="section-title">SERVICES</h2>
             <%--<p class="desc">Praesent faucibus ipsum at sodales blandit</p>--%>
@@ -177,55 +192,44 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
                             <div class="media-left media-middle">
-                                <i class="fa fa-cogs"></i>
+                                <i class="fa fa-file-text-o"></i>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">INCIDENT REPORTING</h4>
-                                <p>An easier way to report incident to your company. On one click you can export it to PDF/Excel file.</p>
+                                <p>We provide an easier way to report incidents/hazards to your company/Employer. One click can export reports to PDF/Excel file.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
-                            <div class="media-left media-middle">
+                            <div class="media-left media-middle" style="padding-right:24px;">
                                 <i class="fa fa-male"></i>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">MANAGE EMPLOYEES</h4>
-                                <p>Add/Update/Delete your employee's account. Interactive dashboard to manage your employees.</p>
+                                <p>Add/Modify/Delete your employee accounts. Your interactive dashboard helps to manage your employees efficiently.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
                             <div class="media-left media-middle">
-                                <i class="fa fa-user fa-fw"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">MANAGE SUB-CONTRACTORS</h4>
-                                <p>Add/update/Delete your Sub-Contractor's Account. A simple way to manage your staff in one place.</p>
+                                <p>Add/Modify/Delete your Sub-Contractor's Account. A simple way to manage your Sub-Contractors in one place.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="media">
                             <div class="media-left media-middle">
-                                <i class="fa fa-graduation-cap"></i>
+                                <i class="fa fa-list-ol" style="font-size:38px;"></i>
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">ASSIGN JOBS TO EMPLOYEES</h4>
-                                <p>Create/Update jobs and Assign it to your employees. An easy Way to keep track of jobs and employees.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="media">
-                            <div class="media-left media-middle">
-                                <i class="fa fa-file-text-o"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">EXPORT INCIDENT REPORTS</h4>
-                                <p>Upon few clicks you can easily download your incident report in PDF and Excel formate.</p>
+                                <p>Create, Modify and Assign jobs to your employees. An easy way to keep track of your projects and employees.</p>
                             </div>
                         </div>
                     </div>
@@ -235,19 +239,34 @@
                                 <i class="fa fa-database"></i>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">FULL DATABASE RECORDS OF EMPLOYEES</h4>
-                                <p>Our application keep full records of your employees. An easy way of managing the Employees.</p>
+                                <h4 class="media-heading">EMPLOYEE DATABASE MANAGEMENT</h4>
+                                <p>Keep your employee's records secure. An easy way of managing your employees.</p>
                             </div>
                         </div>
-                    </div>                     
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <i class="fa fa-crop"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">CUSTOMISED ADD-ON EXTENSIONS</h4>
+                                <p>We can provide tailored web application ADD-ONS to suit your business needs.</p>
+                            </div>
+                        </div>
+                    </div>
+                                         
                 </div>
             </div>
         </section>
+           
+
         <section class="home-area">
             <div class="home_content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12"><h2 class="sub_title">LATEST NEWS</h2></div>
+                        <div class="col-sm-12">
+                            <h2 class="sub_title">LATEST NEWS</h2>
                         <div class="home_list">
                             <ul>
                                 <li class="col-md-3 col-sm-6 col-xs-12">
@@ -256,7 +275,7 @@
                                         <div class="caption" >
                                             <h3><a href="#"><asp:Label ID="lblNews1PostTitle" runat="server" Text=""></asp:Label></a></h3>
                                             <p><asp:Label ID="lblNews1Detail" runat="server" Text=""></asp:Label></p>
-                                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#News1Detail" role="button">More</a>
+                                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#News1Detail" role="button"> More</a>
                                             <div class="modal fade" id="News1Detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -364,7 +383,9 @@
                                 </li>                                    
                             </ul>
                         </div>
-                        
+                        </div>
+                        </div>
+                    <div class="row">
                         <div class="col-sm-9 home_bottom">
                             <h2 class="sub_title">PARTNERS</h2>
                             <div class="clearfix"></div>
@@ -458,7 +479,7 @@
                             </div>                            
                         </div>
                         <div class="col-sm-3">
-                            <h2 class="sub_title w10">CALL YOU</h2>
+                            <h2 class="sub_title w10">CALL ME</h2>
                             <div class="clearfix"></div>
                             <div class="login-form-1">
                                 <form id="login-form" class="text-left">
@@ -479,11 +500,12 @@
                                 </form>
                             </div>                            
                         </div>
+                        </div>
                     </div>
-                </div>
+              
             </div>
         </section>
-                
+                <div style="background-repeat: repeat-x; background-image: url(img/diveder.png); height:15px; width:100%"></div>
     </main>
 
     <script type="text/javascript">

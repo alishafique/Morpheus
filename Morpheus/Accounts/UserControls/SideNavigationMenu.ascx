@@ -40,7 +40,12 @@
                             <!-- /.nav-second-level -->
                         </li>
                        
-                    
+                     <li><a href="#"><i class="fa fa-comments fa-fw"></i>Messages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="frmViewMessages.aspx">View Messages</a> </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="#">View Forms</a> </li>

@@ -234,11 +234,15 @@
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
     <Content Include="Accounts\AddEmployeeAccount.aspx" />
+    <Content Include="Accounts\AddLocationForm.aspx" />
     <Content Include="Accounts\AddSubcontractor.aspx" />
     <Content Include="Accounts\addUpdateNews.aspx" />
     <Content Include="Accounts\changePassword.aspx" />
+    <Content Include="Accounts\checkEmployeeName.asmx" />
     <Content Include="Accounts\css\infragistics.css" />
     <Content Include="Accounts\css\infragistics.theme.css" />
+    <Content Include="Accounts\css\jquery-ui-1.9.2.custom.min.css" />
+    <Content Include="Accounts\css\jquery-ui.min.css" />
     <Content Include="Accounts\Dashboard.aspx" />
     <Content Include="Accounts\datatables-plugins\dataTables.bootstrap.css" />
     <Content Include="Accounts\datatables-plugins\dataTables.bootstrap.js" />
@@ -248,6 +252,9 @@
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
     <Content Include="Accounts\FormBuilder.aspx" />
     <Content Include="Accounts\forms\Induction.aspx" />
+    <Content Include="Accounts\frmCreateRoaster.aspx" />
+    <Content Include="Accounts\frmViewMessages.aspx" />
+    <Content Include="Accounts\images\ajax-loader.gif" />
     <Content Include="Accounts\images\loader.gif" />
     <Content Include="Accounts\images\profileUpload.png" />
     <Content Include="Accounts\images\sort_asc.png" />
@@ -255,9 +262,12 @@
     <Content Include="Accounts\images\sort_both.png" />
     <Content Include="Accounts\images\sort_desc.png" />
     <Content Include="Accounts\images\sort_desc_disabled.png" />
+    <Content Include="Accounts\js\jquery-1.8.3.js" />
+    <Content Include="Accounts\js\jquery-ui-1.9.2.custom.min.js" />
     <Content Include="Accounts\js\jquery-ui.min.js" />
     <Content Include="Accounts\js\jquery.dataTables.min.js" />
     <Content Include="Accounts\forms\StartCardQuestionair.aspx" />
+    <Content Include="Accounts\js\Main.png" />
     <Content Include="Accounts\SubContractorProfile.aspx" />
     <Content Include="Accounts\TestUpload.aspx" />
     <Content Include="Accounts\UserControls\SubContractorSideMenu.ascx" />
@@ -285,6 +295,7 @@
     <Content Include="img\4.jpg" />
     <Content Include="img\5.jpg" />
     <Content Include="img\6.jpg" />
+    <Content Include="img\diveder.png" />
     <Content Include="img\Main.jpg" />
     <Content Include="img\safety-helmet.jpg" />
     <Content Include="img\topBanner.png" />
@@ -443,6 +454,13 @@
     <Compile Include="Accounts\AddEmployeeAccount.aspx.designer.cs">
       <DependentUpon>AddEmployeeAccount.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Accounts\AddLocationForm.aspx.cs">
+      <DependentUpon>AddLocationForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\AddLocationForm.aspx.designer.cs">
+      <DependentUpon>AddLocationForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Accounts\AddSubcontractor.aspx.cs">
       <DependentUpon>AddSubcontractor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -463,6 +481,10 @@
     </Compile>
     <Compile Include="Accounts\changePassword.aspx.designer.cs">
       <DependentUpon>changePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\checkEmployeeName.asmx.cs">
+      <DependentUpon>checkEmployeeName.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Accounts\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
@@ -498,6 +520,20 @@
     </Compile>
     <Compile Include="Accounts\forms\Induction.aspx.designer.cs">
       <DependentUpon>Induction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmCreateRoaster.aspx.cs">
+      <DependentUpon>frmCreateRoaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmCreateRoaster.aspx.designer.cs">
+      <DependentUpon>frmCreateRoaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmViewMessages.aspx.cs">
+      <DependentUpon>frmViewMessages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmViewMessages.aspx.designer.cs">
+      <DependentUpon>frmViewMessages.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -750,6 +786,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Accounts\css\images\" />
     <Folder Include="Accounts\upload\" />
     <Folder Include="crystalreportviewers13\" />
   </ItemGroup>

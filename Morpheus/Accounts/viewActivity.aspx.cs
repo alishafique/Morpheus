@@ -60,9 +60,7 @@ namespace Morpheus.Accounts
                     dtgridview_viewActivity.DataBind();
                 }
                 else
-                {
                     showErrorMessage(objView.ErrorString, false);
-                }
             }
             catch(Exception ex)
             {
@@ -89,9 +87,7 @@ namespace Morpheus.Accounts
                 {
                     string[] temp = listEmployees.Items[i].Text.Split('-');
                     if ( temp[1].Trim() == row.Cells[2].Text)
-                    {
                         listEmployees.Items[i].Selected = true;
-                    }
                 }
                 string[] tempUrl = row.Cells[9].Text.Split(',');
                 foreach (ListItem item in cbFormsList.Items)
@@ -99,11 +95,8 @@ namespace Morpheus.Accounts
                     for (int i = 0; i < tempUrl.Length; i++)
                     {
                         if (item.Value == tempUrl[i])
-                        {
                             item.Selected = true;
-                        }
                     }
-                    
                 }
 
                 // listEmployees.SelectedIndex = listEmployees.FindControl(row.Cells[2].Text);
@@ -127,8 +120,7 @@ namespace Morpheus.Accounts
         {
             try
             {
-                listEmployees.Items.Clear();
-               
+                listEmployees.Items.Clear();          
                 dt = new DataTable();
                 objView = new viewActivity_Controller();
                 dt = objView.listEmployeesByCompany(int.Parse(Session["userid"].ToString()));
@@ -144,11 +136,7 @@ namespace Morpheus.Accounts
                     }
                 }
                 else
-                {
                     showErrorMessage(objView.ErrorString, false);
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -160,7 +148,6 @@ namespace Morpheus.Accounts
         {
             try
             {
-
                 GridViewRow row = dtgridview_viewActivity.Rows[e.NewSelectedIndex];
                 if (row.Cells[1].Text == "ANATR")
                 {
@@ -179,8 +166,7 @@ namespace Morpheus.Accounts
             try
             {
                 Activity objAct = new Activity();
-                objView = new viewActivity_Controller();
-               
+                objView = new viewActivity_Controller();         
                 objAct.activity_Name = txtbox_ActivityName.Text;
                 objAct.activity_Location = TextBox_site.Text;
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
@@ -192,11 +178,8 @@ namespace Morpheus.Accounts
                 foreach (ListItem item in cbFormsList.Items)
                 {
                     if (item.Selected)
-                    {
                         formsArrayURL += item.Value + ",";
-                    }
                 }
-
                 objAct.FormsURL = formsArrayURL.TrimEnd(','); ;
                 for (int i = 0; i < listEmployees.Items.Count; i++)
                 {
@@ -214,9 +197,6 @@ namespace Morpheus.Accounts
                             showErrorMessage(objView.ErrorString, false);
                     }
                 }
-
-               
-
             }
             catch (Exception ex)
             {
@@ -268,9 +248,7 @@ namespace Morpheus.Accounts
                 foreach (Button button in e.Row.Cells[10].Controls.OfType<Button>())
                 {
                     if (button.CommandName == "Delete")
-                    {
                         button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
-                    }
                 }
             }
         }

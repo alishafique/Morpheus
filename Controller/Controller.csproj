@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ActivateDeactivateCompanyAccount_Controller.cs" />
     <Compile Include="Activity.cs" />
+    <Compile Include="AddLocationForm_Controller.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="AddSubcontractor_Controller.cs" />
     <Compile Include="addUpdateNews_Controller.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Company.cs" />
     <Compile Include="ChangePassword_Controller.cs" />
     <Compile Include="companyProfile_Controller.cs" />
+    <Compile Include="ContactUs_Controller.cs" />
     <Compile Include="createActivity_Controller.cs" />
     <Compile Include="createEmployeeAccount_Controller.cs" />
     <Compile Include="dashboard_Controller.cs" />
@@ -68,6 +70,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCreateRoaster_Controller.cs" />
+    <Compile Include="frmViewMessages_Controller.cs" />
     <Compile Include="Home_Controller.cs" />
     <Compile Include="IncidentReport.cs" />
     <Compile Include="login_Controller.cs" />
