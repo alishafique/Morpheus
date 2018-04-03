@@ -3057,6 +3057,8 @@ input[type=search] {
     font-weight: 400;
     vertical-align: middle;
     cursor: pointer;
+    top: 0px;
+    left: 1px;
 }
 
     .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline {

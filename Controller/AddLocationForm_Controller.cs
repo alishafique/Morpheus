@@ -27,7 +27,7 @@ namespace Controller
                 strQuery = "spManagelocations";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Insert";
-                cmd.Parameters.Add("@LocationCompanyID", SqlDbType.BigInt).Value = companyID;
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = companyID;
                 cmd.Parameters.Add("@LocationtoName", SqlDbType.VarChar).Value = locationName;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
@@ -52,7 +52,7 @@ namespace Controller
                 strQuery = "spManagelocations";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Delete";
-                cmd.Parameters.Add("@LocationtoId", SqlDbType.BigInt).Value = LocationID;
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = LocationID;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
                 else
@@ -76,7 +76,7 @@ namespace Controller
                 strQuery = "spManagelocations";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Update";
-                cmd.Parameters.Add("@LocationCompanyID", SqlDbType.BigInt).Value = compID;
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = compID;
                 cmd.Parameters.Add("@LocationtoName", SqlDbType.VarChar).Value = locationName;
                 cmd.Parameters.Add("@LocationtoId", SqlDbType.BigInt).Value = LocationID;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
@@ -102,7 +102,7 @@ namespace Controller
                 strQuery = "spManagelocations";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "View";
-                cmd.Parameters.Add("@LocationCompanyID", SqlDbType.BigInt).Value = companyID;
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = companyID;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
                     return dt;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-
+using Controller;
 namespace Morpheus.Accounts
 {
     /// <summary>
@@ -18,7 +20,16 @@ namespace Morpheus.Accounts
     public class checkEmployeeName : System.Web.Services.WebService
     {
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
+        public void AddEmployeeRoster(Roster empRoster)
+        {
+            frmCreateRoaster_Controller obj = new frmCreateRoaster_Controller();
+            obj.AddEmployeeRoster(empRoster); 
+
+        }
+
+
+        [WebMethod(EnableSession = true)]
         public List<string> GetEmployeeName(string empName)
         {
             List<string> empResult = new List<string>();
@@ -26,14 +37,15 @@ namespace Morpheus.Accounts
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT TOP (10) [emp_name] ,[mobile] FROM [dbo].[Employee_profile] where [emp_name] LIKE '%'+@SearchEmpName+'%'";
+                    cmd.CommandText = "SELECT TOP (10) [emp_name] ,[mobile], [email] FROM [dbo].[Employee_profile] where [emp_name] LIKE '%'+@SearchEmpName+'%'  AND [createdByCompanyId] =@CompanyID";
                     cmd.Connection = con;
                     con.Open();
                     cmd.Parameters.AddWithValue("@SearchEmpName", empName);
+                    cmd.Parameters.AddWithValue("@CompanyID", Session["userid"].ToString());
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        empResult.Add(dr["emp_name"].ToString());
+                        empResult.Add(dr["emp_name"].ToString()+" - "+ dr["email"].ToString());
                     }
                     con.Close();
                     return empResult;
