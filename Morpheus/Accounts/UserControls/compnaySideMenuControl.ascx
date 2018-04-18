@@ -53,11 +53,11 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li><a href="#"><i class="fa fa-flash fa-fw"></i>Roaster<span class="fa arrow"></span></a>
+                        <li><a href="#"><i class="fa fa-flash fa-fw"></i>Roster<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="AddLocationForm.aspx">Manage Location/Site(s)</a></li>
-                                <li><a href="frmCreateRoaster.aspx">Create Roaster</a> </li>
-                                <li><a href="#">View Roaster</a> </li>
+                                <li><a href="frmCreateRoaster.aspx">Create Roster</a> </li>
+                                <li><a href="frmViewTimeSheet.aspx">View Time/Sheets</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

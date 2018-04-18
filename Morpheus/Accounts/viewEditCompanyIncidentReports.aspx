@@ -31,11 +31,10 @@
     <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+            $(".table1, .table2").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
                 responsive: true
             });
         });
-       
 </script>
 
     <script type="text/javascript" language="javascript">
@@ -80,7 +79,7 @@
                     <div class="panel-body">
                         <label>Please select any Report To view the description and Action taken on incident Report.</label>
                         <br />
-                        <asp:GridView ID="dtgridview_IncidentReports" class="table table-striped table-bordered table-hover"
+                        <asp:GridView ID="dtgridview_IncidentReports" class="table1 table table-striped table-bordered table-hover"
                             runat="server"  width="100%" AutoGenerateColumns="False" 
                             OnSelectedIndexChanged="dtgridview_IncidentReports_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_IncidentReports_SelectedIndexChanging"
                             AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_IncidentReports_RowDeleting" OnRowDataBound="dtgridview_IncidentReports_RowDataBound">
@@ -136,7 +135,7 @@
                         <br />
                        
 
-                        <asp:GridView ID="gdIncidentSubcontractor" class="table table-striped table-bordered table-hover"
+                        <asp:GridView ID="gdIncidentSubcontractor" class="table2 table table-striped table-bordered table-hover"
                             runat="server"  width="100%" AutoGenerateColumns="False" 
                             OnSelectedIndexChanged="gdIncidentSubcontractor_SelectedIndexChanged" OnSelectedIndexChanging="gdIncidentSubcontractor_SelectedIndexChanging"
                             AutoGenerateSelectButton="True" OnRowDataBound="gdIncidentSubcontractor_RowDataBound">

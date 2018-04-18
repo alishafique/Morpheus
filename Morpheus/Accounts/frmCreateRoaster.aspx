@@ -41,29 +41,6 @@
 
            });
          });
-
-        <%-- $(document).ready(function () {
-             $('#btnCreateRoster').click(function () {
-                 var Roster = {};
-                 Roster.CreatedByID = '<%= Session["userid"] %>';
-                 Roster.AssignedToEomployeeID = $('#txtGender').val();
-                 Roster.Salary = $('#txtSalary').val();
-
-                 $.ajax({
-                     url: 'EmployeeService.asmx/AddEmployee',
-                     method: 'post',
-                     data: '{emp: ' + JSON.stringify(employee) + '}',
-                     contentType: "application/json; charset=utf-8",
-                     success: function () {
-                         getAllEmployees();
-                     },
-                     error: function (err) {
-                         alert(err);
-                     }
-                 });
-             });--%>
-
-
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -112,12 +89,21 @@
                                     <asp:DropDownList ID="DateDropDown" CssClass="form-control" CausesValidation="false" style="width:50%;" AutoPostBack="true" runat="server" OnSelectedIndexChanged="DateDropDown_SelectedIndexChanged"></asp:DropDownList>
                                 </div>
                                
-                              
+                              <div class="form-group">
+                                  <label>Select day(s):</label> <br />
+                                  <asp:CheckBox ID="chkMon" CssClass="checkbox-inline" runat="server" />
+                                  <asp:CheckBox ID="chkTue" CssClass="checkbox-inline" runat="server" />
+                                  <asp:CheckBox ID="chkWed" CssClass="checkbox-inline" runat="server" />
+                                  <asp:CheckBox ID="chkThu" CssClass="checkbox-inline" runat="server" />
+                                  <asp:CheckBox ID="chkFri" CssClass="checkbox-inline" runat="server" />
+                                  <asp:CheckBox ID="chkSat" CssClass="checkbox-inline" runat="server" />
+                                  <asp:CheckBox ID="chkSun" CssClass="checkbox-inline" runat="server" />
+                              </div>
                            
                                 <table style="width: 100%;" class="table table-striped table-bordered table-hover">
                                      <thead>
                                     <tr>
-                                        <th>Select Days</th>
+                                        <%--<th>Select Days</th>--%>
                                         <th>Division/Site</th>
                                         <th>Task</th>
                                         <th class="auto-style2">Start Time</th>
@@ -126,11 +112,11 @@
                                 </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                           <%-- <td>
                                                 <asp:DropDownList ID="dpSelectDay" CssClass="form-control" runat="server" >
                                                   
                                                 </asp:DropDownList>
-                                                </td>
+                                                </td>--%>
                                             <td><asp:DropDownList ID="dpSiteMonday" CssClass="form-control" DataTextField="LocationtoName" DataValueField="LocationtoId" runat="server"></asp:DropDownList></td>
                                             <td>
                                                 <asp:TextBox ID="txtTaskMonday" CssClass="form-control" runat="server"></asp:TextBox>
@@ -167,9 +153,15 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                       
-                           <div style="text-align: center;">
-                                    <asp:Button ID="btnPrevious" style="float:left;" class="btn btn-outline btn-primary btn-xs" runat="server" Text="Prev" OnClick="btnPrevious_Click" />
+                           View/Edit Roster Shifts
+                    </div>
+
+                   
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                   <div style="margin-left: 33%;">
+                                    <asp:Button ID="btnPrevious" style="float:left;" CausesValidation="false" class="btn btn-outline btn-primary btn-xs" runat="server" Text="<" OnClick="btnPrevious_Click" />
                                     <div style="float: left;text-align: center; padding-left:5px;">
                                         <asp:Label ID="lblStartWeekDate" runat="server" Text=""></asp:Label></div>
                                     <div style="padding-left: 5px; padding-right:5px; float: left;text-align: center;">
@@ -178,28 +170,21 @@
                                     <div style="float: left;text-align: center; padding-right:5px;">
                                         <asp:Label ID="lblEndWeekdate" runat="server" Text=""></asp:Label>
                                     </div>
-                                    <asp:Button ID="bntNext" style="float:left;" class="btn btn-outline btn-primary btn-xs" runat="server" Text="Next" OnClick="bntNext_Click"/>
-                                    <br />
-                                    
-                                    
+                                    <asp:Button ID="bntNext" style="float:left;" CausesValidation="false" class="btn btn-outline btn-primary btn-xs" runat="server" Text=">" OnClick="bntNext_Click"/>                                  
                                 </div>
-                    </div>
-
-                   
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
+                                <br />
+                                <br />
                                 <asp:Button ID="btnAll" CausesValidation="false" CssClass="btn btn-primary"  runat="server" Text="All" OnClick="btnAll_Click" />
-                                <asp:Button ID="btnMon" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Monday" />
-                                <asp:Button ID="btnTue" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Tuesday" />
-                                <asp:Button ID="btnWed" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Wednesday" />
-                                <asp:Button ID="btnThur" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Thursday" />
-                                <asp:Button ID="btnFri" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Friday" />
-                                <asp:Button ID="btnSat" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Saturday" />
-                                <asp:Button ID="btnSun" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Sunday" />
+                                <asp:Button ID="btnMon" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Monday" OnClick="btnMon_Click" />
+                                <asp:Button ID="btnTue" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Tuesday" OnClick="btnTue_Click" />
+                                <asp:Button ID="btnWed" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Wednesday" OnClick="btnWed_Click" />
+                                <asp:Button ID="btnThur" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Thursday" OnClick="btnThur_Click"/>
+                                <asp:Button ID="btnFri" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Friday" OnClick="btnFri_Click"/>
+                                <asp:Button ID="btnSat" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Saturday" OnClick="btnSat_Click"/>
+                                <asp:Button ID="btnSun" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Sunday" OnClick="btnSun_Click"/>
                                 <br />
                                 <br />
-                                <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover"
+                                <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover" ShowFooter="true"
                                      runat="server" AutoGenerateColumns="False" OnRowCommand="grdViewShifts_RowCommand" OnRowDataBound="grdViewShifts_RowDataBound">
                                     <Columns>
                                         <asp:BoundField DataField="RosterID" HeaderText="RosterID">
@@ -211,9 +196,12 @@
                                         <asp:BoundField DataField="RosterDate" HeaderText="RosterDate" DataFormatString="{0:dd/MMM/yyyy}"/>
                                         <asp:BoundField DataField="RosterStartTime" HeaderText="StartTime" />
                                         <asp:BoundField DataField="RosterEndTime" HeaderText="EndTime" />
+                                        <asp:BoundField DataField="TotalHours" HeaderText="TotalHours" DataFormatString="" />
                                         <asp:BoundField DataField="RosterSite" HeaderText="Site" />
                                         <asp:BoundField DataField="RosterTask" HeaderText="Task" />
-
+                                        <asp:BoundField DataField="RStatus" HeaderText="Status" >
+                                            <ItemStyle Font-Italic="true" />
+                                            </asp:BoundField>
                                         <asp:TemplateField HeaderText="Edit">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="lbEdit" Text="Edit" CommandName="EditRow" CausesValidation="false" CommandArgument='<%# Eval("RosterID") %>'></asp:LinkButton>
@@ -226,6 +214,11 @@
                                         </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
+
+                                <div class="form-group">
+                                   <label>Total Hours:</label>
+                                    <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                                </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
                         </div>
@@ -243,4 +236,5 @@
             <!-- /.row -->
             <!-- /#page-wrapper -->
         </div>
+
 </asp:Content>

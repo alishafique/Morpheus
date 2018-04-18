@@ -71,7 +71,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCreateRoaster_Controller.cs" />
+    <Compile Include="frmManageCompanyTypes_Controller.cs" />
     <Compile Include="frmViewMessages_Controller.cs" />
+    <Compile Include="frmViewRoster_Controller.cs" />
+    <Compile Include="frmViewTimeSheet_Controller.cs" />
     <Compile Include="Home_Controller.cs" />
     <Compile Include="IncidentReport.cs" />
     <Compile Include="login_Controller.cs" />

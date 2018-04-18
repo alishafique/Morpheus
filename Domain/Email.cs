@@ -183,6 +183,39 @@ namespace Domain
                 Error = ex.Message;
             }
         }
+
+        public static bool RosterNotificationToEmployee(string _to, string _name, string StartDate, string endDate, List<string> shifts)
+        {
+
+            try
+            {
+                StringBuilder str = new StringBuilder();
+
+                foreach(string val in shifts)
+                {
+                    str.Append("<p>"+val+"</p>");
+                    str.Append("<br/>");
+                }
+                string _subject = ("Roster Published for "+StartDate+" to "+endDate);
+                string Body = ("<p>Hi: " + _name + " </p>" +
+                    "<p>The following roster has been published starting from date "+StartDate+ " and ending on" +endDate+".</p>"+
+                    "<br/>"+
+                     str+
+                    "<br />Please visit www.seguro.com.au to logIn" +
+                    "<p>Important:</p>" +
+                    "<p> - Do not reply to this Email.</p>" +
+                    "<p> - Please login to manage your profile.</p>" +
+                    "<br/> <br/>" +
+                    "<p>Copyrights. www.Seguro.com.au");
+                Email.masterEmail(_to, _subject, Body);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
+        }
         public void Close()
         {
             throw new NotImplementedException();

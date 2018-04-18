@@ -99,6 +99,36 @@ namespace Controller
             }
         }
 
+        public bool UpdateEmployeeRoster(Roster empRoster)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageRosterOfEmployee";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "UpdateRosterShift";
+                cmd.Parameters.Add("@AssignedEmployeeEmail", SqlDbType.VarChar).Value = empRoster.AssignedEmployeeEmail;
+                cmd.Parameters.Add("@RosterDate", SqlDbType.DateTime).Value = empRoster.RosterDate;
+                cmd.Parameters.Add("@RosterStartTime", SqlDbType.DateTime).Value = empRoster.RosterStartTime;
+                cmd.Parameters.Add("@RosterEndTime", SqlDbType.DateTime).Value = empRoster.RosterEndTime;
+                cmd.Parameters.Add("@RosterSite", SqlDbType.VarChar).Value = empRoster.RosterSite;
+                cmd.Parameters.Add("@RosterTask", SqlDbType.VarChar).Value = empRoster.RosterTask;
+                cmd.Parameters.Add("@RosterID", SqlDbType.UniqueIdentifier).Value = empRoster.RosterID;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
         public bool DeleteShift(Guid rosterID)
         {
             try
@@ -135,6 +165,32 @@ namespace Controller
                 cmd.Parameters.Add("@userid", SqlDbType.BigInt).Value = companyID;
                 cmd.Parameters.Add("@DateRangeStart", SqlDbType.Date).Value = startDate;
                 cmd.Parameters.Add("@DateRangeEnd", SqlDbType.Date).Value = EndDate;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+
+        public DataTable GetEmpNameEmail(Guid RosterID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManageRosterOfEmployee";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "GetUserName";
+                cmd.Parameters.Add("@RosterID", SqlDbType.UniqueIdentifier).Value = RosterID;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
                     return dt;

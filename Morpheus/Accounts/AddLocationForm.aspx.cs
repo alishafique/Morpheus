@@ -163,7 +163,10 @@ namespace Morpheus.Accounts
                 {
                     obj = new AddLocationForm_Controller();
                     if (obj.DeleteLocation(Convert.ToInt32(e.CommandArgument.ToString())))
+                    {
                         showErrorMessage("Location successfully deleted!", true);
+
+                    }
                     else
                     {
                         showErrorMessage(obj.ErrorString, false);

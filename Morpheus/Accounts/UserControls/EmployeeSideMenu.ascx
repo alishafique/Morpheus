@@ -26,6 +26,7 @@
                             <!-- /.nav-second-level -->
                    
                         <li><a href="viewEmployees.aspx"><i class="fa fa-wrench fa-fw"></i>Profile</a>
+                         <li><a href="frmViewRoster.aspx"><i class="fa fa-wrench fa-fw"></i>View Roster/Timesheet</a>
                             <!-- /.nav-second-level -->
                         </li>
                         <li><a href="#"><i class="fa fa-sitemap fa-fw"></i>Incident<span class="fa arrow"></span></a>

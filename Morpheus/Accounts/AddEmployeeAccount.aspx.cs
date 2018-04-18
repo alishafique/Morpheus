@@ -58,9 +58,10 @@ namespace Morpheus.Accounts
                                 if (objCreateEmployeeC.sendNotification(objEmp.Username, objEmp.Emp_name, txtbox_CompanyPassword.Text, objEmp.Created_dateTime) == true)
                                 {
                                     showErrorMessage("Successfully Created Employee Account. And notification is sent to Your Employee", true);
+                                    clearForm();
                                 }
-                                //showErrorMessage("Successfully Created Employee Account.", true);
-                                clearForm();
+                                else
+                                    showErrorMessage(objCreateEmployeeC.ErrorString, false);                   
                             }
                             else
                             {
