@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewCompanyProfile.aspx.cs" Inherits="Morpheus.Accounts.viewCompanyProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     
+     <title>Company Profile</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <div id="page-wrapper">
@@ -76,7 +76,7 @@
                                            <div class="form-group">
                                                <label>
                                                    Company Type:</label>
-                                                <asp:TextBox ID="TextBox_CompanyType" class="form-control" ReadOnly="true" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="TextBox_CompanyType" class="form-control" Enabled="false" ReadOnly="true" runat="server"></asp:TextBox>
                                            </div>
                                            <div class="form-group" style="color: black;">
                                                <label>Mobile Number:</label>
@@ -89,7 +89,7 @@
                                            <div class="form-group">
                                                <label>
                                                    Select Membership Plan:</label>
-                                               <asp:DropDownList class="form-control" ID="Dp_MemberShipPlan" runat="server">
+                                               <asp:DropDownList class="form-control" ID="Dp_MemberShipPlan" Enabled="false" ReadOnly="true" runat="server">
                                                    <asp:ListItem Text="--Select Membership Plan--" Value="0" />
                                                </asp:DropDownList>
                                            </div>

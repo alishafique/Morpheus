@@ -16,6 +16,7 @@ namespace Morpheus.Accounts
     {
         DataTable dt;
         frmCreateRoaster_Controller obj;
+        string error = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -31,6 +32,7 @@ namespace Morpheus.Accounts
                         LoadWeekRang();                     
                         btnAll_Click(null, null);
                         btnUpdate.Visible = false;
+                        
                     }
                     else
                         Response.Redirect("login.aspx");
@@ -99,16 +101,16 @@ namespace Morpheus.Accounts
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
                 errorMsg.Style.Add("display", "none");
-                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
+                //string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
             else
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
                 successMsg.Style.Add("display", "none");
-                string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
+                //string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
         }
@@ -213,13 +215,61 @@ namespace Morpheus.Accounts
             lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString()+"-"+ ldowDate.ToShortDateString();
 
         }
+
+        private bool checkAvailbility(Roster objR)
+        {
+            dt = new DataTable();
+            obj = new frmCreateRoaster_Controller();
+            dt = obj.CheckEmployeeAvailbility(objR);
+
+            if (dt == null)
+            {
+                error = obj.ErrorString;
+                return false;
+            }
+            else
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        DateTime startT = Convert.ToDateTime(dr["RosterStartTime"].ToString());
+                        DateTime endT = Convert.ToDateTime(dr["RosterEndTime"].ToString());
+                        if (startT >= objR.RosterStartTime && endT <= objR.RosterEndTime)
+                        {
+                            error = "Roster for employee: " + objR.AssignedEmployeeEmail + " already exist in that specific time slot.";
+                            break;
+                        }
+
+                        if(objR.RosterStartTime >= startT && objR.RosterStartTime <= endT)
+                        {
+                            error = "Start time overlapping. Roster for employee: " + objR.AssignedEmployeeEmail + " already exist in that specific time slot.";
+                            break;
+                        }
+                        if (objR.RosterEndTime >= startT && objR.RosterEndTime <= endT)
+                        {
+                            error = "End time overlapping. Roster for employee: " + objR.AssignedEmployeeEmail + " already exist in that specific time slot.";
+                            break;
+                        }
+                    }
+
+                    if (error == "")
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return true;
+            }
+        }
         protected void btnCreateRoster_Click(object sender, EventArgs e)
         {
             try
             {     
                 obj = new frmCreateRoaster_Controller();
                 string[] empEmail = txtSearchEmployeeName.Text.Split('-');
-                string[] rosterDayAndDate = new string[2]; /*= dpSelectDay.SelectedValue.Split(',');*/
+                string[] rosterDayAndDate = new string[2];
+                DataTable dtEmpAv;
                 Roster objRoster = new Roster()
                 {
                     CreatedByID = int.Parse(Session["userid"].ToString())
@@ -235,70 +285,135 @@ namespace Morpheus.Accounts
                 {
                     rosterDayAndDate = chkMon.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if(checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);                  
                 }
                 if (chkTue.Checked)
                 {
                     rosterDayAndDate = chkTue.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if (checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);
                 }
                 if (chkWed.Checked)
                 {
                     rosterDayAndDate = chkWed.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if (checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);
                 }
                 if (chkThu.Checked)
                 {
                     rosterDayAndDate = chkThu.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if (checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);
                 }
                 if (chkFri.Checked)
                 {
                     rosterDayAndDate = chkFri.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if (checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);
                 }
                 if (chkSat.Checked)
                 {
                     rosterDayAndDate = chkSat.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if (checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);
                 }
                 if (chkSun.Checked)
                 {
                     rosterDayAndDate = chkSun.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-                    if (obj.AddEmployeeRoster(objRoster))
-                        showErrorMessage("Roster Added", true);
+
+                    if (checkAvailbility(objRoster))
+                    {
+                        if (obj.AddEmployeeRoster(objRoster))
+                        {
+                            showErrorMessage("Roster Added", true);
+                            clearForm();
+                            btnAll_Click(null, null);
+                        }
+                        else
+                            showErrorMessage(obj.ErrorString, false);
+                    }
                     else
-                        showErrorMessage(obj.ErrorString, false);
+                        showErrorMessage(error, false);
                 }
-
-
-
-                clearForm();
-                btnAll_Click(null, null);
             }
             catch(Exception ex)
             {
@@ -330,6 +445,7 @@ namespace Morpheus.Accounts
                 lblEndWeekdate.Text = DateTime.Parse(dateRangeSeparator[1]).DayOfWeek + "-" + dateRangeSeparator[1];
                 btnAll_Click(null, null);
                 clearForm();
+                
             }
             catch(Exception ex)
             {
@@ -663,18 +779,21 @@ namespace Morpheus.Accounts
 
                 if (dt != null)
                 {
-                    grdViewShifts.DataSource = dt;
-                    grdViewShifts.DataBind();
-                    lblTotal.Text = totalHours.ToString();
+                    if (dt.Rows.Count > 0)
+                    {
+                        grdViewShifts.DataSource = dt;
+                        grdViewShifts.DataBind();
+                        lblTotal.Text = totalHours.ToString();
 
 
-                    float total = totalHours;//dt.AsEnumerable().Sum(row => row.Field<decimal>("TotalHours"));
-                    grdViewShifts.FooterRow.Cells[0].Visible = false;
-                    grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                    grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                    grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                    grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
-                    grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                        float total = totalHours;//dt.AsEnumerable().Sum(row => row.Field<decimal>("TotalHours"));
+                        grdViewShifts.FooterRow.Cells[0].Visible = false;
+                        grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                        grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                        grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                        grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                        grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                    }
                 }
                 else
                     showErrorMessage(obj.ErrorString, false);
@@ -746,11 +865,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch(Exception ex)
             {
@@ -815,11 +934,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch (Exception ex)
             {
@@ -885,11 +1004,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch (Exception ex)
             {
@@ -954,11 +1073,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch (Exception ex)
             {
@@ -1023,11 +1142,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch (Exception ex)
             {
@@ -1092,11 +1211,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch (Exception ex)
             {
@@ -1161,11 +1280,11 @@ namespace Morpheus.Accounts
 
                 float total = totalHours;
                 grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
             }
             catch (Exception ex)
             {

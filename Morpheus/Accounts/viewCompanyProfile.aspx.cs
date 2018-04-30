@@ -125,9 +125,7 @@ namespace Morpheus.Accounts
                     TextBox_Mobile.Text = dt.Rows[0]["MobileNumber"].ToString();
                     TextBox_landline.Text = dt.Rows[0]["LandlineNumber"].ToString();
                     if (memberShip_type.ContainsKey(dt.Rows[0]["MemberShip"].ToString()))
-                    {
                         Dp_MemberShipPlan.SelectedIndex = memberShip_type[dt.Rows[0]["MemberShip"].ToString()];
-                    }
 
                     loadAddressTxtboxes(int.Parse(dt.Rows[0]["CompanyID"].ToString()));
 

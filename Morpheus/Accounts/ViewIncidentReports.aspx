@@ -53,8 +53,8 @@
                             AutoGenerateSelectButton="True" AllowPaging="false" OnPageIndexChanging="dtgridview_IncidentReports_PageIndexChanging" OnRowDeleting="dtgridview_IncidentReports_RowDeleting">
                             <Columns>
                                 <asp:BoundField DataField="id" HeaderText="Report Id" Visible="true">
-                                    <ItemStyle CssClass="hidden-field" />
-                                    <HeaderStyle CssClass="hidden-field" />
+                                  <%--  <ItemStyle CssClass="hidden-field" />
+                                    <HeaderStyle CssClass="hidden-field" />--%>
                                 </asp:BoundField>
                                 <asp:BoundField DataField="reportedBy" HeaderText="reportedBy" Visible="true">
                                     <ItemStyle CssClass="hidden-field" />

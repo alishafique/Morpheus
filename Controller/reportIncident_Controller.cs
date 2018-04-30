@@ -79,30 +79,29 @@ namespace Controller
         }
 
 
-    //public string insertEvidenceImages(IncidentReport objIncidentReport)
-    //{
-    //    try
-    //    {
-    //        con = new Connection();
-    //        strQuery = "insertIncidentReport";
-    //        cmd = new SqlCommand(strQuery);
-    //        cmd.Parameters.Add("@reportedBy", SqlDbType.BigInt).Value = objIncidentReport.ReportedBy;
-    //        cmd.Parameters.Add("@reportedTo", SqlDbType.BigInt).Value = objIncidentReport.ReportedTo;
-    //        cmd.Parameters.Add("@severitylevel", SqlDbType.VarChar).Value = objIncidentReport.Severitylevel;
-    //        cmd.Parameters.Add("@description", SqlDbType.VarChar).Value = objIncidentReport.Description;
-    //        cmd.Parameters.Add("@status", SqlDbType.VarChar).Value = objIncidentReport.Status;
-    //        cmd.Parameters.Add("@dateTime", SqlDbType.DateTime).Value = objIncidentReport.reportDateTime;
-    //        cmd.Parameters.Add("@location", SqlDbType.VarChar).Value = objIncidentReport.Location;
-    //        cmd.Parameters.Add("@actionTaken", SqlDbType.VarChar).Value = objIncidentReport.ActionTaken;
-    //        if (con.InsertUpdateDataUsingSp(cmd) == true)
-    //            return "true";
-    //        else
-    //            return "false";
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return ex.Message;
-    //    }
-    //}
-}
+        public DataTable loadCompanyTypes()
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManageIncidentReportTypes";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ViewCompany";
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+    }
 }

@@ -233,7 +233,7 @@ namespace Morpheus.Accounts
                 dt = obj.viewTimeSheetOfEmployee(UID, EmpID, stdt, endDt);
                 ViewState["EmpTimeSheet"] = dt;
                 float totalHours = 0;
-                if (dt != null)
+                if (dt != null && dt.Rows.Count>0)
                 {
                     dt.Columns.Add("TotalHours", typeof(string));
 
@@ -271,12 +271,16 @@ namespace Morpheus.Accounts
                     //Calculate Sum and display in Footer Row
                     float total = totalHours;//dt.AsEnumerable().Sum(row => row.Field<decimal>("TotalHours"));
                     grdViewShifts.FooterRow.Cells[0].Visible = false;
-                    grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
-                    grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                    grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
-                    grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
-                    grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                    grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                    grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                    grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                    grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                    grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
 
+                }
+                else if(dt.Rows.Count==0)
+                {
+                    
                 }
                 else
                 {
@@ -420,15 +424,31 @@ namespace Morpheus.Accounts
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
                 List<string> shifts = new List<string>();
+                string RID = (string)ViewState["EmpID"];
+                DataTable dtEmp = new DataTable();
+                dtEmp = (DataTable)ViewState["dtEmployees"];
+                string _toEmail = string.Empty;
 
-                foreach(DataRow dr in dt.Rows)
+                foreach(DataRow dr in dtEmp.Rows)
+                {
+                    if (RID == dr["EmployeeId"].ToString())
+                    {
+                        _toEmail = dr["email"].ToString();
+                        break;
+                    }
+                }
+
+                foreach (DataRow dr in dt.Rows)
                 {
                     string dayS = DateTime.Parse(dr["RosterDate"].ToString()).DayOfWeek.ToString()+" "+ DateTime.Parse(dr["RosterDate"].ToString()).ToShortDateString();
                     string timeS = DateTime.Parse(dr["RosterStartTime"].ToString()).ToShortTimeString() +" to " + DateTime.Parse(dr["RosterEndTime"].ToString()).ToShortTimeString();
                     shifts.Add(dayS +": "+dr["RosterSite"].ToString()+": "+ dr["RosterTask"].ToString() +"; "+ timeS);
                 }
 
-                obj.SendRosterNotificationToEmployee("to", dt.Rows[0]["emp_name"].ToString(), stD[1], endD[1], shifts);
+                if (obj.SendRosterNotificationToEmployee(_toEmail, dt.Rows[0]["emp_name"].ToString(), stD[1], endD[1], shifts))
+                    showErrorMessage("Roster has been sent on email.", true);
+                else
+                    showErrorMessage(obj.ErrorString, false);
             }
             catch(Exception ex)
             {

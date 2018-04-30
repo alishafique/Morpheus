@@ -113,6 +113,7 @@
                                    </asp:BoundField>
                                    <asp:BoundField DataField="created_dateTime" HeaderText="Created dateTime" />
                                    <asp:BoundField DataField="date_of_birth" HeaderText="Date of birth" DataFormatString="{0:dd/MM/yyyy}" ></asp:BoundField>
+                                   <asp:BoundField DataField="mobile" HeaderText="Mobile"></asp:BoundField>
                                    <asp:BoundField DataField="ABN" HeaderText="ABN" />
                                    <asp:BoundField DataField="TFN" HeaderText="TFN" />
                                    <asp:BoundField DataField="active_status" HeaderText="Status" >

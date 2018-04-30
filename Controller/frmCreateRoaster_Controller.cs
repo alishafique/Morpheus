@@ -99,6 +99,33 @@ namespace Controller
             }
         }
 
+        public DataTable CheckEmployeeAvailbility(Roster obj)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManageRosterOfEmployee";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "checkEmployeeAvailbility";
+                cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = obj.AssignedEmployeeEmail;
+                cmd.Parameters.Add("@RosterDate", SqlDbType.DateTime).Value = obj.RosterDate;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+
         public bool UpdateEmployeeRoster(Roster empRoster)
         {
             try

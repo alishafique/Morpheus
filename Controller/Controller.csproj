@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="frmCreateRoaster_Controller.cs" />
     <Compile Include="frmManageCompanyTypes_Controller.cs" />
+    <Compile Include="frmManageincidentReportTypes_Controller.cs" />
     <Compile Include="frmViewMessages_Controller.cs" />
     <Compile Include="frmViewRoster_Controller.cs" />
     <Compile Include="frmViewTimeSheet_Controller.cs" />

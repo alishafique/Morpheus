@@ -20,7 +20,25 @@
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
     <link href="css/calendar-blue.css" rel="stylesheet" type="text/css" />
 
-     <script type="text/javascript" language="javascript">
+     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
+    <!-- DataTables JavaScript -->
+    <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                responsive: true
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript" language="javascript">
          $(function () {
               $("#<%= txtSearchEmployeeName.ClientID %>").autocomplete({
                source: function (request, response) {
@@ -41,6 +59,8 @@
 
            });
          });
+
+       
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -49,7 +69,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Create Roster</h1>
+                        Create/Manage Roster</h1>
                      <div class="alert alert-success alert-dismissable" id="successMsg" style="display: none;" runat="server">
                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                        <asp:Label ID="lblsuccessmsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.          
@@ -65,30 +85,32 @@
             <!-- /.row -->
             <!-- /.row -->
             <!----/    ------>
+         <%--<asp:Button ID="btnViewAddRoster" Class="btn btn-success fa-plus-circle" runat="server" CausesValidation="false" UseSubmitBehavior="false"  style="float:right; margin-bottom:5px;" Text="ADD +">
+         
+         </asp:Button>--%>
         <div class="row">
-
-            <div class="col-lg-12">
+           
+            <div class="col-lg-12" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Enter Roster's Detail
+                        Enter Roster's Detail                     
                     </div>
-                   
-
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                              
+                              <asp:Label ID="lblROster" runat="server" Text="" Visible="false"></asp:Label>
+                                <div class="col-lg-6">
                                 <div class="form-group">
-                                    <asp:Label ID="lblROster" runat="server" Text="" Visible="false"></asp:Label>
-                                    <label>Select Employee Name To Create Roster</label>
-                                    <asp:TextBox ID="txtSearchEmployeeName" CssClass="form-control" runat="server" style="width:50%;"></asp:TextBox>
+                                    
+                                    <label>Select Employee Name:</label>
+                                    <asp:TextBox ID="txtSearchEmployeeName" CssClass="form-control" placeholder="Type Employee's Name to search" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtSearchEmployeeName" Display="Dynamic" ErrorMessage="Please select Employee"></asp:RequiredFieldValidator>
                                 </div>
                                   <div class="form-group">
                                     <label>Select Week of Roster:</label>
-                                    <asp:DropDownList ID="DateDropDown" CssClass="form-control" CausesValidation="false" style="width:50%;" AutoPostBack="true" runat="server" OnSelectedIndexChanged="DateDropDown_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="DateDropDown" CssClass="form-control" CausesValidation="false" AutoPostBack="true" runat="server" OnSelectedIndexChanged="DateDropDown_SelectedIndexChanged"></asp:DropDownList>
                                 </div>
-                               
+                              
                               <div class="form-group">
                                   <label>Select day(s):</label> <br />
                                   <asp:CheckBox ID="chkMon" CssClass="checkbox-inline" runat="server" />
@@ -99,11 +121,37 @@
                                   <asp:CheckBox ID="chkSat" CssClass="checkbox-inline" runat="server" />
                                   <asp:CheckBox ID="chkSun" CssClass="checkbox-inline" runat="server" />
                               </div>
-                           
-                                <table style="width: 100%;" class="table table-striped table-bordered table-hover">
+                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Select Division/Site</label>
+                                        <asp:DropDownList ID="dpSiteMonday" CssClass="form-control" DataTextField="LocationtoName" DataValueField="LocationtoId" runat="server"></asp:DropDownList>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Enter Task</label>
+                                        <asp:TextBox ID="txtTaskMonday" CssClass="form-control" runat="server"></asp:TextBox>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTaskMonday" Display="Dynamic" ErrorMessage="Enter Task"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <asp:DropDownList ID="dpStartHoursMonday" runat="server"></asp:DropDownList>
+                                        <strong><span class="auto-style1">:</span></strong>
+                                        <asp:DropDownList ID="dpStartMinutesMonday" runat="server"></asp:DropDownList>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>End Time</label>
+                                        <asp:DropDownList ID="dpEndHoursMonday" runat="server"></asp:DropDownList>
+                                        <strong><span class="auto-style1">:</span></strong>
+                                        <asp:DropDownList ID="dpEndMinutesMonday" runat="server"></asp:DropDownList>
+                                    </div>
+                                    <br/>
+                                </div>
+
+
+                                <%--<table id="" style="width: 100%;" class="">
                                      <thead>
                                     <tr>
-                                        <%--<th>Select Days</th>--%>
+                                      
                                         <th>Division/Site</th>
                                         <th>Task</th>
                                         <th class="auto-style2">Start Time</th>
@@ -112,11 +160,11 @@
                                 </thead>
                                     <tbody>
                                         <tr>
-                                           <%-- <td>
+                                            <td>
                                                 <asp:DropDownList ID="dpSelectDay" CssClass="form-control" runat="server" >
                                                   
                                                 </asp:DropDownList>
-                                                </td>--%>
+                                                </td>
                                             <td><asp:DropDownList ID="dpSiteMonday" CssClass="form-control" DataTextField="LocationtoName" DataValueField="LocationtoId" runat="server"></asp:DropDownList></td>
                                             <td>
                                                 <asp:TextBox ID="txtTaskMonday" CssClass="form-control" runat="server"></asp:TextBox>
@@ -132,12 +180,17 @@
                                                 <asp:DropDownList ID="dpEndMinutesMonday" runat="server"></asp:DropDownList></td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table>--%>
 
-
+                              
                                 <asp:Button ID="btnCreateRoster" class="btn btn-primary" runat="server" Text="Create" OnClick="btnCreateRoster_Click" />
                                 <asp:Button ID="btnUpdate" class="btn btn-primary" runat="server" Text="UpDate" OnClick="btnUpdate_Click"/>
                                 <asp:Button ID="btnCancel" class="btn btn-primary" runat="server" CausesValidation="false" Text="Clear" OnClick="btnCancel_Click" />
+                               
+                            </div>
+
+                            <div class="col-lg-3">
+
                             </div>
                             <!-- /.col-lg-6 (nested) -->
                         </div>

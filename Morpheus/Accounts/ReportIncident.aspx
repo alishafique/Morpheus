@@ -146,9 +146,9 @@
                                     <div class="form-group" style="padding-top:33px;">
                                     <label>Severity level:</label>
                                         <asp:DropDownList class="form-control" ID="dp_severityLevel" runat="server">
-                                            <asp:ListItem Value="1">Level 1 - Immediate response, threat of injury or death</asp:ListItem>
+                                            <%--<asp:ListItem Value="1">Level 1 - Immediate response, threat of injury or death</asp:ListItem>
                                             <asp:ListItem Value="2">Level 2 – Within 1 hour, no physical danger, work has ceased</asp:ListItem>
-                                            <asp:ListItem Value="3">Level 3 – Within 3 hours, no physical danger, work has been</asp:ListItem>
+                                            <asp:ListItem Value="3">Level 3 – Within 3 hours, no physical danger, work has been</asp:ListItem>--%>
                                         </asp:DropDownList>
                                     </div>
                                     <div style="display:none">

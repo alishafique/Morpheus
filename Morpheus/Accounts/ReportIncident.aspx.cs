@@ -30,6 +30,7 @@ namespace Morpheus
                         companySideMenu1.Visible = false;
                         employeeDashMenu1.Visible = false;
                         txtbox_ReportedBy.Text = (Session["UserName"].ToString());
+                        LoadCompanyType();
 
                     }
                     else if (Session["UserTypeID"].ToString() == "2")
@@ -38,6 +39,7 @@ namespace Morpheus
                         companySideMenu1.Visible = true;
                         employeeDashMenu1.Visible = false;
                         txtbox_ReportedBy.Text = (Session["UserName"].ToString());
+                        LoadCompanyType();
                     }
                     else if (Session["UserTypeID"].ToString() == "3")
                     {
@@ -45,7 +47,10 @@ namespace Morpheus
                         companySideMenu1.Visible = false;
                         employeeDashMenu1.Visible = true;
                         txtbox_ReportedBy.Text = (Session["UserName"].ToString());
+                        LoadCompanyType();
                     }
+                    else
+                        Response.Redirect("login.aspx");
                 }
             }
             catch (Exception)
@@ -195,6 +200,30 @@ namespace Morpheus
                 showErrorMessage(ex.Message, false);
             }
         }
+
+        private void LoadCompanyType()
+        {
+            try
+            {
+                obj = new reportIncident_Controller();
+                dt = new DataTable();
+                dt = obj.loadCompanyTypes();
+                if (dt != null)
+                {
+                    dp_severityLevel.DataSource = dt;
+                    dp_severityLevel.DataTextField = "type_name";
+                    dp_severityLevel.DataValueField = "company_Type_id";
+                    dp_severityLevel.DataBind();
+                }
+                else
+                    showErrorMessage(obj.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)

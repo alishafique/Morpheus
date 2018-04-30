@@ -49,11 +49,6 @@ namespace Morpheus.Accounts
                         Response.Redirect("login.aspx");
                     }
                 }
-                else
-                {
-                    //CrystalReportViewer1.RefreshReport();
-                    //CrystalReportViewer1.ReportSource = Session["report"];
-                }
             }
             catch (Exception)
             {
@@ -65,7 +60,7 @@ namespace Morpheus.Accounts
         {
             if (Session["report"] != null)
             {
-                //CrystalReportViewer1.ReportSource = Session["report"];
+               
             }
         }
 
@@ -75,15 +70,15 @@ namespace Morpheus.Accounts
             {
                 obj = new viewEditCompanyIncidentReports_Controller();
                 dt = obj.loadIncidentReportsByCompany(userID);
-                if(dt != null && dt.Rows.Count != 0)
+                if (dt != null && dt.Rows.Count != 0)
                 {
                     dtgridview_IncidentReports.DataSource = dt;
-                    dtgridview_IncidentReports.DataBind();         
+                    dtgridview_IncidentReports.DataBind();
                 }
+                else if (dt.Rows.Count == 0)
+                    showErrorMessage("No reports", true);
                 else
-                {
                     showErrorMessage(obj.ErrorString, false);
-                }
             }
             catch(Exception ex)
             {

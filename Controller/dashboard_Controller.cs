@@ -49,12 +49,26 @@ namespace Controller
 
         public DataTable loadCompanyTypes()
         {
-            dt = new DataTable();
-            con = new Connection();
-            strQuery = "select company_Type_id,type_name from company_type";
-            cmd = new SqlCommand(strQuery);
-            dt = con.GetData(cmd);
-            return dt;
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "select * from company_type";
+                cmd = new SqlCommand(strQuery);
+                dt = con.GetData(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
         }
 
 

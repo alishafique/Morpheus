@@ -254,6 +254,7 @@
     <Content Include="Accounts\forms\Induction.aspx" />
     <Content Include="Accounts\frmCreateRoaster.aspx" />
     <Content Include="Accounts\frmManageCompanyTypes.aspx" />
+    <Content Include="Accounts\frmManageincidentReportTypes.aspx" />
     <Content Include="Accounts\frmViewMessages.aspx" />
     <Content Include="Accounts\frmViewRoster.aspx" />
     <Content Include="Accounts\frmViewTimeSheet.aspx" />
@@ -537,6 +538,13 @@
     </Compile>
     <Compile Include="Accounts\frmManageCompanyTypes.aspx.designer.cs">
       <DependentUpon>frmManageCompanyTypes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmManageincidentReportTypes.aspx.cs">
+      <DependentUpon>frmManageincidentReportTypes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmManageincidentReportTypes.aspx.designer.cs">
+      <DependentUpon>frmManageincidentReportTypes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\frmViewMessages.aspx.cs">
       <DependentUpon>frmViewMessages.aspx</DependentUpon>
