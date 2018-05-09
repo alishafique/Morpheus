@@ -207,12 +207,12 @@ namespace Morpheus
             {
                 obj = new reportIncident_Controller();
                 dt = new DataTable();
-                dt = obj.loadCompanyTypes();
+                dt = obj.loadRptTypesByCompanyTypes(Convert.ToInt32(Session["userid"].ToString()));
                 if (dt != null)
                 {
                     dp_severityLevel.DataSource = dt;
-                    dp_severityLevel.DataTextField = "type_name";
-                    dp_severityLevel.DataValueField = "company_Type_id";
+                    dp_severityLevel.DataTextField = "RptTpye";
+                    dp_severityLevel.DataValueField = "id";
                     dp_severityLevel.DataBind();
                 }
                 else

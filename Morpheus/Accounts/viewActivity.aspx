@@ -2,6 +2,9 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
+    <script src="js/calendar-en.min.js" type="text/javascript"></script>
+    <link href="css/calendar-blue.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" language="javascript">
         function myFunction() {
             var x = document.getElementById('myDIV');
@@ -11,6 +14,19 @@
                 x.style.display = 'none';
             }
         }
+
+         $(document).ready(function () {
+            $("#<%=TextBox_startDate.ClientID %>").dynDateTime({
+               showsTime: true,
+               ifFormat: "%d/%m/%Y %H:%M",
+               daFormat: "%l;%M %p, %e %m,  %Y",
+               align: "BR",
+               electric: false,
+               singleClick: false,
+               displayArea: ".siblings('.dtcDisplayArea')",
+               button: ".next()"
+           });
+       });
     </script>
     <style type="text/css">
         .hidden-field {
@@ -49,10 +65,11 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <asp:Label ID="lblErrorMsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.                             
                 </div>
+                <button type="button" onclick="location.href='createActivity.aspx';" style="float:right; margin:5px;" class="btn btn-success">Add Activity <i class="fa fa-plus-circle"></i></button>
             </div>
             <!-- /.col-lg-12 -->
         </div>
-
+         
 
         <div class="row">
             <div class="col-lg-12">
@@ -63,6 +80,8 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
 
+                        <label>Press the "Select" Link to view/edit activity</label>
+                       
                         <asp:GridView ID="dtgridview_viewActivity" class="table table-striped table-bordered table-hover"
                             runat="server" OnRowDeleting="OnRowDeleting" AutoGenerateColumns="false" OnRowDataBound="OnRowDataBound" Width="100%"
                             OnSelectedIndexChanged="dtgridview_viewActivity_SelectedIndexChanged" OnSelectedIndexChanging="dtgridview_viewActivity_SelectedIndexChanging"
@@ -72,7 +91,7 @@
                                     <ItemStyle CssClass="hidden-field" />
                                     <HeaderStyle CssClass="hidden-field" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="user_name" HeaderText="Assigned To" />
+                                <asp:BoundField DataField="email" HeaderText="Assigned To" />
                                 <asp:BoundField DataField="Activity_Name" HeaderText="Name">
                                     <ItemStyle CssClass="hidden-field" />
                                     <HeaderStyle CssClass="hidden-field" />

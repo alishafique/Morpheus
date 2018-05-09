@@ -79,7 +79,7 @@ namespace Controller
         }
 
 
-        public DataTable loadCompanyTypes()
+        public DataTable loadRptTypesByCompanyTypes(int userID)
         {
             try
             {
@@ -87,7 +87,8 @@ namespace Controller
                 con = new Connection();
                 strQuery = "spManageIncidentReportTypes";
                 cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ViewCompany";
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ViewIncidentReportTypesByCompanyType";
+                cmd.Parameters.Add("@user_id", SqlDbType.BigInt).Value = userID;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
                     return dt;

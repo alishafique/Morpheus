@@ -98,10 +98,19 @@ namespace Morpheus.Accounts
                 dt = obj.loadCompanyTypes();
                 if (dt != null)
                 {
-                    dp_CompanyType.DataSource = dt;
-                    dp_CompanyType.DataTextField = "type_name";
-                    dp_CompanyType.DataValueField = "company_Type_id";
-                    dp_CompanyType.DataBind();
+                    if (dt.Rows.Count != 0)
+                    {
+                        dp_CompanyType.DataSource = dt;
+                        dp_CompanyType.DataTextField = "type_name";
+                        dp_CompanyType.DataValueField = "company_Type_id";
+                        dp_CompanyType.DataBind();
+                    }
+                    else
+                    {
+                        showErrorMessage("Company types not loaded", false);
+                        dp_CompanyType.Focus();
+                    }
+
                 }
                 else
                     showErrorMessage(obj.ErrorString, false);

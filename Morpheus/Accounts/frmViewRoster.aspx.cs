@@ -44,10 +44,54 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 obj = new frmViewRoster_Controller();
                 dt = obj.LoadEmployeeRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
+                dt.Columns.Add("TotalHours", typeof(string));
+                float totalHours = 0;          
+
                 if (dt != null)
                 {
-                    grdViewShifts.DataSource = dt;
-                    grdViewShifts.DataBind();
+                    if (dt.Rows.Count != 0)
+                    {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                            int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                            if (startTime < EndTime)
+                            {
+                                TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                dr["TotalHours"] = duration.ToString();
+                                totalHours += (float)duration.TotalHours;
+                            }
+                            else
+                            {
+                                DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+
+                                DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+
+                                DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+
+                                TimeSpan duration = b - a;
+                                dr["TotalHours"] = duration.ToString();
+                                totalHours += (float)duration.TotalHours;
+                            }
+
+                        }
+
+                        grdViewShifts.DataSource = dt;
+                        grdViewShifts.DataBind();
+
+
+
+                        float total = totalHours;
+                        grdViewShifts.FooterRow.Cells[0].Visible = false;
+                        grdViewShifts.FooterRow.Cells[3].Text = "Total hours";
+                        grdViewShifts.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                        grdViewShifts.FooterRow.Cells[3].Font.Bold = true;
+                        grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
+                        grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                    }
                 }
                 else
                     showErrorMessage(obj.ErrorString, false);

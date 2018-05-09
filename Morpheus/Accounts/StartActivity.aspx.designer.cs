@@ -10,7 +10,7 @@
 namespace Morpheus.Accounts {
     
     
-    public partial class frmViewTimeSheet {
+    public partial class StartActivity {
         
         /// <summary>
         /// successMsg control.
@@ -49,66 +49,93 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
         
         /// <summary>
-        /// dtgridview_Employees control.
+        /// dgvLoadTodaysActivity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dtgridview_Employees;
+        protected global::System.Web.UI.WebControls.GridView dgvLoadTodaysActivity;
         
         /// <summary>
-        /// btnPrevious control.
+        /// lblActivityID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrevious;
+        protected global::System.Web.UI.WebControls.Label lblActivityID;
         
         /// <summary>
-        /// lblStartWeekDate control.
+        /// lblCreatedByCompanyID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStartWeekDate;
+        protected global::System.Web.UI.WebControls.Label lblCreatedByCompanyID;
         
         /// <summary>
-        /// lblEndWeekdate control.
+        /// lblActivity_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEndWeekdate;
+        protected global::System.Web.UI.WebControls.Label lblActivity_Name;
         
         /// <summary>
-        /// bntNext control.
+        /// lblActivity_Location control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button bntNext;
+        protected global::System.Web.UI.WebControls.Label lblActivity_Location;
         
         /// <summary>
-        /// grdViewShifts control.
+        /// lblActivity_Type control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdViewShifts;
+        protected global::System.Web.UI.WebControls.Label lblActivity_Type;
         
         /// <summary>
-        /// btnSendRosterEmail control.
+        /// lblActivity_Description control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSendRosterEmail;
+        protected global::System.Web.UI.WebControls.Label lblActivity_Description;
+        
+        /// <summary>
+        /// lblActivity_Status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivity_Status;
+        
+        /// <summary>
+        /// lblStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStartDate;
+        
+        /// <summary>
+        /// btnStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStart;
     }
 }

@@ -85,7 +85,7 @@ namespace Morpheus.Accounts
                     objCompany.company_email = txtbox_CompanyEmail.Text.Trim();
                     objCompany.membership_id = Dp_MemberShipPlan.SelectedIndex + 1;
                     objCompany.created_date_time = DateTime.Now;
-                    objCompany.companyType_id = dp_CompanyType.SelectedIndex + 1;
+                    objCompany.companyType_id = int.Parse(dp_CompanyType.SelectedValue);
                     objCompany.Mobile = TextBox_Mobile.Text;
                     objCompany.Landline = TextBox_landline.Text;
                     // create Company profile
@@ -98,27 +98,18 @@ namespace Morpheus.Accounts
                         if (tempUserID > 0)
                         {
                             objDashController.insertTbCompanyUser(tempUserID, tempCompanyID);
-
                             if (txtbox_Address1Suburb.Text.Trim() != "")
-                            {
                                 objDashController.insertCompanyAddress(tempCompanyID, txtbox_Address1Street.Text.Trim(), txtbox_Address1Suburb.Text.Trim(), txtbox_Address1State.Text.Trim(), txtbox_Address1Postcode.Text.Trim());
-                            }
                             if (txtbox_Address2Suburb.Text.Trim() != "")
-                            {
                                 objDashController.insertCompanyAddress(tempCompanyID, txtbox_Address2Street.Text.Trim(), txtbox_Address2Suburb.Text.Trim(), txtbox_Address2State.Text.Trim(), txtbox_Address2Postcode.Text.Trim());
-                            }
                             resetFeilds();
                             showErrorMessage("Successfully Added Company", true);
                         }
                         else
-                        {
                             showErrorMessage(objDashController.ErrorString, false);
-                        }
                     }
                     else
-                    {
                         showErrorMessage(objDashController.ErrorString, false);
-                    }
                 }
             }
             catch (Exception ex)

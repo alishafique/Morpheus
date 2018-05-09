@@ -96,11 +96,11 @@ namespace Morpheus.Accounts
 
         private void showErrorMessage(string message, bool status)
         {
+            ReSetMsg();
             if (status == true)
             {
                 lblsuccessmsg.Text = message;
                 successMsg.Style.Add("display", "block");
-                errorMsg.Style.Add("display", "none");
                 //string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
@@ -108,7 +108,6 @@ namespace Morpheus.Accounts
             {
                 lblErrorMsg.Text = message;
                 errorMsg.Style.Add("display", "block");
-                successMsg.Style.Add("display", "none");
                 //string script = @"setTimeout(function(){document.getElementById('" + errorMsg.ClientID + "').style.display='none';},8000);";
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
@@ -281,24 +280,25 @@ namespace Morpheus.Accounts
                    ,RosterTask = txtTaskMonday.Text
                 };
 
+
+
                 if (chkMon.Checked)
                 {
                     rosterDayAndDate = chkMon.Text.Split(',');
                     objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
 
-                    if(checkAvailbility(objRoster))
+                    if (checkAvailbility(objRoster))
                     {
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
                             showErrorMessage(obj.ErrorString, false);
                     }
                     else
-                        showErrorMessage(error, false);                  
+                        showErrorMessage(error, false);
                 }
                 if (chkTue.Checked)
                 {
@@ -310,7 +310,6 @@ namespace Morpheus.Accounts
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
@@ -329,7 +328,6 @@ namespace Morpheus.Accounts
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
@@ -348,7 +346,6 @@ namespace Morpheus.Accounts
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
@@ -367,7 +364,6 @@ namespace Morpheus.Accounts
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
@@ -386,7 +382,6 @@ namespace Morpheus.Accounts
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
@@ -405,7 +400,6 @@ namespace Morpheus.Accounts
                         if (obj.AddEmployeeRoster(objRoster))
                         {
                             showErrorMessage("Roster Added", true);
-                            clearForm();
                             btnAll_Click(null, null);
                         }
                         else
@@ -414,6 +408,8 @@ namespace Morpheus.Accounts
                     else
                         showErrorMessage(error, false);
                 }
+
+                clearForm();
             }
             catch(Exception ex)
             {
@@ -585,11 +581,15 @@ namespace Morpheus.Accounts
                 if(e.CommandName.ToString().ToUpper() == "DELETEROW")
                 {
                     if (obj.DeleteShift(Guid.Parse(e.CommandArgument.ToString().Trim())))
+                    {
+                        lblTotal.Text = "";
+                        btnAll_Click(null, null);
                         showErrorMessage("Delete Successfully", true);
+                    }
                     else
                         showErrorMessage(obj.ErrorString, false);
 
-                    btnAll_Click(null, null);
+                    
                 }
 
                 
@@ -614,13 +614,10 @@ namespace Morpheus.Accounts
         private void clearForm()
         {
             txtSearchEmployeeName.Text = "";
-            //dpSelectDay.SelectedIndex = 0;
-            dpSiteMonday.SelectedIndex = 0;
+            PopulateLocation();
+            LoadHours();
+            LoadMinutes();
             txtTaskMonday.Text = "";
-            dpStartHoursMonday.SelectedIndex = 0;
-            dpStartMinutesMonday.SelectedIndex = 0;
-            dpEndHoursMonday.SelectedIndex = 0;
-            dpEndMinutesMonday.SelectedIndex = 0;
             btnCreateRoster.Visible = true;
             btnUpdate.Visible = false;
             chkMon.Checked = false;
@@ -732,6 +729,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = false;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;
@@ -746,53 +744,57 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
                 dt.Columns.Add("TotalHours", typeof(string));
-
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 float totalHours = 0;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
-                    {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
-                    else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
-                  
-                }
 
                 if (dt != null)
                 {
                     if (dt.Rows.Count > 0)
                     {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                            int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                            if (startTime < EndTime)
+                            {
+                                TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                dr["TotalHours"] = duration.ToString();
+                                totalHours += (float)duration.TotalHours;
+                            }
+                            else
+                            {
+                                DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+
+                                DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+
+                                DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+
+                                TimeSpan duration = b - a;
+                                dr["TotalHours"] = duration.ToString();
+                                totalHours += (float)duration.TotalHours;
+                            }
+
+                        }
+
                         grdViewShifts.DataSource = dt;
                         grdViewShifts.DataBind();
                         lblTotal.Text = totalHours.ToString();
-
-
-                        float total = totalHours;//dt.AsEnumerable().Sum(row => row.Field<decimal>("TotalHours"));
-                        grdViewShifts.FooterRow.Cells[0].Visible = false;
-                        grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                        grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                        grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                        grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                        grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                    }
+                    else
+                    {
+                        showAlertMessage("No Roster Found in current Selected Week.");
+                        btnAll.Enabled = false;
+                        btnMon.Enabled = false;
+                        btnTue.Enabled = false;
+                        btnWed.Enabled = false;
+                        btnThur.Enabled = false;
+                        btnFri.Enabled = false;
+                        btnSat.Enabled = false;
+                        btnSun.Enabled = false;
                     }
                 }
                 else
@@ -811,6 +813,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = true;
                 btnMon.Enabled = false;
                 btnTue.Enabled = true;
@@ -822,54 +825,79 @@ namespace Morpheus.Accounts
                 lblTotal.Text = "";
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 obj = new frmCreateRoaster_Controller();
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtMonday = new DataTable();
-                dtMonday = dt.Clone();
-                float totalHours = 0;
-                foreach (DataRow dr in dt.Rows)
+
+                if (dt != null)
                 {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "monday")
-                        dtMonday.ImportRow(dr);
-                }
-                dtMonday.Columns.Add("TotalHours", typeof(string));
-                foreach(DataRow dr in dtMonday.Rows)
-                {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if (dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+
+                        DataTable dtMonday = new DataTable();
+                        dtMonday = dt.Clone();
+                        float totalHours = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "monday")
+                                dtMonday.ImportRow(dr);
+                        }
+                        dtMonday.Columns.Add("TotalHours", typeof(string));
+
+                        if (dtMonday.Rows.Count != 0)
+                        {
+
+                            foreach (DataRow dr in dtMonday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtMonday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        }
+                        else
+                        {
+                            showAlertMessage("no Roster Shifts on Tuesday");
+                        }
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtMonday;
-                grdViewShifts.DataBind();
-
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+               
             }
             catch(Exception ex)
             {
@@ -881,6 +909,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = true;
                 btnMon.Enabled = true;
                 btnTue.Enabled = false;
@@ -891,54 +920,76 @@ namespace Morpheus.Accounts
                 btnSun.Enabled = true;
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 obj = new frmCreateRoaster_Controller();
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtTuesday = new DataTable();
-                dtTuesday = dt.Clone();
-                float totalHours = 0;
-                foreach (DataRow dr in dt.Rows)
+                if(dt != null)
                 {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "tuesday")
-                        dtTuesday.ImportRow(dr);
-                }
-
-                dtTuesday.Columns.Add("TotalHours", typeof(string));
-                foreach (DataRow dr in dtTuesday.Rows)
-                {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if(dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+                        DataTable dtTuesday = new DataTable();
+                        dtTuesday = dt.Clone();
+                        float totalHours = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "tuesday")
+                                dtTuesday.ImportRow(dr);
+                        }
+
+                        dtTuesday.Columns.Add("TotalHours", typeof(string));
+
+                        if (dtTuesday.Rows.Count != 0)
+                        {
+                            foreach (DataRow dr in dtTuesday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+
+
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtTuesday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        }
+                        else
+                            showAlertMessage("no Roster found for Tuesday");            
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtTuesday;
-                grdViewShifts.DataBind();
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+               
             }
             catch (Exception ex)
             {
@@ -950,6 +1001,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = true;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;
@@ -961,54 +1013,76 @@ namespace Morpheus.Accounts
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
                 obj = new frmCreateRoaster_Controller();
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 float totalHours = 0;
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtWednesday = new DataTable();
-                dtWednesday = dt.Clone();
 
-                foreach (DataRow dr in dt.Rows)
+                if (dt != null)
                 {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "wednesday")
-                        dtWednesday.ImportRow(dr);
-                }
-
-                dtWednesday.Columns.Add("TotalHours", typeof(string));
-                foreach (DataRow dr in dtWednesday.Rows)
-                {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if (dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+                        DataTable dtWednesday = new DataTable();
+                        dtWednesday = dt.Clone();
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "wednesday")
+                                dtWednesday.ImportRow(dr);
+                        }
+
+                        if (dtWednesday.Rows.Count != 0)
+                        {
+                            dtWednesday.Columns.Add("TotalHours", typeof(string));
+                            foreach (DataRow dr in dtWednesday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtWednesday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+
+                        }
+                        else
+                            showAlertMessage("No shifts for Wednesday");
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtWednesday;
-                grdViewShifts.DataBind();
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+               
             }
             catch (Exception ex)
             {
@@ -1020,6 +1094,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = true;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;
@@ -1028,56 +1103,79 @@ namespace Morpheus.Accounts
                 btnFri.Enabled = true;
                 btnSat.Enabled = true;
                 btnSun.Enabled = true;
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
                 obj = new frmCreateRoaster_Controller();
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtthursday = new DataTable();
-                dtthursday = dt.Clone();
-                float totalHours = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "thursday")
-                        dtthursday.ImportRow(dr);
-                }
 
-                dtthursday.Columns.Add("TotalHours", typeof(string));
-                foreach (DataRow dr in dtthursday.Rows)
+                if (dt != null)
                 {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if (dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+                        DataTable dtthursday = new DataTable();
+                        dtthursday = dt.Clone();
+                        float totalHours = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "thursday")
+                                dtthursday.ImportRow(dr);
+                        }
+
+                        dtthursday.Columns.Add("TotalHours", typeof(string));
+
+                        if (dtthursday.Rows.Count != 0)
+                        {
+                            foreach (DataRow dr in dtthursday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtthursday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        }
+                        else
+                            showAlertMessage("No roster for thursday");
+
+                       
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtthursday;
-                grdViewShifts.DataBind();
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                
             }
             catch (Exception ex)
             {
@@ -1089,6 +1187,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = true;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;
@@ -1097,56 +1196,81 @@ namespace Morpheus.Accounts
                 btnFri.Enabled = false;
                 btnSat.Enabled = true;
                 btnSun.Enabled = true;
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
                 obj = new frmCreateRoaster_Controller();
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtFriday = new DataTable();
-                dtFriday = dt.Clone();
-                float totalHours = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "friday")
-                        dtFriday.ImportRow(dr);
-                }
 
-                dtFriday.Columns.Add("TotalHours", typeof(string));
-                foreach (DataRow dr in dtFriday.Rows)
+                if (dt != null)
                 {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if (dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+                        DataTable dtFriday = new DataTable();
+                        dtFriday = dt.Clone();
+                        float totalHours = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "friday")
+                                dtFriday.ImportRow(dr);
+                        }
+
+                        dtFriday.Columns.Add("TotalHours", typeof(string));
+
+                        if(dtFriday.Rows.Count !=0)
+                        {
+                            foreach (DataRow dr in dtFriday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtFriday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        }
+                        else
+                        {
+                            showAlertMessage("No Roster Shifts for Friday");
+                        }
+
+                        
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtFriday;
-                grdViewShifts.DataBind();
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+               
             }
             catch (Exception ex)
             {
@@ -1158,6 +1282,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 btnAll.Enabled = true;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;
@@ -1166,56 +1291,79 @@ namespace Morpheus.Accounts
                 btnFri.Enabled = true;
                 btnSat.Enabled = false;
                 btnSun.Enabled = true;
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
+
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
                 obj = new frmCreateRoaster_Controller();
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtSaturday = new DataTable();
-                dtSaturday = dt.Clone();
-                float totalHours = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "saturday")
-                        dtSaturday.ImportRow(dr);
-                }
 
-                dtSaturday.Columns.Add("TotalHours", typeof(string));
-                foreach (DataRow dr in dtSaturday.Rows)
+                if (dt != null)
                 {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if (dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+                        DataTable dtSaturday = new DataTable();
+                        dtSaturday = dt.Clone();
+                        float totalHours = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "saturday")
+                                dtSaturday.ImportRow(dr);
+                        }
+
+                        dtSaturday.Columns.Add("TotalHours", typeof(string));
+
+                        if (dtSaturday.Rows.Count != 0)
+                        {
+                            foreach (DataRow dr in dtSaturday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtSaturday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        }
+                        else
+                            showAlertMessage("No Roster Shifts for Saturday");
+                       
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtSaturday;
-                grdViewShifts.DataBind();
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+              
             }
             catch (Exception ex)
             {
@@ -1227,6 +1375,9 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 btnAll.Enabled = true;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;
@@ -1240,56 +1391,92 @@ namespace Morpheus.Accounts
                 obj = new frmCreateRoaster_Controller();
                 dt = new DataTable();
                 dt = obj.LoadAllEmployeesRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
-                DataTable dtSunday = new DataTable();
-                dtSunday = dt.Clone();
-                float totalHours = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var dayt = DateTime.Parse(dr["RosterDate"].ToString());
-                    if (dayt.DayOfWeek.ToString().ToLower() == "sunday")
-                        dtSunday.ImportRow(dr);
-                }
 
-                dtSunday.Columns.Add("TotalHours", typeof(string));
-                foreach (DataRow dr in dtSunday.Rows)
+                if (dt != null)
                 {
-                    int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                    int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                    if (startTime < EndTime)
+                    if (dt.Rows.Count != 0)
                     {
-                        TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
+                        DataTable dtSunday = new DataTable();
+                        dtSunday = dt.Clone();
+                        float totalHours = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var dayt = DateTime.Parse(dr["RosterDate"].ToString());
+                            if (dayt.DayOfWeek.ToString().ToLower() == "sunday")
+                                dtSunday.ImportRow(dr);
+                        }
+
+                        dtSunday.Columns.Add("TotalHours", typeof(string));
+
+                        if (dtSunday.Rows.Count != 0)
+                        {
+                            foreach (DataRow dr in dtSunday.Rows)
+                            {
+                                int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                                int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                                if (startTime < EndTime)
+                                {
+                                    TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                                else
+                                {
+                                    DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+                                    DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                    DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                    DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                    DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+                                    TimeSpan duration = b - a;
+                                    dr["TotalHours"] = duration.ToString();
+                                    totalHours += (float)duration.TotalHours;
+                                }
+                            }
+                            lblTotal.Text = totalHours.ToString();
+                            grdViewShifts.DataSource = dtSunday;
+                            grdViewShifts.DataBind();
+
+                            float total = totalHours;
+                            grdViewShifts.FooterRow.Cells[0].Visible = false;
+                            grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                            grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
+                            grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                            grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        }
+                        else
+                            showAlertMessage("No roster shifts for Sunday.");
+                       
                     }
                     else
-                    {
-                        DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-                        DateTime RosterEndDate = Rosterdate.AddDays(1);
-                        DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-                        DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                        DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-                        TimeSpan duration = b - a;
-                        dr["TotalHours"] = duration.ToString();
-                        totalHours += (float)duration.TotalHours;
-                    }
+                        showAlertMessage("No Roster Found in current Selected Week.");
                 }
-                lblTotal.Text = totalHours.ToString();
-                grdViewShifts.DataSource = dtSunday;
-                grdViewShifts.DataBind();
+                else
+                    showErrorMessage(obj.ErrorString, false);
 
-                float total = totalHours;
-                grdViewShifts.FooterRow.Cells[0].Visible = false;
-                grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
-                grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+              
             }
             catch (Exception ex)
             {
                 showErrorMessage(ex.Message, false);
             }
+        }
+
+        private void ReSetMsg()
+        {
+            errorMsg.Style.Add("display", "none");
+            successMsg.Style.Add("display", "none");
+            AlertDiv.Style.Add("display", "none");
+        }
+
+        private void showAlertMessage(string msg)
+        {
+            ReSetMsg();
+            lblAlert.Text = msg;
+            AlertDiv.Style.Add("display", "block");
+            string script = @"setTimeout(function(){document.getElementById('" + AlertDiv.ClientID + "').style.display='none';},8000);";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
         }
     }
 }

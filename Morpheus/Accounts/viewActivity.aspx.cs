@@ -172,7 +172,7 @@ namespace Morpheus.Accounts
                 objAct.activity_Type = dp_ActivityType.SelectedValue;
                 objAct.activity_Description = TextBox_Description.Text.Trim();
                 objAct.activity_Status = textbox_Status.Text.Trim();
-                objAct.StartDate = TextBox_startDate.Text;
+                objAct.StartDate = DateTime.Parse(TextBox_startDate.Text);
                 objAct.activity_Status = textbox_Status.Text;
                 string formsArrayURL = "";
                 foreach (ListItem item in cbFormsList.Items)

@@ -85,9 +85,9 @@
                             AutoGenerateSelectButton="True" OnRowDeleting="dtgridview_IncidentReports_RowDeleting" OnRowDataBound="dtgridview_IncidentReports_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="id" HeaderText="Report Id" Visible="true">
-                                       <ItemStyle CssClass="hidden-field" />
+                                      <%-- <ItemStyle CssClass="hidden-field" />
                                        <HeaderStyle CssClass="hidden-field" />
-                                    
+                                    --%>
                                 </asp:BoundField>
                                 <asp:BoundField AccessibleHeaderText="user_id" DataField="user_id" HeaderText="user_id">
                                     <ItemStyle CssClass="hidden-field" />
@@ -141,9 +141,9 @@
                             AutoGenerateSelectButton="True" OnRowDataBound="gdIncidentSubcontractor_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="id" HeaderText="Report Id" Visible="true">
-                                       <ItemStyle CssClass="hidden-field" />
+                                      <%-- <ItemStyle CssClass="hidden-field" />
                                        <HeaderStyle CssClass="hidden-field" />
-                                    
+                                    --%>
                                 </asp:BoundField>
                                 <asp:BoundField AccessibleHeaderText="user_id" DataField="user_id" HeaderText="user_id">
                                     <ItemStyle CssClass="hidden-field" />
@@ -184,7 +184,8 @@
                 <asp:Panel ID="pnlpopup" runat="server" BackColor="Gray" 
                     Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
                     <div class =" form-group" style="display:block;"> 
-                            <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" /><asp:RadioButton ID="rdExcel" CssClass="radio-inline" GroupName="export" Text="Excel" runat="server" />
+                            <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" />
+                      <%--  <asp:RadioButton ID="rdExcel" CssClass="radio-inline" GroupName="export" Text="Excel" runat="server" />--%>
                             <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" OnClick="btnExport_Click" Text="Export" />
                         </div>
                     <div class="form-group" style="padding:5px 5px 5px 5px;">

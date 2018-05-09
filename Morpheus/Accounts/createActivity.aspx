@@ -8,7 +8,7 @@
         $(document).ready(function () {
             $("#<%=startDateTime.ClientID %>").dynDateTime({
                showsTime: true,
-               ifFormat: "%d/%m/%Y",
+               ifFormat: "%d/%m/%Y %H:%M",
                daFormat: "%l;%M %p, %e %m,  %Y",
                align: "BR",
                electric: false,
@@ -45,6 +45,7 @@
                         </div>
                     </div>
                     <!-- /.col-lg-12 -->
+                    <button type="button" onclick="location.href='viewActivity.aspx';" style="float:right; margin:5px;" class="btn btn-success">View Activities <i class="fa fa-search-plus"></i></button>
                 </div>
 
 
@@ -75,10 +76,10 @@
 
                                                 <div>
                                                     <div style="">
-                                                        <asp:TextBox Style="float: left; width: 90%;" class="form-control" ID="startDateTime" runat="server"
+                                                        <asp:TextBox Style="" class="form-control" placeholder="e.g. 08/05/2018 18:30" ID="startDateTime" runat="server"
                                                             TextMode="DateTime"></asp:TextBox>
-                                                        <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" />
-                                                        <br />
+                                                     <%--   <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" />--%>
+<%--                                                        <br />--%>
                                                     </div>
                                                 </div>
 
@@ -104,6 +105,7 @@
                                                 <asp:ListItem Value="Glazier">Glazier</asp:ListItem>
                                                 <asp:ListItem Value="Welder">Welder</asp:ListItem>
                                                 <asp:ListItem Value="Mason">Mason</asp:ListItem>
+                                                <asp:ListItem Value="Others">Others</asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                         <div class="form-group">
@@ -130,9 +132,9 @@
                                                 </asp:CheckBoxList>
                                             </div>
                                         </div>
-                                        <asp:Button ID="btnAddActivity" type="submit" ValidationGroup="c" class="btn btn-primary btn-lg btn-block"
+                                        <asp:Button ID="btnAddActivity" type="submit" ValidationGroup="c" class="btn btn-primary"
                                             runat="server" Text="Add" OnClick="btnAddActivity_Click" />
-
+                                        <asp:Button ID="btnCancel" runat="server" class="btn btn-primary" OnClick="btnCancel_Click" Text="Cancel" />
 
                                     </div>
                                     <!-- /.panel-body -->

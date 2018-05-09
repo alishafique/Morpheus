@@ -19,7 +19,7 @@
                         <li>
                             <a href=""><i class="fa fa-bar-chart-o fa-fw"></i>Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li> <asp:LinkButton ID="LinkButton_StartActivity" CausesValidation="false" runat="server">Start Activity</asp:LinkButton> </li>
+                                <li> <a href="StartActivity.aspx">Start Activity</a> </li>
                                 <li> <asp:LinkButton ID="LinkButton_ViewActivity" runat="server" CausesValidation="false" OnClick="LinkButton_ViewActivity_Click">View Activity</asp:LinkButton> </li>
                             </ul>
                         </li>

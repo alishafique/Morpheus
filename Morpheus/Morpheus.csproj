@@ -272,6 +272,7 @@
     <Content Include="Accounts\js\jquery.dataTables.min.js" />
     <Content Include="Accounts\forms\StartCardQuestionair.aspx" />
     <Content Include="Accounts\js\Main.png" />
+    <Content Include="Accounts\StartActivity.aspx" />
     <Content Include="Accounts\SubContractorProfile.aspx" />
     <Content Include="Accounts\TestUpload.aspx" />
     <Content Include="Accounts\UserControls\SubContractorSideMenu.ascx" />
@@ -599,6 +600,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIncidentReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\StartActivity.aspx.cs">
+      <DependentUpon>StartActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\StartActivity.aspx.designer.cs">
+      <DependentUpon>StartActivity.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\SubContractorProfile.aspx.cs">
       <DependentUpon>SubContractorProfile.aspx</DependentUpon>

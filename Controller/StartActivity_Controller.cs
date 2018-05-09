@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace Controller
 {
-   public class viewEmployeeActivity_Controller
+   public class StartActivity_Controller
     {
-        DataTable dt;
         Connection con;
-        SqlCommand cmd;
+        DataTable dt;
         String strQuery;
+        SqlCommand cmd;
         public string ErrorString;
-        public viewEmployeeActivity_Controller() { }
+        public StartActivity_Controller() { }
 
-        public DataTable viewEmployeeActivities(int empID)
+
+        public DataTable LoadActivityOfToday(int empUId)
         {
             try
             {
@@ -26,13 +26,11 @@ namespace Controller
                 con = new Connection();
                 strQuery = "spManageActivity";
                 cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "viewEmployeeActivities";
-                cmd.Parameters.Add("@AssigneduserID", SqlDbType.BigInt).Value = empID;
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "LoadTodaysActivity";
+                cmd.Parameters.Add("@AssigneduserID", SqlDbType.BigInt).Value = empUId;
                 dt = con.GetDataUsingSp(cmd);
-                if (dt != null)
-                {
+                if (dt != null)            
                     return dt;
-                }
                 else
                 {
                     ErrorString = con.strError;
@@ -45,6 +43,5 @@ namespace Controller
                 return null;
             }
         }
-
     }
 }

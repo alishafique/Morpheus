@@ -27,10 +27,11 @@ namespace Controller
             try
             {
                 con = new Connection();
-                strQuery = "createActivityByCompany";
+                strQuery = "spManageActivity";
                 
                 cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@CompanyCreatedID", SqlDbType.BigInt).Value = obj.companyCreatedID;
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "InsertActivityByCompany";
+                cmd.Parameters.Add("@UserID", SqlDbType.BigInt).Value = obj.companyCreatedID;
                 cmd.Parameters.Add("@AssigneduserID", SqlDbType.BigInt).Value = assignTo;
                 cmd.Parameters.Add("@Activity_Name", SqlDbType.VarChar).Value = obj.activity_Name;
                 cmd.Parameters.Add("@Activity_Location", SqlDbType.VarChar).Value = obj.activity_Location;
@@ -39,10 +40,8 @@ namespace Controller
                 cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = obj.activity_Status;
                 cmd.Parameters.Add("@startDate", SqlDbType.VarChar).Value = obj.StartDate;
                 cmd.Parameters.Add("@formsAttached", SqlDbType.VarChar).Value = obj.FormsURL;
-
                 val = con.InsertUpdateDataUsingSpWithReturn(cmd);
-                return val;
-               
+                return val;           
             }
             catch (Exception ex)
             {

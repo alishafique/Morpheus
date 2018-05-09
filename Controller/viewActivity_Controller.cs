@@ -18,20 +18,19 @@ namespace Controller
         public string ErrorString;
         public viewActivity_Controller() { }
 
-        public DataTable viewActivitiesCreatedByCompany(int comID)
+        public DataTable viewActivitiesCreatedByCompany(int UserId)
         {
             try
             {
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "viewActivitiesCreatedByCompany";
+                strQuery = "spManageActivity"; // Stored procedure Name
                 cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@companyId", SqlDbType.BigInt).Value = comID;
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ViewAllActivitiesByCompany";
+                cmd.Parameters.Add("@UserID", SqlDbType.BigInt).Value = UserId;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)
-                {
                     return dt;
-                }
                 else
                 {
                     ErrorString = con.strError;
@@ -107,8 +106,9 @@ namespace Controller
             try
             {
                 con = new Connection();
-                strQuery = "deleteCompanyCreatedActivity";
+                strQuery = "spManageActivity";
                 cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "deleteCompanyCreatedActivity";
                 cmd.Parameters.Add("@ActivityID", SqlDbType.BigInt).Value = actID;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;

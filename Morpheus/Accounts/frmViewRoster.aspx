@@ -42,7 +42,7 @@
                                 </div>
                                 <br />
                                 <br />
-                            <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover"
+                            <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover" ShowFooter="true"
                                      runat="server" AutoGenerateColumns="False" OnRowCommand="grdViewShifts_RowCommand" OnRowDataBound="grdViewShifts_RowDataBound">
                                     <Columns>
                                         <asp:BoundField DataField="RosterID" HeaderText="RosterID">
@@ -52,6 +52,7 @@
                                         <asp:BoundField DataField="RosterDate" HeaderText="RosterDate" DataFormatString="{0:dddd, dd/MMM/yyyy}"/>
                                         <asp:BoundField DataField="RosterStartTime" HeaderText="StartTime" />
                                         <asp:BoundField DataField="RosterEndTime" HeaderText="EndTime" />
+                                        <asp:BoundField DataField="TotalHours" HeaderText="Total Hours" />
                                         <asp:BoundField DataField="RosterSite" HeaderText="Site" />
                                         <asp:BoundField DataField="RosterTask" HeaderText="Task" />
                                         <asp:BoundField DataField="RStatus" HeaderText="Status" >

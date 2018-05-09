@@ -86,6 +86,7 @@
     <Compile Include="resetPassword_Controller.cs" />
     <Compile Include="Roster.cs" />
     <Compile Include="SignUp_Controller.cs" />
+    <Compile Include="StartActivity_Controller.cs" />
     <Compile Include="StartCardQuestionair_Controller.cs" />
     <Compile Include="SubContractorProfile_Controller.cs" />
     <Compile Include="viewActivity_Controller.cs" />

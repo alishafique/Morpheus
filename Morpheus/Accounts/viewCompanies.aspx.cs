@@ -87,8 +87,13 @@ namespace Morpheus.Accounts
                 memberShip_type.Add("Gold", 1);
                 memberShip_type.Add("Platinium", 2);
 
-                company_type.Add("Construction", 0);
-                company_type.Add("Hospitality", 1);
+                DataTable dtCT = new DataTable();
+                dtCT = (DataTable)ViewState["CompanyType"];
+
+                foreach (DataRow dr in dtCT.Rows)
+                {
+                    company_type.Add(dr["type_name"].ToString(), Int16.Parse(dr["company_Type_id"].ToString()));
+                }
                 // Get the currently selected row using the SelectedRow property.
                 GridViewRow row = dtgridview_companies.SelectedRow;
 
@@ -106,7 +111,7 @@ namespace Morpheus.Accounts
                     Dp_MemberShipPlan.SelectedIndex = memberShip_type[row.Cells[5].Text];
 
                 if (company_type.ContainsKey(row.Cells[6].Text))
-                    dp_CompanyType.SelectedIndex = company_type[row.Cells[6].Text];
+                    dp_CompanyType.SelectedValue = company_type[row.Cells[6].Text].ToString();
 
                 dt = objviewEditCompanies.phoneNumberOfCompany(int.Parse(row.Cells[1].Text));
                 if (dt!=null)
@@ -162,6 +167,7 @@ namespace Morpheus.Accounts
                 //CompanyType dropbox load from db
                 dt = objviewEditCompanies.loadCompanyTypes();
                 dp_CompanyType.DataSource = dt;
+                ViewState["CompanyType"] = dt;
                 dp_CompanyType.DataTextField = "type_name";
                 dp_CompanyType.DataValueField = "company_Type_id";
                 dp_CompanyType.DataBind();

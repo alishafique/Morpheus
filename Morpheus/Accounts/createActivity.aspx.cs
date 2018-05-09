@@ -83,34 +83,33 @@ namespace Morpheus
 
         private void clearForm()
         {
-           //textbox_createdBy.Text = "";
-            //Dp_AssignTo.SelectedIndex = 0;
             txtbox_ActivityName.Text = "";
             TextBox_site.Text = "";
             dp_ActivityType.SelectedIndex = 0;
             TextBox_Description.Text = "";
-            objAct.activity_Status = "";
             listEmployees.ClearSelection();
+            cbFormsList.ClearSelection();
         }
         protected void btnAddActivity_Click(object sender, EventArgs e)
         {
             try
             {
-                objAct = new Activity();
+
                 objCreateAct = new createActivity_Controller();
                 int[] listAssing = new int[listEmployees.Items.Count];
                 string[] getID = textbox_createdBy.Text.Split('-');
                 string formsArrayURL = "";
-                objAct.companyCreatedID = int.Parse(getID[0]);// Created by Company's ID
 
-               // string[] selectAssignedTo = listEmployees.SelectedValue.Split('-');
-                //objAct.assigneduserID = int.Parse(selectAssignedTo[0]); // Assigned to Employee's Id
-                objAct.activity_Name = txtbox_ActivityName.Text;
-                objAct.activity_Location = TextBox_site.Text;
-                objAct.activity_Type = dp_ActivityType.SelectedValue;
-                objAct.activity_Description = TextBox_Description.Text;
-                objAct.activity_Status = textbox_Status.Text;
-                objAct.StartDate = startDateTime.Text;
+                Activity objAct = new Activity()
+                {
+                    companyCreatedID = int.Parse(Session["userid"].ToString()),// Created by User's ID
+                    activity_Name = txtbox_ActivityName.Text,
+                    activity_Location = TextBox_site.Text,
+                    activity_Type = dp_ActivityType.SelectedValue,
+                    activity_Description = TextBox_Description.Text,
+                    activity_Status = textbox_Status.Text,
+                    StartDate = DateTime.Parse(startDateTime.Text),
+                };
 
                 foreach (ListItem item in cbFormsList.Items)
                 {
@@ -120,20 +119,18 @@ namespace Morpheus
                     }
                 }
 
-                objAct.FormsURL = formsArrayURL.TrimEnd(','); ;
+                objAct.FormsURL = formsArrayURL.TrimEnd(',');
                 for (int i = 0; i < listEmployees.Items.Count; i++)
+                {
+                    if (listEmployees.Items[i].Selected)
                     {
-                        if (listEmployees.Items[i].Selected)
-                        {
                         if (objCreateAct.createActivityByCompany(objAct, int.Parse(listEmployees.Items[i].Value)) > 0)
                             showErrorMessage("Activity has been created and assigned to Employee.", true);
                         else
                             showErrorMessage(objCreateAct.ErrorString, false);
-                        }
                     }
-                    
-                    clearForm();
-       
+                }
+                clearForm();
             }
             catch (Exception ex)
             {
@@ -160,6 +157,19 @@ namespace Morpheus
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "somekey", script, true);
             }
 
+        }
+
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clearForm();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
         }
     }
 }

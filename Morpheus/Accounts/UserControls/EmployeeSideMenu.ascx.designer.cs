@@ -13,15 +13,6 @@ namespace Morpheus.Accounts.UserControls {
     public partial class EmployeeSideMenu {
         
         /// <summary>
-        /// LinkButton_StartActivity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_StartActivity;
-        
-        /// <summary>
         /// LinkButton_ViewActivity control.
         /// </summary>
         /// <remarks>

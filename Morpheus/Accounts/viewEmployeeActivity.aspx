@@ -43,7 +43,7 @@
             height: 200px;
             width: 200px;
             border-radius: 50%;
-            
+            margin: 0px auto;
         }
     </style>
 

@@ -28,7 +28,26 @@
             });
         });
 
-      
+       
+        function FetchData(button) {
+            var row = button.parentNode.parentNode;
+            var label = GetChildControl(row, "txtQuantity").value;
+            var label1 = GetChildControl(row, "txtprice").value;
+            var Multi = parseFloat(label) * parseFloat(label1);
+
+            GetChildControl(row, "lblTotal").value = Multi;
+
+            return false;
+        };
+
+        function GetChildControl(element, id) {
+            var child_elements = element.getElementsByTagName("*");
+            for (var i = 0; i < child_elements.length; i++) {
+                if (child_elements[i].id.indexOf(id) != -1) {
+                    return child_elements[i];
+                }
+            }
+        };
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -81,6 +100,8 @@
                                    <asp:BoundField DataField="email" HeaderText="Email">
                                    </asp:BoundField>
                                    <asp:BoundField DataField="mobile" HeaderText="Phone No."/>
+
+                           
                                    <asp:TemplateField HeaderText="View">
                                        <ItemTemplate>
                                            <asp:LinkButton runat="server" ID="lbView" Text="TimeSheet" CommandName="TimeSheet" CausesValidation="false" CommandArgument='<%# Eval("EmployeeId") %>'></asp:LinkButton>
@@ -108,18 +129,7 @@
                                 </div>
                                 <br />
                                 <br />
-                                <div style="display:none;">
-                                <asp:Button ID="btnAll" CausesValidation="false" CssClass="btn btn-primary"  runat="server" Text="All" OnClick="btnAll_Click" />
-                                <asp:Button ID="btnMon" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Monday" OnClick="btnMon_Click" />
-                                <asp:Button ID="btnTue" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Tuesday" OnClick="btnTue_Click" />
-                                <asp:Button ID="btnWed" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Wednesday" OnClick="btnWed_Click" />
-                                <asp:Button ID="btnThur" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Thursday" OnClick="btnThur_Click"/>
-                                <asp:Button ID="btnFri" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Friday" OnClick="btnFri_Click"/>
-                                <asp:Button ID="btnSat" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Saturday" OnClick="btnSat_Click"/>
-                                <asp:Button ID="btnSun" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Sunday" OnClick="btnSun_Click"/>
-                                    </div>
-                                <br />
-                                <br />
+                               
                                 <div class="table-responsive">
                                 <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover" ShowFooter="true"
                                      runat="server" AutoGenerateColumns="False" OnRowCommand="grdViewShifts_RowCommand" OnRowDataBound="grdViewShifts_RowDataBound">
@@ -133,9 +143,27 @@
                                         <asp:BoundField DataField="RosterDate" HeaderText="RosterDate" DataFormatString="{0:dd/MMM/yyyy}"/>
                                         <asp:BoundField DataField="RosterStartTime" HeaderText="StartTime" />
                                         <asp:BoundField DataField="RosterEndTime" HeaderText="EndTime" />
-                                        <asp:BoundField DataField="TotalHours" HeaderText="TotalHours" DataFormatString="" />
+                                        <%--<asp:BoundField DataField="TotalHours" HeaderText="TotalHours" DataFormatString="" ControlStyle-CssClass ="hours" />--%>
+                                        <asp:TemplateField HeaderText="TotalHours" HeaderStyle-Width="55px">
+                                            <ItemTemplate>
+                                               <asp:Label ID="lblTotalHours" runat="Server" Text='<%# Eval("TotalHours") %>' ></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Pay/Hour" HeaderStyle-Width="55px">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txtPayAmount"  Width="46px" CausesValidation="false" runat="server"></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Total Pay" HeaderStyle-Width="55px">
+                                            <ItemTemplate>
+                                               <asp:Label ID="lblTotalPay" runat="Server" Text="0" ></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:BoundField DataField="RosterSite" HeaderText="Site" />
-                                        <asp:BoundField DataField="RosterTask" HeaderText="Task" />
+                                        <asp:BoundField DataField="RosterTask" HeaderText="Task" >
+                                            <ItemStyle CssClass="hidden-field" />
+                                            <HeaderStyle CssClass="hidden-field" />
+                                        </asp:BoundField>
                                         <asp:BoundField DataField="RStatus" HeaderText="Status" >
                                             <ItemStyle Font-Italic="true" />
                                             </asp:BoundField>
@@ -160,8 +188,7 @@
                             <!-- /.col-lg-6 (nested) -->
                         </div>
                         <!-- /.row (nested) -->
-                    </div>
-                    <!-- /.panel-body -->
+                    </div>                    <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
             </div>

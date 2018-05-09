@@ -42,7 +42,6 @@ namespace Morpheus.Accounts
                 {
                     dtgridview_Employees.DataSource = dt;
                     dtgridview_Employees.DataBind();
-                    //dtgridview_Employees.HeaderRow.TableSection = TableRowSection.TableHeader;
                     ViewState["dtEmployees"] = dt;
                 }
                 else
@@ -55,161 +54,7 @@ namespace Morpheus.Accounts
 
         }
 
-        protected void btnAll_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAll.Enabled = false;
-                btnMon.Enabled = true;
-                btnTue.Enabled = true;
-                btnWed.Enabled = true;
-                btnThur.Enabled = true;
-                btnFri.Enabled = true;
-                btnSat.Enabled = true;
-                btnSun.Enabled = true;
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-             
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
 
-        protected void btnMon_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAll.Enabled = true;
-                btnMon.Enabled = false;
-                btnTue.Enabled = true;
-                btnWed.Enabled = true;
-                btnThur.Enabled = true;
-                btnFri.Enabled = true;
-                btnSat.Enabled = true;
-                btnSun.Enabled = true;
-                //lblTotal.Text = "";
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void btnTue_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAll.Enabled = true;
-                btnMon.Enabled = true;
-                btnTue.Enabled = false;
-                btnWed.Enabled = true;
-                btnThur.Enabled = true;
-                btnFri.Enabled = true;
-                btnSat.Enabled = true;
-                btnSun.Enabled = true;
-                //lblTotal.Text = "";
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void btnWed_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAll.Enabled = true;
-                btnMon.Enabled = true;
-                btnTue.Enabled = true;
-                btnWed.Enabled = false;
-                btnThur.Enabled = true;
-                btnFri.Enabled = true;
-                btnSat.Enabled = true;
-                btnSun.Enabled = true;
-                //lblTotal.Text = "";
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void btnThur_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAll.Enabled = true;
-                btnMon.Enabled = true;
-                btnTue.Enabled = true;
-                btnWed.Enabled = true;
-                btnThur.Enabled = false;
-                btnFri.Enabled = true;
-                btnSat.Enabled = true;
-                btnSun.Enabled = true;
-                //lblTotal.Text = "";
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void btnFri_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnAll.Enabled = true;
-                btnMon.Enabled = true;
-                btnTue.Enabled = true;
-                btnWed.Enabled = true;
-                btnThur.Enabled = true;
-                btnFri.Enabled = true;
-                btnSat.Enabled = true;
-                btnSun.Enabled = true;
-                //lblTotal.Text = "";
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void btnSat_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void btnSun_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
 
         protected void grdViewShifts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -230,62 +75,61 @@ namespace Morpheus.Accounts
             {
                 obj = new frmViewTimeSheet_Controller();
                 dt = new DataTable();
+                grdViewShifts.DataSource = null;
+                grdViewShifts.DataBind();
                 dt = obj.viewTimeSheetOfEmployee(UID, EmpID, stdt, endDt);
                 ViewState["EmpTimeSheet"] = dt;
                 float totalHours = 0;
-                if (dt != null && dt.Rows.Count>0)
+                if (dt != null)
                 {
                     dt.Columns.Add("TotalHours", typeof(string));
 
-                    foreach (DataRow dr in dt.Rows)
+                    if (dt.Rows.Count != 0)
                     {
-                        int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
-                        int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
-                        if (startTime < EndTime)
+                        foreach (DataRow dr in dt.Rows)
                         {
-                            TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
-                            dr["TotalHours"] = duration.ToString();
-                            totalHours += (float)duration.TotalHours;
+                            int startTime = Convert.ToInt32(DateTime.Parse(dr["RosterStartTime"].ToString()).Hour.ToString());
+                            int EndTime = Convert.ToInt32(DateTime.Parse(dr["RosterEndTime"].ToString()).Hour.ToString());
+                            if (startTime < EndTime)
+                            {
+                                TimeSpan duration = DateTime.Parse(dr["RosterEndTime"].ToString()).Subtract(DateTime.Parse(dr["RosterStartTime"].ToString()));
+                                dr["TotalHours"] = duration.ToString();
+                                totalHours += (float)duration.TotalHours;
+                            }
+                            else
+                            {
+                                DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
+                                DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
+
+                                DateTime RosterEndDate = Rosterdate.AddDays(1);
+                                DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
+
+                                DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
+                                DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
+
+                                TimeSpan duration = b - a;
+                                dr["TotalHours"] = duration.ToString();
+                                totalHours += (float)duration.TotalHours;
+                            }
                         }
-                        else
-                        {
-                            DateTime Rosterdate = DateTime.Parse(dr["RosterEndTime"].ToString());
-                            DateTime startTimeA = DateTime.Parse(dr["RosterStartTime"].ToString());
-
-                            DateTime RosterEndDate = Rosterdate.AddDays(1);
-                            DateTime startTimeB = DateTime.Parse(dr["RosterEndTime"].ToString());
-
-                            DateTime a = new DateTime(Rosterdate.Year, Rosterdate.Month, Rosterdate.Day, startTimeA.Hour, startTimeA.Minute, startTimeA.Second);
-                            DateTime b = new DateTime(RosterEndDate.Year, RosterEndDate.Month, RosterEndDate.Day, startTimeB.Hour, startTimeB.Minute, startTimeB.Second);
-
-                            TimeSpan duration = b - a;
-                            dr["TotalHours"] = duration.ToString();
-                            totalHours += (float)duration.TotalHours;
-                        }
-                    }
-
-                        //lblTotal.Text = totalHours.ToString();
                         grdViewShifts.DataSource = dt;
                         grdViewShifts.DataBind();
 
-                    //Calculate Sum and display in Footer Row
-                    float total = totalHours;//dt.AsEnumerable().Sum(row => row.Field<decimal>("TotalHours"));
-                    grdViewShifts.FooterRow.Cells[0].Visible = false;
-                    grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
-                    grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                    grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
-                    grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
-                    grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
-
-                }
-                else if(dt.Rows.Count==0)
-                {
-                    
+                        //Calculate Sum and display in Footer Row
+                        float total = totalHours;
+                        grdViewShifts.FooterRow.Cells[0].Visible = false;
+                        grdViewShifts.FooterRow.Cells[4].Text = "Total hours";
+                        grdViewShifts.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                        grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        grdViewShifts.FooterRow.Cells[5].Text = total.ToString("N2");
+                        grdViewShifts.FooterRow.Cells[5].Font.Bold = true;
+                        grdViewShifts.FooterRow.Cells[9].Visible = false;
+                    }
+                    else
+                        showErrorMessage("No TimeSheet Found", false);
                 }
                 else
-                {
                     showErrorMessage(obj.ErrorString, false);
-                }
             }
             catch(Exception ex)
             {
@@ -315,8 +159,6 @@ namespace Morpheus.Accounts
                 DateTime fdowDate = ldowDate.AddDays(-6);
                 lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
                 lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
-
-                btnAll_Click(null, null);
             }
             catch (Exception ex)
             {
@@ -335,8 +177,6 @@ namespace Morpheus.Accounts
                 DateTime ldowDate = fdowDate.AddDays(6);
                 lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
                 lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
-
-                btnAll_Click(null, null);
             }
             catch (Exception ex)
             {
@@ -456,4 +296,6 @@ namespace Morpheus.Accounts
             }
         }
     }
+
+    
 }

@@ -74,6 +74,7 @@ namespace Morpheus.Accounts
                 {
                     dtgridview_IncidentReports.DataSource = dt;
                     dtgridview_IncidentReports.DataBind();
+                    ViewState["dtReport"] = dt;
                 }
                 else if (dt.Rows.Count == 0)
                     showErrorMessage("No reports", true);
@@ -168,7 +169,7 @@ namespace Morpheus.Accounts
                 GridViewRow row = dtgridview_IncidentReports.SelectedRow;
 
                 
-                Session.Add("_reportID", row.Cells[1].Text);
+                ViewState.Add("_reportID", row.Cells[1].Text);
 
                loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(Session["userid"].ToString()));
 
@@ -355,44 +356,20 @@ namespace Morpheus.Accounts
         protected void gdIncidentSubcontractor_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.Cells[10].Text == "unseen")
-            {
                 e.Row.CssClass = "danger";
-            }
         }
 
         private void loadCrystalReport(int reportID, int USERID)
         {
             try
             {
-                //ReportDocument rptD = new ReportDocument();
-                //spLoadReportTableAdapter da = new spLoadReportTableAdapter();
-                //spCompanyLogoTableAdapter daCom = new spCompanyLogoTableAdapter();
-                //dsIncidentReport ds = new dsIncidentReport();
-                //dsIncidentReport.spLoadReportDataTable dt = (dsIncidentReport.spLoadReportDataTable) ds.Tables["spLoadReport"];
-                //dsIncidentReport.spCompanyLogoDataTable dt1 = (dsIncidentReport.spCompanyLogoDataTable)ds.Tables["spCompanyLogo"];
-
-                //da.Fill(dt, USERID, reportID);
-                //daCom.Fill(dt1, USERID);
-
-                //rpt = new viewIncidentReport();
-                //rpt.SetDataSource(ds);
-                ////CrystalReportViewer1.ReportSource = rpt;
-                ////rpt.ExportToHttpResponse(ExportFormatType.ExcelRecord, Response, true, "PersonDetails");
-                //Session.Add("report", rpt);
-             
-
                 obj = new viewEditCompanyIncidentReports_Controller();
                 rptViewer.ProcessingMode = ProcessingMode.Local;
-                
-               // rptViewer.LocalReport.ReportPath = Server.MapPath("~/Accounts/Reports/rptIncident.rdlc");
                 dsIncidentReport dsCustomers = LoadReport(reportID, USERID);
-              
+          
                 ReportDataSource datasource = new ReportDataSource("IncidentReportDS", dsCustomers.Tables[0]);
                 rptViewer.LocalReport.DataSources.Clear();
                 rptViewer.LocalReport.DataSources.Add(datasource);
-
-                
-
             }
             catch(Exception ex)
             {
@@ -412,20 +389,24 @@ namespace Morpheus.Accounts
                 Warning[] warnings = null;
                 byte[] bytes;
                 FileStream fs;
+                string fileName = string.Empty;
+                if (fileName == "")
+                {
+                    fileName = ViewState["_reportID"].ToString();
+                }
+                else
+                    fileName = "Seguroincidentreport";
                 if (rdPdf.Checked)
                 {
                     bytes = this.rptViewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
                     Response.Buffer = true;
                     Response.Clear();
                     Response.ContentType = mimeType;
-                    Response.AddHeader("content-disposition", "attachment; filename=" + "Incidentreport" + "." + "pdf");
+                    Response.AddHeader("content-disposition", "attachment; filename=" + fileName + "." + "pdf");
                     Response.BinaryWrite(bytes); // create the filepdf
                     Response.Flush(); // send it to the client to download
                 }
-                if (rdExcel.Checked)
-                {
-                  
-                }
+              
             }
             catch(Exception ex)
             {

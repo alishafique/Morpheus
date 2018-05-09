@@ -15,17 +15,21 @@
         .hidden-field {
             display: none;
         }
+        .myStyle{
+             margin: 0 auto;
+        }
     </style>
      <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
     <link href="css/calendar-blue.css" rel="stylesheet" type="text/css" />
 
-     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+        <!-- DataTables CSS -->
+    <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
 
     <!-- DataTables Responsive CSS -->
     <link href="datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
 
-    <!-- DataTables JavaScript -->
+     <!-- DataTables JavaScript -->
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="datatables-plugins/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="datatables-responsive/dataTables.responsive.js" type="text/javascript"></script>
@@ -34,9 +38,9 @@
             $(".table").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
                 responsive: true
             });
+            
         });
-
-    </script>
+        </script>
 
     <script type="text/javascript" language="javascript">
          $(function () {
@@ -78,6 +82,10 @@
                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                        <asp:Label ID="lblErrorMsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.                             
                    </div>
+                    <div class="alert alert-warning alert-dismissable" id="AlertDiv" style="display: none;" runat="server">
+                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                       <asp:Label ID="lblAlert" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.                             
+                   </div>
                 </div>
                 <!-- /.col-lg-12 -->
                 
@@ -85,9 +93,7 @@
             <!-- /.row -->
             <!-- /.row -->
             <!----/    ------>
-         <%--<asp:Button ID="btnViewAddRoster" Class="btn btn-success fa-plus-circle" runat="server" CausesValidation="false" UseSubmitBehavior="false"  style="float:right; margin-bottom:5px;" Text="ADD +">
-         
-         </asp:Button>--%>
+       
         <div class="row">
            
             <div class="col-lg-12" >
@@ -146,42 +152,6 @@
                                     </div>
                                     <br/>
                                 </div>
-
-
-                                <%--<table id="" style="width: 100%;" class="">
-                                     <thead>
-                                    <tr>
-                                      
-                                        <th>Division/Site</th>
-                                        <th>Task</th>
-                                        <th class="auto-style2">Start Time</th>
-                                        <th>End Time</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <asp:DropDownList ID="dpSelectDay" CssClass="form-control" runat="server" >
-                                                  
-                                                </asp:DropDownList>
-                                                </td>
-                                            <td><asp:DropDownList ID="dpSiteMonday" CssClass="form-control" DataTextField="LocationtoName" DataValueField="LocationtoId" runat="server"></asp:DropDownList></td>
-                                            <td>
-                                                <asp:TextBox ID="txtTaskMonday" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTaskMonday" Display="Dynamic" ErrorMessage="Enter Task"></asp:RequiredFieldValidator>
-                                            </td>
-                                            <td class="auto-style2">
-                                                <asp:DropDownList ID="dpStartHoursMonday" runat="server"></asp:DropDownList>
-                                                <strong><span class="auto-style1">:</span></strong>
-                                                <asp:DropDownList ID="dpStartMinutesMonday" runat="server"></asp:DropDownList></td>
-                                            <td class="auto-style2">
-                                                <asp:DropDownList ID="dpEndHoursMonday" runat="server"></asp:DropDownList>
-                                                <strong><span class="auto-style1">:</span></strong>
-                                                <asp:DropDownList ID="dpEndMinutesMonday" runat="server"></asp:DropDownList></td>
-                                        </tr>
-                                    </tbody>
-                                </table>--%>
-
                               
                                 <asp:Button ID="btnCreateRoster" class="btn btn-primary" runat="server" Text="Create" OnClick="btnCreateRoster_Click" />
                                 <asp:Button ID="btnUpdate" class="btn btn-primary" runat="server" Text="UpDate" OnClick="btnUpdate_Click"/>
@@ -237,7 +207,7 @@
                                 <asp:Button ID="btnSun" CausesValidation="false" CssClass="btn btn-primary" runat="server" Text="Sunday" OnClick="btnSun_Click"/>
                                 <br />
                                 <br />
-                                <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover" ShowFooter="true"
+                                <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover" AllowPaging="false"
                                      runat="server" AutoGenerateColumns="False" OnRowCommand="grdViewShifts_RowCommand" OnRowDataBound="grdViewShifts_RowDataBound">
                                     <Columns>
                                         <asp:BoundField DataField="RosterID" HeaderText="RosterID">
@@ -268,9 +238,9 @@
                                     </Columns>
                                 </asp:GridView>
 
-                                <div class="form-group">
+                                <div class="form-group" style="margin-left:35%" >
                                    <label>Total Hours:</label>
-                                    <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
+                                    <asp:Label ID="lblTotal" runat="server" CssClass="myStyle" Font-Bold="true" Font-Italic="true" Text=""></asp:Label>
                                 </div>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
