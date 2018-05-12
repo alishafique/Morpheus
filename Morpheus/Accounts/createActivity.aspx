@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="createActivity.aspx.cs" Inherits="Morpheus.createActivity" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Create Activity</title>
      <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
     <link href="css/calendar-blue.css" rel="stylesheet" type="text/css" />
@@ -8,7 +9,7 @@
         $(document).ready(function () {
             $("#<%=startDateTime.ClientID %>").dynDateTime({
                showsTime: true,
-               ifFormat: "%d/%m/%Y %H:%M",
+               ifFormat: "%d/%m/%Y",
                daFormat: "%l;%M %p, %e %m,  %Y",
                align: "BR",
                electric: false,
@@ -73,16 +74,10 @@
                                         <div class="form-group">
                                             <div class="form-group">
                                                 <label>Start Date:</label>
-
-                                                <div>
                                                     <div style="">
                                                         <asp:TextBox Style="" class="form-control" placeholder="e.g. 08/05/2018 18:30" ID="startDateTime" runat="server"
                                                             TextMode="DateTime"></asp:TextBox>
-                                                     <%--   <img src="images/calender.png" style="float: right; height: 23px; padding-left: 5px;" />--%>
-<%--                                                        <br />--%>
                                                     </div>
-                                                </div>
-
                                                 <div style="width: 100%;">
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ValidationGroup="c" ControlToValidate="startDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please start enter date."></asp:RequiredFieldValidator>
                                                 </div>

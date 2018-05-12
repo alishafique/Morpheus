@@ -162,38 +162,14 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 ViewIncidentReprots_Controller objInc = new ViewIncidentReprots_Controller();
                 obj = new viewEditCompanyIncidentReports_Controller();
-                severanityLevel.Add("Level 1 - Immediate response, threat of injury or death", 0);
-                severanityLevel.Add("Level 2 – Within 1 hour, no physical danger, work has ceased", 1);
-                severanityLevel.Add("Level 3 – Within 3 hours, no physical danger, work has been", 2);
-
-                GridViewRow row = dtgridview_IncidentReports.SelectedRow;
-
-                
+                GridViewRow row = dtgridview_IncidentReports.SelectedRow;      
                 ViewState.Add("_reportID", row.Cells[1].Text);
-
-               loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(Session["userid"].ToString()));
-
-
+                loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(Session["userid"].ToString()));
                 TextBox_ReportId.Text = row.Cells[1].Text;
-                TextBox_user_id.Text = row.Cells[2].Text;
-                TextBox_Reportedby.Text = row.Cells[3].Text;
-                
-
-
-                if (severanityLevel.ContainsKey(row.Cells[4].Text))
-                {
-                    dp_severityLevel.SelectedIndex = severanityLevel[row.Cells[4].Text];
-                }
-                txtbox_Description.Text = row.Cells[5].Text;
-                txtbox_siteName.Text = row.Cells[7].Text;
-                txtbox_actionTaken.Text = row.Cells[8].Text;
-               // btnUpdateReport.Enabled = true;
-                dp_severityLevel.Enabled = true;
                 dt = objInc.loadImagesOfReport(int.Parse(row.Cells[1].Text)); //loading images 
                 if (dt != null && dt.Rows.Count != 0)
                 {
                     List<Image> pictureBoxList = new List<Image>();
-
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         Image picture = new Image();
@@ -272,30 +248,10 @@ namespace Morpheus.Accounts
                 dt = new DataTable();
                 ViewIncidentReprots_Controller objInc = new ViewIncidentReprots_Controller();
                 obj = new viewEditCompanyIncidentReports_Controller();
-                severanityLevel.Add("Level 1 - Immediate response, threat of injury or death", 0);
-                severanityLevel.Add("Level 2 – Within 1 hour, no physical danger, work has ceased", 1);
-                severanityLevel.Add("Level 3 – Within 3 hours, no physical danger, work has been", 2);
-
                 GridViewRow row = gdIncidentSubcontractor.SelectedRow;
-
-      
-                Session.Add("_reportID", row.Cells[1].Text);
-
+                ViewState.Add("_reportID", row.Cells[1].Text);
                 loadCrystalReport(int.Parse(row.Cells[1].Text), int.Parse(row.Cells[11].Text));
-
                 TextBox_ReportId.Text = row.Cells[1].Text;
-                TextBox_user_id.Text = row.Cells[2].Text;
-                TextBox_Reportedby.Text = row.Cells[3].Text;
-
-                if (severanityLevel.ContainsKey(row.Cells[4].Text))
-                {
-                    dp_severityLevel.SelectedIndex = severanityLevel[row.Cells[4].Text];
-                }
-                txtbox_Description.Text = row.Cells[5].Text;
-                txtbox_siteName.Text = row.Cells[7].Text;
-                txtbox_actionTaken.Text = row.Cells[8].Text;
-                // btnUpdateReport.Enabled = true;
-                dp_severityLevel.Enabled = true;
                 dt = objInc.loadImagesOfReport(int.Parse(row.Cells[1].Text)); //loading images 
                 if (dt != null && dt.Rows.Count != 0)
                 {

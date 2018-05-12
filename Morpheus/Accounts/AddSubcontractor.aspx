@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Add Sub-Contractor" enableEventValidation="false" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="AddSubcontractor.aspx.cs" Inherits="Morpheus.Accounts.AddSubcontractor" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Add Sub-Contract's Account</title>
     <script type="text/javascript" language="javascript">
        function myshowHide(id) {
            HideAll();

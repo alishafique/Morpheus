@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewIncidentReports.aspx.cs" Inherits="Morpheus.Accounts.viewIncidentReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     
+     <title>Incident Reports</title>
      <!-- DataTables CSS -->
     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
 

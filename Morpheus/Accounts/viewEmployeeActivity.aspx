@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewEmployeeActivity.aspx.cs" Inherits="Morpheus.Accounts.viewEmployeeActivity" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>View Jobs/Activities</title>
       <style type="text/css">
       .hidden-field {
             display: none;
@@ -61,9 +62,6 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <%--<asp:ScriptManager ID="ScriptManager1" runat="server">
-
-</asp:ScriptManager>--%>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -98,15 +96,16 @@
                                         <ItemStyle CssClass="hidden-field" />
                                        <HeaderStyle CssClass="hidden-field" />
                                    </asp:BoundField>
-                                   <asp:BoundField DataField="Activity_Name" HeaderText="Activity_Name" />
-                                   <asp:BoundField DataField="Activity_Location" HeaderText="Activity Location" />
-                                   <asp:BoundField DataField="Activity_Type" HeaderText="Activity Type" />
-                                  <asp:BoundField DataField="startDate" HeaderText="ToStartDate" />
+                                   <asp:BoundField DataField="Activity_Name" HeaderText="Name" />
+                                   <asp:BoundField DataField="Activity_Location" HeaderText="Location" />
+                                   <asp:BoundField DataField="Activity_Type" HeaderText="Type" />
+                                  <asp:BoundField DataField="startDate" HeaderText="Start Date" DataFormatString="{0:d}" />
                                    <asp:BoundField DataField="Activity_Description" HeaderText="Description">
                                         <ItemStyle CssClass="hidden-field" />
                                        <HeaderStyle CssClass="hidden-field" />
                                    </asp:BoundField>                               
-                                    <asp:BoundField DataField="ActivityStartedDate" HeaderText="ActivityStartedDate" />
+                                    <asp:BoundField DataField="ActivityStartedDate" HeaderText="Started Date" />
+                                   <asp:BoundField DataField="endDateTime" HeaderText="End Date"  />
                                    <asp:BoundField DataField="Activity_Status" HeaderText="Status" >
                                    </asp:BoundField>
                                </Columns>
@@ -156,21 +155,8 @@
                             <asp:Label ID="lblStartDate" runat="server" Text=""></asp:Label>
                         </div>
 
-                        <asp:Button ID="btnStart" class="btn btn-success btn-lg btnRound" runat="server" Text="Start Activity" OnClick="btnStart_Click"/>
+                        <asp:Button ID="btnStart" class="btn btn-success btn-lg btnRound" runat="server" Visible="false" Text="Start Activity" OnClick="btnStart_Click"/>
                     </div>
-
-
-
-                 <%--   <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="btnStart"
-                        CancelControlID="btnSubmitSurvey" BackgroundCssClass="Background">
-                    </cc1:ModalPopupExtender>
-                    <asp:Panel ID="Panl1" runat="server" CssClass="Popup" align="center" Style="display: none">
-                        <iframe style="width: 100%; height: 100%;" id="irm1" src="survey.aspx" runat="server"></iframe>
-                        <br />
-                        <asp:Button ID="btnSubmitSurvey" runat="server" Text="Submit" OnClick="btnSubmitSurvey_Click" />
-                    </asp:Panel>--%>
-
-
                 </div>
             </div>
 

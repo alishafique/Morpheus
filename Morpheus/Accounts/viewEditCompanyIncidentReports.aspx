@@ -3,6 +3,7 @@
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>View Incident Reports</title>
     <style type="text/css">      
         #mask
         {
@@ -183,13 +184,15 @@
                 
                 <asp:Panel ID="pnlpopup" runat="server" BackColor="Gray" 
                     Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
-                    <div class =" form-group" style="display:block;"> 
+                    <div class =" form-group" style="display:block; padding:5px;"> 
                             <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" />
-                      <%--  <asp:RadioButton ID="rdExcel" CssClass="radio-inline" GroupName="export" Text="Excel" runat="server" />--%>
                             <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" OnClick="btnExport_Click" Text="Export" />
+                        <%--<asp:Button ID="btnClose" CssClass="btn btn-primary" style="float:right;" runat="server" Text="Close" OnClick="btnClose_Click" />--%>
+                        <button type="button" style="float: right;" class="btnClose btn btn-danger btn-circle" onclick="HidePopup();">
+                            <i class="fa fa-times"></i>
+                        </button>
                         </div>
-                    <div class="form-group" style="padding:5px 5px 5px 5px;">
-                     <%--<CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" HasCrystalLogo="False" ToolPanelView="None" />--%>
+                    <div class="form-group" style="padding:5px;">
                         <asp:ScriptManager ID="ScriptManager1" runat="server">
                         </asp:ScriptManager>
                         <rsweb:ReportViewer ID="rptViewer" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="732px" Height="900px">
@@ -271,9 +274,9 @@
                     <div class="form-group" style="margin-top: 15px;">
                         <asp:Panel ID="pnlDisplayImage" runat="server"></asp:Panel>
                     </div>
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <asp:Button ID="btnClose" CssClass="btn btn-primary" runat="server" Text="Close" OnClick="btnClose_Click" />
-                    </div>
+                    </div>--%>
                  </asp:Panel>
                 <div class="form-group">
                     

@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="ViewEmployeeList.aspx.cs" ValidateRequest="false" Inherits="Morpheus.Accounts.ViewEmployeeList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Employees List</title>
       <style type="text/css">
       .hidden-field {
             display: none;

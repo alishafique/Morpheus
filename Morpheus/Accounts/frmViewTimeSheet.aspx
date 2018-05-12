@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmViewTimeSheet.aspx.cs" Inherits="Morpheus.Accounts.frmViewTimeSheet" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Timesheets</title>
      <style type="text/css">
         .hidden-field {
             display: none;

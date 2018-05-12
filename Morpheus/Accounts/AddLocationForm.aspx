@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="AddLocationForm.aspx.cs" Inherits="Morpheus.Accounts.AddLocationForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Add Location</title>
     <style type="text/css">
         .hidden-field {
             display: none;

@@ -43,5 +43,60 @@ namespace Controller
                 return null;
             }
         }
+        public bool StartActivity(int ActivityId, string ActivityResult, string FormLocation, string Activity_Status, string CLoc)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageActivity";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "StartActivity";
+                cmd.Parameters.Add("@ActivityId", SqlDbType.BigInt).Value = ActivityId;
+                cmd.Parameters.Add("@ActivityResult", SqlDbType.VarChar).Value = ActivityResult;
+                cmd.Parameters.Add("@FormLocation", SqlDbType.VarChar).Value = FormLocation;
+                cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = Activity_Status;
+                cmd.Parameters.Add("@CurrentLocation", SqlDbType.VarChar).Value = CLoc;
+                if (con.InsertUpdateDataUsingSp(cmd))
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
+        public bool EndActivity(int ActivityId, string Activity_Status)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageActivity";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ENDACTIVITY";
+                cmd.Parameters.Add("@ActivityId", SqlDbType.BigInt).Value = ActivityId;
+                cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = Activity_Status;
+                if (con.InsertUpdateDataUsingSp(cmd))
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
     }
 }

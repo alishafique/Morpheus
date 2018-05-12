@@ -58,6 +58,7 @@ namespace Morpheus.Accounts
                 {
                     dtgridview_viewActivity.DataSource = dt;
                     dtgridview_viewActivity.DataBind();
+                    ViewState["dtActivity"] = dt;
                 }
                 else
                     showErrorMessage(objView.ErrorString, false);
@@ -79,35 +80,71 @@ namespace Morpheus.Accounts
         {
             try
             {
+               
                 loadEmployees();
+                dt = new DataTable();
+                dt = (DataTable)ViewState["dtActivity"];
                 GridViewRow row = dtgridview_viewActivity.SelectedRow;
-               textbox_activityID.Text= row.Cells[1].Text;
+                textbox_activityID.Text = row.Cells[1].Text;
 
-                for(int i=0;i<listEmployees.Items.Count;i++)
+                foreach (DataRow dr in dt.Rows)
                 {
-                    string[] temp = listEmployees.Items[i].Text.Split('-');
-                    if ( temp[1].Trim() == row.Cells[2].Text)
-                        listEmployees.Items[i].Selected = true;
-                }
-                string[] tempUrl = row.Cells[9].Text.Split(',');
-                foreach (ListItem item in cbFormsList.Items)
-                {
-                    for (int i = 0; i < tempUrl.Length; i++)
+                    if (textbox_activityID.Text == dr["ActivityID"].ToString())
                     {
-                        if (item.Value == tempUrl[i])
-                            item.Selected = true;
+                        for (int i = 0; i < listEmployees.Items.Count; i++)
+                        {
+                            string[] temp = listEmployees.Items[i].Text.Split('-');
+                            if (temp[1].Trim() == dr["email"].ToString())
+                                listEmployees.Items[i].Selected = true;
+                        }
+
+                        string[] tempUrl = dr["formsAttached"].ToString().Split(',');
+                        foreach (ListItem item in cbFormsList.Items)
+                        {
+                            for (int i = 0; i < tempUrl.Length; i++)
+                            {
+                                if (item.Value == tempUrl[i])
+                                    item.Selected = true;
+                            }
+                        }
+
+                        txtbox_ActivityName.Text = dr["Activity_Name"].ToString();
+                        TextBox_site.Text = dr["Activity_Location"].ToString();
+                        dp_ActivityType.SelectedValue = dr["Activity_Type"].ToString();
+                        TextBox_Description.Text = dr["Activity_Description"].ToString().Trim().Replace("&nbsp;", "");
+                        TextBox_startDate.Text = dr["startDate"].ToString();
+                        textbox_Status.Text = dr["Activity_Status"].ToString().Trim();
+                        btnUpdateActivity.Enabled = true;
+                        listEmployees.Focus();
                     }
                 }
 
+
+                //for (int i = 0; i < listEmployees.Items.Count; i++)
+                //{
+                //    string[] temp = listEmployees.Items[i].Text.Split('-');
+                //    if (temp[1].Trim() == row.Cells[2].Text)
+                //        listEmployees.Items[i].Selected = true;
+                //}
+                //string[] tempUrl = row.Cells[9].Text.Split(',');
+                //foreach (ListItem item in cbFormsList.Items)
+                //{
+                //    for (int i = 0; i < tempUrl.Length; i++)
+                //    {
+                //        if (item.Value == tempUrl[i])
+                //            item.Selected = true;
+                //    }
+                //}
+
                 // listEmployees.SelectedIndex = listEmployees.FindControl(row.Cells[2].Text);
-                txtbox_ActivityName.Text = row.Cells[3].Text.Trim();
-                TextBox_site.Text = row.Cells[4].Text.Trim();
-               dp_ActivityType.SelectedValue = row.Cells[5].Text.Trim();
-                TextBox_Description.Text = row.Cells[6].Text.Trim().Replace("&nbsp;","");
-                TextBox_startDate.Text = row.Cells[7].Text;
-                textbox_Status.Text = row.Cells[8].Text.Trim();
-                btnUpdateActivity.Enabled = true;
-                listEmployees.Focus();
+               // txtbox_ActivityName.Text = row.Cells[3].Text.Trim();
+               // TextBox_site.Text = row.Cells[4].Text.Trim();
+               //dp_ActivityType.SelectedValue = row.Cells[5].Text.Trim();
+               // TextBox_Description.Text = row.Cells[6].Text.Trim().Replace("&nbsp;","");
+               // TextBox_startDate.Text = row.Cells[7].Text;
+               // textbox_Status.Text = row.Cells[8].Text.Trim();
+               // btnUpdateActivity.Enabled = true;
+               // listEmployees.Focus();
                 
             }
             catch (Exception ex)

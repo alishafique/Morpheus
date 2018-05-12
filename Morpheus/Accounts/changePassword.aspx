@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="changePassword.aspx.cs" Inherits="Morpheus.Accounts.changePassword" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Change Password</title>
     <script type="text/javascript">
         function validateLength(oSrc, args) {
             args.IsValid = (args.Value.length >= 6 && args.Value.length <= 15);

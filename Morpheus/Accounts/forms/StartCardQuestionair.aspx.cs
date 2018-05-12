@@ -45,14 +45,14 @@ namespace Morpheus.Accounts
                 }
                 if(CheckDesireAnswer())
                 {
-                    bool result = objController.StartActivity(int.Parse(txtTask.Text), int.Parse(Session["userid"].ToString()), "Completed", "form/StartCardQuestionair.aspx", "Started", DateTime.Now);
-                    if (result)
-                    {
+                    //bool result = objController.StartActivity(int.Parse(txtTask.Text), int.Parse(Session["userid"].ToString()), "Completed", "form/StartCardQuestionair.aspx", "Started", DateTime.Now);
+                    //if (result)
+                    //{
                         Session["SuccessMsg"] = "Congratulations your job has been started";
-                        Response.Redirect("../viewEmployeeActivity.aspx");
-                    }
-                    else
-                        showErrorMessage(objController._errorMsg, false);
+                        Response.Redirect("../StartActivity.aspx");
+                    //}
+                    //else
+                    //    showErrorMessage(objController._errorMsg, false);
                 }
             }
             catch(Exception ex)
@@ -120,7 +120,7 @@ namespace Morpheus.Accounts
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("../viewEmployeeActivity.aspx");
+            Response.Redirect("../StartActivity.aspx");
         }
     }
 }

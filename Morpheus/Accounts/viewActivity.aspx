@@ -2,6 +2,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>View Activity/Jobs</title>
     <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>
     <script src="js/calendar-en.min.js" type="text/javascript"></script>
     <link href="css/calendar-blue.css" rel="stylesheet" type="text/css" />
@@ -105,9 +106,10 @@
                                     <ItemStyle CssClass="hidden-field" />
                                     <HeaderStyle CssClass="hidden-field" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="startDate" HeaderText="StartDate" />
+                                <asp:BoundField DataField="startDate" HeaderText="StartDate" DataFormatString="{0:d}" />
+                                 <asp:BoundField DataField="ActivityStartedDate" HeaderText="Started Date" />
+                                   <asp:BoundField DataField="endDateTime" HeaderText="End Date"  />
                                 <asp:BoundField DataField="Activity_Status" HeaderText="Status" />
-
                                 <asp:BoundField DataField="formsAttached" HeaderText="formsAttached">
                                     <ItemStyle CssClass="hidden-field" />
                                     <HeaderStyle CssClass="hidden-field" />
