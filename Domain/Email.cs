@@ -201,7 +201,7 @@ namespace Domain
                     "<p>The following roster has been published starting from date "+StartDate+ " and ending on" +endDate+".</p>"+
                     "<br/>"+
                      str+
-                    "<br />Please visit www.seguro.com.au to logIn" +
+                    "<br />Please visit https://seguro.com.au/Accounts/login.aspx to logIn" +
                     "<p>Important:</p>" +
                     "<p> - Do not reply to this Email.</p>" +
                     "<p> - Please login to manage your profile.</p>" +

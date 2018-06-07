@@ -22,6 +22,7 @@ namespace Morpheus
             {
                 if (!this.IsPostBack)
                 {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "getLocation()", true);
                     txtbox_dateTimePicker.Text = DateTime.Now.ToString();
                     lblUserName.Text = Session["UserName"].ToString();
                     if (Session["UserTypeID"].ToString() == "1")
@@ -74,7 +75,8 @@ namespace Morpheus
                     Status = "unseen",
                     reportDateTime = DateTime.Parse(txtbox_dateTimePicker.Text),
                     Location = txtbox_siteName.Text,
-                    ActionTaken = txtbox_actionTaken.Text
+                    ActionTaken = txtbox_actionTaken.Text,
+                    ReportedLocation = currentlocation.Text
                 };
 
                 if (Session["UserTypeID"].ToString() == "3")

@@ -59,8 +59,8 @@ namespace Controller
                 cmd.Parameters.Add("@location", SqlDbType.VarChar).Value = obj.Location;
                 cmd.Parameters.Add("@actionTaken", SqlDbType.VarChar).Value = obj.ActionTaken;
                 cmd.Parameters.Add("@UpdatedbyId", SqlDbType.BigInt).Value = obj.ReportedBy;
-                if(con.InsertUpdateDataUsingSp(cmd) == true)
-                return true;
+                if (con.InsertUpdateDataUsingSp(cmd))
+                    return true;
                 else
                 {
                     ErrorString = con.strError;
@@ -90,6 +90,31 @@ namespace Controller
                 {
                     return dt;
                 }
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
+        public DataTable loadRptTypesByCompanyTypes(int userID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManageIncidentReportTypes";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ViewIncidentReportTypesByCompanyType";
+                cmd.Parameters.Add("@user_id", SqlDbType.BigInt).Value = userID;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
                 else
                 {
                     ErrorString = con.strError;

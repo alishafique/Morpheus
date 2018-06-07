@@ -103,6 +103,15 @@ namespace Morpheus {
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
         
         /// <summary>
+        /// currentlocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox currentlocation;
+        
+        /// <summary>
         /// txtbox_ReportedBy control.
         /// </summary>
         /// <remarks>

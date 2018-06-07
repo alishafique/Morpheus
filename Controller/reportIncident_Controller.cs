@@ -34,6 +34,7 @@ namespace Controller
                 cmd.Parameters.Add("@dateTime", SqlDbType.DateTime).Value = objIncidentReport.reportDateTime;
                 cmd.Parameters.Add("@location", SqlDbType.VarChar).Value = objIncidentReport.Location;
                 cmd.Parameters.Add("@actionTaken", SqlDbType.VarChar).Value = objIncidentReport.ActionTaken;
+                cmd.Parameters.Add("@incidenteportedLocation", SqlDbType.VarChar).Value = objIncidentReport.ReportedLocation;
                 val = con.InsertUpdateDataUsingSpWithReturn(cmd);
                 if (val != 0)
                     return val;

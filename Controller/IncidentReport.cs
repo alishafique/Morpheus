@@ -19,6 +19,7 @@ namespace Controller
         public string Severitylevel { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
+        public string ReportedLocation { get; set; }
 
         public DateTime reportDateTime { get; set; }
 

@@ -27,7 +27,7 @@ namespace Controller
                 strQuery = "spManageActivity";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "LoadTodaysActivity";
-                cmd.Parameters.Add("@AssigneduserID", SqlDbType.BigInt).Value = empUId;
+                cmd.Parameters.Add("@UserID", SqlDbType.BigInt).Value = empUId;
                 dt = con.GetDataUsingSp(cmd);
                 if (dt != null)            
                     return dt;
@@ -72,7 +72,33 @@ namespace Controller
             }
         }
 
-        public bool EndActivity(int ActivityId, string Activity_Status)
+        public bool StartActiviyWithoutForm(int ActivityId, string Activity_Status, string CLoc)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageActivity";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "StartActiviyWithoutForm";
+                cmd.Parameters.Add("@ActivityId", SqlDbType.BigInt).Value = ActivityId;
+                cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = Activity_Status;
+                cmd.Parameters.Add("@CurrentLocation", SqlDbType.VarChar).Value = CLoc;
+                if (con.InsertUpdateDataUsingSp(cmd))
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+        public bool EndActivity(int ActivityId, string Activity_Status, string endLocation)
         {
             try
             {
@@ -82,6 +108,7 @@ namespace Controller
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ENDACTIVITY";
                 cmd.Parameters.Add("@ActivityId", SqlDbType.BigInt).Value = ActivityId;
                 cmd.Parameters.Add("@Activity_Status", SqlDbType.VarChar).Value = Activity_Status;
+                cmd.Parameters.Add("@EndCurrentLocation", SqlDbType.VarChar).Value = endLocation;
                 if (con.InsertUpdateDataUsingSp(cmd))
                     return true;
                 else

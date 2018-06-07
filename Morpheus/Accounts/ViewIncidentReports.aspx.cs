@@ -15,7 +15,7 @@ namespace Morpheus.Accounts
     {
         DataTable dt;
         ViewIncidentReprots_Controller objInc;
-        Dictionary<string, Int16> severanityLevel = new Dictionary<string, Int16>();
+        Dictionary<string, string> severanityLevel = new Dictionary<string, string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -24,6 +24,7 @@ namespace Morpheus.Accounts
                 {
                     if (Session["UserTypeID"].ToString() == "3")
                     {
+                        LoadCompanyType();
                         loadReports(int.Parse(Session["userid"].ToString()));
                         btnUpdateReport.Enabled = false;
                     }
@@ -96,20 +97,25 @@ namespace Morpheus.Accounts
         {
             try
             {
+                clearTxtBox();
+                DataTable dtComType = new DataTable();
+                dtComType = (DataTable)ViewState["CompanyType"];
                 dt = new DataTable();
                 objInc = new ViewIncidentReprots_Controller();
-                severanityLevel.Add("Level 1 - Immediate response, threat of injury or death", 0);
-                severanityLevel.Add("Level 2 – Within 1 hour, no physical danger, work has ceased", 1);
-                severanityLevel.Add("Level 3 – Within 3 hours, no physical danger, work has been", 2);
 
+                foreach(DataRow dr in dtComType.Rows)
+                {
+                    severanityLevel.Add(dr["RptTpye"].ToString(), dr["id"].ToString());
+                }
                 GridViewRow row = dtgridview_IncidentReports.SelectedRow;
                 TextBox_ReportId.Text = row.Cells[1].Text;
                 TextBox_reportedBy.Text = row.Cells[2].Text;
                 TextBox_reportedTo.Text = row.Cells[3].Text;
 
+               // dp_severityLevel.SelectedItem.Text = row.Cells[4].Text;
                 if (severanityLevel.ContainsKey(row.Cells[4].Text))
                 {
-                    dp_severityLevel.SelectedIndex = severanityLevel[row.Cells[4].Text];
+                    dp_severityLevel.SelectedValue = severanityLevel[row.Cells[4].Text];
                 }
                 txtbox_Description.Text = row.Cells[5].Text;
                 txtbox_siteName.Text = row.Cells[8].Text;
@@ -134,6 +140,8 @@ namespace Morpheus.Accounts
                         pnlDisplayImage.Controls.Add(p);
                     }
                 }
+
+                btnUpdateReport.Focus();
             }
             catch (Exception ex)
             {
@@ -179,17 +187,18 @@ namespace Morpheus.Accounts
                     Severitylevel = dp_severityLevel.SelectedItem.ToString(),
                     Description = txtbox_Description.Text,
                     Status = "unseen",
-                    //reportDateTime = DateTime.Parse(txtbox_dateTimePicker.Text),
                     Location = txtbox_siteName.Text,
                     ActionTaken = txtbox_actionTaken.Text
                 };
-                if (objInc.updateIncidentReportByEmployee(objIncdentReport, int.Parse(TextBox_ReportId.Text)) ==  true)
+                if (objInc.updateIncidentReportByEmployee(objIncdentReport, int.Parse(TextBox_ReportId.Text)))
                 {
                     showErrorMessage("Report Updated Successfully", true);
                     loadReports(int.Parse(Session["userid"].ToString()));
                     clearTxtBox();
                     btnUpdateReport.Enabled = false;
                 }
+                else
+                    showErrorMessage(objInc.ErrorString, false);
 
             }
             catch(Exception ex)
@@ -197,6 +206,29 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message + ". Contact Administrator", false);
             }
 
+        }
+        private void LoadCompanyType()
+        {
+            try
+            {
+                objInc = new ViewIncidentReprots_Controller();
+                dt = new DataTable();
+                dt = objInc.loadRptTypesByCompanyTypes(Convert.ToInt32(Session["userid"].ToString()));
+                if (dt != null)
+                {
+                    dp_severityLevel.DataSource = dt;
+                    dp_severityLevel.DataTextField = "RptTpye";
+                    dp_severityLevel.DataValueField = "id";
+                    dp_severityLevel.DataBind();
+                    ViewState["CompanyType"] = dt;
+                }
+                else
+                    showErrorMessage(objInc.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
         }
     }
 }

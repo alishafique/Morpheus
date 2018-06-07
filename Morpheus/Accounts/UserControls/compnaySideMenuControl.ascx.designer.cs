@@ -31,6 +31,24 @@ namespace Morpheus.Accounts.UserControls {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_ViewEmployees;
         
         /// <summary>
+        /// SubContractorShowhide control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SubContractorShowhide;
+        
+        /// <summary>
+        /// ActivityPlugin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ActivityPlugin;
+        
+        /// <summary>
         /// LinkButton_CreateActivity control.
         /// </summary>
         /// <remarks>
@@ -47,5 +65,32 @@ namespace Morpheus.Accounts.UserControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_ViewActivities;
+        
+        /// <summary>
+        /// IncidentPlugin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl IncidentPlugin;
+        
+        /// <summary>
+        /// FormBuilderPlugin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl FormBuilderPlugin;
+        
+        /// <summary>
+        /// RosterPlugin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RosterPlugin;
     }
 }

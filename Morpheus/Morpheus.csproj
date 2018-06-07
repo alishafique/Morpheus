@@ -252,6 +252,7 @@
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
     <Content Include="Accounts\FormBuilder.aspx" />
     <Content Include="Accounts\forms\Induction.aspx" />
+    <Content Include="Accounts\frmActivateDeActivatePlugins.aspx" />
     <Content Include="Accounts\frmCreateRoaster.aspx" />
     <Content Include="Accounts\frmManageCompanyTypes.aspx" />
     <Content Include="Accounts\frmManageincidentReportTypes.aspx" />
@@ -349,9 +350,9 @@
     <Content Include="Accounts\Reports\dsIncidentReport.xss">
       <DependentUpon>dsIncidentReport.xsd</DependentUpon>
     </Content>
-    <None Include="scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="scripts\jquery-1.6.4.js" />
-    <Content Include="scripts\jquery-1.6.4.min.js" />
+    <None Include="scripts\jquery-1.7-vsdoc.js" />
+    <Content Include="scripts\jquery-1.7.js" />
+    <Content Include="scripts\jquery-1.7.min.js" />
     <Content Include="scripts\jquery.signalR-2.2.2.js" />
     <Content Include="scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="WebForm1.aspx" />
@@ -525,6 +526,13 @@
     </Compile>
     <Compile Include="Accounts\forms\Induction.aspx.designer.cs">
       <DependentUpon>Induction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmActivateDeActivatePlugins.aspx.cs">
+      <DependentUpon>frmActivateDeActivatePlugins.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmActivateDeActivatePlugins.aspx.designer.cs">
+      <DependentUpon>frmActivateDeActivatePlugins.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\frmCreateRoaster.aspx.cs">
       <DependentUpon>frmCreateRoaster.aspx</DependentUpon>
@@ -828,7 +836,6 @@
   <ItemGroup>
     <Folder Include="Accounts\css\images\" />
     <Folder Include="Accounts\upload\" />
-    <Folder Include="crystalreportviewers13\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

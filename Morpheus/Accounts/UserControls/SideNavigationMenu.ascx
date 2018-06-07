@@ -58,6 +58,7 @@
                                 <li><a href="addUpdateNews.aspx">Add/Update News</a> </li>
                                 <li><a href="frmManageCompanyTypes.aspx">Manage Company types</a> </li>
                                 <li><a href="frmManageincidentReportTypes.aspx">Manage Incidents types</a> </li>
+                                <li><a href="frmActivateDeActivatePlugins.aspx">Manage Plugins</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

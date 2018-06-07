@@ -186,7 +186,7 @@
                     Width="90%" Style="z-index: 111; background-color: White; position: absolute; top: 0%; display: none">
                     <div class =" form-group" style="display:block; padding:5px;"> 
                             <asp:RadioButton ID="rdPdf" CssClass="radio-inline" GroupName="export" Text="PDF" runat="server" />
-                            <asp:Button ID="btnExport" CssClass="btn btn-primary" runat="server" OnClick="btnExport_Click" Text="Export" />
+                            <asp:Button ID="btnExport" CssClass="btn btn-primary" CausesValidation="false" runat="server" OnClick="btnExport_Click" Text="Export" />
                         <%--<asp:Button ID="btnClose" CssClass="btn btn-primary" style="float:right;" runat="server" Text="Close" OnClick="btnClose_Click" />--%>
                         <button type="button" style="float: right;" class="btnClose btn btn-danger btn-circle" onclick="HidePopup();">
                             <i class="fa fa-times"></i>
@@ -271,7 +271,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                    <div class="form-group" style="margin-top: 15px;">
+                    <div class="form-group" style="margin-top: 15px; padding:5px;">
                         <asp:Panel ID="pnlDisplayImage" runat="server"></asp:Panel>
                     </div>
                     <%--<div class="form-group">

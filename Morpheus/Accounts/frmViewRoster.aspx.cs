@@ -23,7 +23,7 @@ namespace Morpheus.Accounts
                     if (Session["UserTypeID"].ToString() == "3")
                     {
                         loadDate();
-                        LoadEmployeesShift();
+                        LoadEmployeesShift(lblStartWeekDate.Text, lblEndWeekdate.Text);
                     }
                     else
                         Response.Redirect("login.aspx");
@@ -35,12 +35,13 @@ namespace Morpheus.Accounts
             }
         }
 
-        private void LoadEmployeesShift()
+        private void LoadEmployeesShift(string startDate, string EndDate)
         {
             try
             {
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
+                resetLabel();
+                string[] stD = startDate.Split('-');
+                string[] endD = EndDate.Split('-');
                 dt = new DataTable();
                 obj = new frmViewRoster_Controller();
                 dt = obj.LoadEmployeeRoster(int.Parse(Session["userid"].ToString()), DateTime.Parse(stD[1]), DateTime.Parse(endD[1]));
@@ -92,6 +93,12 @@ namespace Morpheus.Accounts
                         grdViewShifts.FooterRow.Cells[4].Text = total.ToString("N2");
                         grdViewShifts.FooterRow.Cells[4].Font.Bold = true;
                     }
+                    else
+                    {
+                        grdViewShifts.DataSource = null;
+                        grdViewShifts.DataBind();
+                        showErrorMessage("No Roster for selected Date", false);
+                    }
                 }
                 else
                     showErrorMessage(obj.ErrorString, false);
@@ -116,6 +123,102 @@ namespace Morpheus.Accounts
 
         }
 
+
+        protected void btnPrevious_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] stD = lblStartWeekDate.Text.Split('-');
+                string[] endD = lblEndWeekdate.Text.Split('-');
+
+                DateTime ldowDate = DateTime.Parse(stD[1]).AddDays(-1);
+                DateTime fdowDate = ldowDate.AddDays(-6);
+                lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
+                lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
+
+                LoadEmployeesShift(lblStartWeekDate.Text, lblEndWeekdate.Text);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        protected void bntNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string[] stD = lblStartWeekDate.Text.Split('-');
+                string[] endD = lblEndWeekdate.Text.Split('-');
+
+                DateTime fdowDate = DateTime.Parse(endD[1]).AddDays(1);
+                DateTime ldowDate = fdowDate.AddDays(6);
+                lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
+                lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
+
+                LoadEmployeesShift(lblStartWeekDate.Text, lblEndWeekdate.Text);
+
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        protected void grdViewShifts_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                obj = new frmViewRoster_Controller();
+                if (e.CommandName.ToString().ToUpper() == "ACCEPTSHIFT")
+                {
+                    if (obj.UpdateEmployeeRoster(Guid.Parse(e.CommandArgument.ToString().Trim()), "Accepted"))
+                    {
+                        LoadEmployeesShift(lblStartWeekDate.Text, lblEndWeekdate.Text);
+                        showErrorMessage("Shift Accepted", true);
+                    }
+                    else
+                        showErrorMessage(obj.ErrorString, false);
+                }
+                if(e.CommandName.ToString().ToUpper() == "REJECTSHIFT")
+                {
+                    if (obj.UpdateEmployeeRoster(Guid.Parse(e.CommandArgument.ToString().Trim()), "Rejected"))
+                    {
+                        LoadEmployeesShift(lblStartWeekDate.Text, lblEndWeekdate.Text);
+                        showErrorMessage("Shift Rejected", true);
+                    }
+                    else
+                        showErrorMessage(obj.ErrorString, false);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        protected void grdViewShifts_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.Cells[6].Text.ToLower() == "pending")
+                    e.Row.BackColor = System.Drawing.Color.Yellow;
+
+                if (e.Row.Cells[6].Text.ToLower() == "rejected")
+                    e.Row.CssClass = "danger";
+
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    LinkButton lbDelete = (LinkButton)e.Row.FindControl("lbReject");
+                    lbDelete.Attributes.Add("onclick", "return confirm('Are you sure to Reject the Roster/shift ?');");
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)
@@ -137,103 +240,13 @@ namespace Morpheus.Accounts
 
         }
 
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        private void resetLabel()
         {
-            try
-            {
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
+            lblErrorMsg.Text = "";
+            lblsuccessmsg.Text = "";
+            successMsg.Style.Add("display", "none");
+            errorMsg.Style.Add("display", "none");
 
-                DateTime ldowDate = DateTime.Parse(stD[1]).AddDays(-1);
-                DateTime fdowDate = ldowDate.AddDays(-6);
-                lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
-                lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
-
-                LoadEmployeesShift();
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void bntNext_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string[] stD = lblStartWeekDate.Text.Split('-');
-                string[] endD = lblEndWeekdate.Text.Split('-');
-
-                DateTime fdowDate = DateTime.Parse(endD[1]).AddDays(1);
-                DateTime ldowDate = fdowDate.AddDays(6);
-                lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
-                lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
-
-                LoadEmployeesShift();
-
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void grdViewShifts_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            try
-            {
-                obj = new frmViewRoster_Controller();
-                if (e.CommandName.ToString().ToUpper() == "ACCEPTSHIFT")
-                {
-                    if (obj.UpdateEmployeeRoster(Guid.Parse(e.CommandArgument.ToString().Trim()), "Accepted"))
-                    {
-                        LoadEmployeesShift();
-                        showErrorMessage("Shift Accepted", true);
-                    }
-                    else
-                        showErrorMessage(obj.ErrorString, false);
-                }
-                if(e.CommandName.ToString().ToUpper() == "REJECTSHIFT")
-                {
-                    if (obj.UpdateEmployeeRoster(Guid.Parse(e.CommandArgument.ToString().Trim()), "Rejected"))
-                    {
-                        LoadEmployeesShift();
-                        showErrorMessage("Shift Rejected", true);
-                    }
-                    else
-                        showErrorMessage(obj.ErrorString, false);
-                }
-            }
-
-            catch (Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
-        }
-
-        protected void grdViewShifts_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            try
-            {
-                if (e.Row.Cells[6].Text.ToLower() == "pending")
-                {
-                    e.Row.BackColor = System.Drawing.Color.Yellow;
-                }
-                if (e.Row.Cells[6].Text.ToLower() == "rejected")
-                {
-                    e.Row.CssClass = "danger";
-                }
-
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    LinkButton lbDelete = (LinkButton)e.Row.FindControl("lbReject");
-                    lbDelete.Attributes.Add("onclick", "return confirm('Are you sure to Reject the Roster/shift ?');");
-                }
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage(ex.Message, false);
-            }
         }
     }
 }

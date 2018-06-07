@@ -23,7 +23,7 @@
                                 <li> <asp:LinkButton ID="LinkButton_ViewEmployees" runat="server" OnClick="LinkButton_ViewEmployees_Click" CausesValidation="false">View Employees</asp:LinkButton> </li>
                             </ul>
                             </li>
-                        <li>
+                        <li runat="server" id="SubContractorShowhide">
                             <a href="#"><i class="fa fa fa-user fa-fw"></i>Sub-Contractor<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                  <li><a href="AddSubcontractor.aspx">Add Sub-Contractor</a></li>
@@ -32,32 +32,35 @@
                         </li>
                             <!-- /.nav-second-level -->
                    
-                        <li><a href="#"><i class="fa fa-wrench fa-fw"></i>Activity<span class="fa arrow"></span></a>
+                        <li runat="server" id="ActivityPlugin">
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li> <asp:LinkButton ID="LinkButton_CreateActivity" runat="server" CausesValidation="false" OnClick="LinkButton_CreateActivity_Click">Create Activity</asp:LinkButton> </li>
                                 <li><asp:LinkButton ID="LinkButton_ViewActivities" runat="server" CausesValidation="false" OnClick="LinkButton_ViewActivities_Click">View Activities</asp:LinkButton> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li><a href="#"><i class="fa fa-sitemap fa-fw"></i>Incident<span class="fa arrow"></span></a>
+                        <li id="IncidentPlugin" runat="server">
+                            <a href="#">
+                            <i class="fa fa-sitemap fa-fw"></i>Incident<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <%--<li><a href="#">Report Incident</a> </li>--%>
                                 <li><a href="viewEditCompanyIncidentReports.aspx">View Incidents</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
+                        <li id="FormBuilderPlugin" runat="server"><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="#">View Forms</a> </li>
                                 <li><a href="FormBuilder.aspx">Form Builder</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li><a href="#"><i class="fa fa-flash fa-fw"></i>Roster<span class="fa arrow"></span></a>
+                        <li id="RosterPlugin" runat="server"><a href="#"><i class="fa fa-flash fa-fw"></i>Roster<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="AddLocationForm.aspx">Manage Location/Site(s)</a></li>
-                                <li><a href="frmCreateRoaster.aspx">Create Roster</a> </li>
-                                <li><a href="frmViewTimeSheet.aspx">View Time/Sheets</a> </li>
+                                <li><a href="frmCreateRoaster.aspx">Manage/Create Roster</a> </li>
+                                <li><a href="frmViewTimeSheet.aspx">View TimeSheets</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

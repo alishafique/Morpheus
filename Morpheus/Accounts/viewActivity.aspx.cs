@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -26,6 +27,9 @@ namespace Morpheus.Accounts
                             loadActivitiesCreatedByCompany();
                             btnUpdateActivity.Enabled = false;
                             listEmployees.Enabled = false;
+                            loadEmployees();
+                            ViewDetail.Visible = false;
+                            editActivity.Visible = false;
                         }
                         else if(Session["UserTypeID"].ToString() == "4")
                         {
@@ -80,8 +84,8 @@ namespace Morpheus.Accounts
         {
             try
             {
-               
-                loadEmployees();
+                ViewDetail.Visible = false;
+                editActivity.Visible = true;
                 dt = new DataTable();
                 dt = (DataTable)ViewState["dtActivity"];
                 GridViewRow row = dtgridview_viewActivity.SelectedRow;
@@ -112,40 +116,12 @@ namespace Morpheus.Accounts
                         TextBox_site.Text = dr["Activity_Location"].ToString();
                         dp_ActivityType.SelectedValue = dr["Activity_Type"].ToString();
                         TextBox_Description.Text = dr["Activity_Description"].ToString().Trim().Replace("&nbsp;", "");
-                        TextBox_startDate.Text = dr["startDate"].ToString();
+                        TextBox_startDate.Text = DateTime.Parse(dr["startDate"].ToString()).ToShortDateString();
                         textbox_Status.Text = dr["Activity_Status"].ToString().Trim();
                         btnUpdateActivity.Enabled = true;
-                        listEmployees.Focus();
+                        btnUpdateActivity.Focus();
                     }
                 }
-
-
-                //for (int i = 0; i < listEmployees.Items.Count; i++)
-                //{
-                //    string[] temp = listEmployees.Items[i].Text.Split('-');
-                //    if (temp[1].Trim() == row.Cells[2].Text)
-                //        listEmployees.Items[i].Selected = true;
-                //}
-                //string[] tempUrl = row.Cells[9].Text.Split(',');
-                //foreach (ListItem item in cbFormsList.Items)
-                //{
-                //    for (int i = 0; i < tempUrl.Length; i++)
-                //    {
-                //        if (item.Value == tempUrl[i])
-                //            item.Selected = true;
-                //    }
-                //}
-
-                // listEmployees.SelectedIndex = listEmployees.FindControl(row.Cells[2].Text);
-               // txtbox_ActivityName.Text = row.Cells[3].Text.Trim();
-               // TextBox_site.Text = row.Cells[4].Text.Trim();
-               //dp_ActivityType.SelectedValue = row.Cells[5].Text.Trim();
-               // TextBox_Description.Text = row.Cells[6].Text.Trim().Replace("&nbsp;","");
-               // TextBox_startDate.Text = row.Cells[7].Text;
-               // textbox_Status.Text = row.Cells[8].Text.Trim();
-               // btnUpdateActivity.Enabled = true;
-               // listEmployees.Focus();
-                
             }
             catch (Exception ex)
             {
@@ -281,29 +257,91 @@ namespace Morpheus.Accounts
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                string item = e.Row.Cells[3].Text;
-                foreach (Button button in e.Row.Cells[10].Controls.OfType<Button>())
-                {
-                    if (button.CommandName == "Delete")
-                        button.Attributes["onclick"] = "if(!confirm('Do you want to delete " + item + "?')){ return false; };";
-                }
+                LinkButton lbDelete = (LinkButton)e.Row.FindControl("lbDelete");
+                lbDelete.Attributes.Add("onclick", "return confirm('Are you sure to delete?');");
             }
         }
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            objView = new viewActivity_Controller();
-            GridViewRow row = dtgridview_viewActivity.Rows[e.RowIndex];
+        }
 
-            int activityID = int.Parse(row.Cells[1].Text);
+        protected void dtgridview_viewActivity_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName.ToString().ToUpper() == "DELETE")
+                {
+                    objView = new viewActivity_Controller();
+                    int activityID = int.Parse(e.CommandArgument.ToString());
+                    // delete here
+                    if (objView.deleteCompanyCreatedActivity(activityID))
+                        showErrorMessage("Activity deleted.", true);
+                    else
+                        showErrorMessage(objView.ErrorString, false);
 
-            // delete here
-            if (objView.deleteCompanyCreatedActivity(activityID))
-                showErrorMessage("Activity deleted.", true);
+                    loadActivitiesCreatedByCompany();
+                }
+                if (e.CommandName.ToString().ToUpper() == "VIEW")
+                {
+                    ViewDetail.Visible = true;
+                    editActivity.Visible = false;
+                    int activityID = int.Parse(e.CommandArgument.ToString());
+                    objView = new viewActivity_Controller();
+                    dt = new DataTable();
+                    dt = objView.ViewActivityByActId(activityID);
+                    if(dt!=null)
+                    {
+                        if(dt.Rows.Count > 0)
+                        {
+                            lblAName.Text = dt.Rows[0]["Activity_Name"].ToString();
+                            lblActivityID.Text = activityID.ToString().Trim();
+                            lblSite.Text = dt.Rows[0]["Activity_Location"].ToString();
+                            lblType.Text = dt.Rows[0]["Activity_Type"].ToString();
+                            lblDescription.Text = dt.Rows[0]["Activity_Description"].ToString();
+                            lblAssignedToEmlpoyees.Text = dt.Rows[0]["email"].ToString();
+                            lblStatus.Text = dt.Rows[0]["Activity_Status"].ToString(); 
+                            lblStartDate.Text = DateTime.Parse(dt.Rows[0]["startDate"].ToString()).ToShortDateString();
+                            lblForms.Text = dt.Rows[0]["formsAttached"].ToString();
+                            lblStarted.Text = dt.Rows[0]["ActivityStartedDate"].ToString();
+                            lblEnddateTime.Text= dt.Rows[0]["endDateTime"].ToString();
+                            lblStartLocation.Text = dt.Rows[0]["CurrentLocation"].ToString();
+                            lblFinishedLoc.Text = dt.Rows[0]["EndCurrentLocation"].ToString();
+                            lblStartLocation.Focus();
+
+                            if (lblStatus.Text == "FINISHED")
+                                lblStatus.ForeColor = System.Drawing.Color.Green;
+                            else if (lblStatus.Text == "Not-Started")
+                                lblStatus.ForeColor = System.Drawing.Color.Orange;
+                            else if (lblStatus.Text == "Started")
+                                lblStatus.ForeColor = System.Drawing.Color.Green;
+                        }
+
+                        Popup(true);
+                    }
+                    else
+                    {
+                        showErrorMessage(objView.ErrorString, false);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+        void Popup(bool isDisplay)
+        {
+            StringBuilder builder = new StringBuilder();
+            if (isDisplay)
+            {
+                builder.Append("<script language=JavaScript> ShowPopup(); </script>\n");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "ShowPopup", builder.ToString());
+            }
             else
-                showErrorMessage(objView.ErrorString, false);
-
-            
-            loadActivitiesCreatedByCompany();
+            {
+                builder.Append("<script language=JavaScript> HidePopup(); </script>\n");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "HidePopup", builder.ToString());
+            }
         }
     }
 }

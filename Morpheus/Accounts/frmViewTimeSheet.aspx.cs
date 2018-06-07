@@ -159,6 +159,8 @@ namespace Morpheus.Accounts
                 DateTime fdowDate = ldowDate.AddDays(-6);
                 lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
                 lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
+                if (ViewState["EmpID"] != null)
+                    LoadTimeSheet(int.Parse(Session["userid"].ToString()), int.Parse(ViewState["EmpID"].ToString()), DateTime.Parse(fdowDate.Date.ToShortDateString()), DateTime.Parse(ldowDate.ToShortDateString()));
             }
             catch (Exception ex)
             {
@@ -177,6 +179,8 @@ namespace Morpheus.Accounts
                 DateTime ldowDate = fdowDate.AddDays(6);
                 lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
                 lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
+                if (ViewState["EmpID"] != null)
+                    LoadTimeSheet(int.Parse(Session["userid"].ToString()), int.Parse(ViewState["EmpID"].ToString()), DateTime.Parse(fdowDate.Date.ToShortDateString()), DateTime.Parse(ldowDate.ToShortDateString()));
             }
             catch (Exception ex)
             {

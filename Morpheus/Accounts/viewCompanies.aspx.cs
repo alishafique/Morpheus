@@ -72,7 +72,7 @@ namespace Morpheus.Accounts
             }
             catch (Exception ex)
             {
-                showErrorMessage("Unable to load companies: Error= ", false);
+                showErrorMessage("Unable to load companies: Error= "+ex.Message, false);
             }
 
         }

@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="StartActivity.aspx.cs" Inherits="Morpheus.Accounts.StartActivity" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <title>Start Job</title>
     <!-- DataTables CSS -->
     <link href="datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
@@ -81,12 +82,12 @@
                     <br />
                     <label style="text-align: left; padding:5px;">Following are the Today's Jobs you have to do.</label>
                     <div class="panel-body">
-                        <div class="form-group" style="display:block;">
+                        <div class="form-group" style="display:none;">
                             <label>Current Location:</label>
                             <asp:TextBox ID="currentlocation" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
-                        
-                              <asp:GridView ID="dgvLoadTodaysActivity" class="table table-striped table-bordered table-hover"
+
+                        <asp:GridView ID="dgvLoadTodaysActivity" class="table table-striped table-bordered table-hover"
                             runat="server" AutoGenerateColumns="false" OnRowCommand="dgvLoadTodaysActivity_RowCommand" OnRowDataBound="dgvLoadTodaysActivity_RowDataBound"
                                   OnRowDeleting="dgvLoadTodaysActivity_RowDeleting" >
                             <Columns>
@@ -173,6 +174,7 @@
             </div>
 
     <script type="text/javascript">
+
         function getLocation() {
             if (navigator && navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);

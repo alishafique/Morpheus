@@ -30,7 +30,7 @@ namespace Morpheus.Accounts
                         PopulateLocation();
                         loadDate();
                         LoadWeekRang();                     
-                        btnAll_Click(null, null);
+                        //btnAll_Click(null, null);
                         btnUpdate.Visible = false;
                         
                     }
@@ -266,150 +266,158 @@ namespace Morpheus.Accounts
             try
             {     
                 obj = new frmCreateRoaster_Controller();
-                string[] empEmail = txtSearchEmployeeName.Text.Split('-');
+                string[] empList = txtSearchEmployeeName.Text.Split(';');
+                List<string> listEmpEmail = new List<string>(); 
+                foreach(string val in empList)
+                {
+                    if (val != "")
+                    {
+                        string[] tempStr = val.Split('-');
+                        listEmpEmail.Add(tempStr[1].Trim());
+                    }
+                }
                 string[] rosterDayAndDate = new string[2];
-                DataTable dtEmpAv;
                 Roster objRoster = new Roster()
                 {
                     CreatedByID = int.Parse(Session["userid"].ToString())
-                   ,AssignedEmployeeEmail = empEmail[1].Trim()
-                   //,RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim())
                    ,RosterStartTime = DateTime.Parse(dpStartHoursMonday.SelectedItem.Text + ":" + dpStartMinutesMonday.SelectedItem.Text)
                    ,RosterEndTime = DateTime.Parse(dpEndHoursMonday.SelectedItem.Text + ":" + dpEndMinutesMonday.SelectedItem.Text)
                    ,RosterSite = dpSiteMonday.SelectedItem.Text
                    ,RosterTask = txtTaskMonday.Text
                 };
 
-
-
-                if (chkMon.Checked)
+                foreach (string val in listEmpEmail)
                 {
-                    rosterDayAndDate = chkMon.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    objRoster.AssignedEmployeeEmail = val.Trim();
+                    if (chkMon.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkMon.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
-                if (chkTue.Checked)
-                {
-                    rosterDayAndDate = chkTue.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    if (chkTue.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkTue.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
-                if (chkWed.Checked)
-                {
-                    rosterDayAndDate = chkWed.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    if (chkWed.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkWed.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
-                if (chkThu.Checked)
-                {
-                    rosterDayAndDate = chkThu.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    if (chkThu.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkThu.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
-                if (chkFri.Checked)
-                {
-                    rosterDayAndDate = chkFri.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    if (chkFri.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkFri.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
-                if (chkSat.Checked)
-                {
-                    rosterDayAndDate = chkSat.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    if (chkSat.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkSat.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
-                if (chkSun.Checked)
-                {
-                    rosterDayAndDate = chkSun.Text.Split(',');
-                    objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
-
-                    if (checkAvailbility(objRoster))
+                    if (chkSun.Checked)
                     {
-                        if (obj.AddEmployeeRoster(objRoster))
+                        rosterDayAndDate = chkSun.Text.Split(',');
+                        objRoster.RosterDate = DateTime.Parse(rosterDayAndDate[1].Trim());
+
+                        if (checkAvailbility(objRoster))
                         {
-                            showErrorMessage("Roster Added", true);
-                            btnAll_Click(null, null);
+                            if (obj.AddEmployeeRoster(objRoster))
+                            {
+                                showErrorMessage("Roster Added", true);
+                                btnAll_Click(null, null);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
                         }
                         else
-                            showErrorMessage(obj.ErrorString, false);
+                            showErrorMessage(error, false);
                     }
-                    else
-                        showErrorMessage(error, false);
-                }
 
-                clearForm();
+                    clearForm();
+                }
             }
             catch(Exception ex)
             {
@@ -627,6 +635,10 @@ namespace Morpheus.Accounts
             chkFri.Checked = false;
             chkSat.Checked = false;
             chkSun.Checked = false;
+            dpStartHoursMonday.SelectedIndex = 0;
+            dpEndHoursMonday.SelectedIndex = 0;
+            dpStartMinutesMonday.SelectedIndex = 0;
+            dpEndMinutesMonday.SelectedIndex = 0;
         }
         protected void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -729,7 +741,7 @@ namespace Morpheus.Accounts
         {
             try
             {
-                ReSetMsg();
+                //ReSetMsg();
                 btnAll.Enabled = false;
                 btnMon.Enabled = true;
                 btnTue.Enabled = true;

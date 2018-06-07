@@ -34,6 +34,7 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <asp:Label ID="lblErrorMsg" runat="server" Text="" Font-Bold="true" Font-Size="14"></asp:Label>.                             
                 </div>
+                <button type="button" onclick="location.href='ReportIncident.aspx';" style="float: right; margin: 5px;" class="btn btn-success">Report Incident <i class="fa fa-plus-circle"></i></button>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -110,9 +111,9 @@
                                     <div class="form-group">
                                         <label>Severity level:</label>
                                         <asp:DropDownList class="form-control" ID="dp_severityLevel" runat="server">
-                                            <asp:ListItem Value="1">Level 1 - Immediate response, threat of injury or death</asp:ListItem>
+                                          <%--  <asp:ListItem Value="1">Level 1 - Immediate response, threat of injury or death</asp:ListItem>
                                             <asp:ListItem Value="2">Level 2 – Within 1 hour, no physical danger, work has ceased</asp:ListItem>
-                                            <asp:ListItem Value="3">Level 3 – Within 3 hours, no physical danger, work has been</asp:ListItem>
+                                            <asp:ListItem Value="3">Level 3 – Within 3 hours, no physical danger, work has been</asp:ListItem>--%>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group">

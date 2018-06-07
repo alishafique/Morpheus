@@ -110,7 +110,7 @@
                                               <asp:DropDownList ID="dp_CompanyType" CssClass="form-control" runat="server"></asp:DropDownList>
                                         </div>
                                         <div class="form-group">
-                                            <label>Company Type:</label>
+                                            <label>Incident Report Type:</label>
                                             <asp:TextBox class="form-control" ID="txtName" ToolTip="Enter Incident Name"  runat="server"></asp:TextBox>                                    
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtName" Display="Dynamic"
                                                 ErrorMessage="*" Font-Bold="True" Font-Size="Small">*</asp:RequiredFieldValidator>

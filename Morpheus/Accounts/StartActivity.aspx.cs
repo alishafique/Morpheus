@@ -53,8 +53,35 @@ namespace Morpheus.Accounts
         {
             try
             {
+                obj = new StartActivity_Controller();
+                //string ACTID = (string)ViewState["AcID"];
+                dt = new DataTable();
+                dt = (DataTable)ViewState["ActivityOfDays"];
                 Session["ActivityId"] = lblActivityID.Text;
-                Response.Redirect("forms/StartCardQuestionair.aspx");
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (lblActivityID.Text == dr["ActivityID"].ToString())
+                    {
+                        if (dr["formsAttached"].ToString() != "")
+                            Response.Redirect("forms/StartCardQuestionair.aspx");
+                        else
+                        {
+                            bool result = obj.StartActiviyWithoutForm(int.Parse(Session["ActivityId"].ToString()), "Started", Session["CLoc"].ToString());
+                            if (result)
+                            {
+                                Session["SuccessMsg"] = null;
+                                LoadActivity();
+                                btnStart.Enabled = false;
+                                showErrorMessage("Job Started.", true);
+                            }
+                            else
+                                showErrorMessage(obj.ErrorString, false);
+                        }
+                    }
+                }
+
+
+                        
             }
             catch(Exception ex)
             {
@@ -110,6 +137,7 @@ namespace Morpheus.Accounts
                 {
                     Session["CLoc"] = currentlocation.Text;
                     lblActivityID.Text = e.CommandArgument.ToString();
+                    ViewState["AcID"] = lblActivityID.Text;
                     dt = new DataTable();
                     dt = (DataTable)ViewState["ActivityOfDays"];
                     foreach (DataRow dr in dt.Rows)
@@ -134,7 +162,7 @@ namespace Morpheus.Accounts
                 {
                     lblActivityID.Text = e.CommandArgument.ToString();
                     obj = new StartActivity_Controller();
-                    if (obj.EndActivity(int.Parse(lblActivityID.Text), "FINISHED"))
+                    if (obj.EndActivity(int.Parse(lblActivityID.Text), "FINISHED", currentlocation.Text))
                     {
                         LoadActivity();
                         showErrorMessage("Job Finished Successfully.", true);
@@ -167,6 +195,12 @@ namespace Morpheus.Accounts
             {
                 btnstart.Enabled = false;
                 btnEnd.Enabled = false;
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Button btnEndbtn = (Button)e.Row.FindControl("btnEnd");
+                btnEndbtn.Attributes.Add("onclick", "return confirm('Are you sure, you want to End this job ?');");
             }
         }
 

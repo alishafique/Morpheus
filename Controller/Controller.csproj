@@ -70,6 +70,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmActivateDeActivatePlugins_Controller.cs" />
     <Compile Include="frmCreateRoaster_Controller.cs" />
     <Compile Include="frmManageCompanyTypes_Controller.cs" />
     <Compile Include="frmManageincidentReportTypes_Controller.cs" />

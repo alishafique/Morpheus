@@ -43,6 +43,32 @@ namespace Controller
                 return null;
             }
         }
+
+        public DataTable ViewActivityByActId(int ActID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManageActivity"; // Stored procedure Name
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "ViewActivityByActId";
+                cmd.Parameters.Add("@ActivityID", SqlDbType.BigInt).Value = ActID;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+        }
         public DataTable listEmployeesByCompany(int userID)
         {
             try

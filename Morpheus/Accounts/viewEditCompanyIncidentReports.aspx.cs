@@ -351,7 +351,7 @@ namespace Morpheus.Accounts
                     fileName = ViewState["_reportID"].ToString();
                 }
                 else
-                    fileName = "Seguroincidentreport";
+                    fileName = "SeguroIncidentreport_"+Session["userid"].ToString();
                 if (rdPdf.Checked)
                 {
                     bytes = this.rptViewer.LocalReport.Render("PDF", deviceInfo, out mimeType, out encoding, out fileNameExtension, out streams, out warnings);
