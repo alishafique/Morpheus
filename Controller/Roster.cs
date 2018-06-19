@@ -21,6 +21,7 @@ namespace Controller
         protected string _RosterSite = string.Empty;
         protected string _RosterTask = string.Empty;
         protected string _AssignedEmployeeEmail;
+        protected string _ClientName;
         #endregion
 
         #region Class Property
@@ -33,6 +34,7 @@ namespace Controller
         public string RosterSite { get { return _RosterSite; } set { _RosterSite = value; } }
         public string RosterTask { get { return _RosterTask; } set { _RosterTask = value; } }
         public string AssignedEmployeeEmail { get { return _AssignedEmployeeEmail; } set { _AssignedEmployeeEmail = value; } }
+        public string ClientName { get { return _ClientName; } set { _ClientName = value; } }
         #endregion
     }
 }

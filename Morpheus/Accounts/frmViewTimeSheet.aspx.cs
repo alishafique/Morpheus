@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using Controller;
+using System.Drawing;
 
 namespace Morpheus.Accounts
 {
@@ -298,6 +301,67 @@ namespace Morpheus.Accounts
             {
                 showErrorMessage(ex.Message, false);
             }
+        }
+
+        protected void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dt = (DataTable)ViewState["EmpTimeSheet"];
+
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;filename=" + dt.Rows[0]["emp_name"].ToString() + ".xls");
+                Response.Charset = "";
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.ContentType = "application/vnd.ms-excel";
+
+                System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+                System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
+                ClearControls(grdViewShifts);
+                grdViewShifts.RenderControl(htmlWrite);
+                HttpContext.Current.Response.Write(stringWrite.ToString());
+                HttpContext.Current.Response.End();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+
+        private static void ClearControls(System.Web.UI.Control control)
+        {
+            //Recursively loop through the controls, calling this method
+            for (int i = control.Controls.Count - 1; i >= 0; i--)
+            {
+                ClearControls(control.Controls[i]);
+            }
+
+            //If we have a control that is anything other than a table cell
+            if (!(control is TableCell))
+            {
+                if (control.GetType().GetProperty("SelectedItem") != null)
+                {
+                    LiteralControl literal = new LiteralControl();
+                    control.Parent.Controls.Add(literal);
+                    try
+                    {
+                        literal.Text = (string)control.GetType().GetProperty("SelectedItem").GetValue(control, null);
+                    }
+                    catch
+                    {
+                    }
+                    control.Parent.Controls.Remove(control);
+                }
+                else
+                    if (control.GetType().GetProperty("Text") != null)
+                {
+                    LiteralControl literal = new LiteralControl();
+                    control.Parent.Controls.Add(literal);
+                    literal.Text = (string)control.GetType().GetProperty("Text").GetValue(control, null);
+                    control.Parent.Controls.Remove(control);
+                }
+            }
+            return;
         }
     }
 

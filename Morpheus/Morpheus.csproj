@@ -89,6 +89,7 @@
     </Reference>
     <Reference Include="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="Infragistics4.Web.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.WebUI.Documents.Excel.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="Infragistics4.WebUI.Documents.Reports.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="Infragistics4.WebUI.Shared.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
     <Reference Include="Infragistics4.WebUI.WebResizingExtender.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
@@ -254,6 +255,7 @@
     <Content Include="Accounts\forms\Induction.aspx" />
     <Content Include="Accounts\frmActivateDeActivatePlugins.aspx" />
     <Content Include="Accounts\frmCreateRoaster.aspx" />
+    <Content Include="Accounts\frmManageClient.aspx" />
     <Content Include="Accounts\frmManageCompanyTypes.aspx" />
     <Content Include="Accounts\frmManageincidentReportTypes.aspx" />
     <Content Include="Accounts\frmViewMessages.aspx" />
@@ -540,6 +542,13 @@
     </Compile>
     <Compile Include="Accounts\frmCreateRoaster.aspx.designer.cs">
       <DependentUpon>frmCreateRoaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmManageClient.aspx.cs">
+      <DependentUpon>frmManageClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmManageClient.aspx.designer.cs">
+      <DependentUpon>frmManageClient.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\frmManageCompanyTypes.aspx.cs">
       <DependentUpon>frmManageCompanyTypes.aspx</DependentUpon>

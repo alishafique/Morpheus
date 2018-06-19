@@ -132,6 +132,7 @@
                                 <br />
                                
                                 <div class="table-responsive">
+                                    <asp:Button ID="btnExportToExcel" CssClass="btn btn-primary" style="float:left; display:none;" OnClick="btnExportToExcel_Click" runat="server" Text="Export To Excel" />
                                 <asp:GridView ID="grdViewShifts" Width="100%" class="table table-striped table-bordered table-hover" ShowFooter="true"
                                      runat="server" AutoGenerateColumns="False" OnRowCommand="grdViewShifts_RowCommand" OnRowDataBound="grdViewShifts_RowDataBound">
                                     <Columns>

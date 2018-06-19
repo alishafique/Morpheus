@@ -137,6 +137,8 @@ namespace Morpheus.Accounts
 
         private void resetMessage()
         {
+            lblErrorMsg.Text = "";
+            lblsuccessmsg.Text = "";
             successMsg.Style.Add("display", "none");
             errorMsg.Style.Add("display", "none");
         }
@@ -164,13 +166,11 @@ namespace Morpheus.Accounts
                     obj = new AddLocationForm_Controller();
                     if (obj.DeleteLocation(Convert.ToInt32(e.CommandArgument.ToString())))
                     {
+                        LoadLocationNames(int.Parse(Session["userid"].ToString()));
                         showErrorMessage("Location successfully deleted!", true);
-
                     }
                     else
-                    {
                         showErrorMessage(obj.ErrorString, false);
-                    }
                 }
             }
             catch(Exception ex)

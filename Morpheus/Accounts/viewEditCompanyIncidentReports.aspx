@@ -46,6 +46,7 @@
         function HidePopup() {
             $('#mask').hide();
             $('#<%=pnlpopup.ClientID %>').hide();
+            window.location.href = "viewEditCompanyIncidentReports.aspx";
         }
         $(".btnClose").live('click',function () {
             HidePopup();

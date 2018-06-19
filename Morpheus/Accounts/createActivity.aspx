@@ -76,11 +76,14 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>Start Date:</label><asp:Label ID="Label3" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                        <asp:TextBox ID="startDateTime" class="form-control" placeholder="e.g. 08/05/2018 18:30" runat="server"
+                                        <asp:TextBox ID="startDateTime" class="form-control" placeholder="e.g. 08/05/2018 18:30" runat="server" style="float:left; width:93%;"
                                             TextMode="DateTime"></asp:TextBox>
+                                        <img src="images/calender.png" style="float:left; height:22px; width:22px; margin-left: 2px;" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ValidationGroup="c" ControlToValidate="startDateTime" Display="Dynamic" runat="server" SetFocusOnError="true" ErrorMessage="Please enter Start Date of Job/Activity."></asp:RequiredFieldValidator>
                                     </div>
+                                  
                                 </div>
+                                  <br />
                                 <div class="form-group">
                                     <label>Site</label><asp:Label ID="Label2" runat="server" Text="*" ForeColor="Red"></asp:Label>
                                     <asp:TextBox class="form-control" ID="TextBox_site" runat="server" placeholder="Site Name" ToolTip="Activity Site"></asp:TextBox>

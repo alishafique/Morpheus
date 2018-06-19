@@ -30,9 +30,8 @@ namespace Morpheus.Accounts
                         PopulateLocation();
                         loadDate();
                         LoadWeekRang();                     
-                        //btnAll_Click(null, null);
                         btnUpdate.Visible = false;
-                        
+                        LoadClientName(int.Parse(Session["userid"].ToString()));
                     }
                     else
                         Response.Redirect("login.aspx");
@@ -41,10 +40,8 @@ namespace Morpheus.Accounts
                 {
                     Response.Redirect("login.aspx");
                 }
-            }
-           
+            }  
         }
-
         private void LoadHours()
         {
             try
@@ -68,7 +65,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         private void LoadMinutes()
         {
             try
@@ -93,7 +89,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         private void showErrorMessage(string message, bool status)
         {
             ReSetMsg();
@@ -113,7 +108,6 @@ namespace Morpheus.Accounts
             }
 
         }
-
         private void PopulateLocation()
         {
             try
@@ -136,7 +130,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         private void LoadWeekRang()
         {
             try
@@ -163,7 +156,7 @@ namespace Morpheus.Accounts
 
                 DateDropDown.DataSource = weekList;
                 DateDropDown.DataBind();
-
+                ViewState["WeekRange"] = weekList;
                 DateDropDown.SelectedValue = weekList.FirstOrDefault(s => s.Contains(CurrentWeek()));
                 DateDropDown_SelectedIndexChanged(null, null);
 
@@ -173,7 +166,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         private string CurrentWeek()
         {
             string dateToSelect = string.Empty;
@@ -200,7 +192,6 @@ namespace Morpheus.Accounts
 
             return lastDayOfWeek;
         }
-
         private void loadDate()
         {
             DateTime date = DateTime.Now; 
@@ -214,7 +205,6 @@ namespace Morpheus.Accounts
             lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString()+"-"+ ldowDate.ToShortDateString();
 
         }
-
         private bool checkAvailbility(Roster objR)
         {
             dt = new DataTable();
@@ -264,7 +254,8 @@ namespace Morpheus.Accounts
         protected void btnCreateRoster_Click(object sender, EventArgs e)
         {
             try
-            {     
+            {
+                ReSetMsg();
                 obj = new frmCreateRoaster_Controller();
                 string[] empList = txtSearchEmployeeName.Text.Split(';');
                 List<string> listEmpEmail = new List<string>(); 
@@ -284,6 +275,7 @@ namespace Morpheus.Accounts
                    ,RosterEndTime = DateTime.Parse(dpEndHoursMonday.SelectedItem.Text + ":" + dpEndMinutesMonday.SelectedItem.Text)
                    ,RosterSite = dpSiteMonday.SelectedItem.Text
                    ,RosterTask = txtTaskMonday.Text
+                   ,ClientName = dpClients.SelectedItem.Text
                 };
 
                 foreach (string val in listEmpEmail)
@@ -424,11 +416,11 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void DateDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
+                ReSetMsg();
                 string LoadShiftsWeekRange = DateDropDown.SelectedItem.Text.Trim();
                 List<string> dates = new List<string>(LoadWeekDays(LoadShiftsWeekRange));
 
@@ -456,7 +448,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         private List<string> LoadWeekDays(string dpValue)
         {
             string[] dateRangWeek = dpValue.Split('|');
@@ -477,11 +468,11 @@ namespace Morpheus.Accounts
 
             return dateList;
         }
-       
         protected void grdViewShifts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
+                ReSetMsg();
                 obj = new frmCreateRoaster_Controller();
                 if(e.CommandName.ToString().ToUpper() == "EDITROW")
                 {
@@ -536,7 +527,8 @@ namespace Morpheus.Accounts
 
                             // roster site
                             dpSiteMonday.ClearSelection();
-                            dpSiteMonday.Items.FindByText(dt.Rows[i]["RosterSite"].ToString().Trim()).Selected = true;
+                            dpSiteMonday.SelectedIndex = dpSiteMonday.Items.IndexOf(dpSiteMonday.Items.FindByText(dt.Rows[i]["RosterSite"].ToString().Trim()));
+                            //dpSiteMonday.Items.FindByText(dt.Rows[i]["RosterSite"].ToString().Trim()).Selected = true;
 
                             // roster Task
                             txtTaskMonday.Text = dt.Rows[i]["RosterTask"].ToString().Trim(); 
@@ -607,7 +599,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void grdViewShifts_RowDataBound(object sender, GridViewRowEventArgs e)
         {
           
@@ -618,7 +609,6 @@ namespace Morpheus.Accounts
             }
 
         }
-
         private void clearForm()
         {
             txtSearchEmployeeName.Text = "";
@@ -644,6 +634,7 @@ namespace Morpheus.Accounts
         {
             try
             {
+                ReSetMsg();
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
 
@@ -651,7 +642,11 @@ namespace Morpheus.Accounts
                 DateTime fdowDate = ldowDate.AddDays(-6);
                 lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString() + "-" + fdowDate.Date.ToShortDateString();
                 lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
-
+                string dtTimerange = fdowDate.Date.ToShortDateString() + " - " + ldowDate.ToShortDateString();
+                List<string> weekList = (List<string>)ViewState["WeekRange"];
+                string finalWeek = weekList.FirstOrDefault(s => s.Contains(dtTimerange));
+                DateDropDown.ClearSelection();
+                DateDropDown.Items.FindByText(finalWeek).Selected = true;
                 btnAll_Click(null, null);
             }
             catch (Exception ex)
@@ -659,11 +654,11 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void bntNext_Click(object sender, EventArgs e)
         {
             try
             {
+                ReSetMsg();
                 string[] stD = lblStartWeekDate.Text.Split('-');
                 string[] endD = lblEndWeekdate.Text.Split('-');
 
@@ -671,6 +666,11 @@ namespace Morpheus.Accounts
                 DateTime ldowDate = fdowDate.AddDays(6);
                 lblStartWeekDate.Text = fdowDate.DayOfWeek.ToString()+"-"+ fdowDate.Date.ToShortDateString();
                 lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString()+"-"+ ldowDate.ToShortDateString();
+                string dtTimerange = fdowDate.Date.ToShortDateString() + " - "+ ldowDate.ToShortDateString();
+                List<string> weekList = (List<string>)ViewState["WeekRange"];
+                string finalWeek = weekList.FirstOrDefault(s => s.Contains(dtTimerange));
+                DateDropDown.ClearSelection();
+                DateDropDown.Items.FindByText(finalWeek).Selected = true;
 
                 btnAll_Click(null, null);
 
@@ -680,11 +680,11 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
+                ReSetMsg();
                 obj = new frmCreateRoaster_Controller();
                 string[] empEmail = txtSearchEmployeeName.Text.Split('-');
                 string[] rosterDayAndDate = new string[2]; /*= dpSelectDay.SelectedValue.Split(',');*/
@@ -731,12 +731,10 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             clearForm();
         }
-
         protected void btnAll_Click(object sender, EventArgs e)
         {
             try
@@ -819,8 +817,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
-
         protected void btnMon_Click(object sender, EventArgs e)
         {
             try
@@ -916,7 +912,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnTue_Click(object sender, EventArgs e)
         {
             try
@@ -1008,7 +1003,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnWed_Click(object sender, EventArgs e)
         {
             try
@@ -1101,7 +1095,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnThur_Click(object sender, EventArgs e)
         {
             try
@@ -1194,7 +1187,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnFri_Click(object sender, EventArgs e)
         {
             try
@@ -1289,7 +1281,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnSat_Click(object sender, EventArgs e)
         {
             try
@@ -1382,7 +1373,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnSun_Click(object sender, EventArgs e)
         {
             try
@@ -1474,14 +1464,38 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
+        private void LoadClientName(int comID)
+        {
+            try
+            {
+                obj = new frmCreateRoaster_Controller();
+                dt = new DataTable();
+                dt = obj.LoadClients(comID);
+                if (dt != null)
+                {
+                    dt.Columns.Remove("CompanyId");
+                    dpClients.DataSource = dt;
+                    dpClients.DataBind();
+                    ViewState["dtClient"] = dt;
+                }
+                else
+                    showErrorMessage(obj.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
         private void ReSetMsg()
         {
+            lblErrorMsg.Text = "";
+            lblsuccessmsg.Text = "";
+            lblAlert.Text = "";
+            lblTotal.Text = "";
             errorMsg.Style.Add("display", "none");
             successMsg.Style.Add("display", "none");
             AlertDiv.Style.Add("display", "none");
         }
-
         private void showAlertMessage(string msg)
         {
             ReSetMsg();

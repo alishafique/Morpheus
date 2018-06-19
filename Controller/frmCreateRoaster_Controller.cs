@@ -84,6 +84,7 @@ namespace Controller
                 cmd.Parameters.Add("@RosterEndTime", SqlDbType.DateTime).Value = empRoster.RosterEndTime;
                 cmd.Parameters.Add("@RosterSite", SqlDbType.VarChar).Value = empRoster.RosterSite;
                 cmd.Parameters.Add("@RosterTask", SqlDbType.VarChar).Value = empRoster.RosterTask;
+                cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = empRoster.ClientName;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
                 else
@@ -232,6 +233,33 @@ namespace Controller
                 ErrorString = ex.Message;
                 return null;
             }
+        }
+
+        public DataTable LoadClients(int userID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManageCompanyClient";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "View";
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = userID;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    ErrorString = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return null;
+            }
+
         }
     }
 }

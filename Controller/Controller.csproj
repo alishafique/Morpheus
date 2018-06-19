@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="frmActivateDeActivatePlugins_Controller.cs" />
     <Compile Include="frmCreateRoaster_Controller.cs" />
+    <Compile Include="frmManageClient_Controller.cs" />
     <Compile Include="frmManageCompanyTypes_Controller.cs" />
     <Compile Include="frmManageincidentReportTypes_Controller.cs" />
     <Compile Include="frmViewMessages_Controller.cs" />

@@ -58,6 +58,7 @@
                         </li>
                         <li id="RosterPlugin" runat="server"><a href="#"><i class="fa fa-flash fa-fw"></i>Roster<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li><a href="frmManageClient.aspx">Manage Clients</a></li>
                                 <li><a href="AddLocationForm.aspx">Manage Location/Site(s)</a></li>
                                 <li><a href="frmCreateRoaster.aspx">Manage/Create Roster</a> </li>
                                 <li><a href="frmViewTimeSheet.aspx">View TimeSheets</a> </li>

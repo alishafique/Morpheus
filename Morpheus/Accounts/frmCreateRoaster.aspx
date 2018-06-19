@@ -168,7 +168,10 @@
                                         <label>Select Week of Roster:</label>
                                         <asp:DropDownList ID="DateDropDown" CssClass="form-control" CausesValidation="false" AutoPostBack="true" runat="server" OnSelectedIndexChanged="DateDropDown_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label>Select Client:</label>
+                                        <asp:DropDownList ID="dpClients" CssClass="form-control" DataTextField="ClientName" DataValueField="clientId" runat="server"></asp:DropDownList>
+                                    </div>
                                     <div class="form-group">
                                         <label>Select day(s):</label>
                                         <br />
@@ -274,6 +277,7 @@
                                         <asp:BoundField DataField="TotalHours" HeaderText="Total Hours" DataFormatString="" />
                                         <asp:BoundField DataField="RosterSite" HeaderText="Site" />
                                         <asp:BoundField DataField="RosterTask" HeaderText="Task" />
+                                        <asp:BoundField DataField="ClientName" HeaderText="Client" />
                                         <asp:BoundField DataField="RStatus" HeaderText="Status">
                                             <ItemStyle Font-Italic="true" />
                                         </asp:BoundField>

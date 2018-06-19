@@ -8,98 +8,22 @@ using System.Threading.Tasks;
 
 namespace Controller
 {
-
-    public class AddLocationForm_Controller
+    public class frmManageClient_Controller
     {
         DataTable dt;
         Connection con;
         SqlCommand cmd;
         String strQuery;
         public string ErrorString;
+        public frmManageClient_Controller() { }
 
-        public AddLocationForm_Controller() { }
-
-        public bool InsertLocation(int companyID, string locationName)
-        {
-            try
-            {
-                con = new Connection();
-                strQuery = "spManagelocations";
-                cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Insert";
-                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = companyID;
-                cmd.Parameters.Add("@LocationtoName", SqlDbType.VarChar).Value = locationName;
-                if (con.InsertUpdateDataUsingSp(cmd) == true)
-                    return true;
-                else
-                {
-                    ErrorString = con.strError;
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorString = ex.Message;
-                return false;
-            }
-        }
-
-        public bool DeleteLocation(int LocationID)
-        {
-            try
-            {
-                con = new Connection();
-                strQuery = "spManagelocations";
-                cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Delete";
-                cmd.Parameters.Add("@LocationtoId", SqlDbType.BigInt).Value = LocationID;
-                if (con.InsertUpdateDataUsingSp(cmd) == true)
-                    return true;
-                else
-                {
-                    ErrorString = con.strError;
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorString = ex.Message;
-                return false;
-            }
-        }
-
-        public bool UpdateLocation(int LocationID, int compID, string locationName)
-        {
-            try
-            {
-                con = new Connection();
-                strQuery = "spManagelocations";
-                cmd = new SqlCommand(strQuery);
-                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Update";
-                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = compID;
-                cmd.Parameters.Add("@LocationtoName", SqlDbType.VarChar).Value = locationName;
-                cmd.Parameters.Add("@LocationtoId", SqlDbType.BigInt).Value = LocationID;
-                if (con.InsertUpdateDataUsingSp(cmd) == true)
-                    return true;
-                else
-                {
-                    ErrorString = con.strError;
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorString = ex.Message;
-                return false;
-            }
-        }
-        public DataTable LoadLocations(int userID)
+        public DataTable LoadClients(int userID)
         {
             try
             {
                 dt = new DataTable();
                 con = new Connection();
-                strQuery = "spManagelocations";
+                strQuery = "spManageCompanyClient";
                 cmd = new SqlCommand(strQuery);
                 cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "View";
                 cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = userID;
@@ -112,12 +36,84 @@ namespace Controller
                     return null;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorString = ex.Message;
                 return null;
             }
 
+        }
+        public bool InsertClient(int userId, string ClientName)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageCompanyClient";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Insert";
+                cmd.Parameters.Add("@userID", SqlDbType.BigInt).Value = userId;
+                cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = ClientName;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+
+        public bool DeleteClient(int ClientId)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageCompanyClient";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Delete";
+                cmd.Parameters.Add("@clientId", SqlDbType.BigInt).Value = ClientId;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
+        }
+        public bool UpdateClient(int clientId, string CName)
+        {
+            try
+            {
+                con = new Connection();
+                strQuery = "spManageCompanyClient";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "Update";
+                cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = CName;
+                cmd.Parameters.Add("@clientId", SqlDbType.BigInt).Value = clientId;
+                if (con.InsertUpdateDataUsingSp(cmd) == true)
+                    return true;
+                else
+                {
+                    ErrorString = con.strError;
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorString = ex.Message;
+                return false;
+            }
         }
 
     }

@@ -28,13 +28,13 @@ namespace Morpheus.Accounts
                     }
                     else
                         if (Session["UserTypeID"].ToString() == "1")
-                        {
+                    {
                         lblUserName.Text = Session["UserName"].ToString();
                         dashboardmenu1.Visible = true;
-                            companySideMenu1.Visible = false;
-                            employeeDashMenu1.Visible = false;
-                            //AddCompany1.Visible = true;
-                        }
+                        companySideMenu1.Visible = false;
+                        employeeDashMenu1.Visible = false;
+                        //AddCompany1.Visible = true;
+                    }
                 }
             }
             catch (Exception)
