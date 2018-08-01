@@ -10,7 +10,7 @@
 namespace Morpheus.Accounts {
     
     
-    public partial class frmViewTimeSheet {
+    public partial class frmViewTimeSheetFull {
         
         /// <summary>
         /// successMsg control.
@@ -47,15 +47,6 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
-        
-        /// <summary>
-        /// dtgridview_Employees control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dtgridview_Employees;
         
         /// <summary>
         /// btnPrevious control.
@@ -119,14 +110,5 @@ namespace Morpheus.Accounts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdViewShifts;
-        
-        /// <summary>
-        /// btnSendRosterEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSendRosterEmail;
     }
 }

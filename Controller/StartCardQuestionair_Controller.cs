@@ -51,5 +51,30 @@ namespace Controller
                 return false;
             }
         }
+        public DataTable LoadQuestionair(int userID)
+        {
+            try
+            {
+                dt = new DataTable();
+                con = new Connection();
+                strQuery = "spManagequestionair";
+                cmd = new SqlCommand(strQuery);
+                cmd.Parameters.Add("@Mode", SqlDbType.VarChar).Value = "LoadEmployeeQuestionaire";
+                cmd.Parameters.Add("@userid", SqlDbType.BigInt).Value = userID;
+                dt = con.GetDataUsingSp(cmd);
+                if (dt != null)
+                    return dt;
+                else
+                {
+                    _errorMsg = con.strError;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                _errorMsg = ex.Message;
+                return null;
+            }
+        }
     }
 }

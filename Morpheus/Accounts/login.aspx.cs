@@ -44,7 +44,7 @@ namespace Morpheus.Accounts
                             Response.Redirect("Dashboard.aspx");
                         }
                         else
-                            showErrorMessage("Your UserName is In Active. Please contact administrator..", false);
+                            showErrorMessage("Your UserName is Suspended. Please contact administrator..", false);
                         
                     }
                     else

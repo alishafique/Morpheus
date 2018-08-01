@@ -210,7 +210,7 @@
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group formControlbox">
                                         <label>
                                             Status</label>
                                         <asp:DropDownList class="form-control" ID="dp_CompanyAccountStatus" runat="server" >

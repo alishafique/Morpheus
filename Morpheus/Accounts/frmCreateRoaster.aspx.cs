@@ -120,7 +120,6 @@ namespace Morpheus.Accounts
                     dt.Columns.Remove("LocationCompany");
                     dpSiteMonday.DataSource = dt;
                     dpSiteMonday.DataBind();
-
                 }
                 else
                     showErrorMessage(obj.ErrorString, false);
@@ -479,13 +478,15 @@ namespace Morpheus.Accounts
                     clearForm();
                     dt = new DataTable();
                     dt = (DataTable)ViewState["dtShifts"];
-
-                    for(int i=0;i<dt.Rows.Count;i++)
+                    btnCreateRoster.Visible = false;
+                    btnUpdate.Visible = true;
+                    //for(int i=0;i<dt.Rows.Count;i++)
+                    foreach (DataRow dr in dt.Rows)
                     {
-                        if(dt.Rows[i]["RosterID"].ToString().Trim() == e.CommandArgument.ToString().Trim())
+                        if(dr["RosterID"].ToString().Trim() == e.CommandArgument.ToString().Trim())
                         {
                             // roster Start time
-                            var RosterTime = DateTime.Parse(dt.Rows[i]["RosterStartTime"].ToString().Trim());
+                            var RosterTime = DateTime.Parse(dr["RosterStartTime"].ToString().Trim());
                             dpStartHoursMonday.ClearSelection();
                             if(RosterTime.Hour.ToString().Length == 1)
                             {
@@ -504,7 +505,7 @@ namespace Morpheus.Accounts
                                 dpStartMinutesMonday.Items.FindByText(RosterTime.Minute.ToString()).Selected = true;
 
                             // roster ENd Time
-                            var RosterEndTime = DateTime.Parse(dt.Rows[i]["RosterEndTime"].ToString().Trim());
+                            var RosterEndTime = DateTime.Parse(dr["RosterEndTime"].ToString().Trim());
                             dpEndHoursMonday.ClearSelection();
                             if (RosterEndTime.Hour.ToString().Length == 1)
                             {
@@ -527,16 +528,14 @@ namespace Morpheus.Accounts
 
                             // roster site
                             dpSiteMonday.ClearSelection();
-                            dpSiteMonday.SelectedIndex = dpSiteMonday.Items.IndexOf(dpSiteMonday.Items.FindByText(dt.Rows[i]["RosterSite"].ToString().Trim()));
-                            //dpSiteMonday.Items.FindByText(dt.Rows[i]["RosterSite"].ToString().Trim()).Selected = true;
+                            string tpRosterSite = System.Text.RegularExpressions.Regex.Replace(dr["RosterSite"].ToString().Trim(), @"\s+", " ");
+                            dpSiteMonday.Items.FindByText(tpRosterSite).Selected = true;
 
                             // roster Task
-                            txtTaskMonday.Text = dt.Rows[i]["RosterTask"].ToString().Trim(); 
+                            txtTaskMonday.Text = dr["RosterTask"].ToString().Trim(); 
 
                             // roster Day
-                            var rosterDayDate = DateTime.Parse(dt.Rows[i]["RosterDate"].ToString().Trim());
-                            //dpSelectDay.ClearSelection();
-                            //dpSelectDay.Items.FindByText(rosterDayDate.DayOfWeek +", "+rosterDayDate.ToString("dd/MMM/yyyy")).Selected = true;
+                            var rosterDayDate = DateTime.Parse(dr["RosterDate"].ToString().Trim());
                             switch (rosterDayDate.DayOfWeek.ToString().ToLower())
                             {
                                 case "monday":
@@ -569,13 +568,18 @@ namespace Morpheus.Accounts
                                 showErrorMessage(obj.ErrorString, false);
                             else
                                 txtSearchEmployeeName.Text = dtEmpNameEmail.Rows[0]["emp_name"].ToString() + " - " + dtEmpNameEmail.Rows[0]["email"].ToString();
+
+                            // Client Name
+                            dpClients.ClearSelection();
+                            string cName = System.Text.RegularExpressions.Regex.Replace(dr["ClientName"].ToString().Trim(), @"\s+", " ");
+                            dpClients.Items.FindByText(cName).Selected = true;
+
                             break;
                         }
                        
                     }
 
-                    btnCreateRoster.Visible = false;
-                    btnUpdate.Visible = true;
+                    
                     
                 }
                 if(e.CommandName.ToString().ToUpper() == "DELETEROW")
@@ -713,6 +717,7 @@ namespace Morpheus.Accounts
                     ,RosterSite = dpSiteMonday.SelectedItem.Text
                     ,RosterTask = txtTaskMonday.Text
                     ,RosterID = Guid.Parse(lblROster.Text)
+                    ,ClientName = dpClients.SelectedItem.Text
                 };
 
                 if (obj.UpdateEmployeeRoster(objRoster))

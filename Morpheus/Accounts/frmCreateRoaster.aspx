@@ -47,26 +47,6 @@
         });
     </script>
     <script type="text/javascript" language="javascript">
-      <%--  $(function () {
-            $("#<%= txtSearchEmployeeName.ClientID %>").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        url: 'checkEmployeeName.asmx/GetEmployeeName',
-                        data: "{'empName': '" + request.term + "' }",
-                        dataType: "json",
-                        success: function (data) {
-                            response(data.d);
-                        },
-                        error: function (result) {
-                            alert("No Match");
-                        }
-                    });
-                },
-
-            });
-        });--%>
         $(function () {
             function split(val) {
                 return val.split(/;\s*/);

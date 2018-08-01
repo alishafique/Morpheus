@@ -7,46 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Morpheus.Accounts {
+namespace Morpheus.Accounts.forms {
     
     
-    public partial class survey {
-        
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// txtTask control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTask;
-        
-        /// <summary>
-        /// txtemployee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtemployee;
-        
-        /// <summary>
-        /// txtstartdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtstartdate;
+    public partial class EditQuestionairForm {
         
         /// <summary>
         /// successMsg control.
@@ -85,6 +49,15 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.Label lblErrorMsg;
         
         /// <summary>
+        /// hideGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl hideGrid;
+        
+        /// <summary>
         /// PlaceHolder1 control.
         /// </summary>
         /// <remarks>
@@ -94,453 +67,453 @@ namespace Morpheus.Accounts {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder1;
         
         /// <summary>
-        /// rowQ1 control.
+        /// lblformID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ1;
+        protected global::System.Web.UI.WebControls.Label lblformID;
         
         /// <summary>
-        /// lblQ1 control.
+        /// txtQuestion1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ1;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion1;
         
         /// <summary>
-        /// rdYesQ1 control.
+        /// Q1VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ1;
+        protected global::System.Web.UI.WebControls.RadioButton Q1VisibleYes;
         
         /// <summary>
-        /// rdNoQ1 control.
+        /// Q1VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ1;
+        protected global::System.Web.UI.WebControls.RadioButton Q1VisibleNo;
         
         /// <summary>
-        /// rowQ2 control.
+        /// chkboxQ1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ2;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ1;
         
         /// <summary>
-        /// lblQ2 control.
+        /// txtQuestion2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ2;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion2;
         
         /// <summary>
-        /// rdYesQ2 control.
+        /// Q2VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ2;
+        protected global::System.Web.UI.WebControls.RadioButton Q2VisibleYes;
         
         /// <summary>
-        /// rdNoQ2 control.
+        /// Q2VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ2;
+        protected global::System.Web.UI.WebControls.RadioButton Q2VisibleNo;
         
         /// <summary>
-        /// rowQ3 control.
+        /// chkboxQ2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ3;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ2;
         
         /// <summary>
-        /// lblQ3 control.
+        /// txtQuestion3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ3;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion3;
         
         /// <summary>
-        /// rdYesQ3 control.
+        /// Q3VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ3;
+        protected global::System.Web.UI.WebControls.RadioButton Q3VisibleYes;
         
         /// <summary>
-        /// rdNoQ3 control.
+        /// Q3VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ3;
+        protected global::System.Web.UI.WebControls.RadioButton Q3VisibleNo;
         
         /// <summary>
-        /// rowQ4 control.
+        /// chkboxQ3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ4;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ3;
         
         /// <summary>
-        /// lblQ4 control.
+        /// txtQuestion4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ4;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion4;
         
         /// <summary>
-        /// rdYesQ4 control.
+        /// Q4VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ4;
+        protected global::System.Web.UI.WebControls.RadioButton Q4VisibleYes;
         
         /// <summary>
-        /// rdNoQ4 control.
+        /// Q4VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ4;
+        protected global::System.Web.UI.WebControls.RadioButton Q4VisibleNo;
         
         /// <summary>
-        /// rowQ5 control.
+        /// chkboxQ4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ5;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ4;
         
         /// <summary>
-        /// lblQ5 control.
+        /// txtQuestion5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ5;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion5;
         
         /// <summary>
-        /// rdYesQ5 control.
+        /// Q5VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ5;
+        protected global::System.Web.UI.WebControls.RadioButton Q5VisibleYes;
         
         /// <summary>
-        /// rdNoQ5 control.
+        /// Q5VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ5;
+        protected global::System.Web.UI.WebControls.RadioButton Q5VisibleNo;
         
         /// <summary>
-        /// rowQ6 control.
+        /// chkboxQ5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ6;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ5;
         
         /// <summary>
-        /// lblQ6 control.
+        /// txtQuestion6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ6;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion6;
         
         /// <summary>
-        /// rdYesQ6 control.
+        /// Q6VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ6;
+        protected global::System.Web.UI.WebControls.RadioButton Q6VisibleYes;
         
         /// <summary>
-        /// rdNoQ6 control.
+        /// Q6VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ6;
+        protected global::System.Web.UI.WebControls.RadioButton Q6VisibleNo;
         
         /// <summary>
-        /// rowQ7 control.
+        /// chkboxQ6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ7;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ6;
         
         /// <summary>
-        /// lblQ7 control.
+        /// txtQuestion7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ7;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion7;
         
         /// <summary>
-        /// rdYesQ7 control.
+        /// Q7VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ7;
+        protected global::System.Web.UI.WebControls.RadioButton Q7VisibleYes;
         
         /// <summary>
-        /// rdNoQ7 control.
+        /// Q7VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ7;
+        protected global::System.Web.UI.WebControls.RadioButton Q7VisibleNo;
         
         /// <summary>
-        /// rowQ8 control.
+        /// chkboxQ7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ8;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ7;
         
         /// <summary>
-        /// lblQ8 control.
+        /// txtQuestion8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ8;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion8;
         
         /// <summary>
-        /// rdYesQ8 control.
+        /// Q8VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ8;
+        protected global::System.Web.UI.WebControls.RadioButton Q8VisibleYes;
         
         /// <summary>
-        /// rdNoQ8 control.
+        /// Q8VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ8;
+        protected global::System.Web.UI.WebControls.RadioButton Q8VisibleNo;
         
         /// <summary>
-        /// rowQ9 control.
+        /// chkboxQ8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ9;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ8;
         
         /// <summary>
-        /// lblQ9 control.
+        /// txtQuestion9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ9;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion9;
         
         /// <summary>
-        /// rdYesQ9 control.
+        /// Q9VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ9;
+        protected global::System.Web.UI.WebControls.RadioButton Q9VisibleYes;
         
         /// <summary>
-        /// rdNoQ9 control.
+        /// Q9VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ9;
+        protected global::System.Web.UI.WebControls.RadioButton Q9VisibleNo;
         
         /// <summary>
-        /// rowQ10 control.
+        /// chkboxQ9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ10;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ9;
         
         /// <summary>
-        /// lblQ10 control.
+        /// txtQuestion10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ10;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion10;
         
         /// <summary>
-        /// rdYesQ10 control.
+        /// Q10VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ10;
+        protected global::System.Web.UI.WebControls.RadioButton Q10VisibleYes;
         
         /// <summary>
-        /// rdNoQ10 control.
+        /// Q10VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ10;
+        protected global::System.Web.UI.WebControls.RadioButton Q10VisibleNo;
         
         /// <summary>
-        /// rowQ11 control.
+        /// chkboxQ10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ11;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ10;
         
         /// <summary>
-        /// lblQ11 control.
+        /// txtQuestion11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ11;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion11;
         
         /// <summary>
-        /// rdYesQ11 control.
+        /// Q11VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ11;
+        protected global::System.Web.UI.WebControls.RadioButton Q11VisibleYes;
         
         /// <summary>
-        /// rdNoQ11 control.
+        /// Q11VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ11;
+        protected global::System.Web.UI.WebControls.RadioButton Q11VisibleNo;
         
         /// <summary>
-        /// rowQ12 control.
+        /// chkboxQ11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow rowQ12;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ11;
         
         /// <summary>
-        /// lblQ12 control.
+        /// txtQuestion12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQ12;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion12;
         
         /// <summary>
-        /// rdYesQ12 control.
+        /// Q12VisibleYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdYesQ12;
+        protected global::System.Web.UI.WebControls.RadioButton Q12VisibleYes;
         
         /// <summary>
-        /// rdNoQ12 control.
+        /// Q12VisibleNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNoQ12;
+        protected global::System.Web.UI.WebControls.RadioButton Q12VisibleNo;
         
         /// <summary>
-        /// btnCancel control.
+        /// chkboxQ12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.CheckBox chkboxQ12;
         
         /// <summary>
-        /// btnSubmitSurvey control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmitSurvey;
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

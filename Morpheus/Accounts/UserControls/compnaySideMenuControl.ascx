@@ -52,7 +52,7 @@
                         <li id="FormBuilderPlugin" runat="server"><a href="#"><i class="fa fa-files-o fa-fw"></i>Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="#">View Forms</a> </li>
-                                <li><a href="FormBuilder.aspx">Form Builder</a> </li>
+                                <li><a href="EditQuestionairForm.aspx">Form Builder</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -61,7 +61,8 @@
                                 <li><a href="frmManageClient.aspx">Manage Clients</a></li>
                                 <li><a href="AddLocationForm.aspx">Manage Location/Site(s)</a></li>
                                 <li><a href="frmCreateRoaster.aspx">Manage/Create Roster</a> </li>
-                                <li><a href="frmViewTimeSheet.aspx">View TimeSheets</a> </li>
+                                <li><a href="frmViewTimeSheet.aspx">View Employee's TimeSheets</a> </li>
+                                <li><a href="frmViewTimeSheetFull.aspx">View Full TimeSheets</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

@@ -46,6 +46,12 @@ audio, canvas, progress, video {
         height: 0;
     }
 
+    .formControlbox {
+            border: 0.10px solid lightgray;
+            padding: 10px;
+            box-shadow: 5px 5px lightgray;
+        }
+
 [hidden], template {
     display: none;
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Controller;
 
@@ -10,16 +12,21 @@ namespace Morpheus.Accounts
 {
     public partial class survey : System.Web.UI.Page
     {
-        StartCardQuestionair_Controller objController;
+        StartCardQuestionair_Controller obj;
+        DataTable dt;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 if (Session["UserName"].ToString() != "")
                 {
-                    txtTask.Text = Session["ActivityId"].ToString();
-                    txtemployee.Text = Session["UserName"].ToString();
-                    txtstartdate.Text = DateTime.Now.ToString();
+                    if(!IsPostBack)
+                    {
+                        txtTask.Text = Session["ActivityId"].ToString();
+                        txtemployee.Text = Session["UserName"].ToString();
+                        txtstartdate.Text = DateTime.Now.ToString();
+                        LoadQuestionair(int.Parse(Session["userid"].ToString()));
+                    }       
                 }
                 else
                 {
@@ -28,7 +35,7 @@ namespace Morpheus.Accounts
             }
             catch(Exception ex)
             {
-                showErrorMessage(ex.Message, false);
+                Response.Redirect("login.aspx");
             }
         }
 
@@ -37,22 +44,15 @@ namespace Morpheus.Accounts
         {
             try
             {
-                objController = new StartCardQuestionair_Controller();
-                if(CheckNo() ==  false)
-                {
-                    showErrorMessage("Please inform your supervisor, as you have selected one of the answer as No.", false);
-                    return;
-                }
+
                 if(CheckDesireAnswer())
                 {
-                    //bool result = objController.StartActivity(int.Parse(txtTask.Text), int.Parse(Session["userid"].ToString()), "Completed", "form/StartCardQuestionair.aspx", "Started", DateTime.Now);
-                    //if (result)
-                    //{
-                        Session["SuccessMsg"] = "Congratulations your job has been started";
-                        Response.Redirect("../StartActivity.aspx");
-                    //}
-                    //else
-                    //    showErrorMessage(objController._errorMsg, false);
+                   Session["SuccessMsg"] = "Congratulations your job has been started";
+                   Response.Redirect("../StartActivity.aspx");
+                }
+                else
+                {
+                    showErrorMessage("Please inform your supervisor, as you have selected one of the answer as No.", false);
                 }
             }
             catch(Exception ex)
@@ -63,44 +63,151 @@ namespace Morpheus.Accounts
 
         private bool CheckDesireAnswer()
         {
-            if (rdYesQ1.Checked && rdYesQ2.Checked && rdYesQ3.Checked && rdYesQ4.Checked && rdYesQ5.Checked && rdYesQ6.Checked && rdYesQ7.Checked && rdYesQ8.Checked)
-                return true;
-            else
+            try
+            {
+                dt = new DataTable();
+                dt = (DataTable)ViewState["qdt"];
+                int ct = 1;
+                string quest = "Q";
+                string questAns = "Answer";
+                string showHide = "ShowHide";
+                string LabelQuestion = "lblQ";
+                string expAnswer = "Q" + ct + "VisibleYes";
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                if (col.ColumnName != "formID" && col.ColumnName != "compantID" && !(col.ColumnName.Contains(questAns)) && !(col.ColumnName.Contains(showHide)))
+                                {
+                                    Label txtbo = (Label)PlaceHolder1.FindControl(LabelQuestion + ct.ToString());
+                                    RadioButton rd = (RadioButton)PlaceHolder1.FindControl("rdYesQ" + ct.ToString());
+                                    if (col.ColumnName == quest + ct && txtbo.ID.ToString() == LabelQuestion + ct)
+                                    {
+                                        //txtbo.Text = row[col.ColumnName].ToString();
+                                        if (rd.Checked.ToString() != row["Q" + ct.ToString() + "Answer"].ToString())
+                                        {
+                                            return false;
+                                        }
+                                 
+                                    }
+                                    ct++;
+                                }
+                            }
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    showErrorMessage(obj._errorMsg, false);
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
                 return false;
+            }
+            
         }
 
-        private bool CheckNo()
+        private void showHideRows(DataTable dt)
         {
-            if (rdNoQ1.Checked)
-                return false;
-            if (rdNoQ2.Checked)
-                return false;
-            if (rdNoQ3.Checked)
-                return false;
-            if (rdNoQ4.Checked)
-                return false;
-            if (rdNoQ5.Checked)
-                return false;
-            if (rdNoQ6.Checked)
-                return false;
-            if (rdNoQ7.Checked)
-                return false;
-            if (rdNoQ8.Checked)
-                return false;
-            if (rdNoQ9.Checked)
-                return false;
-            if (rdNoQ10.Checked)
-                return false;
-            if (rdNoQ11.Checked)
-                return false;
-            if (rdNoQ12.Checked)
-                return false;
+            try
+            {
+                int ct = 1;
+                string quest = "Q";
+                string questAns = "Answer";
+                string showHide = "ShowHide";
+                string LabelQuestion = "lblQ";
+                string expAnswer = "Q" + ct + "VisibleYes";
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                string rowId = "rowQ"+ct.ToString();
+                                HtmlTableRow rowTr = (HtmlTableRow)PlaceHolder1.FindControl(rowId);
+                                if (col.ColumnName != "formID" && col.ColumnName != "compantID" && !(col.ColumnName.Contains(questAns)) && !(col.ColumnName.Contains(showHide)))
+                                {
+                                    if (row["Q" + ct.ToString() + "ShowHide"].ToString() == "True")
+                                    {
+                                        rowTr.Visible = true;
+                                    }
+                                    else
+                                    {
+                                        rowTr.Visible = false;
+                                    }
+                                    ct++;
+                                }
+                            }
+                        }
 
-            return true;
+                    }
+                }    
 
+                
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
 
         }
 
+        private void LoadQuestionair(int userid)
+        {
+            try
+            {
+                obj = new StartCardQuestionair_Controller();
+                dt = new DataTable();
+                dt = obj.LoadQuestionair(userid);
+                ViewState["qdt"] = dt;
+                int ct = 1;
+                string quest = "Q";
+                string questAns = "Answer";
+                string showHide = "ShowHide";
+                string LabelQuestion = "lblQ";
+                string expAnswer = "Q" + ct + "VisibleYes";
+                if (dt != null)
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                if (col.ColumnName != "formID" && col.ColumnName != "compantID" && !(col.ColumnName.Contains(questAns)) && !(col.ColumnName.Contains(showHide)))
+                                {
+                                    Label txtbo = (Label)PlaceHolder1.FindControl(LabelQuestion + ct.ToString());
+                                    CheckBox chk = (CheckBox)PlaceHolder1.FindControl("chkboxQ" + ct.ToString());
+                                    if (col.ColumnName == quest + ct && txtbo.ID.ToString() == LabelQuestion + ct)
+                                        txtbo.Text = row[col.ColumnName].ToString();
+                                    ct++;
+                                }
+                            }
+                        }
+
+                    }
+
+                    showHideRows(dt);
+                }
+                else
+                    showErrorMessage(obj._errorMsg, false);
+
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)

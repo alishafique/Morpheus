@@ -48,22 +48,28 @@ namespace Morpheus.Accounts
         }
         private void loadDropBoxOnPageLoad()
         {
-            objDashController = new dashboard_Controller();
-            dt = new DataTable();
-            // Membership DropBox
-            dt = objDashController.loadMemberShipPlanes();
-            Dp_MemberShipPlan.DataSource = dt;
-            dt.Columns.Add("FullDesc", typeof(string), "membership_level + ' - ' + description");
-            Dp_MemberShipPlan.DataTextField = "FullDesc";
-            Dp_MemberShipPlan.DataValueField = "membership_id";
-            Dp_MemberShipPlan.DataBind();
-            //CompanyType dropbox load from db
-            dt = objDashController.loadCompanyTypes();
-            dp_CompanyType.DataSource = dt;
-            dp_CompanyType.DataTextField = "type_name";
-            dp_CompanyType.DataValueField = "company_Type_id";
-            dp_CompanyType.DataBind();
-
+            try
+            {
+                objDashController = new dashboard_Controller();
+                dt = new DataTable();
+                // Membership DropBox
+                dt = objDashController.loadMemberShipPlanes();
+                Dp_MemberShipPlan.DataSource = dt;
+                dt.Columns.Add("FullDesc", typeof(string), "membership_level + ' - ' + description");
+                Dp_MemberShipPlan.DataTextField = "FullDesc";
+                Dp_MemberShipPlan.DataValueField = "membership_id";
+                Dp_MemberShipPlan.DataBind();
+                //CompanyType dropbox load from db
+                dt = objDashController.loadCompanyTypes();
+                dp_CompanyType.DataSource = dt;
+                dp_CompanyType.DataTextField = "type_name";
+                dp_CompanyType.DataValueField = "company_Type_id";
+                dp_CompanyType.DataBind();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
         }
         protected void btnAddCompany_Click(object sender, EventArgs e)
         {

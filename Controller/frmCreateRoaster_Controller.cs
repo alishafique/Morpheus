@@ -142,6 +142,7 @@ namespace Controller
                 cmd.Parameters.Add("@RosterSite", SqlDbType.VarChar).Value = empRoster.RosterSite;
                 cmd.Parameters.Add("@RosterTask", SqlDbType.VarChar).Value = empRoster.RosterTask;
                 cmd.Parameters.Add("@RosterID", SqlDbType.UniqueIdentifier).Value = empRoster.RosterID;
+                cmd.Parameters.Add("@ClientName", SqlDbType.VarChar).Value = empRoster.ClientName;
                 if (con.InsertUpdateDataUsingSp(cmd) == true)
                     return true;
                 else

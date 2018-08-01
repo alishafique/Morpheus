@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Windows.Forms;
 using Controller;
 using System.Drawing;
 
@@ -23,9 +22,15 @@ namespace Morpheus.Accounts
             {
                 if(!IsPostBack)
                 {
-                    loadDate();
-                    loadEmployee(int.Parse(Session["userid"].ToString()));
-                    btnSendRosterEmail.Enabled = false;
+                    if (Session["UserTypeID"].ToString() == "2" || Session["UserTypeID"].ToString() == "4")
+                    {
+                        loadDate();
+                        loadEmployee(int.Parse(Session["userid"].ToString()));
+                        btnSendRosterEmail.Enabled = false;
+                        LoadClientName(int.Parse(Session["userid"].ToString()));
+                    }
+                    else
+                        Response.Redirect("login.aspx");
                 }
             }
             catch(Exception ex)
@@ -33,7 +38,6 @@ namespace Morpheus.Accounts
                 Response.Redirect("login.aspx");
             }
         }
-
         private void loadEmployee(int companyId)
         {
             try
@@ -56,9 +60,6 @@ namespace Morpheus.Accounts
             }
 
         }
-
-
-
         protected void grdViewShifts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -70,12 +71,11 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
-
         private void LoadTimeSheet(int UID, int EmpID, DateTime stdt, DateTime endDt)
         {
             try
             {
+                ReSetMsg();
                 obj = new frmViewTimeSheet_Controller();
                 dt = new DataTable();
                 grdViewShifts.DataSource = null;
@@ -129,7 +129,10 @@ namespace Morpheus.Accounts
                         grdViewShifts.FooterRow.Cells[9].Visible = false;
                     }
                     else
+                    {
+                        btnExportToExcel.Style.Add("display", "none");
                         showErrorMessage("No TimeSheet Found", false);
+                    }
                 }
                 else
                     showErrorMessage(obj.ErrorString, false);
@@ -150,7 +153,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void btnPrevious_Click(object sender, EventArgs e)
         {
             try
@@ -170,7 +172,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void bntNext_Click(object sender, EventArgs e)
         {
             try
@@ -190,7 +191,6 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         private void loadDate()
         {
             DateTime date = DateTime.Now;
@@ -204,7 +204,6 @@ namespace Morpheus.Accounts
             lblEndWeekdate.Text = ldowDate.DayOfWeek.ToString() + "-" + ldowDate.ToShortDateString();
 
         }
-
         private void showErrorMessage(string message, bool status)
         {
             if (status == true)
@@ -225,17 +224,15 @@ namespace Morpheus.Accounts
             }
 
         }
-
         protected void dtgridview_Employees_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
 
         }
-
         protected void dtgridview_Employees_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                
+                btnExportToExcel.Style.Add("display","block");
                 obj = new frmViewTimeSheet_Controller();
                 DataTable dtRoster = new DataTable();
                 string[] stD = lblStartWeekDate.Text.Split('-');
@@ -255,12 +252,10 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
         protected void dtgridview_Employees_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
         }
-
         protected void btnSendRosterEmail_Click(object sender, EventArgs e)
         {
             try
@@ -302,25 +297,57 @@ namespace Morpheus.Accounts
                 showErrorMessage(ex.Message, false);
             }
         }
-
+        private void LoadClientName(int comID)
+        {
+            try
+            {
+                obj = new frmViewTimeSheet_Controller();
+                dt = new DataTable();
+                dt = obj.LoadClients(comID);
+                if (dt != null)
+                {
+                    dt.Columns.Remove("CompanyId");
+                    dpClients.DataSource = dt;
+                    dpClients.DataBind();
+                    dpClients.Items.Insert(0, new ListItem("All", "0"));
+                    ViewState["dtClient"] = dt;
+                }
+                else
+                    showErrorMessage(obj.ErrorString, false);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+        }
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
             try
             {
-                DataTable dt = (DataTable)ViewState["EmpTimeSheet"];
+                dt = new DataTable();
+                dt = (DataTable)ViewState["EmpTimeSheet"];
+                Response.ClearContent();
+                Response.AppendHeader("content-disposition", "attachment; filename="+ dt.Rows[0]["emp_name"].ToString() + "TimeSheet.xls");
+                Response.ContentType = "application/excel";
+                System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(stringWriter);
+                grdViewShifts.RenderControl(htw);
+                Response.Write(stringWriter.ToString());
+                Response.End();
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage(ex.Message, false);
+            }
+        }
+        protected void dpClients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
 
-                Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;filename=" + dt.Rows[0]["emp_name"].ToString() + ".xls");
-                Response.Charset = "";
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.ContentType = "application/vnd.ms-excel";
-
-                System.IO.StringWriter stringWrite = new System.IO.StringWriter();
-                System.Web.UI.HtmlTextWriter htmlWrite = new System.Web.UI.HtmlTextWriter(stringWrite);
-                ClearControls(grdViewShifts);
-                grdViewShifts.RenderControl(htmlWrite);
-                HttpContext.Current.Response.Write(stringWrite.ToString());
-                HttpContext.Current.Response.End();
             }
             catch(Exception ex)
             {
@@ -328,40 +355,14 @@ namespace Morpheus.Accounts
             }
         }
 
-        private static void ClearControls(System.Web.UI.Control control)
+        private void ReSetMsg()
         {
-            //Recursively loop through the controls, calling this method
-            for (int i = control.Controls.Count - 1; i >= 0; i--)
-            {
-                ClearControls(control.Controls[i]);
-            }
+            lblErrorMsg.Text = "";
+            lblsuccessmsg.Text = "";
 
-            //If we have a control that is anything other than a table cell
-            if (!(control is TableCell))
-            {
-                if (control.GetType().GetProperty("SelectedItem") != null)
-                {
-                    LiteralControl literal = new LiteralControl();
-                    control.Parent.Controls.Add(literal);
-                    try
-                    {
-                        literal.Text = (string)control.GetType().GetProperty("SelectedItem").GetValue(control, null);
-                    }
-                    catch
-                    {
-                    }
-                    control.Parent.Controls.Remove(control);
-                }
-                else
-                    if (control.GetType().GetProperty("Text") != null)
-                {
-                    LiteralControl literal = new LiteralControl();
-                    control.Parent.Controls.Add(literal);
-                    literal.Text = (string)control.GetType().GetProperty("Text").GetValue(control, null);
-                    control.Parent.Controls.Remove(control);
-                }
-            }
-            return;
+            errorMsg.Style.Add("display", "none");
+            successMsg.Style.Add("display", "none");
+
         }
     }
 

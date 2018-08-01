@@ -252,6 +252,7 @@
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.css" />
     <Content Include="Accounts\datatables-responsive\dataTables.responsive.js" />
     <Content Include="Accounts\FormBuilder.aspx" />
+    <Content Include="Accounts\EditQuestionairForm.aspx" />
     <Content Include="Accounts\forms\Induction.aspx" />
     <Content Include="Accounts\frmActivateDeActivatePlugins.aspx" />
     <Content Include="Accounts\frmCreateRoaster.aspx" />
@@ -261,6 +262,7 @@
     <Content Include="Accounts\frmViewMessages.aspx" />
     <Content Include="Accounts\frmViewRoster.aspx" />
     <Content Include="Accounts\frmViewTimeSheet.aspx" />
+    <Content Include="Accounts\frmViewTimeSheetFull.aspx" />
     <Content Include="Accounts\images\ajax-loader.gif" />
     <Content Include="Accounts\images\loader.gif" />
     <Content Include="Accounts\images\profileUpload.png" />
@@ -515,6 +517,13 @@
     <Compile Include="Accounts\FormBuilder.aspx.designer.cs">
       <DependentUpon>FormBuilder.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Accounts\EditQuestionairForm.aspx.cs">
+      <DependentUpon>EditQuestionairForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\EditQuestionairForm.aspx.designer.cs">
+      <DependentUpon>EditQuestionairForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Accounts\forms\formMain.Master.cs">
       <DependentUpon>formMain.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -584,6 +593,13 @@
     </Compile>
     <Compile Include="Accounts\frmViewTimeSheet.aspx.designer.cs">
       <DependentUpon>frmViewTimeSheet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmViewTimeSheetFull.aspx.cs">
+      <DependentUpon>frmViewTimeSheetFull.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmViewTimeSheetFull.aspx.designer.cs">
+      <DependentUpon>frmViewTimeSheetFull.aspx</DependentUpon>
     </Compile>
     <Compile Include="Accounts\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>

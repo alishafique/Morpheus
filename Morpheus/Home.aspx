@@ -399,22 +399,22 @@
                                         </div>
                                         <div class="item">
                                             <div class="col-md-2 col-sm-6 col-xs-12 p10">
-                                                <a href="#"><img src="img/l2.jpg" class="img-responsive" alt="Reference"></a>
+                                                <a href="http://www.fmss.com.au/"><img src="img/l2.jpg" class="img-responsive" alt="Reference" /></a>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="col-md-2 col-sm-6 col-xs-12">
-                                                <a href="#"><img src="img/l3.jpg" class="img-responsive" alt="Reference"></a>
+                                                <a href="#"><img src="img/l3.jpg" class="img-responsive" alt="Reference" /></a>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="col-md-2 col-sm-6 col-xs-12">
-                                                <a href="#"><img src="img/l4.jpg" class="img-responsive" alt="Reference"></a>
+                                                <a href="#"><img src="img/l4.jpg" class="img-responsive" alt="Reference" /></a>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="col-md-2 col-sm-6 col-xs-12">
-                                                <a href="#"><img src="img/l5.jpg" class="img-responsive" alt="Reference"></a>
+                                                <a href="#"><img src="img/l5.jpg" class="img-responsive" alt="Reference" /></a>
                                             </div>
                                         </div>
                                         <div class="item">
