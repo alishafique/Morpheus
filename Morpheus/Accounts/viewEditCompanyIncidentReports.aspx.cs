@@ -8,13 +8,13 @@ using Controller;
 using System.Data;
 using System.Windows.Forms;
 using System.Text;
-using Morpheus.Accounts.Reports;
+using Seguro.Accounts.Reports;
 using Microsoft.Reporting.WebForms;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class viewEditCompanyIncidentReports : System.Web.UI.Page
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" EnableEventValidation="false" MasterPageFile="~/defualt.Master" AutoEventWireup="true" CodeBehind="changePasswordLink.aspx.cs" Inherits="Morpheus.changePasswordLink" %>
+﻿<%@ Page Title="" Language="C#" EnableEventValidation="false" MasterPageFile="~/defualt.Master" AutoEventWireup="true" CodeBehind="changePasswordLink.aspx.cs" Inherits="Seguro.changePasswordLink" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function validateLength(oSrc, args) {

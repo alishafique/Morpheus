@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using Controller;
 using Domain;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class ContactUs : System.Web.UI.Page
     {

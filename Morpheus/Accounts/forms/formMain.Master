@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="formMain.master.cs" Inherits="Morpheus.Accounts.forms.formMain" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="formMain.master.cs" Inherits="Seguro.Accounts.forms.formMain" %>
 
 <!DOCTYPE html>
 

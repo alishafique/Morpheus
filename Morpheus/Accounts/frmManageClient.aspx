@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmManageClient.aspx.cs" Inherits="Morpheus.Accounts.frmManageClient" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmManageClient.aspx.cs" Inherits="Seguro.Accounts.frmManageClient" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <title>Manage Clients</title>
     <style type="text/css">

@@ -8,7 +8,7 @@ using Controller;
 using System.Drawing;
 using System.Data;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class login : System.Web.UI.Page
     {

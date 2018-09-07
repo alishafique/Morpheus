@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true"  CodeBehind="Home.aspx.cs" Inherits="Morpheus.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true"  CodeBehind="Home.aspx.cs" Inherits="Seguro.Home" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="js/jquery-3.2.0.min.js" type="text/javascript"></script>

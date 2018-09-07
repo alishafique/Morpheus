@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewCompanyProfile.aspx.cs" Inherits="Morpheus.Accounts.viewCompanyProfile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewCompanyProfile.aspx.cs" Inherits="Seguro.Accounts.viewCompanyProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <title>Company's Profile</title>
 </asp:Content>

@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Morpheus.Startup))]
+[assembly: OwinStartup(typeof(Seguro.Startup))]
 
-namespace Morpheus
+namespace Seguro
 {
     public class Startup
     {

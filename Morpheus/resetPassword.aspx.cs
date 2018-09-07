@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class resetPassword : System.Web.UI.Page
     {

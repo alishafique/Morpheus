@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmCreateRoaster.aspx.cs" Inherits="Morpheus.Accounts.frmCreateRoaster" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmCreateRoaster.aspx.cs" Inherits="Seguro.Accounts.frmCreateRoaster" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Create Roster</title>

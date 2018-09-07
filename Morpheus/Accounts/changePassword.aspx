@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="changePassword.aspx.cs" Inherits="Morpheus.Accounts.changePassword" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="changePassword.aspx.cs" Inherits="Seguro.Accounts.changePassword" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Change Password</title>
     <script type="text/javascript">

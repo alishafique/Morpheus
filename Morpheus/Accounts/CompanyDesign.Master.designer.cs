@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Morpheus.Accounts {
+namespace Seguro.Accounts {
     
     
     public partial class CompanyDesign {
@@ -55,7 +55,7 @@ namespace Morpheus.Accounts {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Morpheus.Accounts.UserControls.rightTopMenu rightTopMenu1;
+        protected global::Seguro.Accounts.UserControls.rightTopMenu rightTopMenu1;
         
         /// <summary>
         /// dashboardmenu1 control.
@@ -64,7 +64,7 @@ namespace Morpheus.Accounts {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Morpheus.Accounts.UserControls.SideNavigationMenu dashboardmenu1;
+        protected global::Seguro.Accounts.UserControls.SideNavigationMenu dashboardmenu1;
         
         /// <summary>
         /// companySideMenu1 control.
@@ -73,7 +73,7 @@ namespace Morpheus.Accounts {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Morpheus.Accounts.UserControls.compnaySideMenuControl companySideMenu1;
+        protected global::Seguro.Accounts.UserControls.compnaySideMenuControl companySideMenu1;
         
         /// <summary>
         /// employeeDashMenu1 control.
@@ -82,7 +82,7 @@ namespace Morpheus.Accounts {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Morpheus.Accounts.UserControls.EmployeeSideMenu employeeDashMenu1;
+        protected global::Seguro.Accounts.UserControls.EmployeeSideMenu employeeDashMenu1;
         
         /// <summary>
         /// ContentPlaceHolder1 control.

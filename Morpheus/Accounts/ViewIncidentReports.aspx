@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewIncidentReports.aspx.cs" Inherits="Morpheus.Accounts.viewIncidentReports" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewIncidentReports.aspx.cs" Inherits="Seguro.Accounts.viewIncidentReports" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <title>Incident Reports</title>
      <!-- DataTables CSS -->

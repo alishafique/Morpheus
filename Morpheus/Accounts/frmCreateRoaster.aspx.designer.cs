@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Morpheus.Accounts {
+namespace Seguro.Accounts {
     
     
     public partial class frmCreateRoaster {

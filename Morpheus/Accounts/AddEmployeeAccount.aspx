@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Employee" EnableEventValidation="false" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="AddEmployeeAccount.aspx.cs" Inherits="Morpheus.Accounts.AddEmployeeAccount" %>
+﻿<%@ Page Title="Add Employee" EnableEventValidation="false" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="AddEmployeeAccount.aspx.cs" Inherits="Seguro.Accounts.AddEmployeeAccount" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Add Employee's Account</title>
      <script src="js/jquery.dynDateTime.min.js" type="text/javascript"></script>

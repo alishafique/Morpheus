@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmActivateDeActivatePlugins.aspx.cs" Inherits="Morpheus.Accounts.frmActivateDeActivatePlugins" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmActivateDeActivatePlugins.aspx.cs" Inherits="Seguro.Accounts.frmActivateDeActivatePlugins" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">

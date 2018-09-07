@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ActivateDeactivateCompanyAccount.aspx.cs" Inherits="Morpheus.Accounts.ActivateDeactivateCompanyAccount" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ActivateDeactivateCompanyAccount.aspx.cs" Inherits="Seguro.Accounts.ActivateDeactivateCompanyAccount" %>
 
 <%@ Register src="~/Accounts/UserControls/SideNavigationMenu.ascx" tagname="DashboardSideMenu" tagprefix="uc1" %>
 <%@ Register Src="~/Accounts/UserControls/compnaySideMenuControl.ascx" TagName="companySideMenu" TagPrefix="uc2" %>

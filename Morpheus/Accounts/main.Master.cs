@@ -11,7 +11,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class superAdmin : System.Web.UI.MasterPage
     {

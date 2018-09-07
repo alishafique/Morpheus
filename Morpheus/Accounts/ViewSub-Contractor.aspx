@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="ViewSub-Contractor.aspx.cs" Inherits="Morpheus.Accounts.ViewSub_Contractor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="ViewSub-Contractor.aspx.cs" Inherits="Seguro.Accounts.ViewSub_Contractor" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <style type="text/css">
       .hidden-field {

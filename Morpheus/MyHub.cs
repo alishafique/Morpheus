@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace Morpheus
+namespace Seguro
 {
     public class MyHub : Hub
     {

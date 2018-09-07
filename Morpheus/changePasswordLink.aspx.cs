@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class changePasswordLink : System.Web.UI.Page
     {

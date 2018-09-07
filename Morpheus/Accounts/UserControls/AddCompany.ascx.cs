@@ -8,7 +8,7 @@ using System.Data;
 using Controller;
 using System.Web.Services;
 
-namespace Morpheus.Accounts.UserControls
+namespace Seguro.Accounts.UserControls
 {
     public partial class AddCompany : System.Web.UI.UserControl
     {

@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 
-namespace Morpheus.Accounts.UserControls
+namespace Seguro.Accounts.UserControls
 {
     public partial class compnaySideMenuControl : System.Web.UI.UserControl
     {

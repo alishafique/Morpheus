@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddCompany.ascx.cs" Inherits="Morpheus.Accounts.UserControls.AddCompany" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddCompany.ascx.cs" Inherits="Seguro.Accounts.UserControls.AddCompany" %>
 
 <script type="text/javascript">
     function CheckUserName(oName) {

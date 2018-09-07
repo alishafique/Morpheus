@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Morpheus.Accounts.forms {
+namespace Seguro.Accounts.forms {
     
     
     public partial class EditQuestionairForm {

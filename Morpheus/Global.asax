@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Morpheus.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Seguro.Global" Language="C#" %>

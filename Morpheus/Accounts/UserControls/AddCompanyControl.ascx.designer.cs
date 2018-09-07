@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Morpheus.Accounts.UserControls
+namespace Seguro.Accounts.UserControls
 {
 
 

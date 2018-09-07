@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="rightTopMenu.ascx.cs" Inherits="Morpheus.Accounts.UserControls.rightTopMenu" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="rightTopMenu.ascx.cs" Inherits="Seguro.Accounts.UserControls.rightTopMenu" %>
 <style type="text/css"> 
     #btnLogOut
     { 

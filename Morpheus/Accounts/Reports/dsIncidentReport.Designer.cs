@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Morpheus.Accounts.Reports {
+namespace Seguro.Accounts.Reports {
     
     
     /// <summary>

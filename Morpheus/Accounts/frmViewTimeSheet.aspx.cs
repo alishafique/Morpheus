@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Controller;
 using System.Drawing;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class frmViewTimeSheet : System.Web.UI.Page
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Morpheus.Accounts.AdminDashboard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Seguro.Accounts.AdminDashboard" %>
 
 <%@ Register Assembly="Infragistics4.Web.jQuery.v13.2, Version=13.2.20132.2294, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb" Namespace="Infragistics.Web.UI.EditorControls" TagPrefix="ig" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

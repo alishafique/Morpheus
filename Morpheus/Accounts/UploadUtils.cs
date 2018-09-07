@@ -5,7 +5,7 @@ using System.Web;
 using System.Configuration;
 using System.IO;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public static class UploadUtils
     {

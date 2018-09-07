@@ -8,7 +8,7 @@ using System.Data;
 using Controller;
 using System.Web.Services;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class AddCompanyAccount : System.Web.UI.Page
     {

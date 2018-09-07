@@ -8,7 +8,7 @@ using Controller;
 using System.Data;
 using System.Globalization;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class createActivity : System.Web.UI.Page
     {

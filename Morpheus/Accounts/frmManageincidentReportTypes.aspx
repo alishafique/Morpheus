@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmManageincidentReportTypes.aspx.cs" Inherits="Morpheus.Accounts.frmManageincidentReportTypes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmManageincidentReportTypes.aspx.cs" Inherits="Seguro.Accounts.frmManageincidentReportTypes" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>View Incident Reports</title>
     <style type="text/css">

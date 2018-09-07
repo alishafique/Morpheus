@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SideNavigationMenu.ascx.cs" Inherits="Morpheus.Accounts.UserControls.SideNavigationMenu" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SideNavigationMenu.ascx.cs" Inherits="Seguro.Accounts.UserControls.SideNavigationMenu" %>
 <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">

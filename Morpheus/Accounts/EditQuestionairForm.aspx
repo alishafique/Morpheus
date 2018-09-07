@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="EditQuestionairForm.aspx.cs" Inherits="Morpheus.Accounts.forms.EditQuestionairForm" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="EditQuestionairForm.aspx.cs" Inherits="Seguro.Accounts.forms.EditQuestionairForm" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpheus", "Morpheus\Morpheus.csproj", "{F1B21909-E3EF-4414-B9DD-3EA8C12EAAFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seguro", "Morpheus\Seguro.csproj", "{F1B21909-E3EF-4414-B9DD-3EA8C12EAAFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{F8668DC5-E304-48B8-8C32-59A4E8A6B4B1}"
 EndProject

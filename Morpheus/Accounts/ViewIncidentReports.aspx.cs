@@ -9,7 +9,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class viewIncidentReports : System.Web.UI.Page
     {

@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class defualt : System.Web.UI.MasterPage
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="StartActivity.aspx.cs" Inherits="Morpheus.Accounts.StartActivity" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="StartActivity.aspx.cs" Inherits="Seguro.Accounts.StartActivity" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <title>Start Job</title>

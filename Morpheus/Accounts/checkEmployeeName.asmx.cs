@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using Controller;
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     /// <summary>
     /// Summary description for checkEmployeeName

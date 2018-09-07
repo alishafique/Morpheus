@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportIncident.aspx.cs" Inherits="Morpheus.ReportIncident" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportIncident.aspx.cs" Inherits="Seguro.ReportIncident" %>
 
 <%@ Register Src="~/Accounts/UserControls/SideNavigationMenu.ascx" TagName="DashboardSideMenu" TagPrefix="uc1" %>
 <%@ Register Src="~/Accounts/UserControls/compnaySideMenuControl.ascx" TagName="companySideMenu" TagPrefix="uc2" %>

@@ -10,7 +10,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Drawing.Imaging;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class viewEmployees : System.Web.UI.Page
     {

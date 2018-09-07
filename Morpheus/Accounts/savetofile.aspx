@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="savetofile.aspx.cs" Inherits="Morpheus.savetofile" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="savetofile.aspx.cs" Inherits="Seguro.savetofile" %>
  
 <%
  

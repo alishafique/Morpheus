@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StartCardQuestionair.aspx.cs" Inherits="Morpheus.Accounts.survey" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StartCardQuestionair.aspx.cs" Inherits="Seguro.Accounts.survey" %>
 
 <!DOCTYPE html>
 

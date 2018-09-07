@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master"  enableEventValidation="false" AutoEventWireup="true" CodeBehind="ContactUs.aspx.cs" Inherits="Morpheus.ContactUs" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master"  enableEventValidation="false" AutoEventWireup="true" CodeBehind="ContactUs.aspx.cs" Inherits="Seguro.ContactUs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         label {

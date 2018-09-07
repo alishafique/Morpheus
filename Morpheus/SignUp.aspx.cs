@@ -8,7 +8,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class SignUp : System.Web.UI.Page
     {

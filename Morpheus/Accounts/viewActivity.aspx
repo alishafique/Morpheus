@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewActivity.aspx.cs" Inherits="Morpheus.Accounts.viewActivity" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="viewActivity.aspx.cs" Inherits="Seguro.Accounts.viewActivity" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

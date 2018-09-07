@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Morpheus {
+namespace Seguro {
     
     
     public partial class resetPassword {

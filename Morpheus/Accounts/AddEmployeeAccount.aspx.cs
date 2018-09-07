@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Globalization;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class AddEmployeeAccount : System.Web.UI.Page
     {

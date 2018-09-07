@@ -1,4 +1,4 @@
-﻿<%@ Page EnableEventValidation="false" Title="SignUp" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="Morpheus.SignUp" %>
+﻿<%@ Page EnableEventValidation="false" Title="SignUp" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="Seguro.SignUp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">

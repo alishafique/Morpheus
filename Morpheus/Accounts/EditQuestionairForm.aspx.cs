@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 
-namespace Morpheus.Accounts.forms
+namespace Seguro.Accounts.forms
 {
     public partial class EditQuestionairForm : System.Web.UI.Page
     {

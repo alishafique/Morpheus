@@ -8,7 +8,7 @@ using System.Data;
 using Controller;
 using System.Windows.Forms;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class ActivateDeactivateCompanyAccount : System.Web.UI.Page
     {

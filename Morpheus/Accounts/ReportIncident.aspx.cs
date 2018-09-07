@@ -10,7 +10,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Morpheus
+namespace Seguro
 {
     public partial class ReportIncident : System.Web.UI.Page
     {

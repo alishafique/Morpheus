@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Morpheus.Accounts.UserControls
+namespace Seguro.Accounts.UserControls
 {
     public partial class SubContractorSideMenu : System.Web.UI.UserControl
     {

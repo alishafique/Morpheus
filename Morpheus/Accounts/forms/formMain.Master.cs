@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Morpheus.Accounts.forms
+namespace Seguro.Accounts.forms
 {
     public partial class formMain : System.Web.UI.MasterPage
     {

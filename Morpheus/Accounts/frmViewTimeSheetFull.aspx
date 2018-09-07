@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmViewTimeSheetFull.aspx.cs" Inherits="Morpheus.Accounts.frmViewTimeSheetFull" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" CodeBehind="frmViewTimeSheetFull.aspx.cs" Inherits="Seguro.Accounts.frmViewTimeSheetFull" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>View Full Timesheets</title>

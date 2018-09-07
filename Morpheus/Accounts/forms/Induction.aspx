@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/forms/formMain.Master" AutoEventWireup="true" CodeBehind="Induction.aspx.cs" Inherits="Morpheus.Accounts.forms.Induction" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/forms/formMain.Master" AutoEventWireup="true" CodeBehind="Induction.aspx.cs" Inherits="Seguro.Accounts.forms.Induction" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

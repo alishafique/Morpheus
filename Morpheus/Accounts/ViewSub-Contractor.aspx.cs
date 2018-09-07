@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class ViewSub_Contractor : System.Web.UI.Page
     {

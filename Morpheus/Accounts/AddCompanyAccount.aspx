@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" enableEventValidation="false" AutoEventWireup="true" CodeBehind="AddCompanyAccount.aspx.cs" Inherits="Morpheus.Accounts.AddCompanyAccount" %>
+﻿<%@ Page Language="C#" enableEventValidation="false" AutoEventWireup="true" CodeBehind="AddCompanyAccount.aspx.cs" Inherits="Seguro.Accounts.AddCompanyAccount" %>
 <%@ Register src="~/Accounts/UserControls/SideNavigationMenu.ascx" tagname="DashboardSideMenu" tagprefix="uc1" %>
 <%@ Register Src="~/Accounts/UserControls/compnaySideMenuControl.ascx" TagName="companySideMenu" TagPrefix="uc2" %>
 <%@ Register src="~/Accounts/UserControls/rightTopMenu.ascx" TagName="rightTopMenu" TagPrefix="uc3" %>

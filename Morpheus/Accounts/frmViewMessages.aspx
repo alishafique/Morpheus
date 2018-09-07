@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" EnableViewState="true" CodeBehind="frmViewMessages.aspx.cs" Inherits="Morpheus.Accounts.frmViewMessages" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Accounts/main.Master" AutoEventWireup="true" EnableViewState="true" CodeBehind="frmViewMessages.aspx.cs" Inherits="Seguro.Accounts.frmViewMessages" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <style type="text/css">
       .hidden-field {

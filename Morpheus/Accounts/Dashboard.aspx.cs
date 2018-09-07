@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Controller;
 
-namespace Morpheus.Accounts
+namespace Seguro.Accounts
 {
     public partial class AdminDashboard : System.Web.UI.Page
     {
