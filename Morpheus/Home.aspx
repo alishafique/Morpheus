@@ -1,15 +1,17 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Morpheus.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/defualt.Master" AutoEventWireup="true"  CodeBehind="Home.aspx.cs" Inherits="Morpheus.Home" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="js/jquery-3.2.0.min.js" type="text/javascript"></script>
-<script src='js/hammer.min.js' type="text/javascript"></script>
-<script src='js/slider.js' type="text/javascript"></script>
-<script src='js/owl.carousel.js' type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="css/style.min.css" />
+    <script src='js/hammer.min.js' type="text/javascript"></script>
+    <script src='js/slider.js' type="text/javascript"></script>
+    <script src='js/owl.carousel.js' type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css" />
     <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css" />
     <link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css" />
-<link rel="stylesheet" type="text/css" href="icons/entypo.css" />
+    <link rel="stylesheet" type="text/css" href="icons/entypo.css" />
+
     <style type="text/css">
-                 /*.sizing {
+        /*.sizing {
                     width: 100%;
                     height: 400px;
                     overflow: hidden;
@@ -36,13 +38,12 @@
                    /*height:100%;
                      }
                  */
-      
-            </style>
-    
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
-        <main class="site-main">
+
+    <main class="site-main">
             
      <%--   <section class="hero_area">
             <div class="hero_content">
@@ -514,16 +515,16 @@
                 loop: true,
                 nav: true,
                 margin: 10,
-               items: 1,
+                items: 1,
                 autoplay: true,
                 autoplayTimeout: 3000,
                 autoplayHoverPause: true,
                 responsiveClass: true
-              
+
             });
         });
-        
-     
+
+
     </script>
-   
+
 </asp:Content>

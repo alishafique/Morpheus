@@ -427,7 +427,9 @@
     <Content Include="icons\entypo.woff" />
     <Content Include="css\style.css.map" />
     <None Include="Properties\PublishProfiles\Morpheus.pubxml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -861,6 +863,7 @@
   <ItemGroup>
     <Folder Include="Accounts\css\images\" />
     <Folder Include="Accounts\upload\" />
+    <Folder Include="Android\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -17,7 +17,9 @@ namespace Morpheus
         {
             if(!IsPostBack)
             {
+
                 LoadNews();
+                ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:getMobileOperatingSystem(); ", true);
 
             }
         }

@@ -10,8 +10,8 @@
     <title>Seguro</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet" type="text/css">
-   
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="style.css" rel="stylesheet" type="text/css" />
 
@@ -19,12 +19,64 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+        <script type="text/javascript">
+        function getMobileOperatingSystem() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            if (/android/i.test(userAgent)) {
+                var x = document.getElementById("androidApp");
+                var y = document.getElementById("appleApp");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                }
+                if (y.style.display === "block") {
+                    y.style.display = "none";
+                }
+            }
+
+           else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                var x = document.getElementById("androidApp");
+                var y = document.getElementById("appleApp");
+                if (x.style.display == "block") {
+                    x.style.display = "none";
+                }
+                if (y.style.display === "none") {
+                    y.style.display = "block";
+                }
+            }
+
+            else {
+                var x = document.getElementById("androidApp");
+                var y = document.getElementById("appleApp");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                }
+                if (y.style.display === "block") {
+                    y.style.display = "none";
+                }
+            }
+
+        }
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+     <form id="form1" runat="server">
     <header class="site-header">
+
         <div class="top">
+          
+            <div id="androidApp" class="alert alert-warning alert-dismissable" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                                DownLoad App For Android  <asp:Button ID="btnDownApp" CssClass="btn btn-warning" runat="server" Text="Download" OnClick="btnDownApp_Click"></asp:Button>
+                            </div>
+            <div id="appleApp" class="alert alert-warning alert-dismissable" style="display:none;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                                DownLoad App For Apple devices  <button type="submit" class="btn btn-warning" onclick="">Download</button>.
+                            </div>
+            
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -76,7 +128,7 @@
 			</div>
 		</nav>        
     </header>
-    <form id="form1" runat="server">
+   
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
@@ -164,7 +216,7 @@
 
                 next.children(':first-child').clone().appendTo($(this));
             }
-        });        
+        });
     </script>
 </body>
 </html>
